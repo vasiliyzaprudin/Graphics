@@ -1,14 +1,10 @@
 package com.mining.graphics.service;
 
-import com.mining.graphics.mineexcavation.ModelExcavation;
+import com.mining.graphics.model.ModelExcavation;
+import com.mining.graphics.support.ModelAnchors;
 
 public class ServiceAnchors {
     private double[][] СoorAnchAc; //массив для хранения координат установки анкеров в поперечном сечении
-
-    double l = 1.8; //длина анкера
-    double bAc = 0.65; //шаг анкерования в ряду
-    double cAl = 1.0; //расстояние между рядами анкеров
-    double d = 0.15; //размер опорной плитки
 
     ModelExcavation ModelExcavation = new ModelExcavation();
     double B = ModelExcavation.getB();
@@ -20,6 +16,12 @@ public class ServiceAnchors {
     double rl = ModelExcavation.getrl();
     double Rl = ModelExcavation.getRl();
     double LroofAc = ModelExcavation.getLroofAc();
+
+    ModelAnchors ModelAnchors = new ModelAnchors();
+    double l = ModelAnchors.getl();
+    double bAc = ModelAnchors.getbAc();
+    double cAl = ModelAnchors.getcAl();
+    double d = ModelAnchors.getd();
 
     int n = (int) Math.floor(LroofAc / bAc);
 

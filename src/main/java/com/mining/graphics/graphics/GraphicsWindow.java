@@ -1,7 +1,7 @@
 package com.mining.graphics.graphics;
 
-import com.mining.graphics.mineexcavation.ModelExcavation;
-import com.mining.graphics.mineexcavation.ModelIntersection;
+import com.mining.graphics.model.ModelExcavation;
+import com.mining.graphics.model.ModelIntersection;
 import com.mining.graphics.service.ServiceAnchors;
 import com.mining.graphics.service.ServiceIntersection;
 import com.mining.graphics.support.ModelAnchors;
@@ -49,26 +49,32 @@ public class GraphicsWindow extends Frame {
 
     //Исходные данные о параметрах сопряжения
     ModelIntersection ModelIntersection = new ModelIntersection();
-    int b1 = (int) ModelIntersection.getb1() * scale;
-    int b2 = (int) ModelIntersection.getb2() * scale;
-    int b3 = (int) ModelIntersection.getb3() * scale;
-    double alpha1 = ModelIntersection.getalpha1();
-    double alpha2 =  ModelIntersection.getalpha2();
-    double alpha3 = ModelIntersection.getalpha3();
-    int L1 = (int) ModelIntersection.getL1() * scale;
-    int L2 = (int) ModelIntersection.getL2() * scale;
-    int L3 = (int) ModelIntersection.getL3() * scale;
+    double b1 = ModelIntersection.getb1() * scale;
+    double b2 = ModelIntersection.getb2() * scale;
+    double b3 = ModelIntersection.getb3() * scale;
+    double alpha1 = Math.PI / 180 * ModelIntersection.getalpha1();
+    double alpha2 = Math.PI / 180 * ModelIntersection.getalpha2();
+    double alpha3 = Math.PI / 180 * ModelIntersection.getalpha3();
+    double L1 = ModelIntersection.getL1() * scale;
+    double L2 = ModelIntersection.getL2() * scale;
+    double L3 = ModelIntersection.getL3() * scale;
 
     //Результаты расчета координат пересечения боков выработок
     ServiceIntersection ServiceIntersection = new ServiceIntersection();
-    int x1 = (int) ServiceIntersection.getx1() * scale;
-    int y1 = (int) ServiceIntersection.gety1() * scale;
-
+    double beta1 = ServiceIntersection.getbeta1();
+    double beta2 = ServiceIntersection.getbeta2();
+    double beta3 = ServiceIntersection.getbeta3();
+    int x1 = (int) (ServiceIntersection.getx1() * scale);
+    int y1 = (int) (ServiceIntersection.gety1() * scale);
+    int x2 = (int) (ServiceIntersection.getx2() * scale);
+    int y2 = (int) (ServiceIntersection.gety2() * scale);
+    int x3 = (int) (ServiceIntersection.getx3() * scale);
+    int y3 = (int) (ServiceIntersection.gety3() * scale);
 
     public void paint(Graphics g) {
         //Перенос начала координат
-        g.translate(150, 300);
-        int t = 2;
+        g.translate(600, 500);
+        int t = 0;
         switch (t) {
             case 0: //одиночная выработка
                 //System.out.print("x1 = " + СoorAnchAc[0][0] + ", ");
@@ -78,7 +84,7 @@ public class GraphicsWindow extends Frame {
 
                 //System.out.println("alpha равно " + alpha);
                 //System.out.println("beta равно " + beta);
-                //System.out.println("r равно " + r);
+                //System.out.println("i равно " + i);
                 //System.out.println("R равно" + R);
                 //System.out.println("Длина дуги малой окружности равна " + rl);
                 //System.out.println("Длина дуги большой окружности равна " + Rl);
@@ -106,6 +112,7 @@ public class GraphicsWindow extends Frame {
                     g.drawLine((int) (СoorAnchAc[i][0] * scale), (int) (СoorAnchAc[i][1] * scale), (int) (СoorAnchAc[i][2] * scale), (int) (СoorAnchAc[i][3] * scale));
                 }
 
+
                 //Построение расположения опорных плиток - вид сбоку
                 for (int j = 0; j <= m - 1; j++) {
                     for (int i = 0; i <= n / 2; i++) {
@@ -121,7 +128,32 @@ public class GraphicsWindow extends Frame {
             case 1: //сопряжение двух выработок (поворот)
                 break;
             case 2: //сопряжение трех выработок
-                g.drawLine(0, 0, (int)(L1 * Math.sin(alpha1)), (int)(L1 * Math.cos(alpha1)));
+                //Построение осей выработок
+                //g.drawLine(0, 0, (int) (L1 * Math.sin(alpha1)), (int) (-L1 * Math.cos(alpha1)));
+                //g.drawLine(0, 0, (int) (L2 * Math.sin(alpha2)), (int) (-L2 * Math.cos(alpha2)));
+                //g.drawLine(0, 0, (int) (L3 * Math.sin(alpha3)), (int) (-L3 * Math.cos(alpha3)));
+                //Линии, соединяющие точку пересечения осей выработок с точками пересечения боков выработок
+                g.drawLine(0, 0, x1, y1);
+                g.drawLine(0, 0, x2, y2);
+                g.drawLine(0, 0, x3, y3);
+                //Бока и торцевые части выработок
+                //Выработка 1
+                g.drawLine((int) (L1 * Math.sin(alpha1)), (int) ((-1.0) * L1 * Math.cos(alpha1)), (int) (L1 * Math.sin(alpha1) + b1 / 2.0 * Math.cos(alpha1)), (int) ((-1.0) * L1 * Math.cos(alpha1) + b1 / 2.0 * Math.sin(alpha1)));
+                g.drawLine(((int) (L1 * Math.sin(alpha1) + b1 / 2.0 * Math.cos(alpha1))), (int) ((-1.0) * L1 * Math.cos(alpha1) + b1 / 2.0 * Math.sin(alpha1)), x1, y1);
+                g.drawLine((int) (L1 * Math.sin(alpha1)), (int) ((-1.0) * L1 * Math.cos(alpha1)), (int) (L1 * Math.sin(alpha1) - b1 / 2.0 * Math.cos(alpha1)), (int) ((-1.0) * L1 * Math.cos(alpha1) - b1 / 2.0 * Math.sin(alpha1)));
+                g.drawLine(((int) (L1 * Math.sin(alpha1) - b1 / 2.0 * Math.cos(alpha1))), (int) ((-1.0) * L1 * Math.cos(alpha1) - b1 / 2.0 * Math.sin(alpha1)), x3, y3);
+
+                //Выработка 2
+                g.drawLine((int) (L2 * Math.sin(alpha2)), (int) ((-1.0) * L2 * Math.cos(alpha2)), (int) (L2 * Math.sin(alpha2) + b2 / 2.0 * Math.cos(alpha2)), (int) ((-1.0) * L2 * Math.cos(alpha2) + b2 / 2.0 * Math.sin(alpha2)));
+                g.drawLine((int) (L2 * Math.sin(alpha2) + b2 / 2.0 * Math.cos(alpha2)), (int) ((-1.0) * L2 * Math.cos(alpha2) + b2 / 2.0 * Math.sin(alpha2)), x2, y2);
+                g.drawLine((int) (L2 * Math.sin(alpha2)), (int) ((-1.0) * L2 * Math.cos(alpha2)), (int) (L2 * Math.sin(alpha2) - b2 / 2.0 * Math.cos(alpha2)), (int) ((-1.0) * L2 * Math.cos(alpha2) - b2 / 2.0 * Math.sin(alpha2)));
+                g.drawLine(((int) (L2 * Math.sin(alpha2) - b2 / 2.0 * Math.cos(alpha2))), (int) ((-1.0) * L2 * Math.cos(alpha2) - b2 / 2.0 * Math.sin(alpha2)), x1, y1);
+
+                //Выработка 3
+                g.drawLine((int) (L3 * Math.sin(alpha3)), (int) ((-1.0) * L3 * Math.cos(alpha3)), (int) (L3 * Math.sin(alpha3) + b3 / 2.0 * Math.cos(alpha3)), (int) ((-1.0) * L3 * Math.cos(alpha3) + b3 / 2.0 * Math.sin(alpha3)));
+                g.drawLine((int) (L3 * Math.sin(alpha3) + b3 / 2.0 * Math.cos(alpha3)), (int) ((-1.0) * L3 * Math.cos(alpha3) + b3 / 2.0 * Math.sin(alpha3)), x3, y3);
+                g.drawLine((int) (L3 * Math.sin(alpha3)), (int) ((-1.0) * L3 * Math.cos(alpha3)), (int) (L3 * Math.sin(alpha3) - b3 / 2.0 * Math.cos(alpha3)), (int) ((-1.0) * L3 * Math.cos(alpha3) - b3 / 2.0 * Math.sin(alpha3)));
+                g.drawLine(((int) (L3 * Math.sin(alpha3) - b3 / 2.0 * Math.cos(alpha3))), (int) ((-1.0) * L3 * Math.cos(alpha3) - b3 / 2.0 * Math.sin(alpha3)), x2, y2);
                 break;
         }
 
@@ -129,7 +161,7 @@ public class GraphicsWindow extends Frame {
 
     public static void main(String args[]) {
         GraphicsWindow appwin = new GraphicsWindow();
-        appwin.setSize(new Dimension(1200, 700));
+        appwin.setSize(new Dimension(1700, 1000));
         appwin.setTitle("Graphics");
         appwin.setVisible(true);
     }

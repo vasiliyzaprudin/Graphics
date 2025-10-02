@@ -1,9 +1,9 @@
-package com.mining.graphics.mineexcavation;
+package com.mining.graphics.model;
 
 public class ModelExcavation {
     //Исходные геометрические параметры выработки
     private double B = 5.0; //ширина
-    private double H = 5.0; //высота
+    private double H = 8.0; //высота
     private double hr = B / 3.0; //высота закругления
 
     //Расчетные геометрические параметры выработки
