@@ -20,8 +20,8 @@ public class GraphicsWindow extends Frame {
         });
     }
 
-    int scale = 50; //масштаб построений
-    int distance = 500; //расстояние между поперечным разрезом и вида сбоку в графическом окне
+    int scale = 65; //масштаб построений
+    int distance = 550; //расстояние между поперечным разрезом и вида сбоку в графическом окне
     int m = 7; //количество рядов анкеров для отображения - вид сбоку
 
     ModelExcavation ModelExcavation = new ModelExcavation();
@@ -33,6 +33,7 @@ public class GraphicsWindow extends Frame {
     //Расчетные геометрические параметры выработки в масштабе
     double alpha = ModelExcavation.getalpha();
     double beta = ModelExcavation.getbeta();
+    double LroofAc = ModelExcavation.getLroofAc();
     int r = (int) Math.round(ModelExcavation.getr() * scale);
     int R = (int) Math.round(ModelExcavation.getR() * scale);
 
@@ -45,6 +46,7 @@ public class GraphicsWindow extends Frame {
     //Результаты расчета координат установки анкеров
     ServiceAnchors ServiceAnchors = new ServiceAnchors();
     int n = ServiceAnchors.getn();
+    double lbeg1 = ServiceAnchors.getlbeg1();
     double[][] СoorAnchAc = ServiceAnchors.getСoorAnchAc();
 
     //Исходные данные о параметрах сопряжения
@@ -73,10 +75,13 @@ public class GraphicsWindow extends Frame {
 
     public void paint(Graphics g) {
         //Перенос начала координат
-        g.translate(600, 500);
+        g.translate(400, 500);
         int t = 0;
         switch (t) {
             case 0: //одиночная выработка
+                System.out.println("lbeg1 равно " + lbeg1);
+                System.out.println("LroofAc равно " + LroofAc);
+                System.out.println("n равно " + n);
                 //System.out.print("x1 = " + СoorAnchAc[0][0] + ", ");
                 //System.out.print("y1 = " + СoorAnchAc[0][1] + ", ");
                 //System.out.print("x2 = " + СoorAnchAc[0][2] + ", ");
@@ -111,7 +116,6 @@ public class GraphicsWindow extends Frame {
                 for (int i = 0; i <= n; i++) {
                     g.drawLine((int) (СoorAnchAc[i][0] * scale), (int) (СoorAnchAc[i][1] * scale), (int) (СoorAnchAc[i][2] * scale), (int) (СoorAnchAc[i][3] * scale));
                 }
-
 
                 //Построение расположения опорных плиток - вид сбоку
                 for (int j = 0; j <= m - 1; j++) {
