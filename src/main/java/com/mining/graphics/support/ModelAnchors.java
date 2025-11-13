@@ -1,30 +1,13 @@
 package com.mining.graphics.support;
 
-public class ModelAnchors {
+import com.mining.graphics.model.ModelExcavation;
 
-    private double l = 2.1; //длина анкера
-    private double bAc =0.8; //шаг анкерования в ряду
-    private double cAl = 0.8; //расстояние между рядами анкеров
-    private double d = 0.1; //размер опорной плитки
-    private  double p = 0.6; //максимальное расстояние от почвы выработки до точки установки нижнего анкера
+public class ModelAnchors extends ModelExcavation {
 
-    public double getl() {
-        return l;
-    }
-
-    public double getbAc() {
-        return bAc;
-    }
-
-    public double getcAl() {
-        return cAl;
-    }
-
-    public double getd() {
-        return d;
-    }
-
-    public double getp() {
-        return p;
-    }
+    public double l = 1.8; //длина анкера
+    public double bAc = 0.85; //шаг анкерования в ряду
+    public double cAl = 0.9; //расстояние между рядами анкеров
+    public double d = 0.1; //размер опорной плитки
+    public double p = 1.2; //максимальное расстояние от почвы выработки до точки установки нижнего анкера
+    public int m = 7; //количество рядов анкеров для отображения - вид сбоку
 }

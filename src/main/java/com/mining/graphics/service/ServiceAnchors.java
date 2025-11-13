@@ -1,32 +1,10 @@
 package com.mining.graphics.service;
 
-import com.mining.graphics.model.ModelExcavation;
 import com.mining.graphics.support.ModelAnchors;
 
-public class ServiceAnchors {
-    private double[][] СoorAnchAc; //массив для хранения координат установки анкеров в поперечном сечении
-
-    ModelExcavation ModelExcavation = new ModelExcavation();
-    double B = ModelExcavation.getB();
-    double H = ModelExcavation.getH();
-    double hr = ModelExcavation.gethr();
-    double alpha = ModelExcavation.getalpha();
-    double beta = ModelExcavation.getbeta();
-    double r = ModelExcavation.getr();
-    double R = ModelExcavation.getR();
-    double rl = ModelExcavation.getrl();
-    double Rl = ModelExcavation.getRl();
-    double LroofAc = ModelExcavation.getLroofAc();
-
-    ModelAnchors ModelAnchors = new ModelAnchors();
-    double l = ModelAnchors.getl();
-    double bAc = ModelAnchors.getbAc();
-    double cAl = ModelAnchors.getcAl();
-    double d = ModelAnchors.getd();
-    double p = ModelAnchors.getp();
-
-    int n;
-
+public class ServiceAnchors extends ModelAnchors {
+    public double[][] СoorAnchAc; //массив для хранения координат установки анкеров в поперечном сечении
+    public int n;
     double phi0, phi1, lbeg0, lbeg1;
 
     public ServiceAnchors() {
@@ -159,7 +137,7 @@ public class ServiceAnchors {
                         }
 
                         //определение координат установки анкеров в левом боку
-                        lbeg1 = LroofAc / 2 - bAc * Math.floor((LroofAc /(2 * bAc)));
+                        lbeg1 = LroofAc / 2 - bAc * Math.floor((LroofAc / (2 * bAc)));
 
                         for (j = 1; H - hr - p + lbeg1 > j * bAc; j++, i++) {
                             СoorAnchAc[i][0] = 0;
@@ -253,18 +231,5 @@ public class ServiceAnchors {
                         break;
                 }
         }
-    }
-
-
-    public double[][] getСoorAnchAc() {
-        return this.СoorAnchAc;
-    }
-
-    public int getn() {
-        return n;
-    }
-
-    public double getlbeg1() {
-        return lbeg1;
     }
 }
