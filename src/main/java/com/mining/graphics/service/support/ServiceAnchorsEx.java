@@ -1,20 +1,20 @@
-package com.mining.graphics.service;
+package com.mining.graphics.service.support;
 
-import com.mining.graphics.support.ModelAnchors;
+import com.mining.graphics.model.support.ModelAnchorsEx;
 
-public class ServiceAnchors extends ModelAnchors {
+public class ServiceAnchorsEx extends ModelAnchorsEx {
     public double[][] СoorAnchAc; //массив для хранения координат установки анкеров в поперечном сечении
     public int n;
-    double phi0, phi1, lbeg0, lbeg1;
+    double phi0, lbeg0, lbeg1;
 
-    public ServiceAnchors() {
+    public ServiceAnchorsEx() {
         CalculateCoordinatesAnchorsAc();
     }
 
     public void CalculateCoordinatesAnchorsAc() {
         int i, j;
 
-        int v = 1;
+        int v = 0;
         switch (v) {
             case 0: //крепление кровли
                 n = (int) Math.floor(LroofAc / bAc);

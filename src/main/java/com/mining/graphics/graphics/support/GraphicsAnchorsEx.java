@@ -1,10 +1,10 @@
-package com.mining.graphics.graphics;
+package com.mining.graphics.graphics.support;
 
-import com.mining.graphics.service.ServiceAnchors;
+import com.mining.graphics.service.support.ServiceAnchorsEx;
 
 import java.awt.*;
 
-public class GraphicsAnchors extends ServiceAnchors {
+public class GraphicsAnchorsEx extends ServiceAnchorsEx {
 
     public void paint(Graphics g) {
 
@@ -22,7 +22,7 @@ public class GraphicsAnchors extends ServiceAnchors {
 
         //Построение анкеров, вблизи оси выработки
         for (int j = 0; j <= m - 1; j++) {
-            g.drawLine((int) (distance + (cAl / 2 + cAl * j)*scaleEx), 0, (int) (distance + (cAl / 2 + cAl * j)*scaleEx), (int) (-l * scaleEx));
+            g.drawLine((int) (distance + (cAl / 2 + cAl * j) * scaleEx), 0, (int) (distance + (cAl / 2 + cAl * j) * scaleEx), (int) (-l * scaleEx));
         }
     }
 }
