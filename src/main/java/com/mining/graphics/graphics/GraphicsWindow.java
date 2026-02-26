@@ -6,6 +6,7 @@ import com.mining.graphics.graphics.support.GraphicsAnchorsEx;
 import com.mining.graphics.graphics.support.GraphicsAnchorsInt;
 import com.mining.graphics.graphics.support.GraphicsShotcreteEx;
 import com.mining.graphics.model.excavation.ModelExcavation;
+import com.mining.graphics.service.support.ServiceAnchorsInt;
 
 import java.awt.event.*;
 import java.awt.*;
@@ -17,6 +18,7 @@ public class GraphicsWindow extends Frame {
     private GraphicsIntersection GI;
     private ModelExcavation ME;
     private GraphicsAnchorsInt GAI;
+    private ServiceAnchorsInt SAI;
 
     public GraphicsWindow() {
         GAE = new GraphicsAnchorsEx();
@@ -25,6 +27,7 @@ public class GraphicsWindow extends Frame {
         GI = new GraphicsIntersection();
         ME = new ModelExcavation();
         GAI = new GraphicsAnchorsInt();
+        SAI = new ServiceAnchorsInt();
 
         // Анонимный внутренний класс для обработки событий закрытия окна
         addWindowListener(new WindowAdapter() {
@@ -36,7 +39,7 @@ public class GraphicsWindow extends Frame {
 
     // Переопределяем метод paint для отрисовки
     public void paint(Graphics g) {
-        int t = 2; // 1 - одиночная выработка, 2 - сопряжение выработок, 3 - тест
+        int t = 2; // 3 - одиночная выработка, 2 - сопряжение выработок, 3 - тест
         switch (t) {
             case 1:
                 g.translate(300, 400);
@@ -45,18 +48,17 @@ public class GraphicsWindow extends Frame {
                 GSE.paint(g);
                 break;
             case 2:
-                g.translate(700, 700);
+                g.translate(500, 500);
                 GI.paint(g);
                 GAI.paint(g);
                 break;
             case 3:
-                g.translate(600, 600);
-                GAI.paint(g);
         }
     }
+
     public static void main(String args[]) {
         GraphicsWindow appwin = new GraphicsWindow();
-        appwin.setSize(new Dimension(1700, 1200));
+        appwin.setSize(new Dimension(1750, 1300));
         appwin.setTitle("Graphics");
         appwin.setVisible(true);
     }

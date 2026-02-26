@@ -1,7 +1,13 @@
 package com.mining.graphics.model.excavation;
 
 public class ModelIntersection {
+    public double bb12, bb23, bb34, bb41, bb31;
+    public double bb;
+
+    public double L0 = 5.0; //длина перпендикуляров для теста X0
+
     public int scaleInt = 40; //масштаб построений
+    public int distance = 200; //отступ проекции от плана сопряжения
 
     //ширина горных выработок
     public double
@@ -26,7 +32,7 @@ public class ModelIntersection {
 
     //угол поворота оси горных выработок относительно севера в градусах
     public int
-            alpha1 = 0,
+            alpha1 = 30,
             alpha2 = 90,
             alpha3 = 270,
             alpha4 = 270;
@@ -45,7 +51,8 @@ public class ModelIntersection {
             L4 = 10.0;
 
     //длина горной выработки на закруглении
-    public double b12 = b1,
+    public double
+            b12 = b1,
             b21 = b2,
             b23 = b2,
             b32 = b3,
@@ -56,13 +63,13 @@ public class ModelIntersection {
             b13 = b1,
             b31 = b3;
 
-    //величина закругления горных выработок
-    public double
-            bb12 = (b12 / 2 + b21 / 2) / 4,
-            bb23 = (b23 / 2 + b32 / 2) / 4,
-            bb34 = (b34 / 2 + b43 / 2) / 4,
-            bb41 = (b41 / 2 + b14 / 2) / 4,
-            bb31 = (b31 / 2 + b13 / 2) / 4;
+    public void CalculateBB(double B2, double B1, double ALPHARad2, double ALPHARad1) {
+        if (Math.abs(ALPHARad2 - ALPHARad1) <= Math.PI / 2) {
+            bb = ((B2 + B1) / 8) / Math.abs(Math.sin(ALPHARad2 - ALPHARad1));
+        } else {
+            bb = ((B2 + B1) / 8) * Math.sin(ALPHARad2 - ALPHARad1);
+        }
+    }
 
     //расчетные геометрические параметры горных выработок
     //опорный угол дуги большого радиуса

@@ -4,21 +4,23 @@ import com.mining.graphics.model.excavation.ModelIntersection;
 
 public class ServiceIntersection extends ModelIntersection {
     public double xi1, yi1, xi2, yi2, xi3, yi3, xi4, yi4, xi22, yi22, xi33, yi33; //координаты точек пересечения боков выработок
-    public int xi1sc, yi1sc, xi2sc, yi2sc, xi3sc, yi3sc, xi4sc, yi4sc, xi22sc, yi22sc, xi33sc, yi33sc; //координаты точек пересечения боков выработок в масштабе
+    public int xi1sc, yi1sc, xi2sc, yi2sc, xi3sc, yi3sc, xi4sc, yi4sc, xi22sc, yi22sc, xi33sc, yi33sc;
 
     public double xs11, ys11, xs12, ys12, xs21, ys21, xs22, ys22, xs31, ys31, xs32, ys32, xs41, ys41, xs42, ys42; //координаты забоя выработок
-    public int xs11sc, ys11sc, xs12sc, ys12sc, xs21sc, ys21sc, xs22sc, ys22sc, xs31sc, ys31sc, xs32sc, ys32sc, xs41sc, ys41sc, xs42sc, ys42sc; //координаты забоя выработок в масштабе
+    public int xs11sc, ys11sc, xs12sc, ys12sc, xs21sc, ys21sc, xs22sc, ys22sc, xs31sc, ys31sc, xs32sc, ys32sc, xs41sc, ys41sc, xs42sc, ys42sc;
 
     public double x12, y12, x21, y21, x23, y23, x32, y32, x34, y34, x43, y43, x41, y41, x14, y14;
     public int x12sc, y12sc, x21sc, y21sc, x23sc, y23sc, x32sc, y32sc, x34sc, y34sc, x43sc, y43sc, x41sc, y41sc, x14sc, y14sc;
     public double x13, y13, x31, y31;
     public int x13sc, y13sc, x31sc, y31sc;
 
+    public double xb1, yb1, xb2, yb2, xb3, yb3, xb4, yb4; //координаты точек пресечения осей выработок и забоя
+    public int xb1sc, yb1sc, xb2sc, yb2sc, xb3sc, yb3sc, xb4sc, yb4sc;
+
     public double x1, y1, x2, y2, x3, y3, x4, y4;
     public int x1sc, y1sc, x2sc, y2sc, x3sc, y3sc, x4sc, y4sc;
     public double x33, y33;
     public int x33sc, y33sc;
-
 
     public double beta1, beta2, beta3, beta33, beta4;
 
@@ -27,6 +29,7 @@ public class ServiceIntersection extends ModelIntersection {
     }
 
     private void CalculateCoordinatesIntersection() {
+
         //Координаты точек пересечения боков выработок
         beta1 = Math.atan((b1 * Math.sin(alpha2Rad - alpha1Rad)) / (b2 + b1 * Math.cos(alpha2Rad - alpha1Rad)));
         xi1 = b1 / (2.0 * Math.sin(beta1)) * Math.cos(alpha1Rad + beta1 - Math.PI / 2.0);
@@ -104,31 +107,42 @@ public class ServiceIntersection extends ModelIntersection {
         ys42 = (-1.0) * L4 * Math.cos(alpha4Rad) + b4 / 2.0 * Math.sin(alpha4Rad);
         ys42sc = (int) (ys42 * scaleInt);
 
+        //Расчет величины закругления сопряжения
+        CalculateBB(b2, b1, alpha2Rad,alpha1Rad);
+        bb12 = bb;
+
+        CalculateBB(b3, b2, alpha3Rad,alpha2Rad);
+        bb23 = bb;
+
+        CalculateBB(b1, b3, alpha1Rad,alpha3Rad);
+        bb31 = bb;
+
         //Координаты точек закругления выработок
-        x1 = xi1 + bb12 * Math.sin(alpha1Rad + alpha2Rad);
-        x1sc = (int)(x1 * scaleInt);
-        y1 = yi1 - bb12 * Math.sin(alpha1Rad + alpha2Rad);
-        y1sc = (int)(y1 * scaleInt);
+        x1 = xi1 + bb12 * Math.cos(Math.atan2(yi1, xi1));
+        x1sc = (int) (x1 * scaleInt);
+        y1 = yi1 + bb12 * Math.sin(Math.atan2(yi1, xi1));
+        y1sc = (int) (y1 * scaleInt);
 
-        x2 = xi2 - bb23 * Math.sin(alpha2Rad + alpha3Rad);
-        x2sc = (int)(x2 * scaleInt);
-        y2 = yi2 - bb23 * Math.sin(alpha2Rad + alpha3Rad);
-        y2sc = (int)(y2 * scaleInt);
+        x2 = xi2 + bb23 * Math.cos(Math.atan2(yi2, xi2));
+        x2sc = (int) (x2 * scaleInt);
+        y2 = yi2 + bb23 * Math.sin(Math.atan2(yi2, xi2));
+        y2sc = (int) (y2 * scaleInt);
 
-        x3 = xi3 - bb34 * Math.sin(alpha3Rad + alpha4Rad);
-        x3sc = (int)(x3 * scaleInt);
-        y3 = yi3 + bb34 * Math.sin(alpha3Rad + alpha4Rad);
-        y3sc = (int)(y3 * scaleInt);
 
-        x4 = xi4 + bb41 * Math.sin(alpha4Rad + alpha1Rad);
-        x4sc = (int)(x4 * scaleInt);
-        y4 = yi4 + bb41 * Math.sin(alpha4Rad + alpha1Rad);
-        y4sc = (int)(y4 * scaleInt);
+//        x3 = xi3 - bb34 * Math.abs(Math.sin((alpha3Rad + alpha4Rad) / 2));
+//        x3sc = (int) (x3 * scaleInt);
+//        y3 = yi3 + bb34 * Math.abs(Math.cos((alpha3Rad + alpha4Rad) / 2));
+//        y3sc = (int) (y3 * scaleInt);
+//
+//        x4 = xi4 - bb41 * Math.abs(Math.sin((alpha4Rad + alpha1Rad) / 2));
+//        x4sc = (int) (x4 * scaleInt);
+//        y4 = yi4 - bb41 * Math.abs(Math.cos((alpha4Rad + alpha1Rad) / 2));
+//        y4sc = (int) (y4 * scaleInt);
 
-        x33 = xi33 + bb31 * Math.sin(alpha3Rad + alpha1Rad);
-        x33sc = (int)(x33 * scaleInt);
-        y33 = yi33 + bb31 * Math.sin(alpha3Rad + alpha1Rad);
-        y33sc = (int)(y33 * scaleInt);
+        x33 = xi33 + bb31 * Math.cos(Math.atan2(yi33, xi33));
+        x33sc = (int) (x33 * scaleInt);
+        y33 = yi33 + bb31 * Math.sin(Math.atan2(yi33, xi33));
+        y33sc = (int) (y33 * scaleInt);
 
         //Координаты точек начала закругления выработок
         x12 = xi1 + b12 * Math.sin(alpha1Rad);
@@ -180,6 +194,27 @@ public class ServiceIntersection extends ModelIntersection {
         x13sc = (int) (x13 * scaleInt);
         y13 = yi33 - b13 * Math.cos(alpha1Rad);
         y13sc = (int) (y13 * scaleInt);
+
+        //Расчет координат точек пресечения осей выработок и забоя;
+        xb1 = L1 * Math.sin(alpha1Rad);
+        xb1sc = (int) (xb1 * scaleInt);
+        yb1 = L1 * Math.cos(alpha1Rad);
+        yb1sc = (int) (yb1 * scaleInt);
+
+        xb2 = L2 * Math.sin(alpha2Rad);
+        xb2sc = (int) (xb2 * scaleInt);
+        yb2 = L2 * Math.cos(alpha2Rad);
+        yb2sc = (int) (yb2 * scaleInt);
+
+        xb3 = L3 * Math.sin(alpha3Rad);
+        xb3sc = (int) (xb3 * scaleInt);
+        yb3 = -L3 * Math.cos(alpha3Rad);
+        yb3sc = (int) (yb3 * scaleInt);
+
+        xb4 = L4 * Math.sin(alpha4Rad);
+        xb4sc = (int) (xb4 * scaleInt);
+        yb4 = L4 * Math.cos(alpha4Rad);
+        yb4sc = (int) (yb4 * scaleInt);
     }
 }
 

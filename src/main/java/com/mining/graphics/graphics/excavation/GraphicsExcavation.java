@@ -25,7 +25,6 @@ public class GraphicsExcavation extends ModelAnchorsEx {
         g.drawLine(distance + (int) (cAl * m * scaleEx), Hsc, distance + (int) (cAl * m * scaleEx), 0);
         g.drawLine(distance + (int) (cAl * m * scaleEx), 0, distance, 0);
 
-
         //Информация о геометрических параметрах выработки
 
         int startX = 15; //Начальная координата X
