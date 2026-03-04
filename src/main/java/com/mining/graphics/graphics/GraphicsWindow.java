@@ -12,6 +12,7 @@ import java.awt.event.*;
 import java.awt.*;
 
 public class GraphicsWindow extends Frame {
+
     private GraphicsAnchorsEx GAE;
     private GraphicsShotcreteEx GSE;
     private GraphicsExcavation GE;
@@ -19,6 +20,7 @@ public class GraphicsWindow extends Frame {
     private ModelExcavation ME;
     private GraphicsAnchorsInt GAI;
     private ServiceAnchorsInt SAI;
+    private Setting S;
 
     public GraphicsWindow() {
         GAE = new GraphicsAnchorsEx();
@@ -28,6 +30,7 @@ public class GraphicsWindow extends Frame {
         ME = new ModelExcavation();
         GAI = new GraphicsAnchorsInt();
         SAI = new ServiceAnchorsInt();
+        S = new Setting();
 
         // Анонимный внутренний класс для обработки событий закрытия окна
         addWindowListener(new WindowAdapter() {
@@ -39,20 +42,25 @@ public class GraphicsWindow extends Frame {
 
     // Переопределяем метод paint для отрисовки
     public void paint(Graphics g) {
-        int t = 2; // 3 - одиночная выработка, 2 - сопряжение выработок, 3 - тест
+        S.setGraph(g);
+        int t = 3; // 1 - одиночная выработка, 3 - сопряжение 3 выработок
         switch (t) {
             case 1:
                 g.translate(300, 400);
                 GAE.paint(g);
-                GE.paint(g);
+                GE.graphEx(g);
+                GE.graphExSide(g);
+                GE.graphExInf(g);
                 GSE.paint(g);
                 break;
-            case 2:
-                g.translate(500, 500);
-                GI.paint(g);
-                GAI.paint(g);
-                break;
             case 3:
+                g.translate(500, 500);
+                GI.GraphConstrInt3(g); //построение сопряжения в плане
+                GI.graphIntAc(g); //построение сечения сопряжения
+                GAI.graphAnchIntConstr3(g); //построение анкеров в плане сопряжения
+                GAI.TestIntAnch(g); //проверка правильности построения анкеров в плане сопряжения
+                //GAI.InformationInt(g); //информация о параметрах сопряжения
+                break;
         }
     }
 

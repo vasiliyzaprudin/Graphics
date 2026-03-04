@@ -1,8 +1,9 @@
 package com.mining.graphics.model.support;
 
 import com.mining.graphics.model.excavation.ModelExcavation;
+import com.mining.graphics.service.excavation.ServiceExcavation;
 
-public class ModelAnchorsEx extends ModelExcavation {
+public class ModelAnchorsEx extends ServiceExcavation {
 
     public double l = 1.8; //длина анкера
     public double bAc = 0.8; //шаг анкерования в ряду

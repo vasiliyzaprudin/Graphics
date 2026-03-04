@@ -1,27 +1,58 @@
 package com.mining.graphics.model.excavation;
 
+import com.mining.graphics.service.excavation.ServiceExcavation;
+
 public class ModelIntersection {
+
     public double bb12, bb23, bb34, bb41, bb31;
     public double bb;
 
-    public double L0 = 5.0; //длина перпендикуляров для теста X0
+    public double L0 = 5.0; //длина перпендикуляров для теста X0Y0
 
     public int scaleInt = 40; //масштаб построений
-    public int distance = 200; //отступ проекции от плана сопряжения
+    public int distance = 600; //отступ проекции от плана сопряжения по оси Y
 
     //ширина горных выработок
     public double
-            b1 = 4.2,
-            b2 = 4.2,
-            b3 = 4.2,
-            b4 = 4.2;
+            b1 = 4.7,
+            b2 = 4.7,
+            b3 = 4.7,
+            b4 = 4.7;
+
+    //ширина горных выработок в масштабе
+    public double
+            b1sc = b1 * scaleInt,
+            b2sc = b2 * scaleInt,
+            b3sc = b3 * scaleInt,
+            b4sc = b4 * scaleInt;
 
     //высота горных выработок
     public double
-            h1 = 4.2,
-            h2 = 4.2,
-            h3 = 4.2,
+            h1 = 4.5,
+            h2 = 4.4,
+            h3 = 4.4,
             h4 = 4.2;
+
+    //показатель увеличения высоты сопряжения
+//    public double
+//            k = 1.3;
+    //показатель типа свода сопряжения
+    public double
+            typeInt = 4.0;
+
+    //показатели типа свода горных выработок
+    public double
+            k1 = 3.0,
+            k2 = 3.0,
+            k3 = 3.0,
+            k4 = 3.0;
+
+
+    public int
+            h1sc = (int) (h1 * scaleInt),
+            h2sc = (int) (h2 * scaleInt),
+            h3sc = (int) (h3 * scaleInt),
+            h4sc = (int) (h4 * scaleInt);
 
     //высота закругления горных выработок
     public double
@@ -32,9 +63,9 @@ public class ModelIntersection {
 
     //угол поворота оси горных выработок относительно севера в градусах
     public int
-            alpha1 = 30,
+            alpha1 = -10,
             alpha2 = 90,
-            alpha3 = 270,
+            alpha3 = 250,
             alpha4 = 270;
     //угол поворота оси горных выработок относительно севера в радианах
     public double
@@ -63,6 +94,10 @@ public class ModelIntersection {
             b13 = b1,
             b31 = b3;
 
+    /** Этот метод определяет величину закругления сопряжения
+     * в зависимости от ширины сопрягаемых выработок и угла их поворота.
+
+     */
     public void CalculateBB(double B2, double B1, double ALPHARad2, double ALPHARad1) {
         if (Math.abs(ALPHARad2 - ALPHARad1) <= Math.PI / 2) {
             bb = ((B2 + B1) / 8) / Math.abs(Math.sin(ALPHARad2 - ALPHARad1));

@@ -2,13 +2,17 @@ package com.mining.graphics.model.excavation;
 
 public class ModelExcavation {
     //Исходные геометрические параметры выработки
-    public double B = 4.2; //ширина
-    public double H = 3.7; //высота
-    public double hr = B / 3.0; //высота закругления
+    public double B = 4.7; //ширина
+    public double H = 4.2; //высота
+    public double K = 3.0; //тип формы свода
+    public double hr = B / K;
     public int scaleEx = 80; //масштаб построений
     public int distance = 600; //расстояние между поперечным разрезом и видом сбоку в графическом окне
 
-    //Расчетные геометрические параметры выработки
+    public double b = 4.7;
+    public double h = 4.2;
+    public double k = 3.0;
+
     public double alpha = Math.atan(2.0 * hr / B); //опорный угол дуги большого радиуса
     public double beta = Math.PI / 2.0 - alpha; //опорный угол дуги малого радиуса
 
@@ -30,4 +34,6 @@ public class ModelExcavation {
     public int Bsc = (int) (B * scaleEx);
     public int Hsc = (int) (H * scaleEx);
     public int hrsc = (int) (hr * scaleEx);
+
+
 }
