@@ -9,7 +9,10 @@ public class ServiceAnchorsInt extends ModelAnchorsInt {
     public double[][] СoorAncIntProj; //массив для хранения координат установки анкеров в проекции сопряжения
 
     public double[][] СoorTestX0Y0; //координаты перпендикуляров к осям выработок
-    public int n, m, numAnchProj;
+
+
+    public double[][] CoorLine; //для демонстрации работы с массиом
+    public int n, m, numAnchProj, p;
 
     public double X0line, Y0line;
 
@@ -175,8 +178,7 @@ public class ServiceAnchorsInt extends ModelAnchorsInt {
         if (X1 >= 0) {
             X0line = calcCoordPointContX(X1, Y1) + (CAL - REMAIN) * Math.cos(OMEGA); //координата X установки первого анкера по линии
             Y0line = calcCoordPointContY(X1, Y1) + (CAL - REMAIN) * Math.sin(OMEGA); //координата Y установки первого анкера по линии
-        }
-        else {
+        } else {
             X0line = calcCoordPointContX(X1, Y1) - (CAL - REMAIN) * Math.cos(OMEGA); //координата X установки первого анкера по линии
             Y0line = calcCoordPointContY(X1, Y1) + (CAL - REMAIN) * Math.sin(OMEGA); //координата Y установки первого анкера по линии
         }
@@ -196,16 +198,16 @@ public class ServiceAnchorsInt extends ModelAnchorsInt {
                 СoorAncIntProj[i][3] = Y0line + k * CAL * Math.sin(OMEGA) - L * Math.sin(OMEGA + Math.PI / 2.0);
             }
         }
-        System.out.println("calcAngleBetweenVertAndPointCont(X1, Y1) = " + 180 / Math.PI * calcAngleBetweenVertAndPointCont(X1, Y1));
-        System.out.println("Длина дуги " + ArcLength);
-        System.out.println("Длина прямолинейного отрезка " + LineLength);
-        System.out.println("numAnchProj = " + numAnchProj);
-        System.out.println("Высота выработки " + h1 * calcIndHeightInt());
-        System.out.println("Общая длина " + (ArcLength + LineLength));
-        System.out.println("Общее количество анкеров " + (numAnchProj + 1));
-        System.out.println("REMAIN + LineLength " + (REMAIN + LineLength));
-        System.out.println("OMEGA " + OMEGA * 180 / Math.PI);
-        System.out.println("REMAIN + LineLength = " + (REMAIN + LineLength));
-        System.out.println("Y0arc = " + Y0arc);
+//        System.out.println("calcAngleBetweenVertAndPointCont(X1, Y1) = " + 180 / Math.PI * calcAngleBetweenVertAndPointCont(X1, Y1));
+//        System.out.println("Длина дуги " + ArcLength);
+//        System.out.println("Длина прямолинейного отрезка " + LineLength);
+//        System.out.println("numAnchProj = " + numAnchProj);
+//        System.out.println("Высота выработки " + h1 * calcIndHeightInt());
+//        System.out.println("Общая длина " + (ArcLength + LineLength));
+//        System.out.println("Общее количество анкеров " + (numAnchProj + 1));
+//        System.out.println("REMAIN + LineLength " + (REMAIN + LineLength));
+//        System.out.println("OMEGA " + OMEGA * 180 / Math.PI);
+//        System.out.println("REMAIN + LineLength = " + (REMAIN + LineLength));
+//        System.out.println("Y0arc = " + Y0arc);
     }
 }

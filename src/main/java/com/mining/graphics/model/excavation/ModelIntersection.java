@@ -28,7 +28,7 @@ public class ModelIntersection {
 
     //высота горных выработок
     public double
-            h1 = 5.2,
+            h1 = 4.3,
             h2 = 4.2,
             h3 = 4.2,
             h4 = 4.2;
@@ -38,7 +38,7 @@ public class ModelIntersection {
 //            k = 1.3;
     //показатель типа свода сопряжения
     public double
-            typeInt = 4.0;
+            typeInt = 2.5;
 
     //показатели типа свода горных выработок
     public double
@@ -64,9 +64,10 @@ public class ModelIntersection {
     //угол поворота оси горных выработок относительно севера в градусах
     public int
             alpha1 = 0,
-            alpha2 = 80,
-            alpha3 = 240,
+            alpha2 = 110,
+            alpha3 = 270,
             alpha4 = 270;
+
     //угол поворота оси горных выработок относительно севера в радианах
     public double
             alpha1Rad = alpha1 * Math.PI / 180,
@@ -74,7 +75,7 @@ public class ModelIntersection {
             alpha3Rad = alpha3 * Math.PI / 180,
             alpha4Rad = alpha4 * Math.PI / 180;
 
-    //длина авыработок
+    //длина выработок
     public double
             L1 = 10.0,
             L2 = 10.0,

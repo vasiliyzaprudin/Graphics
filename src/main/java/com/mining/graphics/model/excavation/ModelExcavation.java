@@ -2,8 +2,8 @@ package com.mining.graphics.model.excavation;
 
 public class ModelExcavation {
     //Исходные геометрические параметры выработки
-    public double B = 4.7; //ширина
-    public double H = 4.2; //высота
+    public double B = 4.9; //ширина
+    public double H = 4.5; //высота
     public double K = 3.0; //тип формы свода
     public double hr = B / K;
     public int scaleEx = 80; //масштаб построений

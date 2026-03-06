@@ -35,6 +35,15 @@ public class GraphicsIntersection extends ServiceIntersection {
         g.drawLine(x31sc, 0, x31sc, -h3sc); //левая граница сопряжения
         g.drawLine(x21sc, 0, x21sc, -h2sc); //правая граница сопряжения
 
+        //Выработка 2
+        g.drawLine(xb2sc, 0, xb2sc, -h2sc); //забой
+        g.drawLine(xb2sc, -h2sc, x21sc, -h2sc); //кровля
+        g.drawLine(xb2sc, 0, x21sc, 0); //почва
+        //Выработка 3
+        g.drawLine(xb3sc, 0, xb3sc, -h3sc); //забой
+        g.drawLine(xb3sc, -h3sc, x31sc, -h3sc); //кровля
+        g.drawLine(xb3sc, 0, x31sc, 0); //почва
+
         g.translate(0, -distance);
     }
 
@@ -76,9 +85,9 @@ public class GraphicsIntersection extends ServiceIntersection {
     public void GraphConstrInt3(Graphics g) {
 
         //Построение осей выработок
-//        g.drawLine(0, 0, xb1sc, -yb1sc);
-//        g.drawLine(0, 0, xb2sc, -yb2sc);
-//        g.drawLine(0, 0, xb3sc, yb3sc);
+        g.drawLine(0, 0, xb1sc, -yb1sc);
+        g.drawLine(0, 0, xb2sc, -yb2sc);
+        g.drawLine(0, 0, xb3sc, yb3sc);
 
         //Линии, соединяющие точку пересечения осей выработок с точками пересечения боков выработок
 //        g.drawLine(0, 0, x1sc, y1sc);
