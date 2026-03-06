@@ -10,7 +10,7 @@ public class ModelIntersection {
     public double L0 = 5.0; //длина перпендикуляров для теста X0Y0
 
     public int scaleInt = 40; //масштаб построений
-    public int distance = 600; //отступ проекции от плана сопряжения по оси Y
+    public int distance = 650; //отступ проекции сопряжения от плана сопряжения по оси Y
 
     //ширина горных выработок
     public double
@@ -28,9 +28,9 @@ public class ModelIntersection {
 
     //высота горных выработок
     public double
-            h1 = 4.5,
-            h2 = 4.4,
-            h3 = 4.4,
+            h1 = 5.2,
+            h2 = 4.2,
+            h3 = 4.2,
             h4 = 4.2;
 
     //показатель увеличения высоты сопряжения
@@ -63,9 +63,9 @@ public class ModelIntersection {
 
     //угол поворота оси горных выработок относительно севера в градусах
     public int
-            alpha1 = -10,
-            alpha2 = 90,
-            alpha3 = 250,
+            alpha1 = 0,
+            alpha2 = 80,
+            alpha3 = 240,
             alpha4 = 270;
     //угол поворота оси горных выработок относительно севера в радианах
     public double

@@ -20,13 +20,15 @@ public class GraphicsIntersection extends ServiceIntersection {
         //calcElemInSc(SAI.distanceBetweenPoint(x33, y33, x1, y1), Collections.max(Arrays.asList(h1, h2, h3)) * calcIndHeightInt(), typeInt, scaleInt);
         calcElemInSc(SAI.distanceBetweenPoint(x33, y33, x1, y1), h1 * calcIndHeightInt(), typeInt, scaleInt);
 
+        calcAngleBetweenVertAndPointCont(x21, -h2);
+
         graphConstrIn(g); //Увеличенное сечение выработки 1
 
         calcElemInSc(b1, h1, k1, scaleInt);
         graphConstrIn(g); //Сечение выработки 1
 
-        g.drawLine(x31sc, -h3sc,(int)(calcCoordPointContactX(x31, -h3)), (int)(calcCoordPointContactY(x31, -h3))); //Кровля сопряжения слева
-        g.drawLine(x21sc, -h2sc, (int)(calcCoordPointContactX(x21, -h2)), (int)(calcCoordPointContactY(x21, -h2))); //Кровля сопряжения справа
+        g.drawLine(x31sc, -h3sc, (int) (calcCoordPointContX(x31, -h3) * scaleInt), (int) (calcCoordPointContY(x31, -h3) * scaleInt)); //Кровля сопряжения слева
+        g.drawLine(x21sc, -h2sc, (int) (calcCoordPointContX(x21, -h2) * scaleInt), (int) (calcCoordPointContY(x21, -h2) * scaleInt)); //Кровля сопряжения справа
 
         //Почва и границы
         g.drawLine(x31sc, 0, x21sc, 0); //почва сопряжения

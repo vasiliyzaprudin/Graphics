@@ -57,7 +57,8 @@ public class GraphicsWindow extends Frame {
                 g.translate(500, 500);
                 GI.GraphConstrInt3(g); //построение сопряжения в плане
                 GI.graphIntAc(g); //построение сечения сопряжения
-                GAI.graphAnchIntConstr3(g); //построение анкеров в плане сопряжения
+                GAI.graphAnchPlanIntConstr3(g); //построение анкеров в плане сопряжения
+                GAI.graphAnchProjIntConstr3(g); //построение анкеров в проекции сопряжения
                 GAI.TestIntAnch(g); //проверка правильности построения анкеров в плане сопряжения
                 //GAI.InformationInt(g); //информация о параметрах сопряжения
                 break;

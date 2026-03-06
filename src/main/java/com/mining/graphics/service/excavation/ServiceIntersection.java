@@ -295,26 +295,26 @@ public class ServiceIntersection extends ModelIntersection {
      * Этот метод считает координату X точки перехода
      * прямого отрезка кровли горной выработки к дуге окружности большого радиуса.
      */
-    public double calcCoordPointContactX(double X1, double Y1) {
+    public double calcCoordPointContX(double X1, double Y1) {
         double B = SAI.distanceBetweenPoint(x33, y33, x1, y1);
-        System.out.println("B = " + B + " м");
+        //System.out.println("B = " + B + " м");
         double X0 = 0.0;
         double Y0 = -h1 * calcIndHeightInt() + RBIG(B, typeInt);
         //double Y0 = -Collections.max(Arrays.asList(h1, h2, h3)) * calcIndHeightInt() + RBIG(B, typeInt);
-        System.out.println("Collections.max(Arrays.asList(h1, h2, h3)) * k = " + h1 * calcIndHeightInt() + " м");
-        System.out.println("RBIG = " + RBIG(B, typeInt) + " м");
+//        System.out.println("Collections.max(Arrays.asList(h1, h2, h3)) * k = " + h1 * calcIndHeightInt() + " м");
+//        System.out.println("RBIG = " + RBIG(B, typeInt) + " м");
         double HI = Math.acos(RBIG(B, typeInt) / SAI.distanceBetweenPoint(X0, Y0, X1, Y1));
-        System.out.println("distanceBetweenPoint(X0, Y0, X1, Y1) = " + SAI.distanceBetweenPoint(X0, Y0, X1, Y1) + " м");
-        System.out.println("HI = " + HI * 180 / Math.PI + "градусов");
+        //System.out.println("distanceBetweenPoint(X0, Y0, X1, Y1) = " + SAI.distanceBetweenPoint(X0, Y0, X1, Y1) + " м");
+        //System.out.println("HI = " + HI * 180 / Math.PI + "градусов");
         double PSI = Math.atan(Math.abs((Y1 - Y0) / (X1 - X0)));
-        System.out.println("PSI = " + PSI * 180 / Math.PI + "градусов");
-        System.out.println("HI + PSI = " + (PSI + HI) * 180 / Math.PI + "градусов");
+        //System.out.println("PSI = " + PSI * 180 / Math.PI + "градусов");
+        //System.out.println("HI + PSI = " + (PSI + HI) * 180 / Math.PI + "градусов");
         double dx = RBIG(B, typeInt) * Math.abs(Math.cos(HI + PSI));
-        System.out.println("dx = " + dx + " м");
+        //System.out.println("dx = " + dx + " м");
         if (X1 > 0) {
-            return dx * scaleInt;
+            return dx;
         } else {
-            return -dx * scaleInt;
+            return -dx;
         }
     }
 
@@ -322,7 +322,7 @@ public class ServiceIntersection extends ModelIntersection {
      * Этот метод считает координату Y точки перехода
      * прямого отрезка кровли горной выработки к дуге окружности большого радиуса.
      */
-    public double calcCoordPointContactY(double X1, double Y1) {
+    public double calcCoordPointContY(double X1, double Y1) {
         double B = SAI.distanceBetweenPoint(x33, y33, x1, y1);
         double X0 = 0.0;
         double Y0 = -h1 * calcIndHeightInt() + RBIG(B, typeInt);
@@ -330,9 +330,9 @@ public class ServiceIntersection extends ModelIntersection {
         double HI = Math.acos(RBIG(B, typeInt) / SAI.distanceBetweenPoint(X0, Y0, X1, Y1));
         double PSI = Math.atan(Math.abs((Y1 - Y0) / (X1 - X0)));
         double dy = RBIG(B, typeInt) * Math.abs(Math.sin(HI + PSI));
-        System.out.println("dy = " + dy + " м");
-        double Y = (-h1 * calcIndHeightInt() + RBIG(B, typeInt) - dy) * scaleInt;
-        //double Y = (-Collections.max(Arrays.asList(h1, h2, h3)) * calcIndHeightInt() + RBIG(B, typeInt) - dy) * scaleInt;
+        //System.out.println("dy = " + dy + " м");
+        double Y = (-h1 * calcIndHeightInt() + RBIG(B, typeInt) - dy);
+        //double Y = (-Collections.max(Arrays.asList(h1, h2, h3)) * calcIndHeightInt() + RBIG(B, typeInt) - dy);
         return Y;
     }
 
@@ -340,8 +340,23 @@ public class ServiceIntersection extends ModelIntersection {
      * Этот метод считает показатель высоты сопряжения.
      */
     public double calcIndHeightInt() {
-        System.out.println("calcIndHeightInt = " + (SAI.distanceBetweenPoint(x33, y33, x1, y1) / (2.0 * b1) + 0.5));
+        //System.out.println("calcIndHeightInt = " + (SAI.distanceBetweenPoint(x33, y33, x1, y1) / (2.0 * b1) + 0.5));
         return SAI.distanceBetweenPoint(x33, y33, x1, y1) / (2.0 * b1) + 0.5;
+    }
+
+    /**
+     * Этот метод считает опорный угол дуги,
+     * соединяющей центр кровли горной выработки и точку касания
+     * (точку перехода от дуги к прямолинейному отрезку кровли сопрягаемой горной выработки).
+     */
+    public double calcAngleBetweenVertAndPointCont(double X1, double Y1) {
+        double B = SAI.distanceBetweenPoint(x33, y33, x1, y1);
+        double X0 = 0.0;
+        double Y0 = -h1 * calcIndHeightInt() + RBIG(B, typeInt);
+        double HI = Math.acos(RBIG(B, typeInt) / SAI.distanceBetweenPoint(X0, Y0, X1, Y1));
+        double PSI = Math.atan(Math.abs((Y1 - Y0) / (X1 - X0)));
+        //System.out.println((Math.PI / 2 - HI - PSI) * 180 / Math.PI);
+        return Math.PI / 2 - HI - PSI;
     }
 }
 
