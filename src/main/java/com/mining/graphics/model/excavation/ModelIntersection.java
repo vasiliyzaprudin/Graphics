@@ -28,7 +28,7 @@ public class ModelIntersection {
 
     //высота горных выработок
     public double
-            h1 = 4.3,
+            h1 = 4.2,
             h2 = 4.2,
             h3 = 4.2,
             h4 = 4.2;
@@ -38,7 +38,7 @@ public class ModelIntersection {
 //            k = 1.3;
     //показатель типа свода сопряжения
     public double
-            typeInt = 2.5;
+            typeInt = 4.0;
 
     //показатели типа свода горных выработок
     public double
@@ -63,9 +63,9 @@ public class ModelIntersection {
 
     //угол поворота оси горных выработок относительно севера в градусах
     public int
-            alpha1 = 0,
-            alpha2 = 110,
-            alpha3 = 270,
+            alpha1 = 20,
+            alpha2 = 90,
+            alpha3 = 240,
             alpha4 = 270;
 
     //угол поворота оси горных выработок относительно севера в радианах
@@ -95,9 +95,9 @@ public class ModelIntersection {
             b13 = b1,
             b31 = b3;
 
-    /** Этот метод определяет величину закругления сопряжения
+    /**
+     * Этот метод определяет величину закругления сопряжения
      * в зависимости от ширины сопрягаемых выработок и угла их поворота.
-
      */
     public void CalculateBB(double B2, double B1, double ALPHARad2, double ALPHARad1) {
         if (Math.abs(ALPHARad2 - ALPHARad1) <= Math.PI / 2) {

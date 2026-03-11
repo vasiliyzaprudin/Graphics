@@ -8,7 +8,7 @@ public class ModelAnchorsInt extends ServiceIntersection {
     //длина анкеров
     public double
             l1 = 1.8,
-            l2 = 1.9,
+            l2 = 2.2,
             l3 = 1.8,
             l4 = 1.8;
 
@@ -22,7 +22,7 @@ public class ModelAnchorsInt extends ServiceIntersection {
     //расстояние мужду рядами анкеров
     public double
             cAl1 = 1.0,
-            cAl2 = 0.7,
+            cAl2 = 1.3,
             cAl3 = 1.0,
             cAl4 = 1.0;
 
