@@ -63,17 +63,17 @@ public class ModelIntersection {
 
     //угол поворота оси горных выработок относительно севера в градусах
     public int
-            alpha1 = 20,
+            alpha1 = -15,
             alpha2 = 90,
             alpha3 = 240,
             alpha4 = 270;
 
     //угол поворота оси горных выработок относительно севера в радианах
     public double
-            alpha1Rad = alpha1 * Math.PI / 180,
-            alpha2Rad = alpha2 * Math.PI / 180,
-            alpha3Rad = alpha3 * Math.PI / 180,
-            alpha4Rad = alpha4 * Math.PI / 180;
+            alpha1Rad = alpha1 * Math.PI / 180.0,
+            alpha2Rad = alpha2 * Math.PI / 180.0,
+            alpha3Rad = alpha3 * Math.PI / 180.0,
+            alpha4Rad = alpha4 * Math.PI / 180.0;
 
     //длина выработок
     public double

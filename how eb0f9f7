@@ -1,0 +1,14 @@
+[33m40c1c6a[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{0}: reset: moving to 40c1c6ae076bd62ffd765766378232909ff2e0fa
+[33meb0f9f7[m HEAD@{1}: reset: moving to eb0f9f78683d8b05288bdbdf92f4d92230abf7dc
+[33mec266d0[m HEAD@{2}: revert: Revert "Построены недостающие анкера в юоках горных выработок."
+[33meb0f9f7[m HEAD@{3}: commit: Построены недостающие анкера в юоках горных выработок.
+[33m40c1c6a[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{4}: commit: Доработать поворот и сопряжение из 4 выработок.
+[33mf1c0109[m HEAD@{5}: commit: Построить в проекции сопряжения стенки выработок.
+[33m2cbbe7a[m HEAD@{6}: commit: Написать код построения анкеров в проекции сопряжения.
+[33m6122c3a[m HEAD@{7}: commit: Упростить код класса ServiceIntersection
+[33m26868ac[m HEAD@{8}: commit: Сделать построение построение анкеров на закруглении
+[33m5f51bee[m HEAD@{9}: commit: Сделать построение сопряжений с закруглениями
+[33m0af8d28[m HEAD@{10}: reset: moving to 0af8d28d9a8b15665de738841df085def5ab68ea
+[33m858fc95[m HEAD@{11}: commit: Сделать построение сетки и набрызгбетона для одиночной выработки
+[33m0af8d28[m HEAD@{12}: commit: Сделать построение сетки и набрызгбетона для одиночной выработки
+[33mae8d5f2[m HEAD@{13}: clone: from https://github.com/vasiliyzaprudin/Graphics

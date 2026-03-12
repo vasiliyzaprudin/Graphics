@@ -2,34 +2,34 @@ package com.mining.graphics.graphics;
 
 import com.mining.graphics.graphics.excavation.GraphicsExcavation;
 import com.mining.graphics.graphics.excavation.GraphicsIntersection;
-import com.mining.graphics.graphics.support.GraphicsAnchorsEx;
+import com.mining.graphics.graphics.support.GraphicsAnchorsExcavation;
 import com.mining.graphics.graphics.support.GraphicsAnchorsInt;
 import com.mining.graphics.graphics.support.GraphicsShotcreteEx;
 import com.mining.graphics.model.excavation.ModelExcavation;
-import com.mining.graphics.service.support.ServiceAnchorsInt;
+import com.mining.graphics.service.support.ServiceAnchorsIntersection;
 
 import java.awt.event.*;
 import java.awt.*;
 
 public class GraphicsWindow extends Frame {
 
-    private GraphicsAnchorsEx GAE;
+    private GraphicsAnchorsExcavation GAE;
     private GraphicsShotcreteEx GSE;
     private GraphicsExcavation GE;
     private GraphicsIntersection GI;
     private ModelExcavation ME;
     private GraphicsAnchorsInt GAI;
-    private ServiceAnchorsInt SAI;
+    private ServiceAnchorsIntersection SAI;
     private Setting S;
 
     public GraphicsWindow() {
-        GAE = new GraphicsAnchorsEx();
+        GAE = new GraphicsAnchorsExcavation();
         GSE = new GraphicsShotcreteEx();
         GE = new GraphicsExcavation();
         GI = new GraphicsIntersection();
         ME = new ModelExcavation();
         GAI = new GraphicsAnchorsInt();
-        SAI = new ServiceAnchorsInt();
+        SAI = new ServiceAnchorsIntersection();
         S = new Setting();
 
         // Анонимный внутренний класс для обработки событий закрытия окна
@@ -43,14 +43,14 @@ public class GraphicsWindow extends Frame {
     // Переопределяем метод paint для отрисовки
     public void paint(Graphics g) {
         S.setGraph(g);
-        int t = 3; // 1 - одиночная выработка, 3 - сопряжение 3 выработок
+        int t = 1; // 1 - одиночная выработка, 3 - сопряжение 3 выработок
         switch (t) {
             case 1:
-                g.translate(300, 400);
+                g.translate(600, 800);
                 GAE.paint(g);
                 GE.graphEx(g);
-                GE.graphExSide(g);
-                GE.graphExInf(g);
+                //GE.graphExSide(g);
+                //GE.graphExInf(g);
                 GSE.paint(g);
                 break;
             case 3:

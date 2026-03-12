@@ -1,9 +1,8 @@
 package com.mining.graphics.model.support;
 
-import com.mining.graphics.model.excavation.ModelIntersection;
 import com.mining.graphics.service.excavation.ServiceIntersection;
 
-public class ModelAnchorsInt extends ServiceIntersection {
+public class ModelAnchorsIntersection extends ServiceIntersection {
 
     //длина анкеров
     public double

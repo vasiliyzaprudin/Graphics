@@ -1,8 +1,8 @@
 package com.mining.graphics.service.support;
 
-import com.mining.graphics.model.support.ModelAnchorsInt;
+import com.mining.graphics.model.support.ModelAnchorsIntersection;
 
-public class ServiceAnchorsInt extends ModelAnchorsInt {
+public class ServiceAnchorsIntersection extends ModelAnchorsIntersection {
     public double GAMMA, L, CAL;
 
     public double[][] СoorAncIntPlanRound; //массив для хранения координат анкеров в плане на закруглении сопряжения
@@ -10,10 +10,9 @@ public class ServiceAnchorsInt extends ModelAnchorsInt {
     public double[][] СoorAncIntProj; //массив для хранения координат установки анкеров в проекции сопряжения
     public double[][] СoorTestX0Y0; //координаты перпендикуляров к осям выработок
 
-    public double[][] CoorLine; //для демонстрации работы с массиом
-    public int numAnchPlanRound, numAnchTest, numAnchProj, numAnchPlanLine;
+    public int numAnchPlanRound, numAnchPlanLine, numAnchTest, numAnchProj;
 
-    public double X0line, Y0line;
+    public double XStartAnchToLine, YStartAnchToLine;
 
     //Расстояние между точками
     public static double distanceBetweenPoint(double X1, double Y1, double X2, double Y2) {
@@ -199,30 +198,30 @@ public class ServiceAnchorsInt extends ModelAnchorsInt {
 
         //определение координат установки анкеров по прямолинейному участку кровли сопряжения
         if (X1 >= 0) {
-            X0line = calcCoordPointContX(X1, Y1) + (CAL - REMAIN) * Math.cos(OMEGA); //координата X установки первого анкера по линии
-            Y0line = calcCoordPointContY(X1, Y1) + (CAL - REMAIN) * Math.sin(OMEGA); //координата Y установки первого анкера по линии
+            XStartAnchToLine = calcCoordPointContX(X1, Y1) + (CAL - REMAIN) * Math.cos(OMEGA); //координата X установки первого анкера по линии
+            YStartAnchToLine = calcCoordPointContY(X1, Y1) + (CAL - REMAIN) * Math.sin(OMEGA); //координата Y установки первого анкера по линии
         } else {
-            X0line = calcCoordPointContX(X1, Y1) - (CAL - REMAIN) * Math.cos(OMEGA); //координата X установки первого анкера по линии
-            Y0line = calcCoordPointContY(X1, Y1) + (CAL - REMAIN) * Math.sin(OMEGA); //координата Y установки первого анкера по линии
+            XStartAnchToLine = calcCoordPointContX(X1, Y1) - (CAL - REMAIN) * Math.cos(OMEGA); //координата X установки первого анкера по линии
+            YStartAnchToLine = calcCoordPointContY(X1, Y1) + (CAL - REMAIN) * Math.sin(OMEGA); //координата Y установки первого анкера по линии
         }
 
         if (X1 >= 0) {
             for (k = 0; (REMAIN + LineLength) * Math.cos(OMEGA) - CAL >= k * CAL; i++, k++) {
-                //СoorAncIntProj[i][0] = X0line + k * CAL * Math.cos(OMEGA);
-                СoorAncIntProj[i][0] = X0line + k * CAL;
-                СoorAncIntProj[i][1] = Y0line + k * CAL * Math.sin(OMEGA);
-                //СoorAncIntProj[i][2] = X0line + k * CAL * Math.cos(OMEGA) + L * Math.cos(OMEGA - Math.PI / 2.0);
-                СoorAncIntProj[i][2] = X0line + k * CAL + L * Math.cos(OMEGA - Math.PI / 2.0);
-                СoorAncIntProj[i][3] = Y0line + k * CAL * Math.sin(OMEGA) + L * Math.sin(OMEGA - Math.PI / 2.0);
+                //СoorAncIntProj[i][0] = XStartAnchToLine + k * CAL * Math.cos(OMEGA);
+                СoorAncIntProj[i][0] = XStartAnchToLine + k * CAL;
+                СoorAncIntProj[i][1] = YStartAnchToLine + k * CAL * Math.sin(OMEGA);
+                //СoorAncIntProj[i][2] = XStartAnchToLine + k * CAL * Math.cos(OMEGA) + L * Math.cos(OMEGA - Math.PI / 2.0);
+                СoorAncIntProj[i][2] = XStartAnchToLine + k * CAL + L * Math.cos(OMEGA - Math.PI / 2.0);
+                СoorAncIntProj[i][3] = YStartAnchToLine + k * CAL * Math.sin(OMEGA) + L * Math.sin(OMEGA - Math.PI / 2.0);
             }
         } else {
             for (k = 0; (REMAIN + LineLength) * Math.cos(OMEGA) - CAL >= k * CAL; i++, k++) {
-                //СoorAncIntProj[i][0] = X0line - k * CAL * Math.cos(OMEGA);
-                СoorAncIntProj[i][0] = X0line - k * CAL;
-                СoorAncIntProj[i][1] = Y0line + k * CAL * Math.sin(OMEGA);
-                //СoorAncIntProj[i][2] = X0line - k * CAL * Math.cos(OMEGA) + L * Math.cos(OMEGA + Math.PI / 2.0);
-                СoorAncIntProj[i][2] = X0line - k * CAL + L * Math.cos(OMEGA + Math.PI / 2.0);
-                СoorAncIntProj[i][3] = Y0line + k * CAL * Math.sin(OMEGA) - L * Math.sin(OMEGA + Math.PI / 2.0);
+                //СoorAncIntProj[i][0] = XStartAnchToLine - k * CAL * Math.cos(OMEGA);
+                СoorAncIntProj[i][0] = XStartAnchToLine - k * CAL;
+                СoorAncIntProj[i][1] = YStartAnchToLine + k * CAL * Math.sin(OMEGA);
+                //СoorAncIntProj[i][2] = XStartAnchToLine - k * CAL * Math.cos(OMEGA) + L * Math.cos(OMEGA + Math.PI / 2.0);
+                СoorAncIntProj[i][2] = XStartAnchToLine - k * CAL + L * Math.cos(OMEGA + Math.PI / 2.0);
+                СoorAncIntProj[i][3] = YStartAnchToLine + k * CAL * Math.sin(OMEGA) - L * Math.sin(OMEGA + Math.PI / 2.0);
             }
         }
     }
@@ -230,15 +229,15 @@ public class ServiceAnchorsInt extends ModelAnchorsInt {
     /**
      * Это метод проверки построения анкеров в плане сопряжения.
      */
-    public void testX0Y0(double cal, double XB, double YB) {
-        numAnchTest = (int) (distanceBetweenPoint(XB, YB, 0.0, 0.0) / cal); //расчет количества перпендикуляров
+    public void testX0Y0(double CAL, double XB, double YB) {
+        numAnchTest = (int) (distanceBetweenPoint(XB, YB, 0.0, 0.0) / CAL); //расчет количества перпендикуляров
         double SIGMA = Math.atan2(YB, XB);
         СoorTestX0Y0 = new double[numAnchTest + 1][4]; //numAnchTest + 1 - количество перпендикуляров
-        for (int i = 0, j = 0; distanceBetweenPoint(XB, YB, 0.0, 0.0) >= j * cal; j++, i++) {
-            СoorTestX0Y0[i][0] = j * cal * Math.cos(SIGMA) - L0 * Math.cos(SIGMA - Math.PI / 2);
-            СoorTestX0Y0[i][1] = j * cal * Math.sin(SIGMA) - L0 * Math.sin(SIGMA - Math.PI / 2);
-            СoorTestX0Y0[i][2] = j * cal * Math.cos(SIGMA) + L0 * Math.cos(SIGMA - Math.PI / 2);
-            СoorTestX0Y0[i][3] = j * cal * Math.sin(SIGMA) + L0 * Math.sin(SIGMA - Math.PI / 2);
+        for (int i = 0, j = 0; distanceBetweenPoint(XB, YB, 0.0, 0.0) >= j * CAL; j++, i++) {
+            СoorTestX0Y0[i][0] = j * CAL * Math.cos(SIGMA) - L0 * Math.cos(SIGMA - Math.PI / 2);
+            СoorTestX0Y0[i][1] = j * CAL * Math.sin(SIGMA) - L0 * Math.sin(SIGMA - Math.PI / 2);
+            СoorTestX0Y0[i][2] = j * CAL * Math.cos(SIGMA) + L0 * Math.cos(SIGMA - Math.PI / 2);
+            СoorTestX0Y0[i][3] = j * CAL * Math.sin(SIGMA) + L0 * Math.sin(SIGMA - Math.PI / 2);
         }
     }
 }

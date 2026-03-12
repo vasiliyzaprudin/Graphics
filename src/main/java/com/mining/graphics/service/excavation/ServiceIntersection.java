@@ -1,15 +1,11 @@
 package com.mining.graphics.service.excavation;
 
-import com.mining.graphics.graphics.excavation.GraphicsExcavation;
 import com.mining.graphics.model.excavation.ModelIntersection;
-import com.mining.graphics.service.support.ServiceAnchorsInt;
-
-import java.util.Arrays;
-import java.util.Collections;
+import com.mining.graphics.service.support.ServiceAnchorsIntersection;
 
 public class ServiceIntersection extends ModelIntersection {
 
-    private ServiceAnchorsInt SAI;
+    private ServiceAnchorsIntersection SAI;
 
     public double xi1, yi1, xi2, yi2, xi3, yi3, xi4, yi4, xi22, yi22, xi33, yi33; //координаты точек пересечения боков выработок
     public int xi1sc, yi1sc, xi2sc, yi2sc, xi3sc, yi3sc, xi4sc, yi4sc, xi22sc, yi22sc, xi33sc, yi33sc;

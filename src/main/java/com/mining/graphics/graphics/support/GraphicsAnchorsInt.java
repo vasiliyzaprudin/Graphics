@@ -1,13 +1,17 @@
 package com.mining.graphics.graphics.support;
 
-import com.mining.graphics.service.support.ServiceAnchorsInt;
+import com.mining.graphics.service.support.ServiceAnchorsIntersection;
 
 import java.awt.*;
 
-public class GraphicsAnchorsInt extends ServiceAnchorsInt {
+public class GraphicsAnchorsInt extends ServiceAnchorsIntersection {
 
-    //Построение анкеров в плане
+    /**
+     * Этот метод объединяет расчет координат
+     * и графическое изображение анкеров в плане сопряжения из 3 выработок.
+     */
     public void graphAnchPlanIntConstr3(Graphics g) {
+
         //Расчет и построение анкеров в выработке 1
         g.setColor(new Color(130, 0, 130));
 
@@ -20,7 +24,6 @@ public class GraphicsAnchorsInt extends ServiceAnchorsInt {
         graphAnchPlanIntRound(g);
         calcCoordAnchPlanIntSide(x13, y13, xs11, ys11, x12, y12, xs12, ys12, cAl1, l1, alpha1Rad);
         graphAnchPlanIntLine(g);
-
 
         //Расчет и построение анкеров в выработке 2
         g.setColor(Color.BLUE);
@@ -49,7 +52,10 @@ public class GraphicsAnchorsInt extends ServiceAnchorsInt {
         graphAnchPlanIntLine(g);
     }
 
-    //Построение анкеров в проекции
+    /**
+     * Этот метод объединяет расчет координат
+     * и графическое изображение анкеров в проекции.
+     */
     public void graphAnchProjIntConstr3(Graphics g) {
         g.translate(0, distance); //Перенос начала координат в центр отрезка, изображающего почву сопряжения
         calcCoordAnchProjInt(x21, -h2, cAl2, l2);
@@ -58,10 +64,13 @@ public class GraphicsAnchorsInt extends ServiceAnchorsInt {
         calcCoordAnchProjInt(x31, -h3, cAl3, l3);
         g.setColor(new Color(0, 120, 0));
         graphAnchProjInt(g);
-        g.translate(0, -distance); //Перенос начала координат в центр отрезка, изображающего почву сопряжения
+        g.translate(0, -distance); //Перенос начала координат в точку пересечения осей гороных выработок в плане сопряжения
     }
 
-    //Проверка построения анкеров в плане сопряжения
+    /**
+     * Этот метод объединяет расчет координат
+     * и графическое построение перпендикуляров.
+     */
     public void TestIntAnch(Graphics g) {
         g.setColor(new Color(210, 220, 230));
         //Для выработки 1
@@ -76,7 +85,53 @@ public class GraphicsAnchorsInt extends ServiceAnchorsInt {
         g.setColor(Color.BLACK);
     }
 
-    //Информация о параметрах сопряжения
+    /**
+     * Это графический метод построения анкеров в плане на закруглении сопряжения.
+     */
+    public void graphAnchPlanIntRound(Graphics g) {
+        for (int i = 0; i <= numAnchPlanRound; i++) {
+            g.drawLine((int) (СoorAncIntPlanRound[i][0] * scaleInt), (int) (СoorAncIntPlanRound[i][1] * scaleInt),
+                    (int) (СoorAncIntPlanRound[i][2] * scaleInt), (int) (СoorAncIntPlanRound[i][3] * scaleInt));
+        }
+    }
+
+    /**
+     * Это графический метод построения анкеров в плане на прямом отрезке сопряжения.
+     */
+    public void graphAnchPlanIntLine(Graphics g) {
+        if (numAnchPlanLine >= 0) {
+            for (int i = 0; i <= numAnchPlanLine; i++) {
+                g.drawLine((int) (СoorAncIntPlanLine[i][0] * scaleInt), (int) (СoorAncIntPlanLine[i][1] * scaleInt),
+                        (int) (СoorAncIntPlanLine[i][2] * scaleInt), (int) (СoorAncIntPlanLine[i][3] * scaleInt));
+            }
+        } else {
+        }
+    }
+
+    /**
+     * Это графический метод построения анкеров в проекции сопряжения.
+     */
+    public void graphAnchProjInt(Graphics g) {
+        for (int i = 0; i <= numAnchProj; i++) {
+            g.drawLine((int) (СoorAncIntProj[i][0] * scaleInt), (int) (СoorAncIntProj[i][1] * scaleInt),
+                    (int) (СoorAncIntProj[i][2] * scaleInt), (int) (СoorAncIntProj[i][3] * scaleInt));
+        }
+    }
+
+    /**
+     * Этот графический метод строит перпендикуляры к оси горной выработки
+     * от начала координат до забоя с шагом анкерования.
+     */
+    public void graphicsTestAnch(Graphics g) {
+        for (int i = 0; i <= numAnchTest; i++) {
+            g.drawLine((int) (СoorTestX0Y0[i][0] * scaleInt), (int) (СoorTestX0Y0[i][1] * scaleInt),
+                    (int) (СoorTestX0Y0[i][2] * scaleInt), (int) (СoorTestX0Y0[i][3] * scaleInt));
+        }
+    }
+
+    /**
+     * Этот метод показывает на экране параметры сопряжения.
+     */
     public void InformationInt(Graphics g) {
         int startX = 700; //Начальная координата X
         int startY = 0; // Начальная координата Y
@@ -96,37 +151,5 @@ public class GraphicsAnchorsInt extends ServiceAnchorsInt {
         y += lineHeight;
         g.drawString(String.format("Угол = %.2f градусов", angleBetweenLines(x1, y1, 0.0, 0.0, xb1, -yb1, 0.0, 0.0) * 180 / Math.PI), startX, y);
         y += lineHeight;
-    }
-
-    //Метод построения анкеров в плане на закруглении сопряжения
-    public void graphAnchPlanIntRound(Graphics g) {
-        for (int i = 0; i <= numAnchPlanRound; i++) {
-            g.drawLine((int) (СoorAncIntPlanRound[i][0] * scaleInt), (int) (СoorAncIntPlanRound[i][1] * scaleInt), (int) (СoorAncIntPlanRound[i][2] * scaleInt), (int) (СoorAncIntPlanRound[i][3] * scaleInt));
-        }
-    }
-
-    /**
-     * Это графический метод построения анкеров в плане на прямом отрезке сопряжения.
-     */
-    public void graphAnchPlanIntLine(Graphics g) {
-        if (numAnchPlanLine >= 0) {
-            for (int i = 0; i <= numAnchPlanLine; i++) {
-                g.drawLine((int) (СoorAncIntPlanLine[i][0] * scaleInt), (int) (СoorAncIntPlanLine[i][1] * scaleInt), (int) (СoorAncIntPlanLine[i][2] * scaleInt), (int) (СoorAncIntPlanLine[i][3] * scaleInt));
-            }
-        } else {
-        }
-    }
-
-    //Метод построения анкеров в проекции сопряжения
-    public void graphAnchProjInt(Graphics g) {
-        for (int i = 0; i <= numAnchProj; i++) {
-            g.drawLine((int) (СoorAncIntProj[i][0] * scaleInt), (int) (СoorAncIntProj[i][1] * scaleInt), (int) (СoorAncIntProj[i][2] * scaleInt), (int) (СoorAncIntProj[i][3] * scaleInt));
-        }
-    }
-
-    public void graphicsTestAnch(Graphics g) {
-        for (int i = 0; i <= numAnchTest; i++) {
-            g.drawLine((int) (СoorTestX0Y0[i][0] * scaleInt), (int) (СoorTestX0Y0[i][1] * scaleInt), (int) (СoorTestX0Y0[i][2] * scaleInt), (int) (СoorTestX0Y0[i][3] * scaleInt));
-        }
     }
 }

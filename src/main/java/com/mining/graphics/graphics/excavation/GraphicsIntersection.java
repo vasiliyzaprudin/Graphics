@@ -1,18 +1,18 @@
 package com.mining.graphics.graphics.excavation;
 
 import com.mining.graphics.service.excavation.ServiceIntersection;
-import com.mining.graphics.service.support.ServiceAnchorsInt;
+import com.mining.graphics.service.support.ServiceAnchorsIntersection;
 
 import java.awt.*;
-import java.util.Arrays;
-import java.util.Collections;
 
 public class GraphicsIntersection extends ServiceIntersection {
 
 
-    private ServiceAnchorsInt SAI;
+    private ServiceAnchorsIntersection SAI;
 
-    //Построение проекции сопряжения
+    /**
+     * Это графический метод построения проекции сопряжения.
+     */
     public void graphIntAc(Graphics g) {
 
         g.translate(0, distance); //Перенос начала координат в центр отрезка, изображающего почву сопряжения
@@ -52,12 +52,12 @@ public class GraphicsIntersection extends ServiceIntersection {
      * Начало координат расположено в центре отрезка, изображающего почву горной выработки.
      */
     public void graphConstrIn(Graphics o) {
-        o.drawLine((int)(-BSC / 2.0), 0, (int)(-BSC / 2.0), -(HSC - HRSC)); //Левая стенка
-        o.drawArc((int)(-BSC / 2.0), -(HSC - HRSC) - RSMALLSC, 2 * RSMALLSC, 2 * RSMALLSC, (int) (90.0 + (ALPHA * 180.0 / Math.PI)), (int) (BETA * 180.0 / Math.PI)); //Левая малая дуга
+        o.drawLine((int) (-BSC / 2.0), 0, (int) (-BSC / 2.0), -(HSC - HRSC)); //Левая стенка
+        o.drawArc((int) (-BSC / 2.0), -(HSC - HRSC) - RSMALLSC, 2 * RSMALLSC, 2 * RSMALLSC, (int) (90.0 + (ALPHA * 180.0 / Math.PI)), (int) (BETA * 180.0 / Math.PI)); //Левая малая дуга
         o.drawArc(-RBIGSC, -HSC, 2 * RBIGSC, 2 * RBIGSC, (int) (BETA * 180.0 / Math.PI), (int) (2.0 * ALPHA * 180.0 / Math.PI)); //Большая дуга
         o.drawArc((int) (BSC / 2.0 - 2.0 * RSMALLSC), -(HSC - HRSC) - RSMALLSC, 2 * RSMALLSC, 2 * RSMALLSC, 0, (int) (BETA * 180.0 / Math.PI)); //Правая малая дуга
-        o.drawLine((int)(BSC / 2.0), 0, (int)(BSC / 2.0), -(HSC - HRSC)); //Правая стенка
-        o.drawLine((int)(-BSC / 2.0), 0, (int)(BSC / 2.0), 0); //Почва
+        o.drawLine((int) (BSC / 2.0), 0, (int) (BSC / 2.0), -(HSC - HRSC)); //Правая стенка
+        o.drawLine((int) (-BSC / 2.0), 0, (int) (BSC / 2.0), 0); //Почва
     }
 
     public void GraphConstrInt2(Graphics g) {
