@@ -11,16 +11,16 @@ public class GraphicsExcavation extends ModelAnchorsExcavation {
      * Этот метод расчитывает геометрические параметры горной выработки
      * и строит ее на графическом холсте.
      */
-    public void graphEx(Graphics g) {
+    public void drawExcavation(Graphics g) {
         calculateParametersScale(width, height, formIndication, GRAPHICS_SCALE);
-        drawExcavationSection(g);
+        drawExcavationDesign(g);
     }
 
     /**
      * Это графический метод построения поперечного сечения горной выработки.
      * Начало координат находится в центре ее почвы.
      */
-    public void drawExcavationSection(Graphics g) {
+    public void drawExcavationDesign(Graphics g) {
         g.drawLine(-scaleWidth/ 2, 0, (int) (Math.round(-scaleWidth / 2.0)), -(scaleHeight - scaleArchHeight)); //Левая стенка
         g.drawArc(-scaleWidth / 2, -(scaleHeight - scaleArchHeight) - scaleSmallArcRadius, 2 * scaleSmallArcRadius, 2 * scaleSmallArcRadius, 90 + alphaDegree, betaDegree); //Левая малая дуга
         g.drawArc(-scaleLargeArcRadius, -scaleHeight, 2 * scaleLargeArcRadius, 2 * scaleLargeArcRadius, betaDegree, 2 * alphaDegree); //Большая дуга

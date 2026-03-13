@@ -34,6 +34,7 @@ public class ServiceExcavation extends ModelExcavation {
      *
      * @param width          ширина горной выработки
      * @param formIndication коэффициент формы свода
+     *
      */
     public double calculateArchHeight(double width, double formIndication) {
         return width / formIndication;
@@ -57,7 +58,6 @@ public class ServiceExcavation extends ModelExcavation {
      */
     public double calculateBeta(double width, double formIndication) {
         return Math.PI / 2.0 - calculateAlpha(width, formIndication);
-
     }
 
     /**
@@ -72,7 +72,6 @@ public class ServiceExcavation extends ModelExcavation {
 
         return (archHeight / Math.cos(alpha) - width / 2.0 - archHeight * Math.tan(alpha)) / (1.0 / Math.cos(alpha) - 1 - Math.tan(alpha));
     }
-
 
     /**
      * Этот метод вычисляет величину малого радиуса (smallArcRadius).

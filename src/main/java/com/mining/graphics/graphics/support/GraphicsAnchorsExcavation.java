@@ -6,7 +6,14 @@ import java.awt.*;
 
 public class GraphicsAnchorsExcavation extends ServiceAnchorsExcavation {
 
-    public void paint(Graphics g) {
+    public void graphicsCrossSectionAnchors(Graphics g) {
+        calculateCrossSectionAnchors(width, height, formIndication, GRAPHICS_SCALE, "ROOF");
+        drawCrossSectionAnchors(g);
+    }
+
+
+
+    public void drawCrossSectionAnchors (Graphics g) {
 
         //Построение анкеров в поперечном сечении
         for (int i = 0; i <= numberAnchors; i++) {

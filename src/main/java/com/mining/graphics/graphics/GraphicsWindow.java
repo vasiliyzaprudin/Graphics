@@ -47,8 +47,8 @@ public class GraphicsWindow extends Frame {
         switch (t) {
             case 1:
                 g.translate(600, 800);
-                GAE.paint(g);
-                GE.graphEx(g);
+                GAE.graphicsCrossSectionAnchors(g);
+                GE.drawExcavation(g);
                 //GE.graphExSide(g);
                 //GE.graphExInf(g);
                 GSE.paint(g);
