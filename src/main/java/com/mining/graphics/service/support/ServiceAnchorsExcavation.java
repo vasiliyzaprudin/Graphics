@@ -6,7 +6,7 @@ public class ServiceAnchorsExcavation extends ModelAnchorsExcavation {
     public double[][] crossSectionAnchorsXY; //массив для хранения координат анкеров в поперечном сечении
 
     public int numberAnchors;
-    double phi;
+    double phi, delta;
 
     double stepLargeArcX;
     double stepLargeArcY;
@@ -18,62 +18,109 @@ public class ServiceAnchorsExcavation extends ModelAnchorsExcavation {
     double stepSmallArcAnchorsX;
     double stepSmallArcAnchorsY;
 
-    //Методы расчета шагов установки анкеров по различным дугам
+    double stepWallX;
+    double stepWallY;
+    double stepWallAnchorsX;
+    double stepWallAnchorsY;
+
+    //Методы расчета шагов установки анкеров по дугам большого радиуса
     public double calculateStepLargeArcX(int j, double step, double largeArcRadius, double omega) {
         return largeArcRadius * Math.sin(omega + j * step / largeArcRadius);
     }
-
     public double calculateStepLargeArcY(int j, double step, double largeArcRadius, double omega) {
         return largeArcRadius * (1.0 - Math.cos(omega + j * step / largeArcRadius));
     }
-
     public double calculateStepLargeArcAnchorsX(int j, double step, double largeArcRadius, double lengthAnch, double omega) {
         return (largeArcRadius + lengthAnch) * Math.sin(omega + j * step / largeArcRadius);
     }
-
     public double calculateStepLargeArcAnchorsY(int j, double step, double largeArcRadius, double lengthAnch, double omega) {
         return largeArcRadius - (largeArcRadius + lengthAnch) * Math.cos(omega + j * step / largeArcRadius);
     }
 
+
+
+    //Методы расчета шагов установки анкеров по дугам малого радиуса
     public double calculateStepSmallArcX(int j, double width, double smallArcRadius, double step, double phi, double betaRadian) {
         return width / 2.0 - smallArcRadius + smallArcRadius * Math.cos(betaRadian - phi - j * step / smallArcRadius);
     }
-
     public double calculateStepSmallArcY(int j, double height, double archHeight, double smallArcRadius, double step, double phi, double betaRadian) {
         return -height + archHeight - smallArcRadius * Math.sin(betaRadian - phi - j * step / smallArcRadius);
     }
-
     public double calculateStepSmallArcAnchorsX(int j, double width, double smallArcRadius, double step, double phi, double betaRadian, double lengthAnch) {
         return width / 2.0 - smallArcRadius + (smallArcRadius + lengthAnch) * Math.cos(betaRadian - phi - j * step / smallArcRadius);
     }
+    public double calculateStepSmallArcAnchorsY(int j, double height, double archHeight, double smallArcRadius, double step, double phi, double betaRadian, double lengthAnch) {
+        return -height + archHeight - (smallArcRadius + lengthAnch) * Math.sin(betaRadian - phi - j * step / smallArcRadius);
+    }
 
-    public double calculateStepSmallArcAnchorsY(int J, double Height, double ArchHeight, double SmallArcRadius, double Step, double Phi, double BetaRadian, double LengthAnch) {
-        return -Height + ArchHeight - (SmallArcRadius + LengthAnch) * Math.sin(BetaRadian - Phi - J * Step / SmallArcRadius);
+
+
+    //Методы расчета шагов установки анкеров по боку горной выработки
+    public double calculateStepWallX(double width) {
+        return width / 2.0;
+    }
+    public double calculateStepWallY(int j, double height, double archHeight, double step, double delta) {
+        return -height + archHeight + delta + j * step;
+    }
+    public double calculateStepWallAnchorsX(double width, double lengthAnch) {
+        return width / 2.0 + lengthAnch;
+    }
+    public double calculateStepWallAnchorsY(int j, double height, double archHeight, double step, double delta) {
+        return -height + archHeight + delta + j * step;
     }
 
     /**
-     * Этот расчитывает и объединяет значения шагов установки анкеров по дугам.
+     * Этот расчитывает и объединяет значения шагов установки анкеров по дуге большого радиуса.
+     *
+     * @param j              переменная цикла
+     * @param largeArcRadius большой радиус
+     * @param lengthAnch     длина свода
+     * @param step           шаг установки анкеров в ряду
+     * @param omega          начальный угол смещения координат первого анкера относительно центра свода горной выработки
+     */
+    public void calculateLargeArcStep(int j, double largeArcRadius, double lengthAnch, double step, double omega) {
+        stepLargeArcX = calculateStepLargeArcX(j, step, largeArcRadius, omega);
+        stepLargeArcY = calculateStepLargeArcY(j, step, largeArcRadius, omega);
+        stepLargeArcAnchorsX = calculateStepLargeArcAnchorsX(j, step, largeArcRadius, lengthAnch, omega);
+        stepLargeArcAnchorsY = calculateStepLargeArcAnchorsY(j, step, largeArcRadius, lengthAnch, omega);
+    }
+
+    /**
+     * Этот расчитывает и объединяет значения шагов установки анкеров по дуге малого радиуса.
      *
      * @param j              переменная цикла
      * @param width          ширина горной выработки
      * @param height         высота горной выработки
      * @param archHeight     высота свода горной выработки
-     * @param largeArcRadius большой радиус
      * @param smallArcRadius малый радиус
      * @param lengthAnch     длина свода
      * @param step           шаг установки анкеров в ряду
      * @param phi            опорный угол дуги равный phi = (step - remainderLargeArcRadius) / smallArcRadius
      * @param betaRadian     опорный угол дуги малого радиуса в радианах
      */
-    public void calculateStep(int j, double width, double height, double archHeight, double largeArcRadius, double smallArcRadius, double lengthAnch, double step, double phi, double betaRadian, double omega) {
-        stepLargeArcX = calculateStepLargeArcX(j, step, largeArcRadius, omega);
-        stepLargeArcY = calculateStepLargeArcY(j, step, largeArcRadius, omega);
-        stepLargeArcAnchorsX = calculateStepLargeArcAnchorsX(j, step, largeArcRadius, lengthAnch, omega);
-        stepLargeArcAnchorsY = calculateStepLargeArcAnchorsY(j, step, largeArcRadius, lengthAnch, omega);
+    public void calculateSmallArcStep(int j, double width, double height, double archHeight, double smallArcRadius, double lengthAnch, double step, double phi, double betaRadian) {
         stepSmallArcX = calculateStepSmallArcX(j, width, smallArcRadius, step, phi, betaRadian);
         stepSmallArcY = calculateStepSmallArcY(j, height, archHeight, smallArcRadius, step, phi, betaRadian);
         stepSmallArcAnchorsX = calculateStepSmallArcAnchorsX(j, width, smallArcRadius, step, phi, betaRadian, lengthAnch);
         stepSmallArcAnchorsY = calculateStepSmallArcAnchorsY(j, height, archHeight, smallArcRadius, step, phi, betaRadian, lengthAnch);
+    }
+
+    /**
+     * Этот расчитывает и объединяет значения шагов установки анкеров в боку горной выработки.
+     *
+     * @param j          переменная цикла
+     * @param width      ширина горной выработки
+     * @param height     высота горной выработки
+     * @param archHeight высота свода горной выработки
+     * @param lengthAnch длина свода
+     * @param step       шаг установки анкеров в ряду
+     * @param delta      delta = step - remainderSmallArcRadius
+     */
+    public void calculateWallStep(int j, double width, double height, double archHeight, double lengthAnch, double step, double delta) {
+        stepWallX = calculateStepWallX(width);
+        stepWallY = calculateStepWallY(j, height, archHeight, step, delta);
+        stepWallAnchorsX = calculateStepWallAnchorsX(width, lengthAnch);
+        stepWallAnchorsY = calculateStepWallAnchorsY(j, height, archHeight, step, delta);
     }
 
     /**
@@ -90,11 +137,16 @@ public class ServiceAnchorsExcavation extends ModelAnchorsExcavation {
         int i;
 
         double remainderLargeArcRadius;
+        double remainderSmallArcRadius;
+
         double lengthLargeSegmentAnch;
         double lengthSmallSegmentAnch;
+        double lengthWallSegmentAnch;
 
         final String ROOF = "ROOF";
         final String ROOF_AND_WALL = "ROOF and WALL";
+
+        schemeSupport = ROOF;
 
         switch (schemeSupport) {
             case ROOF: //крепление кровли
@@ -111,8 +163,7 @@ public class ServiceAnchorsExcavation extends ModelAnchorsExcavation {
 
                         //расчет координат анкеров по левой дуге большого радиуса
                         for (int j = 0; lengthLargeSegmentAnch > j * step; j++, i++) {
-                            calculateStep(j, width, height, archHeight, largeArcRadius, smallArcRadius, lengthAnch, step, phi, betaRadian, 0.0);
-
+                            calculateLargeArcStep(j, largeArcRadius, lengthAnch, step, 0.0);
                             crossSectionAnchorsXY[i][0] = -stepLargeArcX;
                             crossSectionAnchorsXY[i][1] = -height + stepLargeArcY;
                             crossSectionAnchorsXY[i][2] = -stepLargeArcAnchorsX;
@@ -125,8 +176,7 @@ public class ServiceAnchorsExcavation extends ModelAnchorsExcavation {
 
                         //расчет координат анкеров по левой дуге малого радиуса
                         for (int j = 0; lengthSmallSegmentAnch > j * step; j++, i++) {
-                            calculateStep(j, width, height, archHeight, largeArcRadius, smallArcRadius, lengthAnch, step, phi, betaRadian, 0.0);
-
+                            calculateSmallArcStep(j, width, height, archHeight, smallArcRadius, lengthAnch, step, phi, betaRadian);
                             crossSectionAnchorsXY[i][0] = -stepSmallArcX;
                             crossSectionAnchorsXY[i][1] = stepSmallArcY;
                             crossSectionAnchorsXY[i][2] = -stepSmallArcAnchorsX;
@@ -135,8 +185,7 @@ public class ServiceAnchorsExcavation extends ModelAnchorsExcavation {
 
                         //расчет координат анкеров по правой дуге большого радиуса
                         for (int j = 1; largeArcLength / 2.0 > j * step; j++, i++) {
-                            calculateStep(j, width, height, archHeight, largeArcRadius, smallArcRadius, lengthAnch, step, phi, betaRadian, 0.0);
-
+                            calculateLargeArcStep(j, largeArcRadius, lengthAnch, step, 0.0);
                             crossSectionAnchorsXY[i][0] = stepLargeArcX;
                             crossSectionAnchorsXY[i][1] = -height + stepLargeArcY;
                             crossSectionAnchorsXY[i][2] = stepLargeArcAnchorsX;
@@ -145,8 +194,7 @@ public class ServiceAnchorsExcavation extends ModelAnchorsExcavation {
 
                         //определение координат анкеров по правой дуге малого радиуса
                         for (int j = 0; lengthSmallSegmentAnch > j * step; j++, i++) {
-                            calculateStep(j, width, height, archHeight, largeArcRadius, smallArcRadius, lengthAnch, step, phi, betaRadian, 0.0);
-
+                            calculateSmallArcStep(j, width, height, archHeight, smallArcRadius, lengthAnch, step, phi, betaRadian);
                             crossSectionAnchorsXY[i][0] = stepSmallArcX;
                             crossSectionAnchorsXY[i][1] = stepSmallArcY;
                             crossSectionAnchorsXY[i][2] = stepSmallArcAnchorsX;
@@ -161,8 +209,7 @@ public class ServiceAnchorsExcavation extends ModelAnchorsExcavation {
 
                         //определение координат установки анкеров по левой дуге большого радиуса
                         for (int j = 0; lengthLargeSegmentAnch > j * step; j++, i++) {
-                            calculateStep(j, width, height, archHeight, largeArcRadius, smallArcRadius, lengthAnch, step, phi, betaRadian, omega);
-
+                            calculateLargeArcStep(j, largeArcRadius, lengthAnch, step, omega);
                             crossSectionAnchorsXY[i][0] = -stepLargeArcX;
                             crossSectionAnchorsXY[i][1] = -height + stepLargeArcY;
                             crossSectionAnchorsXY[i][2] = -stepLargeArcAnchorsX;
@@ -170,19 +217,12 @@ public class ServiceAnchorsExcavation extends ModelAnchorsExcavation {
                         }
 
                         remainderLargeArcRadius = largeArcLength / 2.0 - step / 2.0 - step * (i - 1);
-
-                        System.out.println("i = " + i);
-                        System.out.println("largeArcLength / 2.0 - step / 2.0 = " + (largeArcLength / 2.0 - step / 2.0));
-                        System.out.println("step * (i-1) = " + (step * (i - 1)));
-                        System.out.println("remainderLargeArcRadius = " + remainderLargeArcRadius);
                         phi = (step - remainderLargeArcRadius) / smallArcRadius;
-
                         lengthSmallSegmentAnch = smallArcLength + remainderLargeArcRadius - step;
 
                         //расчет координат анкеров по левой дуге малого радиуса
                         for (int j = 0; lengthSmallSegmentAnch > j * step; j++, i++) {
-                            calculateStep(j, width, height, archHeight, largeArcRadius, smallArcRadius, lengthAnch, step, phi, betaRadian, omega);
-
+                            calculateSmallArcStep(j, width, height, archHeight, smallArcRadius, lengthAnch, step, phi, betaRadian);
                             crossSectionAnchorsXY[i][0] = -stepSmallArcX;
                             crossSectionAnchorsXY[i][1] = stepSmallArcY;
                             crossSectionAnchorsXY[i][2] = -stepSmallArcAnchorsX;
@@ -191,8 +231,7 @@ public class ServiceAnchorsExcavation extends ModelAnchorsExcavation {
 
                         //определение координат установки анкеров по правой дуге большого радиуса
                         for (int j = 0; lengthLargeSegmentAnch > j * step; j++, i++) {
-                            calculateStep(j, width, height, archHeight, largeArcRadius, smallArcRadius, lengthAnch, step, phi, betaRadian, omega);
-
+                            calculateLargeArcStep(j, largeArcRadius, lengthAnch, step, omega);
                             crossSectionAnchorsXY[i][0] = stepLargeArcX;
                             crossSectionAnchorsXY[i][1] = -height + stepLargeArcY;
                             crossSectionAnchorsXY[i][2] = stepLargeArcAnchorsX;
@@ -201,140 +240,157 @@ public class ServiceAnchorsExcavation extends ModelAnchorsExcavation {
 
                         //определение координат установки анкеров по правой дуге малого радиуса
                         for (int j = 0; lengthSmallSegmentAnch > j * step; j++, i++) {
-                            calculateStep(j, width, height, archHeight, largeArcRadius, smallArcRadius, lengthAnch, step, phi, betaRadian, omega);
-
+                            calculateSmallArcStep(j, width, height, archHeight, smallArcRadius, lengthAnch, step, phi, betaRadian);
                             crossSectionAnchorsXY[i][0] = stepSmallArcX;
                             crossSectionAnchorsXY[i][1] = stepSmallArcY;
                             crossSectionAnchorsXY[i][2] = stepSmallArcAnchorsX;
                             crossSectionAnchorsXY[i][3] = stepSmallArcAnchorsY;
                         }
                         break;
-//                }
-//                break;
-//            case 1: //крепление кровли и боков
-//                n = (int) Math.floor((LroofAc + (H - hr - p) * 2) / bAc);
-//
-//                СoorAnchAc = new double[n + 1][4]; //(n+1) - количество анкеров в ряду
-//
-//                //Определение варианта расположения анкеров
-//                switch (n % 2) {
-//                    case 0: //Анкер устанавливается по центру кровли выработки
-//
-//                        //определение координат установки анкеров по левой дуге большого радиуса
-//                        for (i = 0, j = 0; Rl / 2.0 > j * bAc; j++, i++) {
-//                            СoorAnchAc[i][0] = B / 2.0 - R * Math.sin(j * bAc / R);
-//                            СoorAnchAc[i][1] = R * (1 - Math.cos(j * bAc / R));
-//                            СoorAnchAc[i][2] = B / 2.0 - (R + l) * Math.sin(j * bAc / R);
-//                            СoorAnchAc[i][3] = (R + l) * (1 - Math.cos(j * bAc / R)) - l;
-//                        }
-//
-//                        phi0 = (i * bAc - R * alpha) / r; /* phi0 - опорный угол дуги малого радиуса lbeg,
-//                        которая является продолжением остатка дуги большого радиуса Lrem.
-//                        Их сумма равна шагу анкерования Lrem + lbeg = b */
-//                        //double Lrem = R * alpha - bAc * (i - 1);
-//                        lbeg0 = r * phi0;
-//
-//                        //определение координат установки анкеров по левой дуге малого радиуса
-//                        for (j = 0; rl - lbeg0 > j * bAc; j++, i++) {
-//                            СoorAnchAc[i][0] = r * (1.0 - Math.cos(beta - phi0 - j * bAc / r));
-//                            СoorAnchAc[i][1] = hr - r * Math.sin(beta - phi0 - j * bAc / r);
-//                            СoorAnchAc[i][2] = r * (1.0 - Math.cos(beta - phi0 - j * bAc / r)) - l * (Math.cos(beta - phi0 - j * bAc / r));
-//                            СoorAnchAc[i][3] = hr - r * Math.sin(beta - phi0 - j * bAc / r) - l * (Math.sin(beta - phi0 - j * bAc / r));
-//                        }
-//
-//                        //определение координат установки анкеров в левом боку
-//                        lbeg1 = LroofAc / 2 - bAc * Math.floor((LroofAc / (2 * bAc)));
-//
-//                        for (j = 1; H - hr - p + lbeg1 > j * bAc; j++, i++) {
-//                            СoorAnchAc[i][0] = 0;
-//                            СoorAnchAc[i][1] = hr - lbeg1 + j * bAc;
-//                            СoorAnchAc[i][2] = -l;
-//                            СoorAnchAc[i][3] = hr - lbeg1 + j * bAc;
-//                        }
-//
-//                        //определение координат установки анкеров по правой дуге большого радиуса
-//                        for (j = 1; Rl / 2.0 > j * bAc; j++, i++) {
-//                            СoorAnchAc[i][0] = B / 2.0 + R * Math.sin(j * bAc / R);
-//                            СoorAnchAc[i][1] = R * (1 - Math.cos(j * bAc / R));
-//                            СoorAnchAc[i][2] = B / 2.0 + (R + l) * Math.sin(j * bAc / R);
-//                            СoorAnchAc[i][3] = (R + l) * (1 - Math.cos(j * bAc / R)) - l;
-//                        }
-//
-//                        //определение координат установки анкеров по правой дуге малого радиуса
-//                        for (j = 0; rl - lbeg0 > j * bAc; j++, i++) {
-//                            СoorAnchAc[i][0] = B - r + r * Math.cos(beta - phi0 - j * bAc / r);
-//                            СoorAnchAc[i][1] = hr - r * Math.sin(beta - phi0 - j * bAc / r);
-//                            СoorAnchAc[i][2] = B - r + r * Math.cos(beta - phi0 - j * bAc / r) + l * (Math.cos(beta - phi0 - j * bAc / r));
-//                            СoorAnchAc[i][3] = hr - r * Math.sin(beta - phi0 - j * bAc / r) - l * (Math.sin(beta - phi0 - j * bAc / r));
-//                        }
-//
-//                        //определение координат установки анкеров в правом боку
-//                        for (j = 1; H - hr - p + lbeg1 > j * bAc; j++, i++) {
-//                            СoorAnchAc[i][0] = B;
-//                            СoorAnchAc[i][1] = hr - lbeg1 + j * bAc;
-//                            СoorAnchAc[i][2] = B + l;
-//                            СoorAnchAc[i][3] = hr - lbeg1 + j * bAc;
-//                        }
-//                        break;
-//
-//                    case 1: // Анкер устанавливатеся со смещением на b/2 (половина шага анкерования) от центра кровли выработки
-//
-//                        //определение координат установки анкеров по левой дуге большого радиуса
-//                        for (i = 0, j = 0; Rl / 2.0 > j * bAc; j++, i++) {
-//                            СoorAnchAc[i][0] = B / 2.0 - R * Math.sin(bAc / (2 * R) + j * bAc / R);
-//                            СoorAnchAc[i][1] = R * (1 - Math.cos(bAc / (2 * R) + j * bAc / R));
-//                            СoorAnchAc[i][2] = B / 2.0 - (R + l) * Math.sin(bAc / (2 * R) + j * bAc / R);
-//                            СoorAnchAc[i][3] = (R + l) * (1 - Math.cos(bAc / (2 * R) + j * bAc / R)) - l;
-//                        }
-//
-//                        phi0 = (bAc / 2 + i * bAc - R * alpha) / r; /* phi0 - опорный угол дуги малого радиуса lbeg,
-//                        которая является продолжением остатка дуги большого радиуса Lrem.
-//                        Их сумма равна шагу анкерования Lrem + lbeg = b */
-//                        //double Lrem = R * alpha - bAc * (i - 1);
-//                        lbeg0 = r * phi0;
-//
-//                        //определение координат установки анкеров по левой дуге малого радиуса
-//                        for (j = 0; rl - lbeg0 > j * bAc; j++, i++) {
-//                            СoorAnchAc[i][0] = r * (1.0 - Math.cos(beta - phi0 - j * bAc / r));
-//                            СoorAnchAc[i][1] = hr - r * Math.sin(beta - phi0 - j * bAc / r);
-//                            СoorAnchAc[i][2] = r * (1.0 - Math.cos(beta - phi0 - j * bAc / r)) - l * (Math.cos(beta - phi0 - j * bAc / r));
-//                            СoorAnchAc[i][3] = hr - r * Math.sin(beta - phi0 - j * bAc / r) - l * (Math.sin(beta - phi0 - j * bAc / r));
-//                        }
-//
-//                        //определение координат установки анкеров в левом боку
-//                        lbeg1 = (LroofAc / 2 - bAc / 2) - bAc * Math.floor((LroofAc / 2 - bAc / 2) / bAc);
-//
-//                        for (j = 1; H - hr - p + lbeg1 > j * bAc; j++, i++) {
-//                            СoorAnchAc[i][0] = 0;
-//                            СoorAnchAc[i][1] = hr - lbeg1 + j * bAc;
-//                            СoorAnchAc[i][2] = -l;
-//                            СoorAnchAc[i][3] = hr - lbeg1 + j * bAc;
-//                        }
-//
-//                        //определение координат установки анкеров по правой дуге большого радиуса
-//                        for (j = 0; Rl / 2.0 > j * bAc; j++, i++) {
-//                            СoorAnchAc[i][0] = B / 2.0 + R * Math.sin(bAc / (2 * R) + j * bAc / R);
-//                            СoorAnchAc[i][1] = R * (1 - Math.cos(bAc / (2 * R) + j * bAc / R));
-//                            СoorAnchAc[i][2] = B / 2.0 + (R + l) * Math.sin(bAc / (2 * R) + j * bAc / R);
-//                            СoorAnchAc[i][3] = (R + l) * (1 - Math.cos(bAc / (2 * R) + j * bAc / R)) - l;
-//                        }
-//
-//                        //определение координат установки анкеров по правой дуге малого радиуса
-//                        for (j = 0; rl - lbeg0 > j * bAc; j++, i++) {
-//                            СoorAnchAc[i][0] = B - r + r * Math.cos(beta - phi0 - j * bAc / r);
-//                            СoorAnchAc[i][1] = hr - r * Math.sin(beta - phi0 - j * bAc / r);
-//                            СoorAnchAc[i][2] = B - r + r * Math.cos(beta - phi0 - j * bAc / r) + l * (Math.cos(beta - phi0 - j * bAc / r));
-//                            СoorAnchAc[i][3] = hr - r * Math.sin(beta - phi0 - j * bAc / r) - l * (Math.sin(beta - phi0 - j * bAc / r));
-//                        }
-//
-//                        //определение координат установки анкеров в правом боку
-//                        for (j = 1; H - hr - p + lbeg1 > j * bAc; j++, i++) {
-//                            СoorAnchAc[i][0] = B;
-//                            СoorAnchAc[i][1] = hr - lbeg1 + j * bAc;
-//                            СoorAnchAc[i][2] = B + l;
-//                            СoorAnchAc[i][3] = hr - lbeg1 + j * bAc;
-//                        }
-//                        break;
+                }
+                break;
+            case ROOF_AND_WALL: //крепление кровли и боков
+                numberAnchors = (int) Math.ceil((lengthArc + (height - archHeight - distanceLowerAnchor) * 2.0) / step);
+
+                crossSectionAnchorsXY = new double[20][4]; //(numberAnchors + 1) - количество анкеров в ряду
+
+                //Определение варианта расположения анкеров
+                switch ((numberAnchors + 1) % 2) {
+                    case 0: //Анкер устанавливается по центру кровли выработки
+                        i = 0;
+
+                        lengthLargeSegmentAnch = largeArcLength / 2.0;
+
+                        //расчет координат анкеров по левой дуге большого радиуса
+                        for (int j = 0; lengthLargeSegmentAnch > j * step; j++, i++) {
+                            calculateLargeArcStep(j, largeArcRadius, lengthAnch, step, 0.0);
+                            crossSectionAnchorsXY[i][0] = -stepLargeArcX;
+                            crossSectionAnchorsXY[i][1] = -height + stepLargeArcY;
+                            crossSectionAnchorsXY[i][2] = -stepLargeArcAnchorsX;
+                            crossSectionAnchorsXY[i][3] = -height + stepLargeArcAnchorsY;
+                        }
+
+                        remainderLargeArcRadius = largeArcLength / 2.0 - step * (i - 1);
+                        phi = (step - remainderLargeArcRadius) / smallArcRadius;
+                        lengthSmallSegmentAnch = smallArcLength + remainderLargeArcRadius - step;
+
+                        //расчет координат анкеров по левой дуге малого радиуса
+                        for (int j = 0; lengthSmallSegmentAnch > j * step; j++, i++) {
+                            calculateSmallArcStep(j, width, height, archHeight, smallArcRadius, lengthAnch, step, phi, betaRadian);
+                            crossSectionAnchorsXY[i][0] = -stepSmallArcX;
+                            crossSectionAnchorsXY[i][1] = stepSmallArcY;
+                            crossSectionAnchorsXY[i][2] = -stepSmallArcAnchorsX;
+                            crossSectionAnchorsXY[i][3] = stepSmallArcAnchorsY;
+                        }
+
+                        remainderSmallArcRadius = largeArcLength / 2.0 + smallArcLength - step * (i - 1);
+                        delta = step - remainderSmallArcRadius;
+                        lengthWallSegmentAnch = remainderSmallArcRadius + (height - archHeight - distanceLowerAnchor);
+
+                        //определение координат установки анкеров в левом боку
+                        for (int j = 0; lengthWallSegmentAnch - step > j * step; j++, i++) {
+                            calculateWallStep(j, width, height, archHeight, lengthAnch, step, delta);
+                            crossSectionAnchorsXY[i][0] = -stepWallX;
+                            crossSectionAnchorsXY[i][1] = stepWallY;
+                            crossSectionAnchorsXY[i][2] = -stepWallAnchorsX;
+                            crossSectionAnchorsXY[i][3] = stepWallAnchorsY;
+                        }
+
+                        //определение координат установки анкеров по правой дуге большого радиуса
+                        for (int j = 0; lengthLargeSegmentAnch > j * step; j++, i++) {
+                            calculateLargeArcStep(j, largeArcRadius, lengthAnch, step, 0.0);
+                            crossSectionAnchorsXY[i][0] = stepLargeArcX;
+                            crossSectionAnchorsXY[i][1] = -height + stepLargeArcY;
+                            crossSectionAnchorsXY[i][2] = stepLargeArcAnchorsX;
+                            crossSectionAnchorsXY[i][3] = -height + stepLargeArcAnchorsY;
+                        }
+
+                        //определение координат установки анкеров по правой дуге малого радиуса
+                        for (int j = 0; lengthSmallSegmentAnch > j * step; j++, i++) {
+                            calculateSmallArcStep(j, width, height, archHeight, smallArcRadius, lengthAnch, step, phi, betaRadian);
+                            crossSectionAnchorsXY[i][0] = stepSmallArcX;
+                            crossSectionAnchorsXY[i][1] = stepSmallArcY;
+                            crossSectionAnchorsXY[i][2] = stepSmallArcAnchorsX;
+                            crossSectionAnchorsXY[i][3] = stepSmallArcAnchorsY;
+                        }
+
+                        //определение координат установки анкеров в правом боку
+                        for (int j = 0; lengthWallSegmentAnch - step > j * step; j++, i++) {
+                            calculateWallStep(j, width, height, archHeight, lengthAnch, step, delta);
+                            crossSectionAnchorsXY[i][0] = stepWallX;
+                            crossSectionAnchorsXY[i][1] = stepWallY;
+                            crossSectionAnchorsXY[i][2] = stepWallAnchorsX;
+                            crossSectionAnchorsXY[i][3] = stepWallAnchorsY;
+                        }
+                        break;
+
+                    case 1: // Анкер устанавливатеся со смещением на step/2.0 (половина шага анкерования) от центра кровли выработки
+                        i = 0;
+                        double omega = Math.asin(step / (2.0 * largeArcRadius));
+
+                        lengthLargeSegmentAnch = largeArcLength / 2.0 - step / 2.0;
+
+                        //определение координат установки анкеров по левой дуге большого радиуса
+                        for (int j = 0; lengthLargeSegmentAnch > j * step; j++, i++) {
+                            calculateLargeArcStep(j, largeArcRadius, lengthAnch, step, omega);
+                            crossSectionAnchorsXY[i][0] = -stepLargeArcX;
+                            crossSectionAnchorsXY[i][1] = -height + stepLargeArcY;
+                            crossSectionAnchorsXY[i][2] = -stepLargeArcAnchorsX;
+                            crossSectionAnchorsXY[i][3] = -height + stepLargeArcAnchorsY;
+                        }
+
+                        remainderLargeArcRadius = largeArcLength / 2.0 - step / 2.0 - step * (i - 1);
+                        phi = (step - remainderLargeArcRadius) / smallArcRadius;
+                        lengthSmallSegmentAnch = smallArcLength + remainderLargeArcRadius - step;
+
+                        //расчет координат анкеров по левой дуге малого радиуса
+                        for (int j = 0; lengthSmallSegmentAnch > j * step; j++, i++) {
+                            calculateSmallArcStep(j, width, height, archHeight, smallArcRadius, lengthAnch, step, phi, betaRadian);
+                            crossSectionAnchorsXY[i][0] = -stepSmallArcX;
+                            crossSectionAnchorsXY[i][1] = stepSmallArcY;
+                            crossSectionAnchorsXY[i][2] = -stepSmallArcAnchorsX;
+                            crossSectionAnchorsXY[i][3] = stepSmallArcAnchorsY;
+                        }
+
+                        remainderSmallArcRadius = (largeArcLength / 2.0 + smallArcLength) - step / 2.0 - step * (i - 1);
+                        delta = step - remainderSmallArcRadius;
+                        lengthWallSegmentAnch = remainderSmallArcRadius + (height - archHeight - distanceLowerAnchor);
+
+                        //определение координат установки анкеров в левом боку
+                        for (int j = 0; lengthWallSegmentAnch - step > j * step; j++, i++) {
+                            calculateWallStep(j, width, height, archHeight, lengthAnch, step, delta);
+                            crossSectionAnchorsXY[i][0] = -stepWallX;
+                            crossSectionAnchorsXY[i][1] = stepWallY;
+                            crossSectionAnchorsXY[i][2] = -stepWallAnchorsX;
+                            crossSectionAnchorsXY[i][3] = stepWallAnchorsY;
+                        }
+
+                        //определение координат установки анкеров по правой дуге большого радиуса
+                        for (int j = 0; lengthLargeSegmentAnch > j * step; j++, i++) {
+                            calculateLargeArcStep(j, largeArcRadius, lengthAnch, step, omega);
+                            crossSectionAnchorsXY[i][0] = stepLargeArcX;
+                            crossSectionAnchorsXY[i][1] = -height + stepLargeArcY;
+                            crossSectionAnchorsXY[i][2] = stepLargeArcAnchorsX;
+                            crossSectionAnchorsXY[i][3] = -height + stepLargeArcAnchorsY;
+                        }
+
+                        //определение координат установки анкеров по правой дуге малого радиуса
+                        for (int j = 0; lengthSmallSegmentAnch > j * step; j++, i++) {
+                            calculateSmallArcStep(j, width, height, archHeight, smallArcRadius, lengthAnch, step, phi, betaRadian);
+                            crossSectionAnchorsXY[i][0] = stepSmallArcX;
+                            crossSectionAnchorsXY[i][1] = stepSmallArcY;
+                            crossSectionAnchorsXY[i][2] = stepSmallArcAnchorsX;
+                            crossSectionAnchorsXY[i][3] = stepSmallArcAnchorsY;
+                        }
+                        //определение координат установки анкеров в правом боку
+                        for (int j = 0; lengthWallSegmentAnch - step > j * step; j++, i++) {
+                            calculateWallStep(j, width, height, archHeight, lengthAnch, step, delta);
+                            crossSectionAnchorsXY[i][0] = stepWallX;
+                            crossSectionAnchorsXY[i][1] = stepWallY;
+                            crossSectionAnchorsXY[i][2] = stepWallAnchorsX;
+                            crossSectionAnchorsXY[i][3] = stepWallAnchorsY;
+                        }
+                        break;
                 }
         }
     }

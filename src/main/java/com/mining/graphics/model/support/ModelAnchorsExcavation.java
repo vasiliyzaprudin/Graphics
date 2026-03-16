@@ -8,6 +8,6 @@ public class ModelAnchorsExcavation extends ServiceExcavation {
     public double step = 0.8; //шаг установки анкеров в ряду
     public double distanceBetweenRows = 0.9; //расстояние между рядами анкеров
     public double plateSize = 0.1; //размер опорной плитки
-    public double distanceLowerAnchor = 1.2; //максимальное расстояние от почвы выработки до точки установки нижнего анкера
+    public double distanceLowerAnchor = 2.5; //максимальное расстояние от почвы выработки до точки установки нижнего анкера
     public int numberAnchorToGraphic = 5; //количество рядов анкеров для отображения - вид сбоку
 }
