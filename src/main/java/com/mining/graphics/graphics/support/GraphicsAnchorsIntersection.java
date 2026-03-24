@@ -4,7 +4,7 @@ import com.mining.graphics.service.support.ServiceAnchorsIntersection;
 
 import java.awt.*;
 
-public class GraphicsAnchorsInt extends ServiceAnchorsIntersection {
+public class GraphicsAnchorsIntersection extends ServiceAnchorsIntersection {
 
     /**
      * Этот метод объединяет расчет координат

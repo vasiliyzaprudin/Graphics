@@ -1,8 +1,8 @@
 package com.mining.graphics.service.support;
 
-import com.mining.graphics.model.support.ModelAnchorsIntersection;
+import com.mining.graphics.model.support.AnchorsIntersection;
 
-public class ServiceAnchorsIntersection extends ModelAnchorsIntersection {
+public class ServiceAnchorsIntersection extends AnchorsIntersection {
     public double GAMMA, L, CAL;
 
     public double[][] СoorAncIntPlanRound; //массив для хранения координат анкеров в плане на закруглении сопряжения
