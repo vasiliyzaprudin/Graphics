@@ -73,39 +73,50 @@ public class GraphicsMeshExcavation {
     }
 
 
-//    /**
-//     * Это графический метод построения сетки в продольном сечении горной выработки.
-//     */
-//    public void drawLongSectionExcavationMesh(Graphics g) {
-//
-//        int scaleHeight = serviceMeshExcavation.getScaleHeightExcavationWithMesh();
-//        int scaleLength = serviceExcavation.getScaleLength();
-//        int scaleDistanceBetweenSoilAndMesh = serviceMeshExcavation.getScaleDistanceBetweenSoilAndMesh();
-//        int scaleGridStep = serviceMeshExcavation.getScaleGridStep();
-//        int distance = GraphicsParameters.DISTANCE_BETWEEN_CROSS_AND_LONG_SECTION;
-//
-//        Graphics2D g2d = (Graphics2D) g;
-//
-//        // Создание пунктирного штриха
-//        float[] dashPattern = {7.0f, 3.0f}; // длина штриха 7px, промежуток 3px
-//        BasicStroke dashedStroke = new BasicStroke(1, BasicStroke.CAP_BUTT,
-//                BasicStroke.JOIN_MITER, 10.0f, dashPattern, 0.0f);
-//
-//        // Установка пунктирного штриха
-//        g2d.setStroke(dashedStroke);
-//        g2d.translate(distance, 0);
-//        g2d.setColor(new Color(120, 130, 140)); //темносерый для сетки
-//
-//        for (int i = 0; scaleHeight - scaleDistanceBetweenSoilAndMesh >= i * scaleGridStep; i++) {
-//            g2d.drawLine(0, - scaleDistanceBetweenSoilAndMesh - i * scaleGridStep, scaleLength, -scaleDistanceBetweenSoilAndMesh - i * scaleGridStep);
-//        }
-//
-//        for (int i = 1; scaleLength >= (i+1) * scaleGridStep; i++) {
-//            g2d.drawLine(i * scaleGridStep, -scaleHeight, i * scaleGridStep, -scaleDistanceBetweenSoilAndMesh);
-//        }
-//
-//        g2d.translate(-distance, 0);
-//        // Возврат к обычному штриху
-//        g2d.setStroke(new BasicStroke(1));
-//    }
+    /**
+     * Это графический метод построения сетки в продольном сечении горной выработки.
+     */
+    public void drawLongSectionExcavationMesh(Graphics g) {
+        int scale = GraphicsParameters.GRAPHICS_SCALE;
+        int distance = GraphicsParameters.DISTANCE_BETWEEN_CROSS_AND_LONG_SECTION;
+
+        double height = model.getHeight();
+        double length = model.getLength();
+
+        double distanceBetweenContourAndGrid = mesh.getDistanceBetweenContourAndGrid();
+        double distanceBetweenSoilAndMesh = mesh.getDistanceBetweenSoilAndMesh();
+        double gridStep = mesh.getGridStep();
+
+        double heightExcavationWithMesh = meshService.getHeightExcavationWithMesh(height, distanceBetweenContourAndGrid);
+        int scaleDistanceBetweenSoilAndMesh = meshService.getScaleDistanceBetweenSoilAndMesh(distanceBetweenSoilAndMesh, scale);
+        int scaleGridStep = meshService.getScaleGridStep(gridStep,scale);
+
+        int scaleHeight = excavationService.getScaleHeight(heightExcavationWithMesh, scale);
+        int scaleLength = excavationService.getScaleLength(length, scale);
+
+        Graphics2D g2d = (Graphics2D) g;
+
+        // Создание пунктирного штриха
+        float[] dashPattern = {7.0f, 3.0f}; // длина штриха 7px, промежуток 3px
+        BasicStroke dashedStroke = new BasicStroke(1, BasicStroke.CAP_BUTT,
+                BasicStroke.JOIN_MITER, 10.0f, dashPattern, 0.0f);
+
+        // Установка пунктирного штриха
+        g2d.setStroke(dashedStroke);
+        g2d.translate(distance, 0);
+        g2d.setColor(new Color(120, 130, 140)); //темносерый для сетки
+
+        for (int i = 0; scaleHeight - scaleDistanceBetweenSoilAndMesh >= i * scaleGridStep; i++) {
+            g2d.drawLine(0, - scaleDistanceBetweenSoilAndMesh - i * scaleGridStep, scaleLength, -scaleDistanceBetweenSoilAndMesh - i * scaleGridStep);
+        }
+
+        for (int i = 1; scaleLength >= (i+1) * scaleGridStep; i++) {
+            g2d.drawLine(i * scaleGridStep, -scaleHeight, i * scaleGridStep, -scaleDistanceBetweenSoilAndMesh);
+        }
+        g2d.drawLine(0, -scaleHeight, scaleLength, -scaleHeight);
+
+        g2d.translate(-distance, 0);
+        // Возврат к обычному штриху
+        g2d.setStroke(new BasicStroke(1));
+    }
 }

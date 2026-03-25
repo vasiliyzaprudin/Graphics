@@ -128,28 +128,4 @@ public class GraphicsAnchorsIntersection extends ServiceAnchorsIntersection {
                     (int) (СoorTestX0Y0[i][2] * scaleInt), (int) (СoorTestX0Y0[i][3] * scaleInt));
         }
     }
-
-    /**
-     * Этот метод показывает на экране параметры сопряжения.
-     */
-    public void InformationInt(Graphics g) {
-        int startX = 700; //Начальная координата X
-        int startY = 0; // Начальная координата Y
-        int lineHeight = 30; // Высота строки
-        g.setFont(new Font("Arial", Font.PLAIN, 14));
-
-        // Заголовок
-        g.setColor(Color.BLUE);
-        g.drawString("Параметры выработки:", startX, startY);
-
-        // Список параметров
-        g.setColor(Color.BLACK);
-        int y = startY + lineHeight;
-        g.drawString(String.format("CAL = %.2f м", CAL), startX, y);
-        y += lineHeight;
-        g.drawString(String.format("GAMMA = %.2f градусов", GAMMA * 180 / Math.PI), startX, y);
-        y += lineHeight;
-        g.drawString(String.format("Угол = %.2f градусов", angleBetweenLines(x1, y1, 0.0, 0.0, xb1, -yb1, 0.0, 0.0) * 180 / Math.PI), startX, y);
-        y += lineHeight;
-    }
 }
