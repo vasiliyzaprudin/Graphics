@@ -41,8 +41,8 @@ public class GraphicsAnchorsExcavation {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         //Тип анкера: ANCHOR_EXPANSION - распорный, ANCHOR_MONOLITHIC - на омоноличивающих составах
-        drawCrossSectionAnchors(g2d, ANCHOR_MONOLITHIC);
-        drawLongSectionAnchors(g2d, ANCHOR_MONOLITHIC);
+        drawCrossSectionAnchors(g2d, ANCHOR_EXPANSION);
+        drawLongSectionAnchors(g2d, ANCHOR_EXPANSION);
         drawBasePlate(g2d);
     }
 

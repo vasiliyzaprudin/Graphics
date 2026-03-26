@@ -69,14 +69,15 @@ public class GraphicsShotcreteExcavation extends ServiceShotcreteExcavation {
 
         double height = modelExcavation.getHeight();
         double length = modelExcavation.getLength();
+        double thicknessShorcrete = shotcreteExcavation.getThicknessShorcrete();
 
-        int scaleHeight = serviceExcavation.getScaleHeight(height,scale);
-        int scaleLength = serviceExcavation.getScaleLength(length, scale);
+        int scaleHeightExcavationWithShotcrete = serviceShotcreteExcavation.getScaleHeightExcavationWithShotcrete(height,thicknessShorcrete, scale);
+        int scaleLengthExcavationWithShotcrete = serviceExcavation.getScaleLength(length,scale);
 
         g.translate(distance, 0);
         ((Graphics2D) g).setStroke(new BasicStroke(10));
 
-        g.fillRect(0, -scaleHeight, scaleLength, scaleHeight);
+        g.drawLine(-heightCorrectDrawShorcrete, -scaleHeightExcavationWithShotcrete, scaleLengthExcavationWithShotcrete + heightCorrectDrawShorcrete, -scaleHeightExcavationWithShotcrete);
 
         g.translate(-distance, 0);
         ((Graphics2D) g).setStroke(new BasicStroke(1));

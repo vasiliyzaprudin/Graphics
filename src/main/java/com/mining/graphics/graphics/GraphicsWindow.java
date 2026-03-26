@@ -1,5 +1,6 @@
 package com.mining.graphics.graphics;
 
+import com.mining.graphics.graphics.dimension.GraphicsDimension;
 import com.mining.graphics.graphics.drawing.Drawing;
 import com.mining.graphics.graphics.drawing.DrawingMouse;
 import com.mining.graphics.graphics.elementssupport.AnchorsRenderer;
@@ -38,6 +39,7 @@ public class GraphicsWindow extends JFrame {
     private final GraphicsAnchorsExcavation graphicsAnchors;
     private final GraphicsShotcreteExcavation graphicsShotcreteExcavation;
     private final GraphicsMeshExcavation graphicsMeshExcavation;
+    private final GraphicsDimension graphicsDimension;
 
     private final GraphicsIntersection graphicsIntersection;
     private final GraphicsAnchorsIntersection graphicsAnchorsIntersection;
@@ -67,6 +69,8 @@ public class GraphicsWindow extends JFrame {
 
         graphicsIntersection = new GraphicsIntersection();
         graphicsAnchorsIntersection = new GraphicsAnchorsIntersection();
+
+        graphicsDimension = new GraphicsDimension(modelExcavation, serviceExcavation);
 
 
         drawing = new Drawing();
@@ -129,6 +133,11 @@ public class GraphicsWindow extends JFrame {
         graphicsMeshExcavation.drawCrossSectionExcavationMesh(g2d);
         graphicsMeshExcavation.drawLongSectionExcavationMesh(g2d);
 
+
+        // Отрисовка размеров
+        g2d.setColor(Color.BLACK);
+        graphicsDimension.drawCrossSectionDimensions(g2d);
+
         g2d.translate(-550, -900);
 
         g2d.setColor(Color.BLUE);
@@ -174,4 +183,34 @@ public class GraphicsWindow extends JFrame {
         GraphicsWindow appwin = new GraphicsWindow();
         appwin.setVisible(true);
     }
+
+
+    void h(Shape o) {
+        if (o instanceof Circle) {
+
+        }
+        if (o instanceof Rect) {
+
+        }
+        if (o instanceof Tringle) {
+
+        }
+    }
+
+
+}
+
+sealed class Shape permits Circle, Rect, Tringle {
+
+}
+
+final class Circle extends Shape {
+
+}
+
+final class Rect extends Shape {
+
+}
+final class Tringle extends Shape {
+
 }

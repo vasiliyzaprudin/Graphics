@@ -2,10 +2,10 @@ package com.mining.graphics.model.support;
 
 public class AnchorsExcavation {
 
-    private double lengthAnchor = 2.0; //длина анкера
-    private double step = 0.95; //шаг установки анкеров в ряду
-    private double distanceBetweenRows = 0.9; //расстояние между рядами анкеров
-    private double plateSize = 0.1; //размер опорной плиты
+    private double lengthAnchor = 2.0;
+    private double step = 0.6;
+    private double distanceBetweenRows = 0.9;
+    private double plateSize = 0.15;
     private double anchorDiameter = 0.1; //диаметр анкера
     private double distanceLowerAnchor = 1.8; //максимальное расстояние от почвы выработки до точки установки нижнего анкера
 
