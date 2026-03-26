@@ -9,8 +9,10 @@ import com.mining.graphics.graphics.support.*;
 import com.mining.graphics.model.excavation.ModelExcavation;
 import com.mining.graphics.model.support.AnchorsExcavation;
 import com.mining.graphics.model.support.MeshExcavation;
+import com.mining.graphics.model.support.ShotcreteExcavation;
 import com.mining.graphics.service.excavation.ServiceExcavation;
 import com.mining.graphics.service.support.ServiceMeshExcavation;
+import com.mining.graphics.service.support.ServiceShotcreteExcavation;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -19,14 +21,17 @@ import java.awt.*;
 public class GraphicsWindow extends JFrame {
 
     // Модели данных
-    private final ModelExcavation model;
-    private final MeshExcavation mesh;
-    private final AnchorsExcavation anchors;
+    private final ModelExcavation modelExcavation;
+    private final AnchorsExcavation anchorsExcavation;
+    private final MeshExcavation meshExcavation;
+    private final ShotcreteExcavation shotcreteExcavation;
+
     private final AnchorsRenderer anchorsRenderer;
 
     // Сервисы вычислений
-    private final ServiceExcavation excavationService;
-    private final ServiceMeshExcavation meshService;
+    private final ServiceExcavation serviceExcavation;
+    private final ServiceMeshExcavation serviceMeshExcavation;
+    private final ServiceShotcreteExcavation serviceShotcreteExcavation;
 
     // Графические классы
     private final GraphicsExcavation graphicsExcavation;
@@ -38,28 +43,30 @@ public class GraphicsWindow extends JFrame {
     private final GraphicsAnchorsIntersection graphicsAnchorsIntersection;
 
 
-
     private final Drawing drawing;
 
     public GraphicsWindow() {
         // Инициализация моделей и сервисов
-        model = new ModelExcavation();
-        anchors = new AnchorsExcavation();
-        mesh = new MeshExcavation();
-        excavationService = new ServiceExcavation();
-        meshService = new ServiceMeshExcavation();
+        modelExcavation = new ModelExcavation();
+        anchorsExcavation = new AnchorsExcavation();
+        meshExcavation = new MeshExcavation();
+        shotcreteExcavation = new ShotcreteExcavation();
 
         anchorsRenderer = new AnchorsRenderer();
 
+        serviceExcavation = new ServiceExcavation();
+        serviceMeshExcavation = new ServiceMeshExcavation();
+        serviceShotcreteExcavation = new ServiceShotcreteExcavation();
+
+
         // Инициализация графических классов
-        graphicsExcavation = new GraphicsExcavation(model, excavationService);
-        graphicsAnchors = new GraphicsAnchorsExcavation(model, anchors, anchorsRenderer);
-        graphicsShotcreteExcavation = new GraphicsShotcreteExcavation();
-        graphicsMeshExcavation = new GraphicsMeshExcavation(model, mesh, excavationService, meshService);
+        graphicsExcavation = new GraphicsExcavation(modelExcavation, serviceExcavation);
+        graphicsAnchors = new GraphicsAnchorsExcavation(modelExcavation, anchorsExcavation, anchorsRenderer);
+        graphicsMeshExcavation = new GraphicsMeshExcavation(modelExcavation, meshExcavation, serviceExcavation, serviceMeshExcavation);
+        graphicsShotcreteExcavation = new GraphicsShotcreteExcavation(modelExcavation, shotcreteExcavation, serviceExcavation, serviceShotcreteExcavation);
 
         graphicsIntersection = new GraphicsIntersection();
         graphicsAnchorsIntersection = new GraphicsAnchorsIntersection();
-
 
 
         drawing = new Drawing();
@@ -104,14 +111,15 @@ public class GraphicsWindow extends JFrame {
     private void drawExcavation(Graphics2D g2d) {
         g2d.translate(550, 900);
 
-        g2d.setColor(new Color(190, 190, 190));
-        // graphicsShotcreteExcavation.graphicsShotcrete(g2d);
+        g2d.setColor(new Color(200, 200, 200));
+        graphicsShotcreteExcavation.drawCrossSectionExcavationShotcrete(g2d);
+        graphicsShotcreteExcavation.drawLongSectionExcavationShotcrete(g2d);
 
         g2d.setColor(new Color(30, 50, 65));
         graphicsAnchors.prepareAnchorCalculations();
         graphicsAnchors.drawAllAnchors(g2d);
         g2d.setColor(new Color(120, 90, 145));
-        graphicsAnchors.drawAllAnchorsTest (g2d);
+        graphicsAnchors.drawAllAnchorsTest(g2d);
 
         g2d.setColor(Color.BLACK);
         graphicsExcavation.drawCrossSectionExcavation(g2d);
@@ -141,7 +149,7 @@ public class GraphicsWindow extends JFrame {
         // Перемещаемся в точку (500, 500)
         g2d.translate(550, 600);
 
-        double anchorLengthMeters = anchors.getLengthAnchor();
+        double anchorLengthMeters = anchorsExcavation.getLengthAnchor();
 
         // Получаем масштаб для отрисовки анкеров
         int scale = 300;
@@ -150,7 +158,8 @@ public class GraphicsWindow extends JFrame {
         int anchorLength = (int) Math.round(anchorLengthMeters * scale);
 
         // Рисуем распорный анкер
-        anchorsRenderer.drawExpansionAnchor(g2d, 0, 0, anchorLength,0);
+        anchorsRenderer.drawExpansionAnchor(g2d, 0, 0, anchorLength, 0);
+        anchorsRenderer.drawAnchorMonolithicCompositions(g2d, 0, 100, anchorLength, 100);
     }
 
     private void setupWindowListener() {

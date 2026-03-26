@@ -17,7 +17,7 @@ public class GraphicsExcavation {
 
     /**
      * Построение поперечного сечения.
-     * Начало координат находится в центре ее почвы.
+     * Начало координат находится в центре почвы горной выработки.
      */
     public void drawCrossSectionExcavation(Graphics g) {
         double width = modelExcavation.getWidth();

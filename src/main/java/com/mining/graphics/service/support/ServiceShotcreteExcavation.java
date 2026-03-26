@@ -1,8 +1,20 @@
 package com.mining.graphics.service.support;
 
-import com.mining.graphics.model.support.ShotcreteExcavation;
+public class ServiceShotcreteExcavation {
 
-public class ServiceShotcreteExcavation extends ShotcreteExcavation {
-//    public double widthExcavationWithShotcrete = width - 2.0 * thicknessShorcrete; //ширина горной выработки с торкретбетоном
-//    public double heightExcavationWithShotcrete = height - thicknessShorcrete; //высота горной выработки с торкретбетоном
+    public double getWidthExcavationWithShotcrete(double width, double thicknessShorcrete) {
+        return width - 2.0 * thicknessShorcrete;
+    }
+
+    public double getHeightExcavationWithShotcrete(double width, double thicknessShorcrete) {
+        return width - thicknessShorcrete;
+    }
+
+    public int getScaleWidthExcavationWithShotcrete(double width, double thicknessShorcrete, int scale) {
+        return (int) (Math.round((width - 2.0 * thicknessShorcrete) * scale));
+    }
+
+    public int getScaleHeightExcavationWithShotcrete(double height, double thicknessShorcrete, int scale) {
+        return (int) (Math.round((height - thicknessShorcrete) * scale));
+    }
 }
