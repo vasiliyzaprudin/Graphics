@@ -15,7 +15,7 @@ public class DimensionRenderer {
     private static final Color TEXT_COLOR = Color.BLACK;
     private static final Color EXTENSION_COLOR = Color.GRAY;
 
-    private static final Font TEXT_FONT = new Font("Arial", Font.PLAIN, 12);
+    private static final Font TEXT_FONT = new Font("Arial", Font.PLAIN, 14);
 
     /**
      * Универсальный метод отрисовки размера.

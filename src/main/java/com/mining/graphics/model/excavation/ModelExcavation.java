@@ -1,8 +1,8 @@
 package com.mining.graphics.model.excavation;
 
 public class ModelExcavation {
-    private double width = 4.7;
-    private double height = 4.2;
+    private double width = 4.2;
+    private double height = 4.7;
     private double length = 5.0;
     private double formIndication = 3.0; //показатель формы свода (отношение высоты свода к ширине горной выработки)
 
@@ -22,7 +22,7 @@ public class ModelExcavation {
         return formIndication;
     }
 
-    public void setWidth (double width) {
+    public void setWidth(double width) {
         this.width = width;
     }
 
@@ -30,7 +30,7 @@ public class ModelExcavation {
         this.height = height;
     }
 
-    public void setLength() {
+    public void setLength(double length) {
         this.length = length;
     }
 

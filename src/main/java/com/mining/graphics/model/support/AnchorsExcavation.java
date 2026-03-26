@@ -3,10 +3,10 @@ package com.mining.graphics.model.support;
 public class AnchorsExcavation {
 
     private double lengthAnchor = 2.0;
-    private double step = 0.6;
+    private double step = 0.9;
     private double distanceBetweenRows = 0.9;
     private double plateSize = 0.15;
-    private double anchorDiameter = 0.1; //диаметр анкера
+    //private double anchorDiameter = 0.03; //диаметр анкера
     private double distanceLowerAnchor = 1.8; //максимальное расстояние от почвы выработки до точки установки нижнего анкера
 
     private double[][] crossSectionAnchorsXY; //анкеры в поперечном сечении
@@ -78,9 +78,9 @@ public class AnchorsExcavation {
         return plateSize;
     }
 
-    public double getAnchorDiameter() {
-        return anchorDiameter;
-    }
+//    public double getAnchorDiameter() {
+//        return anchorDiameter;
+//    }
 
     public double getDistanceLowerAnchor() {
         return distanceLowerAnchor;
@@ -103,9 +103,9 @@ public class AnchorsExcavation {
         this.plateSize = plateSize;
     }
 
-    public void setAnchorDiameter(double anchorDiameter) {
-        this.anchorDiameter = anchorDiameter;
-    }
+//    public void setAnchorDiameter(double anchorDiameter) {
+//        this.anchorDiameter = anchorDiameter;
+//    }
 
     public void setDistanceLowerAnchor(double distanceLowerAnchor) {
         this.distanceLowerAnchor = distanceLowerAnchor;

@@ -1,5 +1,6 @@
 package com.mining.graphics.graphics;
 
+import com.mining.graphics.controlpanel.ControlPanel;
 import com.mining.graphics.graphics.dimension.GraphicsDimension;
 import com.mining.graphics.graphics.drawing.Drawing;
 import com.mining.graphics.graphics.drawing.DrawingMouse;
@@ -44,8 +45,9 @@ public class GraphicsWindow extends JFrame {
     private final GraphicsIntersection graphicsIntersection;
     private final GraphicsAnchorsIntersection graphicsAnchorsIntersection;
 
-
     private final Drawing drawing;
+
+    private JPanel drawingPanel;
 
     public GraphicsWindow() {
         // Инициализация моделей и сервисов
@@ -60,7 +62,6 @@ public class GraphicsWindow extends JFrame {
         serviceMeshExcavation = new ServiceMeshExcavation();
         serviceShotcreteExcavation = new ServiceShotcreteExcavation();
 
-
         // Инициализация графических классов
         graphicsExcavation = new GraphicsExcavation(modelExcavation, serviceExcavation);
         graphicsAnchors = new GraphicsAnchorsExcavation(modelExcavation, anchorsExcavation, anchorsRenderer);
@@ -72,10 +73,10 @@ public class GraphicsWindow extends JFrame {
 
         graphicsDimension = new GraphicsDimension(modelExcavation, serviceExcavation);
 
-
         drawing = new Drawing();
 
-        JPanel panel = new JPanel() {
+        // Создаем панель для рисования
+        drawingPanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -97,19 +98,27 @@ public class GraphicsWindow extends JFrame {
             }
         };
 
-        panel.setBackground(Color.WHITE);
-        panel.setDoubleBuffered(true);
+        drawingPanel.setBackground(Color.WHITE);
+        drawingPanel.setDoubleBuffered(true);
+        drawingPanel.setPreferredSize(new Dimension(1700, 1300));
+
+        // Создаем панель управления
+        ControlPanel controlPanel = new ControlPanel(modelExcavation, anchorsExcavation, drawingPanel);
 
         // Устанавливаем обработчик рисования
-        DrawingMouse mouseHandler = new DrawingMouse(drawing, panel);
+        DrawingMouse mouseHandler = new DrawingMouse(drawing, drawingPanel);
         mouseHandler.install();
 
-        add(panel);
+        // Настраиваем JFrame
+        setLayout(new BorderLayout());
+        add(controlPanel, BorderLayout.WEST);
+        add(drawingPanel, BorderLayout.CENTER);
 
         setupWindowListener();
-        setSize(new Dimension(1750, 1300));
         setTitle("Графический модуль");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        pack();
+        setLocationRelativeTo(null);
     }
 
     private void drawExcavation(Graphics2D g2d) {
@@ -133,7 +142,6 @@ public class GraphicsWindow extends JFrame {
         graphicsMeshExcavation.drawCrossSectionExcavationMesh(g2d);
         graphicsMeshExcavation.drawLongSectionExcavationMesh(g2d);
 
-
         // Отрисовка размеров
         g2d.setColor(Color.BLACK);
         graphicsDimension.drawCrossSectionDimensions(g2d);
@@ -141,7 +149,7 @@ public class GraphicsWindow extends JFrame {
         g2d.translate(-550, -900);
 
         g2d.setColor(Color.BLUE);
-        drawing.draw(g2d);
+        //drawing.draw(g2d);
     }
 
     private void drawIntersection(Graphics2D g2d) {
@@ -155,18 +163,12 @@ public class GraphicsWindow extends JFrame {
     }
 
     private void drawAnchor(Graphics2D g2d) {
-        // Перемещаемся в точку (500, 500)
         g2d.translate(550, 600);
 
         double anchorLengthMeters = anchorsExcavation.getLengthAnchor();
-
-        // Получаем масштаб для отрисовки анкеров
         int scale = 300;
-
-        // Переводим длину анкера в пиксели
         int anchorLength = (int) Math.round(anchorLengthMeters * scale);
 
-        // Рисуем распорный анкер
         anchorsRenderer.drawExpansionAnchor(g2d, 0, 0, anchorLength, 0);
         anchorsRenderer.drawAnchorMonolithicCompositions(g2d, 0, 100, anchorLength, 100);
     }
@@ -180,37 +182,9 @@ public class GraphicsWindow extends JFrame {
     }
 
     public static void main(String args[]) {
-        GraphicsWindow appwin = new GraphicsWindow();
-        appwin.setVisible(true);
+        SwingUtilities.invokeLater(() -> {
+            GraphicsWindow appwin = new GraphicsWindow();
+            appwin.setVisible(true);
+        });
     }
-
-
-    void h(Shape o) {
-        if (o instanceof Circle) {
-
-        }
-        if (o instanceof Rect) {
-
-        }
-        if (o instanceof Tringle) {
-
-        }
-    }
-
-
-}
-
-sealed class Shape permits Circle, Rect, Tringle {
-
-}
-
-final class Circle extends Shape {
-
-}
-
-final class Rect extends Shape {
-
-}
-final class Tringle extends Shape {
-
 }
