@@ -13,6 +13,8 @@ public class AnchorsExcavation {
     private double[][] longSectionAnchorsXY; //анкеры в продольном сечении
     private double[][] basePlateXY; //опорные плиты
 
+    private double bottomAnchorY;
+
     public static class AnchorPoint {
         private final double startX;
         private final double startY;
@@ -86,6 +88,10 @@ public class AnchorsExcavation {
         return distanceLowerAnchor;
     }
 
+    public double getBottomAnchorY() {
+        return bottomAnchorY;
+    }
+
     //Сеттеры
     public void setLengthAnchor(double lengthAnchor) {
         this.lengthAnchor = lengthAnchor;
@@ -134,5 +140,8 @@ public class AnchorsExcavation {
 
     public void setBasePlateXY(double[][] basePlateXY) {
         this.basePlateXY = basePlateXY;
+    }
+    public void setBottomAnchorY(double bottomAnchorY) {
+        this.bottomAnchorY = bottomAnchorY;
     }
 }

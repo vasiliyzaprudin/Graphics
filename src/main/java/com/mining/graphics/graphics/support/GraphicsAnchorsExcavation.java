@@ -5,7 +5,7 @@ import com.mining.graphics.graphics.elementssupport.AnchorsRenderer;
 import com.mining.graphics.model.excavation.ModelExcavation;
 import com.mining.graphics.model.support.AnchorsExcavation;
 import com.mining.graphics.service.support.CalculateCoordinatesAnchorsExcavation;
-import com.mining.graphics.service.support.ServiceAnchors;
+import com.mining.graphics.service.support.ServiceAnchorsExcavation;
 import com.mining.graphics.service.excavation.ServiceExcavation;
 
 import java.awt.*;
@@ -25,7 +25,7 @@ public class GraphicsAnchorsExcavation {
         this.anchorsExcavation = anchorsExcavation;
         this.calculator = new CalculateCoordinatesAnchorsExcavation(
                 new ServiceExcavation(),
-                new ServiceAnchors()
+                new ServiceAnchorsExcavation()
         );
         this.anchorsRenderer = anchorsRenderer;
     }

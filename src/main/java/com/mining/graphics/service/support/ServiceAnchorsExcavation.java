@@ -1,6 +1,6 @@
 package com.mining.graphics.service.support;
 
-public class ServiceAnchors {
+public class ServiceAnchorsExcavation {
     //Методы расчета шага установки анкеров по дугам большого радиуса
     public double calculateStepLargeArcX(int j, double step, double largeArcRadius, double omega) {
         return largeArcRadius * Math.sin(omega + j * step / largeArcRadius);

@@ -22,6 +22,9 @@ import java.awt.*;
 
 public class GraphicsWindow extends JFrame {
 
+    private int currentMode = 1; // Текущий режим отображения
+
+
     // Модели данных
     private final ModelExcavation modelExcavation;
     private final AnchorsExcavation anchorsExcavation;
@@ -71,7 +74,7 @@ public class GraphicsWindow extends JFrame {
         graphicsIntersection = new GraphicsIntersection();
         graphicsAnchorsIntersection = new GraphicsAnchorsIntersection();
 
-        graphicsDimension = new GraphicsDimension(modelExcavation, serviceExcavation);
+        graphicsDimension = new GraphicsDimension(modelExcavation, anchorsExcavation, serviceExcavation);
 
         drawing = new Drawing();
 
@@ -83,10 +86,10 @@ public class GraphicsWindow extends JFrame {
                 Graphics2D g2d = (Graphics2D) g;
                 g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-                int numberExcavation = 1;
-                switch (numberExcavation) {
+                switch (currentMode) {
                     case 1:
                         drawExcavation(g2d);
+
                         break;
                     case 3:
                         drawIntersection(g2d);
@@ -105,14 +108,19 @@ public class GraphicsWindow extends JFrame {
         // Создаем панель управления
         ControlPanel controlPanel = new ControlPanel(modelExcavation, anchorsExcavation, drawingPanel);
 
+        // Настраиваем JFrame
+        setLayout(new BorderLayout());
+        if (currentMode == 1) {
+            add(controlPanel, BorderLayout.WEST);
+
+        }
+
+        add(drawingPanel, BorderLayout.CENTER);
         // Устанавливаем обработчик рисования
         DrawingMouse mouseHandler = new DrawingMouse(drawing, drawingPanel);
         mouseHandler.install();
 
-        // Настраиваем JFrame
-        setLayout(new BorderLayout());
-        add(controlPanel, BorderLayout.WEST);
-        add(drawingPanel, BorderLayout.CENTER);
+
 
         setupWindowListener();
         setTitle("Графический модуль");

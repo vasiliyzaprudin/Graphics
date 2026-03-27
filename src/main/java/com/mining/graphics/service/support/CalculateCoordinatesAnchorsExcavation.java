@@ -10,7 +10,7 @@ import com.mining.graphics.service.excavation.ServiceExcavation;
 public class CalculateCoordinatesAnchorsExcavation {
 
     private final ServiceExcavation excavationService;
-    private final ServiceAnchors anchorsService;
+    private final ServiceAnchorsExcavation anchorsService;
 
     // Временные переменные для расчетов
     private double phi;
@@ -29,7 +29,7 @@ public class CalculateCoordinatesAnchorsExcavation {
     private double stepWallAnchorsY;
 
     public CalculateCoordinatesAnchorsExcavation(ServiceExcavation excavationService,
-                                                 ServiceAnchors anchorsService) {
+                                                 ServiceAnchorsExcavation anchorsService) {
         this.excavationService = excavationService;
         this.anchorsService = anchorsService;
     }
@@ -63,7 +63,7 @@ public class CalculateCoordinatesAnchorsExcavation {
         int i = 0;
 
         // Вариант расположения анкеров
-        if ((numberCrossSectionAnchors+1) % 2 == 0) {
+        if ((numberCrossSectionAnchors + 1) % 2 == 0) {
             // Анкер по центру
             crossSectionAnchorsXY = new double[numberCrossSectionAnchors + 1][4];
             i = calculateWithCenterAnchor(i, crossSectionAnchorsXY,
@@ -82,6 +82,9 @@ public class CalculateCoordinatesAnchorsExcavation {
         }
 
         anchors.setCrossSectionAnchorsXY(crossSectionAnchorsXY);
+
+        double bottomAnchorY = crossSectionAnchorsXY[i-1][1]; // Y координата начала последнего анкера
+        anchors.setBottomAnchorY(bottomAnchorY);
     }
 
     /**
@@ -332,7 +335,7 @@ public class CalculateCoordinatesAnchorsExcavation {
             numberBasePlateInRow = (int) Math.floor(numberCrossSectionAnchors / 2.0);
         }
 
-        int numberBasePlateLongSection = (numberBasePlateInRow-2) * numberLongSectionAnchors;
+        int numberBasePlateLongSection = (numberBasePlateInRow - 2) * numberLongSectionAnchors;
         double[][] basePlateXY = new double[numberBasePlateLongSection][2];
 
         int a = 0;
