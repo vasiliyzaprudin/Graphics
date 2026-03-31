@@ -83,9 +83,19 @@ public class CalculateCoordinatesAnchorsExcavation {
 
         anchors.setCrossSectionAnchorsXY(crossSectionAnchorsXY);
 
-        double bottomAnchorY = crossSectionAnchorsXY[i-1][1]; // Y координата начала последнего анкера
+        double bottomAnchorY = crossSectionAnchorsXY[i - 1][1]; // Y координата начала последнего анкера
         anchors.setBottomAnchorY(bottomAnchorY);
+
+        double firstCrossSectionAnchorX = crossSectionAnchorsXY[0][0];
+        anchors.setFirstCrossSectionAnchorX(firstCrossSectionAnchorX);
+        double firstCrossSectionAnchorY = crossSectionAnchorsXY[0][1];
+        anchors.setFirstCrossSectionAnchorY(firstCrossSectionAnchorY);
+        double secondCrossSectionAnchorX = crossSectionAnchorsXY[1][0];
+        anchors.setSecondCrossSectionAnchorX(secondCrossSectionAnchorX);
+        double secondCrossSectionAnchorY = crossSectionAnchorsXY[1][1];
+        anchors.setSecondCrossSectionAnchorY(secondCrossSectionAnchorY);
     }
+
 
     /**
      * Расчет с центральным анкером.
@@ -315,6 +325,16 @@ public class CalculateCoordinatesAnchorsExcavation {
         }
 
         anchors.setLongSectionAnchorsXY(longSectionAnchorsXY);
+
+
+        double firstLongSectionAnchorX = longSectionAnchorsXY[i - 2][0];
+        anchors.setFirstLongSectionAnchorX(firstLongSectionAnchorX);
+        double firstLongSectionAnchorY = longSectionAnchorsXY[i - 2][1];
+        anchors.setFirstLongSectionAnchorY(firstLongSectionAnchorY);
+        double secondLongSectionAnchorX = longSectionAnchorsXY[i - 1][0];
+        anchors.setSecondLongSectionAnchorX(secondLongSectionAnchorX);
+        double secondLongSectionAnchorY = longSectionAnchorsXY[i - 1][1];
+        anchors.setSecondLongSectionAnchorY(secondLongSectionAnchorY);
     }
 
     /**

@@ -3,7 +3,8 @@ package com.mining.graphics.graphics.dimension;
 import com.mining.graphics.graphics.GraphicsParameters;
 import com.mining.graphics.model.excavation.ModelExcavation;
 import com.mining.graphics.model.support.AnchorsExcavation;
-import com.mining.graphics.service.dimension.DimensionService;
+import com.mining.graphics.model.support.ShotcreteExcavation;
+import com.mining.graphics.service.dimension.ServiceDimension;
 import com.mining.graphics.service.excavation.ServiceExcavation;
 
 import java.awt.*;
@@ -15,12 +16,14 @@ public class GraphicsDimension {
 
     private final ModelExcavation model;
     private final AnchorsExcavation anchorsExcavation;
-    private final DimensionService dimensionService;
+    private final ShotcreteExcavation shotcreteExcavation;
+    private final ServiceDimension dimensionService;
 
-    public GraphicsDimension(ModelExcavation model,AnchorsExcavation anchorsExcavation, ServiceExcavation excavationService) {
+    public GraphicsDimension(ModelExcavation model, AnchorsExcavation anchorsExcavation,ShotcreteExcavation shotcreteExcavation, ServiceExcavation excavationService) {
         this.model = model;
         this.anchorsExcavation = anchorsExcavation;
-        this.dimensionService = new DimensionService(excavationService);
+        this.shotcreteExcavation = shotcreteExcavation;
+        this.dimensionService = new ServiceDimension(excavationService);
     }
 
     /**
@@ -28,7 +31,7 @@ public class GraphicsDimension {
      */
     public void drawCrossSectionDimensions(Graphics2D g) {
         int scale = GraphicsParameters.GRAPHICS_SCALE;
-        DimensionService.DimensionPoints points = dimensionService.calculateCrossSectionDimensions(model,anchorsExcavation, scale);
+        ServiceDimension.DimensionPoints points = dimensionService.calculateCrossSectionDimensions(model, anchorsExcavation, shotcreteExcavation, scale);
 
         // Ширина
         DimensionRenderer.drawDimension(g,
@@ -44,7 +47,7 @@ public class GraphicsDimension {
                 points.heightEnd.x, points.heightEnd.y,
                 points.heightOffset,
                 points.heightLengthextensionline,
-                points.heightText,false);
+                points.heightText, false);
 
         // Расстояние до нижнего анкера (смещение вправо)
         DimensionRenderer.drawDimension(g,
@@ -52,6 +55,31 @@ public class GraphicsDimension {
                 points.heightToBottomAnchorEnd.x, points.heightToBottomAnchorEnd.y,
                 points.heightToBottomAnchorOffset,
                 points.heightToBottomAnchorLengthextensionline,
-                points.heightToBottomAnchorText, true);
+                points.heightToBottomAnchorText, false);
+
+        // Расстояние между анкерами в ряду
+        DimensionRenderer.drawDimension(g,
+                points.stepStart.x, points.stepStart.y,
+                points.stepEnd.x, points.stepEnd.y,
+                points.stepOffset,
+                points.stepLengthextensionline,
+                points.stepText, false);
+
+        // Расстояние между рядами анкеров
+        DimensionRenderer.drawDimension(g,
+                points.distanceBetweenRowsStart.x, points.distanceBetweenRowsStart.y,
+                points.distanceBetweenRowsEnd.x, points.distanceBetweenRowsEnd.y,
+                points.distanceBetweenRowsOffset,
+                points.distanceBetweenRowsLengthextensionline,
+                points.distanceBetweenRowsText, false);
+
+        //Толщина набрызгбетона
+        DimensionRenderer.drawDimension(g,
+                points.thicknessShorcreteStart.x, points.thicknessShorcreteStart.y,
+                points.thicknessShorcreteEnd.x, points.thicknessShorcreteEnd.y,
+                points.thicknessShorcreteOffset,
+                points.thicknessShorcreteLengthextensionline,
+                points.thicknessShorcreteText, false);
     }
+
 }

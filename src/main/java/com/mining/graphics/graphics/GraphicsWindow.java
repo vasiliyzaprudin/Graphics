@@ -74,7 +74,7 @@ public class GraphicsWindow extends JFrame {
         graphicsIntersection = new GraphicsIntersection();
         graphicsAnchorsIntersection = new GraphicsAnchorsIntersection();
 
-        graphicsDimension = new GraphicsDimension(modelExcavation, anchorsExcavation, serviceExcavation);
+        graphicsDimension = new GraphicsDimension(modelExcavation, anchorsExcavation, shotcreteExcavation, serviceExcavation);
 
         drawing = new Drawing();
 
@@ -89,7 +89,6 @@ public class GraphicsWindow extends JFrame {
                 switch (currentMode) {
                     case 1:
                         drawExcavation(g2d);
-
                         break;
                     case 3:
                         drawIntersection(g2d);
@@ -140,7 +139,7 @@ public class GraphicsWindow extends JFrame {
         graphicsAnchors.prepareAnchorCalculations();
         graphicsAnchors.drawAllAnchors(g2d);
         g2d.setColor(new Color(120, 90, 145));
-        graphicsAnchors.drawAllAnchorsTest(g2d);
+        //graphicsAnchors.drawAllAnchorsTest(g2d);
 
         g2d.setColor(Color.BLACK);
         graphicsExcavation.drawCrossSectionExcavation(g2d);

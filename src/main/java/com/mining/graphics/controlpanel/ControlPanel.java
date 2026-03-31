@@ -92,7 +92,7 @@ public class ControlPanel extends JPanel {
         add(distanceBetweenRowsField);
         add(Box.createVerticalStrut(10));
 
-        add(createLabel("Расстояние до нижнего анкера (м):"));
+        add(createLabel("Подъем анкерного крепления (м):"));
         add(Box.createVerticalStrut(5));
         distanceLowerAnchorField = createTextField(String.valueOf(anchors.getDistanceLowerAnchor()));
         add(distanceLowerAnchorField);

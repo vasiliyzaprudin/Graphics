@@ -14,10 +14,10 @@ public class ModelIntersection {
 
     //ширина горных выработок
     public double
-            b1 = 4.7,
-            b2 = 4.7,
-            b3 = 4.7,
-            b4 = 4.7;
+            b1 = 4.2,
+            b2 = 4.2,
+            b3 = 4.2,
+            b4 = 4.2;
 
     //ширина горных выработок в масштабе
     public double
@@ -63,7 +63,7 @@ public class ModelIntersection {
 
     //угол поворота оси горных выработок относительно севера в градусах
     public int
-            alpha1 = -15,
+            alpha1 = 20,
             alpha2 = 90,
             alpha3 = 240,
             alpha4 = 270;

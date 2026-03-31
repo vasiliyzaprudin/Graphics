@@ -15,6 +15,16 @@ public class AnchorsExcavation {
 
     private double bottomAnchorY;
 
+    double firstCrossSectionAnchorX;
+    double firstCrossSectionAnchorY;
+    double secondCrossSectionAnchorX;
+    double secondCrossSectionAnchorY;
+
+    double firstLongSectionAnchorX;
+    double firstLongSectionAnchorY;
+    double secondLongSectionAnchorX;
+    double secondLongSectionAnchorY;
+
     public static class AnchorPoint {
         private final double startX;
         private final double startY;
@@ -80,9 +90,6 @@ public class AnchorsExcavation {
         return plateSize;
     }
 
-//    public double getAnchorDiameter() {
-//        return anchorDiameter;
-//    }
 
     public double getDistanceLowerAnchor() {
         return distanceLowerAnchor;
@@ -90,6 +97,38 @@ public class AnchorsExcavation {
 
     public double getBottomAnchorY() {
         return bottomAnchorY;
+    }
+
+    public double getFirstcrossSectionAnchorX() {
+        return firstCrossSectionAnchorX;
+    }
+
+    public double getFirstcrossSectionAnchorY() {
+        return firstCrossSectionAnchorY;
+    }
+
+    public double getSecondcrossSectionAnchorX() {
+        return secondCrossSectionAnchorX;
+    }
+
+    public double getSecondcrossSectionAnchorY() {
+        return secondCrossSectionAnchorY;
+    }
+
+    public double getFirstLongSectionAnchorX() {
+        return firstLongSectionAnchorX;
+    }
+
+    public double getFirstLongSectionAnchorY() {
+        return firstLongSectionAnchorY;
+    }
+
+    public double getSecondLongSectionAnchorX() {
+        return secondLongSectionAnchorX;
+    }
+
+    public double getSecondLongSectionAnchorY() {
+        return secondLongSectionAnchorY;
     }
 
     //Сеттеры
@@ -109,9 +148,6 @@ public class AnchorsExcavation {
         this.plateSize = plateSize;
     }
 
-//    public void setAnchorDiameter(double anchorDiameter) {
-//        this.anchorDiameter = anchorDiameter;
-//    }
 
     public void setDistanceLowerAnchor(double distanceLowerAnchor) {
         this.distanceLowerAnchor = distanceLowerAnchor;
@@ -141,7 +177,40 @@ public class AnchorsExcavation {
     public void setBasePlateXY(double[][] basePlateXY) {
         this.basePlateXY = basePlateXY;
     }
+
     public void setBottomAnchorY(double bottomAnchorY) {
         this.bottomAnchorY = bottomAnchorY;
+    }
+
+    public void setFirstCrossSectionAnchorX(double firstAnchorX) {
+        this.firstCrossSectionAnchorX = firstAnchorX;
+    }
+
+    public void setFirstCrossSectionAnchorY(double firstAnchorY) {
+        this.firstCrossSectionAnchorY = firstAnchorY;
+    }
+
+    public void setSecondCrossSectionAnchorX(double secondAnchorX) {
+        this.secondCrossSectionAnchorX = secondAnchorX;
+    }
+
+    public void setSecondCrossSectionAnchorY(double secondAnchorY) {
+        this.secondCrossSectionAnchorY = secondAnchorY;
+    }
+
+    public void setFirstLongSectionAnchorX(double firstLongSectionAnchorX) {
+        this.firstLongSectionAnchorX = firstLongSectionAnchorX;
+    }
+
+    public void setFirstLongSectionAnchorY(double firstLongSectionAnchorY) {
+        this.firstLongSectionAnchorY = firstLongSectionAnchorY;
+    }
+
+    public void setSecondLongSectionAnchorX(double secondLongSectionAnchorX) {
+        this.secondLongSectionAnchorX = secondLongSectionAnchorX;
+    }
+
+    public void setSecondLongSectionAnchorY(double secondLongSectionAnchorY) {
+        this.secondLongSectionAnchorY = secondLongSectionAnchorY;
     }
 }

@@ -7,7 +7,7 @@ public class AnchorsIntersection extends ServiceIntersection {
     //длина анкеров
     public double
             l1 = 1.8,
-            l2 = 2.2,
+            l2 = 1.8,
             l3 = 1.8,
             l4 = 1.8;
 
