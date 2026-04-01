@@ -30,7 +30,7 @@ public class GraphicsDimension {
      * Отрисовка всех размеров для поперечного сечения
      */
     public void drawCrossSectionDimensions(Graphics2D g) {
-        int scale = GraphicsParameters.GRAPHICS_SCALE;
+        int scale = GraphicsParameters.GRAPHICS_EXCAVATION_SCALE;
         ServiceDimension.DimensionPoints points = dimensionService.calculateCrossSectionDimensions(model, anchorsExcavation, shotcreteExcavation, scale);
 
         // Ширина

@@ -18,17 +18,17 @@ public class GraphicsIntersection extends ServiceIntersection {
         g.translate(0, distance); //Перенос начала координат в центр отрезка, изображающего почву сопряжения
 
         //calcElemInSc(SAI.distanceBetweenPoint(x33, y33, x1, y1), Collections.max(Arrays.asList(h1, h2, h3)) * calcIndHeightInt(), typeInt, scaleInt);
-        calcElemInSc(SAI.distanceBetweenPoint(x33, y33, x1, y1), h1 * calcIndHeightInt(), typeInt, scaleInt);
+        calcElemInSc(SAI.distanceBetweenPoint(x33, y33, x1, y1), height1 * calcIndHeightInt(), formIndicationIntersection, scaleInt);
 
-        calcAngleBetweenVertAndPointCont(x21, -h2);
+        calcAngleBetweenVertAndPointCont(x21, -height2);
 
         graphConstrIn(g); //Увеличенное сечение выработки 1
 
-        calcElemInSc(b1, h1, k1, scaleInt);
+        calcElemInSc(b1, height1, formIndication1, scaleInt);
         graphConstrIn(g); //Сечение выработки 1
 
-        g.drawLine(x31sc, -h3sc, (int) (calcCoordPointContX(x31, -h3) * scaleInt), (int) (calcCoordPointContY(x31, -h3) * scaleInt)); //Кровля сопряжения слева
-        g.drawLine(x21sc, -h2sc, (int) (calcCoordPointContX(x21, -h2) * scaleInt), (int) (calcCoordPointContY(x21, -h2) * scaleInt)); //Кровля сопряжения справа
+        g.drawLine(x31sc, -h3sc, (int) (calcCoordPointContX(x31, -height3) * scaleInt), (int) (calcCoordPointContY(x31, -height3) * scaleInt)); //Кровля сопряжения слева
+        g.drawLine(x21sc, -h2sc, (int) (calcCoordPointContX(x21, -height2) * scaleInt), (int) (calcCoordPointContY(x21, -height2) * scaleInt)); //Кровля сопряжения справа
 
         //Почва и границы
         g.drawLine(x31sc, 0, x21sc, 0); //почва сопряжения

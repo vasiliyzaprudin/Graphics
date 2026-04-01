@@ -44,14 +44,14 @@ public class ServiceDimension {
         points.widthStart = new Point(-scaleWidth / 2, 0);
         points.widthEnd = new Point(scaleWidth / 2, 0);
         points.widthOffset = 65;  // смещение вниз
-        points.widthLengthextensionline = 30; //длина выносной линии
+        points.widthLengthextensionline = 15; //длина выносной линии
         points.widthText = String.format("%.1f м", width);
 
         // Размер высоты (смещение влево)
         points.heightStart = new Point(-scaleWidth / 2, 0);
         points.heightEnd = new Point(-scaleWidth / 2, -scaleHeight);
         points.heightOffset = -300;  // смещение влево (отрицательное)
-        points.heightLengthextensionline = -30; //длина выносной линии
+        points.heightLengthextensionline = -15; //длина выносной линии
         points.heightText = String.format("%.1f м", height);
 
         // Расстояние до нижнего анкера (смещение вправо)
@@ -61,7 +61,7 @@ public class ServiceDimension {
         points.heightToBottomAnchorStart = new Point(-scaleWidth / 2, 0);
         points.heightToBottomAnchorEnd = new Point(-scaleWidth / 2, scaleBottomAnchorY);
         points.heightToBottomAnchorOffset = -225;  // смещение вправо
-        points.heightToBottomAnchorLengthextensionline = -30; //длина выносной линии
+        points.heightToBottomAnchorLengthextensionline = -15; //длина выносной линии
         points.heightToBottomAnchorText = String.format("%.1f м", -bottomAnchorY);
 
         // Расстояние между анкерами в ряду
@@ -78,7 +78,7 @@ public class ServiceDimension {
         points.stepStart = new Point(scaleSecondCrossSectionAnchorX, scaleSecondCrossSectionAnchorY);
         points.stepEnd = new Point(scaleFirstCrossSectionAnchorX, scaleFirstCrossSectionAnchorY);
         points.stepOffset = -225;  // смещение влево (отрицательное)
-        points.stepLengthextensionline = -30; //длина выносной линии
+        points.stepLengthextensionline = -15; //длина выносной линии
         points.stepText = String.format("%.1f м", step);
 
         // Расстояние между рядами анкеров
@@ -99,7 +99,7 @@ public class ServiceDimension {
         points.distanceBetweenRowsEnd = new Point(scaleSecondLongSectionAnchorX + distance, scaleSecondLongSectionAnchorY);
 
         points.distanceBetweenRowsOffset = -225;  // смещение влево (отрицательное)
-        points.distanceBetweenRowsLengthextensionline = -30; //длина выносной линии
+        points.distanceBetweenRowsLengthextensionline = -15; //длина выносной линии
         points.distanceBetweenRowsText = String.format("%.1f м", distanceBetweenRows);
 
         //Толщина набрызгбетона
@@ -108,9 +108,8 @@ public class ServiceDimension {
         points.thicknessShorcreteStart = new Point(scaleLength + distance, -scaleHeight);
         points.thicknessShorcreteEnd = new Point(scaleLength + distance, -scaleHeight + scaleThicknessShorcrete + 5);
         points.thicknessShorcreteOffset = -100;  // смещение вправо
-        points.thicknessShorcreteLengthextensionline = -30; //длина выносной линии
+        points.thicknessShorcreteLengthextensionline = -15; //длина выносной линии
         points.thicknessShorcreteText = String.format("%.0f см", thicknessShorcrete * 100);
-
 
         return points;
     }

@@ -42,7 +42,7 @@ public class GraphicsShotcreteExcavation extends ServiceShotcreteExcavation {
         double widthWithShotcrete = serviceShotcreteExcavation.getWidthExcavationWithShotcrete(width, thicknessShorcrete);
         double heightWithShotcrete = serviceShotcreteExcavation.getHeightExcavationWithShotcrete(height, thicknessShorcrete);
         double formIndication = modelExcavation.getFormIndication();
-        int scale = GraphicsParameters.GRAPHICS_SCALE;
+        int scale = GraphicsParameters.GRAPHICS_EXCAVATION_SCALE;
 
         int scaleWidth = serviceExcavation.getScaleWidth(widthWithShotcrete, scale);
         int scaleHeight = serviceExcavation.getScaleHeight(heightWithShotcrete, scale);
@@ -64,7 +64,7 @@ public class GraphicsShotcreteExcavation extends ServiceShotcreteExcavation {
      * Это метод изображения набрызгбетона на продольном сечении горной выработки.
      */
     public void drawLongSectionExcavationShotcrete(Graphics g) {
-        int scale = GraphicsParameters.GRAPHICS_SCALE;
+        int scale = GraphicsParameters.GRAPHICS_EXCAVATION_SCALE;
         int distance = GraphicsParameters.DISTANCE_BETWEEN_CROSS_AND_LONG_SECTION;
 
         double height = modelExcavation.getHeight();

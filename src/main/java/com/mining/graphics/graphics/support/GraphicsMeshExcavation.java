@@ -34,7 +34,7 @@ public class GraphicsMeshExcavation {
         double width = modelExcavation.getWidth();
         double height = modelExcavation.getHeight();
         double formIndication = modelExcavation.getFormIndication();
-        int scale = GraphicsParameters.GRAPHICS_SCALE;
+        int scale = GraphicsParameters.GRAPHICS_EXCAVATION_SCALE;
 
         double distanceBetweenContourAndGrid = meshExcavation.getDistanceBetweenContourAndGrid();
         double distanceBetweenSoilAndMesh = meshExcavation.getDistanceBetweenSoilAndMesh();
@@ -76,7 +76,7 @@ public class GraphicsMeshExcavation {
      * Это графический метод построения сетки в продольном сечении горной выработки.
      */
     public void drawLongSectionExcavationMesh(Graphics g) {
-        int scale = GraphicsParameters.GRAPHICS_SCALE;
+        int scale = GraphicsParameters.GRAPHICS_EXCAVATION_SCALE;
         int distance = GraphicsParameters.DISTANCE_BETWEEN_CROSS_AND_LONG_SECTION;
 
         double height = modelExcavation.getHeight();

@@ -62,7 +62,7 @@ public class GraphicsAnchorsExcavation {
         double[][] crossSectionAnchorsXY = anchorsExcavation.getCrossSectionAnchorsXY();
         if (crossSectionAnchorsXY == null) return;
 
-        int scale = GraphicsParameters.GRAPHICS_SCALE;
+        int scale = GraphicsParameters.GRAPHICS_EXCAVATION_SCALE;
 
         for (int i = 0; i < crossSectionAnchorsXY.length; i++) {
             int x1 = (int) Math.round(crossSectionAnchorsXY[i][0] * scale);
@@ -88,7 +88,7 @@ public class GraphicsAnchorsExcavation {
         double[][] longSectionAnchorsXY = anchorsExcavation.getLongSectionAnchorsXY();
         if (longSectionAnchorsXY == null) return;
 
-        int scale = GraphicsParameters.GRAPHICS_SCALE;
+        int scale = GraphicsParameters.GRAPHICS_EXCAVATION_SCALE;
         int distance = GraphicsParameters.DISTANCE_BETWEEN_CROSS_AND_LONG_SECTION;
 
         g.translate(distance, 0);
@@ -117,7 +117,7 @@ public class GraphicsAnchorsExcavation {
         double[][] basePlateXY = anchorsExcavation.getBasePlateXY();
         if (basePlateXY == null) return;
 
-        int scale = GraphicsParameters.GRAPHICS_SCALE;
+        int scale = GraphicsParameters.GRAPHICS_EXCAVATION_SCALE;
         int distance = GraphicsParameters.DISTANCE_BETWEEN_CROSS_AND_LONG_SECTION;
         double plateSize = anchorsExcavation.getPlateSize();
 
@@ -164,7 +164,7 @@ public class GraphicsAnchorsExcavation {
         double step = anchorsExcavation.getStep();
         double distanceLowerAnchor = anchorsExcavation.getDistanceLowerAnchor();
 
-        int scale = GraphicsParameters.GRAPHICS_SCALE;
+        int scale = GraphicsParameters.GRAPHICS_EXCAVATION_SCALE;
         int distance = GraphicsParameters.DISTANCE_BETWEEN_CROSS_AND_LONG_SECTION;
         int scaleWidth = (int) Math.round(width * scale);
 

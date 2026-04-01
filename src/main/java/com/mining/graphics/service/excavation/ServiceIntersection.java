@@ -1,14 +1,28 @@
 package com.mining.graphics.service.excavation;
 
-import com.mining.graphics.model.excavation.ModelIntersection;
 import com.mining.graphics.service.support.ServiceAnchorsIntersection;
 
-public class ServiceIntersection extends ModelIntersection {
+public class ServiceIntersection {
+
+    public int getScaleParameter(double Parameter, int scale) {
+        return (int) (Math.round(Parameter * scale));
+    }
+
 
     private ServiceAnchorsIntersection SAI;
+    // @formatter:off
+    private double xIntersectionWall12, yIntersectionWall12, xIntersectionWall23, yIntersectionWall23, xIntersectionWall34, yIntersectionWall34, xIntersectionWall41, yIntersectionWall41,
+            xIntersectionWall21, yIntersectionWall21,
+            xIntersectionWall31, yIntersectionWall31;
 
-    public double xi1, yi1, xi2, yi2, xi3, yi3, xi4, yi4, xi22, yi22, xi33, yi33; //координаты точек пересечения боков выработок
+
+
+    // @formatter:on
+
+
+
     public int xi1sc, yi1sc, xi2sc, yi2sc, xi3sc, yi3sc, xi4sc, yi4sc, xi22sc, yi22sc, xi33sc, yi33sc;
+
 
     public double xs11, ys11, xs12, ys12, xs21, ys21, xs22, ys22, xs31, ys31, xs32, ys32, xs41, ys41, xs42, ys42; //координаты забоя выработок
     public int xs11sc, ys11sc, xs12sc, ys12sc, xs21sc, ys21sc, xs22sc, ys22sc, xs31sc, ys31sc, xs32sc, ys32sc, xs41sc, ys41sc, xs42sc, ys42sc;
@@ -78,35 +92,35 @@ public class ServiceIntersection extends ModelIntersection {
 
     private void calcCoordInt() {
         //Расчет координат точек пересечения боков горных выработок
-        xi1 = calcCoordPointSidesX(b1, b2, alpha1Rad, alpha2Rad);
-        xi1sc = (int) (xi1 * scaleInt);
-        yi1 = calcCoordPointSidesY(b1, b2, alpha1Rad, alpha2Rad);
-        yi1sc = (int) (yi1 * scaleInt);
+        xIntersectionWall12 = calcCoordPointSidesX(b1, width2, alpha1Rad, alpha2Rad);
+        xi1sc = (int) (xIntersectionWall12 * scaleInt);
+        yIntersectionWall12 = calcCoordPointSidesY(b1, width2, alpha1Rad, alpha2Rad);
+        yi1sc = (int) (yIntersectionWall12 * scaleInt);
 
-        xi2 = calcCoordPointSidesX(b2, b3, alpha2Rad, alpha3Rad);
-        xi2sc = (int) (xi2 * scaleInt);
-        yi2 = calcCoordPointSidesY(b2, b3, alpha2Rad, alpha3Rad);
-        yi2sc = (int) (yi2 * scaleInt);
+        xIntersectionWall23 = calcCoordPointSidesX(width2, b3, alpha2Rad, alpha3Rad);
+        xi2sc = (int) (xIntersectionWall23 * scaleInt);
+        yIntersectionWall23 = calcCoordPointSidesY(width2, b3, alpha2Rad, alpha3Rad);
+        yi2sc = (int) (yIntersectionWall23 * scaleInt);
 
-        xi3 = calcCoordPointSidesX(b3, b4, alpha3Rad, alpha4Rad);
-        xi3sc = (int) (xi3 * scaleInt);
-        yi3 = calcCoordPointSidesY(b3, b4, alpha3Rad, alpha4Rad);
-        yi3sc = (int) (yi3 * scaleInt);
+        xIntersectionWall34 = calcCoordPointSidesX(b3, width4, alpha3Rad, alpha4Rad);
+        xi3sc = (int) (xIntersectionWall34 * scaleInt);
+        yIntersectionWall34 = calcCoordPointSidesY(b3, width4, alpha3Rad, alpha4Rad);
+        yi3sc = (int) (yIntersectionWall34 * scaleInt);
 
-        xi4 = calcCoordPointSidesX(b4, b1, alpha4Rad, alpha1Rad);
-        xi4sc = (int) (xi4 * scaleInt);
-        yi4 = calcCoordPointSidesY(b4, b1, alpha4Rad, alpha1Rad);
-        yi4sc = (int) (yi4 * scaleInt);
+        xIntersectionWall41 = calcCoordPointSidesX(width4, b1, alpha4Rad, alpha1Rad);
+        xi4sc = (int) (xIntersectionWall41 * scaleInt);
+        yIntersectionWall41 = calcCoordPointSidesY(width4, b1, alpha4Rad, alpha1Rad);
+        yi4sc = (int) (yIntersectionWall41 * scaleInt);
 
-        xi33 = calcCoordPointSidesX(b3, b1, alpha3Rad, alpha1Rad);
-        xi33sc = (int) (xi33 * scaleInt);
-        yi33 = calcCoordPointSidesY(b3, b1, alpha3Rad, alpha1Rad);
-        yi33sc = (int) (yi33 * scaleInt);
+        xIntersectionWall31 = calcCoordPointSidesX(b3, b1, alpha3Rad, alpha1Rad);
+        xi33sc = (int) (xIntersectionWall31 * scaleInt);
+        yIntersectionWall31 = calcCoordPointSidesY(b3, b1, alpha3Rad, alpha1Rad);
+        yi33sc = (int) (yIntersectionWall31 * scaleInt);
 
-        xi22 = -xi1;
-        xi22sc = (int) (xi22 * scaleInt);
-        yi22 = -yi1;
-        yi22sc = (int) (yi22 * scaleInt);
+        xIntersectionWall21 = -xIntersectionWall12;
+        xi22sc = (int) (xIntersectionWall21 * scaleInt);
+        yIntersectionWall21 = -yIntersectionWall12;
+        yi22sc = (int) (yIntersectionWall21 * scaleInt);
 
         //Расчет координат плоскостей забоя горных выработок
         xs11 = calcCoordPointStopeExX(L1, b1, alpha1Rad);
@@ -119,14 +133,14 @@ public class ServiceIntersection extends ModelIntersection {
         ys12 = calcCoordPointStopeExY(L1, -b1, alpha1Rad);
         ys12sc = (int) (ys12 * scaleInt);
 
-        xs21 = calcCoordPointStopeExX(L2, b2, alpha2Rad);
+        xs21 = calcCoordPointStopeExX(L2, width2, alpha2Rad);
         xs21sc = (int) (xs21 * scaleInt);
-        ys21 = calcCoordPointStopeExY(L2, b2, alpha2Rad);
+        ys21 = calcCoordPointStopeExY(L2, width2, alpha2Rad);
         ys21sc = (int) (ys21 * scaleInt);
 
-        xs22 = calcCoordPointStopeExX(L2, -b2, alpha2Rad);
+        xs22 = calcCoordPointStopeExX(L2, -width2, alpha2Rad);
         xs22sc = (int) (xs22 * scaleInt);
-        ys22 = calcCoordPointStopeExY(L2, -b2, alpha2Rad);
+        ys22 = calcCoordPointStopeExY(L2, -width2, alpha2Rad);
         ys22sc = (int) (ys22 * scaleInt);
 
         xs31 = calcCoordPointStopeExX(L3, b3, alpha3Rad);
@@ -139,100 +153,100 @@ public class ServiceIntersection extends ModelIntersection {
         ys32 = calcCoordPointStopeExY(L3, -b3, alpha3Rad);
         ys32sc = (int) (ys32 * scaleInt);
 
-        xs41 = calcCoordPointStopeExX(L4, b4, alpha4Rad);
+        xs41 = calcCoordPointStopeExX(L4, width4, alpha4Rad);
         xs41sc = (int) (xs41 * scaleInt);
-        ys41 = calcCoordPointStopeExY(L4, b4, alpha4Rad);
+        ys41 = calcCoordPointStopeExY(L4, width4, alpha4Rad);
         ys41sc = (int) (ys41 * scaleInt);
 
-        xs42 = calcCoordPointStopeExX(L4, -b4, alpha4Rad);
+        xs42 = calcCoordPointStopeExX(L4, -width4, alpha4Rad);
         xs42sc = (int) (xs42 * scaleInt);
-        ys42 = calcCoordPointStopeExY(L4, -b4, alpha4Rad);
+        ys42 = calcCoordPointStopeExY(L4, -width4, alpha4Rad);
         ys42sc = (int) (ys42 * scaleInt);
 
         //Расчет величины закругления сопряжения
-        CalculateBB(b2, b1, alpha2Rad, alpha1Rad);
+        CalculateBB(width2, b1, alpha2Rad, alpha1Rad);
         bb12 = bb;
-        CalculateBB(b3, b2, alpha3Rad, alpha2Rad);
+        CalculateBB(b3, width2, alpha3Rad, alpha2Rad);
         bb23 = bb;
         CalculateBB(b1, b3, alpha1Rad, alpha3Rad);
         bb31 = bb;
 
         //Координаты точек закругления выработок
-        x1 = xi1 + bb12 * Math.cos(Math.atan2(yi1, xi1));
+        x1 = xIntersectionWall12 + bb12 * Math.cos(Math.atan2(yIntersectionWall12, xIntersectionWall12));
         x1sc = (int) (x1 * scaleInt);
-        y1 = yi1 + bb12 * Math.sin(Math.atan2(yi1, xi1));
+        y1 = yIntersectionWall12 + bb12 * Math.sin(Math.atan2(yIntersectionWall12, xIntersectionWall12));
         y1sc = (int) (y1 * scaleInt);
 
-        x2 = xi2 + bb23 * Math.cos(Math.atan2(yi2, xi2));
+        x2 = xIntersectionWall23 + bb23 * Math.cos(Math.atan2(yIntersectionWall23, xIntersectionWall23));
         x2sc = (int) (x2 * scaleInt);
-        y2 = yi2 + bb23 * Math.sin(Math.atan2(yi2, xi2));
+        y2 = yIntersectionWall23 + bb23 * Math.sin(Math.atan2(yIntersectionWall23, xIntersectionWall23));
         y2sc = (int) (y2 * scaleInt);
 
 
-        x3 = xi3 - bb34 * Math.abs(Math.sin((alpha3Rad + alpha4Rad) / 2));
+        x3 = xIntersectionWall34 - bb34 * Math.abs(Math.sin((alpha3Rad + alpha4Rad) / 2));
         x3sc = (int) (x3 * scaleInt);
-        y3 = yi3 + bb34 * Math.abs(Math.cos((alpha3Rad + alpha4Rad) / 2));
+        y3 = yIntersectionWall34 + bb34 * Math.abs(Math.cos((alpha3Rad + alpha4Rad) / 2));
         y3sc = (int) (y3 * scaleInt);
 
-        x4 = xi4 - bb41 * Math.abs(Math.sin((alpha4Rad + alpha1Rad) / 2));
+        x4 = xIntersectionWall41 - bb41 * Math.abs(Math.sin((alpha4Rad + alpha1Rad) / 2));
         x4sc = (int) (x4 * scaleInt);
-        y4 = yi4 - bb41 * Math.abs(Math.cos((alpha4Rad + alpha1Rad) / 2));
+        y4 = yIntersectionWall41 - bb41 * Math.abs(Math.cos((alpha4Rad + alpha1Rad) / 2));
         y4sc = (int) (y4 * scaleInt);
 
-        x33 = xi33 + bb31 * Math.cos(Math.atan2(yi33, xi33));
+        x33 = xIntersectionWall31 + bb31 * Math.cos(Math.atan2(yIntersectionWall31, xIntersectionWall31));
         x33sc = (int) (x33 * scaleInt);
-        y33 = yi33 + bb31 * Math.sin(Math.atan2(yi33, xi33));
+        y33 = yIntersectionWall31 + bb31 * Math.sin(Math.atan2(yIntersectionWall31, xIntersectionWall31));
         y33sc = (int) (y33 * scaleInt);
 
         //Координаты точек начала закругления выработок
-        x12 = xi1 + b12 * Math.sin(alpha1Rad);
+        x12 = xIntersectionWall12 + b12 * Math.sin(alpha1Rad);
         x12sc = (int) (x12 * scaleInt);
-        y12 = yi1 - b12 * Math.cos(alpha1Rad);
+        y12 = yIntersectionWall12 - b12 * Math.cos(alpha1Rad);
         y12sc = (int) (y12 * scaleInt);
 
-        x21 = xi1 + b21 * Math.sin(alpha2Rad);
+        x21 = xIntersectionWall12 + b21 * Math.sin(alpha2Rad);
         x21sc = (int) (x21 * scaleInt);
-        y21 = yi1 - b21 * Math.cos(alpha2Rad);
+        y21 = yIntersectionWall12 - b21 * Math.cos(alpha2Rad);
         y21sc = (int) (y21 * scaleInt);
 
-        x23 = xi2 + b23 * Math.sin(alpha2Rad);
+        x23 = xIntersectionWall23 + b23 * Math.sin(alpha2Rad);
         x23sc = (int) (x23 * scaleInt);
-        y23 = yi2 - b23 * Math.cos(alpha2Rad);
+        y23 = yIntersectionWall23 - b23 * Math.cos(alpha2Rad);
         y23sc = (int) (y23 * scaleInt);
 
-        x32 = xi2 + b32 * Math.sin(alpha3Rad);
+        x32 = xIntersectionWall23 + b32 * Math.sin(alpha3Rad);
         x32sc = (int) (x32 * scaleInt);
-        y32 = yi2 - b32 * Math.cos(alpha3Rad);
+        y32 = yIntersectionWall23 - b32 * Math.cos(alpha3Rad);
         y32sc = (int) (y32 * scaleInt);
 
-        x34 = xi3 + b34 * Math.sin(alpha3Rad);
+        x34 = xIntersectionWall34 + b34 * Math.sin(alpha3Rad);
         x34sc = (int) (x34 * scaleInt);
-        y34 = yi3 - b34 * Math.cos(alpha3Rad);
+        y34 = yIntersectionWall34 - b34 * Math.cos(alpha3Rad);
         y34sc = (int) (y34 * scaleInt);
 
-        x43 = xi3 + b43 * Math.sin(alpha4Rad);
+        x43 = xIntersectionWall34 + b43 * Math.sin(alpha4Rad);
         x43sc = (int) (x43 * scaleInt);
-        y43 = yi3 - b43 * Math.cos(alpha4Rad);
+        y43 = yIntersectionWall34 - b43 * Math.cos(alpha4Rad);
         y43sc = (int) (y43 * scaleInt);
 
-        x41 = xi4 + b41 * Math.sin(alpha4Rad);
+        x41 = xIntersectionWall41 + b41 * Math.sin(alpha4Rad);
         x41sc = (int) (x41 * scaleInt);
-        y41 = yi4 - b41 * Math.cos(alpha4Rad);
+        y41 = yIntersectionWall41 - b41 * Math.cos(alpha4Rad);
         y41sc = (int) (y41 * scaleInt);
 
-        x14 = xi4 + b14 * Math.sin(alpha1Rad);
+        x14 = xIntersectionWall41 + b14 * Math.sin(alpha1Rad);
         x14sc = (int) (x14 * scaleInt);
-        y14 = yi4 - b14 * Math.cos(alpha1Rad);
+        y14 = yIntersectionWall41 - b14 * Math.cos(alpha1Rad);
         y14sc = (int) (y14 * scaleInt);
 
-        x31 = xi33 + b31 * Math.sin(alpha3Rad);
+        x31 = xIntersectionWall31 + b31 * Math.sin(alpha3Rad);
         x31sc = (int) (x31 * scaleInt);
-        y31 = yi33 - b31 * Math.cos(alpha3Rad);
+        y31 = yIntersectionWall31 - b31 * Math.cos(alpha3Rad);
         y31sc = (int) (y31 * scaleInt);
 
-        x13 = xi33 + b13 * Math.sin(alpha1Rad);
+        x13 = xIntersectionWall31 + b13 * Math.sin(alpha1Rad);
         x13sc = (int) (x13 * scaleInt);
-        y13 = yi33 - b13 * Math.cos(alpha1Rad);
+        y13 = yIntersectionWall31 - b13 * Math.cos(alpha1Rad);
         y13sc = (int) (y13 * scaleInt);
 
         //Расчет координат точек пресечения осей выработок и забоя
@@ -293,20 +307,12 @@ public class ServiceIntersection extends ModelIntersection {
      */
     public double calcCoordPointContX(double X1, double Y1) {
         double B = SAI.distanceBetweenPoint(x33, y33, x1, y1);
-        //System.out.println("B = " + B + " м");
         double X0 = 0.0;
-        double Y0 = -h1 * calcIndHeightInt() + RBIG(B, typeInt);
-        //double Y0 = -Collections.max(Arrays.asList(h1, h2, h3)) * calcIndHeightInt() + RBIG(B, typeInt);
-//        System.out.println("Collections.max(Arrays.asList(h1, h2, h3)) * k = " + h1 * calcIndHeightInt() + " м");
-//        System.out.println("RBIG = " + RBIG(B, typeInt) + " м");
-        double HI = Math.acos(RBIG(B, typeInt) / SAI.distanceBetweenPoint(X0, Y0, X1, Y1));
-        //System.out.println("distanceBetweenPoint(X0, Y0, X1, Y1) = " + SAI.distanceBetweenPoint(X0, Y0, X1, Y1) + " м");
-        //System.out.println("HI = " + HI * 180 / Math.PI + "градусов");
+        double Y0 = -height1 * calcIndHeightInt() + RBIG(B, formIndicationIntersection);
+        double HI = Math.acos(RBIG(B, formIndicationIntersection) / SAI.distanceBetweenPoint(X0, Y0, X1, Y1));
         double PSI = Math.atan(Math.abs((Y1 - Y0) / (X1 - X0)));
-        //System.out.println("PSI = " + PSI * 180 / Math.PI + "градусов");
-        //System.out.println("HI + PSI = " + (PSI + HI) * 180 / Math.PI + "градусов");
-        double dx = RBIG(B, typeInt) * Math.abs(Math.cos(HI + PSI));
-        //System.out.println("dx = " + dx + " м");
+        double dx = RBIG(B, formIndicationIntersection) * Math.abs(Math.cos(HI + PSI));
+
         if (X1 > 0) {
             return dx;
         } else {
@@ -321,14 +327,11 @@ public class ServiceIntersection extends ModelIntersection {
     public double calcCoordPointContY(double X1, double Y1) {
         double B = SAI.distanceBetweenPoint(x33, y33, x1, y1);
         double X0 = 0.0;
-        double Y0 = -h1 * calcIndHeightInt() + RBIG(B, typeInt);
-        //double Y0 = -Collections.max(Arrays.asList(h1, h2, h3)) * calcIndHeightInt() + RBIG(B, typeInt);
-        double HI = Math.acos(RBIG(B, typeInt) / SAI.distanceBetweenPoint(X0, Y0, X1, Y1));
+        double Y0 = -height1 * calcIndHeightInt() + RBIG(B, formIndicationIntersection);
+        double HI = Math.acos(RBIG(B, formIndicationIntersection) / SAI.distanceBetweenPoint(X0, Y0, X1, Y1));
         double PSI = Math.atan(Math.abs((Y1 - Y0) / (X1 - X0)));
-        double dy = RBIG(B, typeInt) * Math.abs(Math.sin(HI + PSI));
-        //System.out.println("dy = " + dy + " м");
-        double Y = (-h1 * calcIndHeightInt() + RBIG(B, typeInt) - dy);
-        //double Y = (-Collections.max(Arrays.asList(h1, h2, h3)) * calcIndHeightInt() + RBIG(B, typeInt) - dy);
+        double dy = RBIG(B, formIndicationIntersection) * Math.abs(Math.sin(HI + PSI));
+        double Y = (-height1 * calcIndHeightInt() + RBIG(B, formIndicationIntersection) - dy);
         return Y;
     }
 
@@ -348,8 +351,8 @@ public class ServiceIntersection extends ModelIntersection {
     public double calcAngleBetweenVertAndPointCont(double X1, double Y1) {
         double B = SAI.distanceBetweenPoint(x33, y33, x1, y1);
         double X0 = 0.0;
-        double Y0 = -h1 * calcIndHeightInt() + RBIG(B, typeInt);
-        double HI = Math.acos(RBIG(B, typeInt) / SAI.distanceBetweenPoint(X0, Y0, X1, Y1));
+        double Y0 = -height1 * calcIndHeightInt() + RBIG(B, formIndicationIntersection);
+        double HI = Math.acos(RBIG(B, formIndicationIntersection) / SAI.distanceBetweenPoint(X0, Y0, X1, Y1));
         double PSI = Math.atan(Math.abs((Y1 - Y0) / (X1 - X0)));
         //System.out.println((Math.PI / 2 - HI - PSI) * 180 / Math.PI);
         return Math.PI / 2 - HI - PSI;

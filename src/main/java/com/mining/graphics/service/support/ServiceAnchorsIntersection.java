@@ -165,31 +165,31 @@ public class ServiceAnchorsIntersection extends AnchorsIntersection {
 
         double B = distanceBetweenPoint(x33, y33, x1, y1); //Ширина выработки
 
-        double ArcLength = RBIG(B, typeInt) * calcAngleBetweenVertAndPointCont(X1, Y1); //Длина дуги
+        double ArcLength = RBIG(B, formIndicationIntersection) * calcAngleBetweenVertAndPointCont(X1, Y1); //Длина дуги
 
         double LineLength = distanceBetweenPoint(calcCoordPointContX(X1, Y1), calcCoordPointContY(X1, Y1), X1, Y1); //Длина прямолинейного отрезка
 
         numAnchProj = (int) (Math.ceil((ArcLength + LineLength) / CAL));
 
         double X0arc = 0.0; //координата X установки первого анкера по дуге
-        double Y0arc = h1 * calcIndHeightInt(); //координата Y установки первого анкера по дуге
+        double Y0arc = height1 * calcIndHeightInt(); //координата Y установки первого анкера по дуге
 
         СoorAncIntProj = new double[numAnchProj + 1][4]; //numAnchProj + 1 - количество анкеров в ряду
 
         //определение координат установки анкеров по дуге большого радиуса
         if (X1 >= 0) {
             for (i = 0, j = 0; ArcLength >= j * CAL; i++, j++) {
-                СoorAncIntProj[i][0] = X0arc + RBIG(B, typeInt) * Math.sin(j * CAL / RBIG(B, typeInt));
-                СoorAncIntProj[i][1] = -Y0arc * Math.cos(j * CAL / RBIG(B, typeInt));
-                СoorAncIntProj[i][2] = X0arc + (RBIG(B, typeInt) + L) * Math.sin(j * CAL / RBIG(B, typeInt));
-                СoorAncIntProj[i][3] = (-Y0arc - L) * Math.cos(j * CAL / RBIG(B, typeInt));
+                СoorAncIntProj[i][0] = X0arc + RBIG(B, formIndicationIntersection) * Math.sin(j * CAL / RBIG(B, formIndicationIntersection));
+                СoorAncIntProj[i][1] = -Y0arc * Math.cos(j * CAL / RBIG(B, formIndicationIntersection));
+                СoorAncIntProj[i][2] = X0arc + (RBIG(B, formIndicationIntersection) + L) * Math.sin(j * CAL / RBIG(B, formIndicationIntersection));
+                СoorAncIntProj[i][3] = (-Y0arc - L) * Math.cos(j * CAL / RBIG(B, formIndicationIntersection));
             }
         } else {
             for (i = 0, j = 0; ArcLength >= j * CAL; i++, j++) {
-                СoorAncIntProj[i][0] = X0arc - RBIG(B, typeInt) * Math.sin(j * CAL / RBIG(B, typeInt));
-                СoorAncIntProj[i][1] = -Y0arc * Math.cos(j * CAL / RBIG(B, typeInt));
-                СoorAncIntProj[i][2] = X0arc - (RBIG(B, typeInt) + L) * Math.sin(j * CAL / RBIG(B, typeInt));
-                СoorAncIntProj[i][3] = (-Y0arc - L) * Math.cos(j * CAL / RBIG(B, typeInt));
+                СoorAncIntProj[i][0] = X0arc - RBIG(B, formIndicationIntersection) * Math.sin(j * CAL / RBIG(B, formIndicationIntersection));
+                СoorAncIntProj[i][1] = -Y0arc * Math.cos(j * CAL / RBIG(B, formIndicationIntersection));
+                СoorAncIntProj[i][2] = X0arc - (RBIG(B, formIndicationIntersection) + L) * Math.sin(j * CAL / RBIG(B, formIndicationIntersection));
+                СoorAncIntProj[i][3] = (-Y0arc - L) * Math.cos(j * CAL / RBIG(B, formIndicationIntersection));
             }
         }
 
@@ -207,19 +207,15 @@ public class ServiceAnchorsIntersection extends AnchorsIntersection {
 
         if (X1 >= 0) {
             for (k = 0; (REMAIN + LineLength) * Math.cos(OMEGA) - CAL >= k * CAL; i++, k++) {
-                //СoorAncIntProj[i][0] = XStartAnchToLine + k * CAL * Math.cos(OMEGA);
                 СoorAncIntProj[i][0] = XStartAnchToLine + k * CAL;
                 СoorAncIntProj[i][1] = YStartAnchToLine + k * CAL * Math.sin(OMEGA);
-                //СoorAncIntProj[i][2] = XStartAnchToLine + k * CAL * Math.cos(OMEGA) + L * Math.cos(OMEGA - Math.PI / 2.0);
                 СoorAncIntProj[i][2] = XStartAnchToLine + k * CAL + L * Math.cos(OMEGA - Math.PI / 2.0);
                 СoorAncIntProj[i][3] = YStartAnchToLine + k * CAL * Math.sin(OMEGA) + L * Math.sin(OMEGA - Math.PI / 2.0);
             }
         } else {
             for (k = 0; (REMAIN + LineLength) * Math.cos(OMEGA) - CAL >= k * CAL; i++, k++) {
-                //СoorAncIntProj[i][0] = XStartAnchToLine - k * CAL * Math.cos(OMEGA);
                 СoorAncIntProj[i][0] = XStartAnchToLine - k * CAL;
                 СoorAncIntProj[i][1] = YStartAnchToLine + k * CAL * Math.sin(OMEGA);
-                //СoorAncIntProj[i][2] = XStartAnchToLine - k * CAL * Math.cos(OMEGA) + L * Math.cos(OMEGA + Math.PI / 2.0);
                 СoorAncIntProj[i][2] = XStartAnchToLine - k * CAL + L * Math.cos(OMEGA + Math.PI / 2.0);
                 СoorAncIntProj[i][3] = YStartAnchToLine + k * CAL * Math.sin(OMEGA) - L * Math.sin(OMEGA + Math.PI / 2.0);
             }

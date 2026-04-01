@@ -58,10 +58,10 @@ public class GraphicsAnchorsIntersection extends ServiceAnchorsIntersection {
      */
     public void graphAnchProjIntConstr3(Graphics g) {
         g.translate(0, distance); //Перенос начала координат в центр отрезка, изображающего почву сопряжения
-        calcCoordAnchProjInt(x21, -h2, cAl2, l2);
+        calcCoordAnchProjInt(x21, -height2, cAl2, l2);
         g.setColor(Color.BLUE);
         graphAnchProjInt(g);
-        calcCoordAnchProjInt(x31, -h3, cAl3, l3);
+        calcCoordAnchProjInt(x31, -height3, cAl3, l3);
         g.setColor(new Color(0, 120, 0));
         graphAnchProjInt(g);
         g.translate(0, -distance); //Перенос начала координат в точку пересечения осей гороных выработок в плане сопряжения

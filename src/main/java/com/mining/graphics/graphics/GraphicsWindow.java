@@ -22,7 +22,7 @@ import java.awt.*;
 
 public class GraphicsWindow extends JFrame {
 
-    private int currentMode = 1; // Текущий режим отображения
+    private int currentMode = 3; // Текущий режим отображения
 
 
     // Модели данных

@@ -23,7 +23,7 @@ public class GraphicsExcavation {
         double width = modelExcavation.getWidth();
         double height = modelExcavation.getHeight();
         double formIndication = modelExcavation.getFormIndication();
-        int scale = GraphicsParameters.GRAPHICS_SCALE;
+        int scale = GraphicsParameters.GRAPHICS_EXCAVATION_SCALE;
 
         int scaleWidth = serviceExcavation.getScaleWidth(width, scale);
         int scaleHeight = serviceExcavation.getScaleHeight(height, scale);
@@ -47,7 +47,7 @@ public class GraphicsExcavation {
     public void drawLongSectionExcavation(Graphics g) {
         double height = modelExcavation.getHeight();
         double length = modelExcavation.getLength();
-        int scale = GraphicsParameters.GRAPHICS_SCALE;
+        int scale = GraphicsParameters.GRAPHICS_EXCAVATION_SCALE;
 
         int scaleHeight = serviceExcavation.getScaleHeight(height, scale);
         int scaleLength = serviceExcavation.getScaleLength(length, scale);
