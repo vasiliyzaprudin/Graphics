@@ -53,7 +53,6 @@ public class ModelIntersection {
     }
     // @formatter:on
 
-    //Геттеры и сеттеры
     public double getWidth1() {return width1;}
     public void setWidth1(double width1) {this.width1 = width1;}
 
@@ -104,15 +103,19 @@ public class ModelIntersection {
 
     public int getAzimuthDegrees1() {return azimuthDegrees1;}
     public void setAzimuthDegrees1(int azimuthDegrees1) {this.azimuthDegrees1 = azimuthDegrees1;}
+    public double getAzimuthRadians1() {return azimuthDegrees1 * 180.0/Math.PI;}
 
     public int getAzimuthDegrees2() {return azimuthDegrees2;}
     public void setAzimuthDegrees2(int azimuthDegrees2) {this.azimuthDegrees2 = azimuthDegrees2;}
+    public double getAzimuthRadians2() {return azimuthDegrees2 * 180.0/Math.PI;}
 
     public int getAzimuthDegrees3() {return azimuthDegrees3;}
     public void setAzimuthDegrees3(int azimuthDegrees3) {this.azimuthDegrees3 = azimuthDegrees3;}
+    public double getAzimuthRadians3() {return azimuthDegrees3 * 180.0/Math.PI;}
 
     public int getAzimuthDegrees4() {return azimuthDegrees4;}
     public void setAzimuthDegrees4(int azimuthDegrees4) {this.azimuthDegrees4 = azimuthDegrees4;}
+    public double getAzimuthRadians4() {return azimuthDegrees4 * 180.0/Math.PI;}
 
     public double getFormIndicationIntersection() {return formIndicationIntersection;}
     public void setFormIndicationIntersection(double formIndicationIntersection) {this.formIndicationIntersection = formIndicationIntersection;}
@@ -139,19 +142,18 @@ public class ModelIntersection {
 
 
     //длина горной выработки на закруглении
-    public double b12 = width1, b21 = width2, b23 = width2, b32 = width3, b34 = width3, b43 = width4, b41 = width4, b14 = width1, b13 = width1, b31 = width3;
+    public double b12 = width1,
+            b21 = width2,
+            b23 = width2,
+            b32 = width3,
+            b34 = width3,
+            b43 = width4,
+            b41 = width4,
+            b14 = width1,
+            b13 = width1,
+            b31 = width3;
 
-    /**
-     * Этот метод определяет величину закругления сопряжения
-     * в зависимости от ширины сопрягаемых выработок и угла их поворота.
-     */
-    public void CalculateBB(double B2, double B1, double ALPHARad2, double ALPHARad1) {
-        if (Math.abs(ALPHARad2 - ALPHARad1) <= Math.PI / 2) {
-            bb = ((B2 + B1) / 8) / Math.abs(Math.sin(ALPHARad2 - ALPHARad1));
-        } else {
-            bb = ((B2 + B1) / 8) * Math.sin(ALPHARad2 - ALPHARad1);
-        }
-    }
+
 
     //расчетные геометрические параметры горных выработок
     //опорный угол дуги большого радиуса

@@ -82,6 +82,11 @@ public class GraphicsIntersection extends ServiceIntersection {
         g.drawLine(xs22sc, ys22sc, xi22sc, yi22sc); //Бок выработки 2 левый
     }
 
+
+
+
+
+
     public void GraphConstrInt3(Graphics g) {
 
         //Построение осей выработок
