@@ -7,7 +7,7 @@ public class ModelCoordinatesIntersection {
 
     public ModelCoordinatesIntersection(ModelIntersection modelIntersection) {
         this.modelIntersection = modelIntersection;
-        calculateAllCoordinates();
+        calculateAllCoordinatesPlanIntersection();
     }
 
     private double xIntersectionWall12, yIntersectionWall12;
@@ -32,7 +32,7 @@ public class ModelCoordinatesIntersection {
     private int xScaleStopeLeft3, yScaleStopeLeft3, xScaleStopeRight3, yScaleStopeRight3;
     private int xScaleStopeLeft4, yScaleStopeLeft4, xScaleStopeRight4, yScaleStopeRight4;
 
-    private double roundingRadius12, roundingRadius23,roundingRadius31;
+    private double roundingRadius12, roundingRadius23, roundingRadius31;
 
     private double xStartRounding12, yStartRounding12, xStartRounding21, yStartRounding21;
     private double xStartRounding23, yStartRounding23, xStartRounding32, yStartRounding32;
@@ -70,7 +70,7 @@ public class ModelCoordinatesIntersection {
     private int xScalePointIntrsectionExcavation31, yScalePointIntrsectionExcavation31;
 
 
-    private void calculateAllCoordinates() {
+    private void calculateAllCoordinatesPlanIntersection() {
 
         double width1 = modelIntersection.getWidth1();
         double width2 = modelIntersection.getWidth2();
@@ -119,15 +119,15 @@ public class ModelCoordinatesIntersection {
         this.yScaleIntersectionWall31 = ServiceIntersection.toScaleParameter(yIntersectionWall31);
 
         //Расчет координат точек забоя горных выработок
-        this.xStopeLeft1 = ServiceIntersection.calculateStopeX(length1, width1,azimuthRadians1);
-        this.yStopeLeft1 = ServiceIntersection.calculateStopeY(length1, width1,azimuthRadians1);
+        this.xStopeLeft1 = ServiceIntersection.calculateStopeX(length1, width1, azimuthRadians1);
+        this.yStopeLeft1 = ServiceIntersection.calculateStopeY(length1, width1, azimuthRadians1);
         this.xScaleStopeLeft1 = ServiceIntersection.toScaleParameter(xStopeLeft1);
         this.yScaleStopeLeft1 = ServiceIntersection.toScaleParameter(yStopeLeft1);
 
-        this.xStopeRight1 = ServiceIntersection.calculateStopeX(length1, -width1,azimuthRadians1);
-        this.yStopeRight1 = ServiceIntersection.calculateStopeY(length1, -width1,azimuthRadians1);
+        this.xStopeRight1 = ServiceIntersection.calculateStopeX(length1, -width1, azimuthRadians1);
+        this.yStopeRight1 = ServiceIntersection.calculateStopeY(length1, -width1, azimuthRadians1);
         this.xScaleStopeRight1 = ServiceIntersection.toScaleParameter(xStopeRight1);
-        this.yScaleStopeRight1 = ServiceIntersection.toScaleParameter(xStopeRight1);
+        this.yScaleStopeRight1 = ServiceIntersection.toScaleParameter(yStopeRight1);
 
         this.xStopeLeft2 = ServiceIntersection.calculateStopeX(length2, width2, azimuthRadians2);
         this.yStopeLeft2 = ServiceIntersection.calculateStopeY(length2, width2, azimuthRadians2);
@@ -165,49 +165,49 @@ public class ModelCoordinatesIntersection {
         this.roundingRadius31 = ServiceIntersection.calculateRoundingRadius(width3, width1, azimuthRadians3, azimuthRadians1);
 
         //Расчет координат точек пересечения выработок
-        this.xPointIntrsectionExcavation12 = ServiceIntersection.calculatePointIntrsectionExcavationX(xIntersectionWall12, yIntersectionWall12,roundingRadius12);
-        this.yPointIntrsectionExcavation12 = ServiceIntersection.calculatePointIntrsectionExcavationY(xIntersectionWall12, yIntersectionWall12,roundingRadius12);
+        this.xPointIntrsectionExcavation12 = ServiceIntersection.calculatePointIntrsectionExcavationX(xIntersectionWall12, yIntersectionWall12, roundingRadius12);
+        this.yPointIntrsectionExcavation12 = ServiceIntersection.calculatePointIntrsectionExcavationY(xIntersectionWall12, yIntersectionWall12, roundingRadius12);
         this.xScalePointIntrsectionExcavation12 = ServiceIntersection.toScaleParameter(xPointIntrsectionExcavation12);
         this.yScalePointIntrsectionExcavation12 = ServiceIntersection.toScaleParameter(yPointIntrsectionExcavation12);
 
-        this.xPointIntrsectionExcavation23 = ServiceIntersection.calculatePointIntrsectionExcavationX(xIntersectionWall23, yIntersectionWall23,roundingRadius23);
-        this.yPointIntrsectionExcavation23 = ServiceIntersection.calculatePointIntrsectionExcavationY(xIntersectionWall23, yIntersectionWall23,roundingRadius23);
+        this.xPointIntrsectionExcavation23 = ServiceIntersection.calculatePointIntrsectionExcavationX(xIntersectionWall23, yIntersectionWall23, roundingRadius23);
+        this.yPointIntrsectionExcavation23 = ServiceIntersection.calculatePointIntrsectionExcavationY(xIntersectionWall23, yIntersectionWall23, roundingRadius23);
         this.xScalePointIntrsectionExcavation23 = ServiceIntersection.toScaleParameter(xPointIntrsectionExcavation23);
         this.yScalePointIntrsectionExcavation23 = ServiceIntersection.toScaleParameter(yPointIntrsectionExcavation23);
 
-        this.xPointIntrsectionExcavation31 = ServiceIntersection.calculatePointIntrsectionExcavationX(xIntersectionWall31, yIntersectionWall31,roundingRadius31);
-        this.yPointIntrsectionExcavation31 = ServiceIntersection.calculatePointIntrsectionExcavationY(xIntersectionWall31, yIntersectionWall31,roundingRadius31);
+        this.xPointIntrsectionExcavation31 = ServiceIntersection.calculatePointIntrsectionExcavationX(xIntersectionWall31, yIntersectionWall31, roundingRadius31);
+        this.yPointIntrsectionExcavation31 = ServiceIntersection.calculatePointIntrsectionExcavationY(xIntersectionWall31, yIntersectionWall31, roundingRadius31);
         this.xScalePointIntrsectionExcavation31 = ServiceIntersection.toScaleParameter(xPointIntrsectionExcavation31);
         this.yScalePointIntrsectionExcavation31 = ServiceIntersection.toScaleParameter(yPointIntrsectionExcavation31);
 
         //Расчет координат точек начала закругления выработок
-        this.xStartRounding12 = ServiceIntersection.calculateStartRoundingX(xIntersectionWall12, width1,azimuthRadians1);
-        this.yStartRounding12 = ServiceIntersection.calculateStartRoundingY(yIntersectionWall12, width1,azimuthRadians1);
+        this.xStartRounding12 = ServiceIntersection.calculateStartRoundingX(xIntersectionWall12, width1, azimuthRadians1);
+        this.yStartRounding12 = ServiceIntersection.calculateStartRoundingY(yIntersectionWall12, width1, azimuthRadians1);
         this.xScaleStartRounding12 = ServiceIntersection.toScaleParameter(xStartRounding12);
         this.yScaleStartRounding12 = ServiceIntersection.toScaleParameter(yStartRounding12);
 
-        this.xStartRounding13 = ServiceIntersection.calculateStartRoundingX(xIntersectionWall31, width1,azimuthRadians1);
-        this.yStartRounding13 = ServiceIntersection.calculateStartRoundingY(yIntersectionWall31, width1,azimuthRadians1);
+        this.xStartRounding13 = ServiceIntersection.calculateStartRoundingX(xIntersectionWall31, width1, azimuthRadians1);
+        this.yStartRounding13 = ServiceIntersection.calculateStartRoundingY(yIntersectionWall31, width1, azimuthRadians1);
         this.xScaleStartRounding13 = ServiceIntersection.toScaleParameter(xStartRounding13);
         this.yScaleStartRounding13 = ServiceIntersection.toScaleParameter(yStartRounding13);
 
-        this.xStartRounding21 = ServiceIntersection.calculateStartRoundingX(xIntersectionWall12, width2,azimuthRadians2);
-        this.yStartRounding21 = ServiceIntersection.calculateStartRoundingY(yIntersectionWall12, width2,azimuthRadians2);
+        this.xStartRounding21 = ServiceIntersection.calculateStartRoundingX(xIntersectionWall12, width2, azimuthRadians2);
+        this.yStartRounding21 = ServiceIntersection.calculateStartRoundingY(yIntersectionWall12, width2, azimuthRadians2);
         this.xScaleStartRounding21 = ServiceIntersection.toScaleParameter(xStartRounding21);
         this.yScaleStartRounding21 = ServiceIntersection.toScaleParameter(yStartRounding21);
 
-        this.xStartRounding23 = ServiceIntersection.calculateStartRoundingX(xIntersectionWall23, width2,azimuthRadians2);
-        this.yStartRounding23 = ServiceIntersection.calculateStartRoundingY(yIntersectionWall23, width2,azimuthRadians2);
+        this.xStartRounding23 = ServiceIntersection.calculateStartRoundingX(xIntersectionWall23, width2, azimuthRadians2);
+        this.yStartRounding23 = ServiceIntersection.calculateStartRoundingY(yIntersectionWall23, width2, azimuthRadians2);
         this.xScaleStartRounding23 = ServiceIntersection.toScaleParameter(xStartRounding23);
         this.yScaleStartRounding23 = ServiceIntersection.toScaleParameter(yStartRounding23);
 
-        this.xStartRounding32 = ServiceIntersection.calculateStartRoundingX(xIntersectionWall23, width3,azimuthRadians3);
-        this.yStartRounding32 = ServiceIntersection.calculateStartRoundingY(yIntersectionWall23, width3,azimuthRadians3);
+        this.xStartRounding32 = ServiceIntersection.calculateStartRoundingX(xIntersectionWall23, width3, azimuthRadians3);
+        this.yStartRounding32 = ServiceIntersection.calculateStartRoundingY(yIntersectionWall23, width3, azimuthRadians3);
         this.xScaleStartRounding32 = ServiceIntersection.toScaleParameter(xStartRounding32);
         this.yScaleStartRounding32 = ServiceIntersection.toScaleParameter(yStartRounding32);
 
-        this.xStartRounding31 = ServiceIntersection.calculateStartRoundingX(xIntersectionWall31, width3,azimuthRadians3);
-        this.yStartRounding31 = ServiceIntersection.calculateStartRoundingY(yIntersectionWall31, width3,azimuthRadians3);
+        this.xStartRounding31 = ServiceIntersection.calculateStartRoundingX(xIntersectionWall31, width3, azimuthRadians3);
+        this.yStartRounding31 = ServiceIntersection.calculateStartRoundingY(yIntersectionWall31, width3, azimuthRadians3);
         this.xScaleStartRounding31 = ServiceIntersection.toScaleParameter(xStartRounding31);
         this.yScaleStartRounding31 = ServiceIntersection.toScaleParameter(yStartRounding31);
 
@@ -227,7 +227,165 @@ public class ModelCoordinatesIntersection {
         this.yIntersectionAxisAndStope3 = ServiceIntersection.calculateIntersectionAxisAndStopeY(length3, azimuthRadians3);
         this.yScaleIntersectionAxisAndStope3 = ServiceIntersection.toScaleParameter(yIntersectionAxisAndStope3);
     }
+    // @formatter:off
+    public double getXIntersectionWall12() {return xIntersectionWall12;}
+    public double getYIntersectionWall12() {return yIntersectionWall12;}
+    public int getXScaleIntersectionWall12() {return xScaleIntersectionWall12;}
+    public int getYScaleIntersectionWall12() {return yScaleIntersectionWall12;}
+
+    public double getXIntersectionWall23() {return xIntersectionWall23;}
+    public double getYIntersectionWall23() {return yIntersectionWall23;}
+    public int getXScaleIntersectionWall23() {return xScaleIntersectionWall23;}
+    public int getYScaleIntersectionWall23() {return yScaleIntersectionWall23;}
+
+    public double getXIntersectionWall34() {return xIntersectionWall34;}
+    public double getYIntersectionWall34() {return yIntersectionWall34;}
+    public int getXScaleIntersectionWall34() {return xScaleIntersectionWall34;}
+    public int getYScaleIntersectionWall34() {return yScaleIntersectionWall34;}
+
+    public double getXIntersectionWall41() {return xIntersectionWall41;}
+    public double getYIntersectionWall41() {return yIntersectionWall41;}
+    public int getXScaleIntersectionWall41() {return xScaleIntersectionWall41;}
+    public int getYScaleIntersectionWall41() {return yScaleIntersectionWall41;}
+
+    public double getXIntersectionWall31() {return xIntersectionWall31;}
+    public double getYIntersectionWall31() {return yIntersectionWall31;}
+    public int getXScaleIntersectionWall31() {return xScaleIntersectionWall31;}
+    public int getYScaleIntersectionWall31() {return yScaleIntersectionWall31;}
+
+    public double getXStopeLeft1() {return xStopeLeft1;}
+    public double getYStopeLeft1() {return yStopeLeft1;}
+    public double getXStopeRight1() {return xStopeRight1;}
+    public double getYStopeRight1() {return yStopeRight1;}
+    public int getXScaleStopeLeft1() {return xScaleStopeLeft1;}
+    public int getYScaleStopeLeft1() {return yScaleStopeLeft1;}
+    public int getXScaleStopeRight1() {return xScaleStopeRight1;}
+    public int getYScaleStopeRight1() {return yScaleStopeRight1;}
+
+    public double getXStopeLeft2() {return xStopeLeft2;}
+    public double getYStopeLeft2() {return yStopeLeft2;}
+    public double getXStopeRight2() {return xStopeRight2;}
+    public double getYStopeRight2() {return yStopeRight2;}
+    public int getXScaleStopeLeft2() {return xScaleStopeLeft2;}
+    public int getYScaleStopeLeft2() {return yScaleStopeLeft2;}
+    public int getXScaleStopeRight2() {return xScaleStopeRight2;}
+    public int getYScaleStopeRight2() {return yScaleStopeRight2;}
+
+    public double getXStopeLeft3() {return xStopeLeft3;}
+    public double getYStopeLeft3() {return yStopeLeft3;}
+    public double getXStopeRight3() {return xStopeRight3;}
+    public double getYStopeRight3() {return yStopeRight3;}
+    public int getXScaleStopeLeft3() {return xScaleStopeLeft3;}
+    public int getYScaleStopeLeft3() {return yScaleStopeLeft3;}
+    public int getXScaleStopeRight3() {return xScaleStopeRight3;}
+    public int getYScaleStopeRight3() {return yScaleStopeRight3;}
+
+    public double getXStopeLeft4() {return xStopeLeft4;}
+    public double getYStopeLeft4() {return yStopeLeft4;}
+    public double getXStopeRight4() {return xStopeRight4;}
+    public double getYStopeRight4() {return yStopeRight4;}
+    public int getXScaleStopeLeft4() {return xScaleStopeLeft4;}
+    public int getYScaleStopeLeft4() {return yScaleStopeLeft4;}
+    public int getXScaleStopeRight4() {return xScaleStopeRight4;}
+    public int getYScaleStopeRight4() {return yScaleStopeRight4;}
+
+    public double getRoundingRadius12() {return roundingRadius12;}
+    public double getRoundingRadius23() {return roundingRadius23;}
+    public double getRoundingRadius31() {return roundingRadius31;}
+
+    public double getXStartRounding12() {return xStartRounding12;}
+    public double getYStartRounding12() {return yStartRounding12;}
+    public int getXScaleStartRounding12() {return xScaleStartRounding12;}
+    public int getYScaleStartRounding12() {return yScaleStartRounding12;}
+
+    public double getXStartRounding21() {return xStartRounding21;}
+    public double getYStartRounding21() {return yStartRounding21;}
+    public int getXScaleStartRounding21() {return xScaleStartRounding21;}
+    public int getYScaleStartRounding21() {return yScaleStartRounding21;}
+
+    public double getXStartRounding23() {return xStartRounding23;}
+    public double getYStartRounding23() {return yStartRounding23;}
+    public int getXScaleStartRounding23() {return xScaleStartRounding23;}
+    public int getYScaleStartRounding23() {return yScaleStartRounding23;}
+
+    public double getXStartRounding32() {return xStartRounding32;}
+    public double getYStartRounding32() {return yStartRounding32;}
+    public int getXScaleStartRounding32() {return xScaleStartRounding32;}
+    public int getYScaleStartRounding32() {return yScaleStartRounding32;}
+
+    public double getXStartRounding34() {return xStartRounding34;}
+    public double getYStartRounding34() {return yStartRounding34;}
+    public int getXScaleStartRounding34() {return xScaleStartRounding34;}
+    public int getYScaleStartRounding34() {return yScaleStartRounding34;}
+
+    public double getXStartRounding43() {return xStartRounding43;}
+    public double getYStartRounding43() {return yStartRounding43;}
+    public int getXScaleStartRounding43() {return xScaleStartRounding43;}
+    public int getYScaleStartRounding43() {return yScaleStartRounding43;}
+
+    public double getXStartRounding41() {return xStartRounding41;}
+    public double getYStartRounding41() {return yStartRounding41;}
+    public int getXScaleStartRounding41() {return xScaleStartRounding41;}
+    public int getYScaleStartRounding41() {return yScaleStartRounding41;}
+
+    public double getXStartRounding14() {return xStartRounding14;}
+    public double getYStartRounding14() {return yStartRounding14;}
+    public int getXScaleStartRounding14() {return xScaleStartRounding14;}
+    public int getYScaleStartRounding14() {return yScaleStartRounding14;}
+
+    public double getXStartRounding31() {return xStartRounding31;}
+    public double getYStartRounding31() {return yStartRounding31;}
+    public int getXScaleStartRounding31() {return xScaleStartRounding31;}
+    public int getYScaleStartRounding31() {return yScaleStartRounding31;}
+
+    public double getXStartRounding13() {return xStartRounding13;}
+    public double getYStartRounding13() {return yStartRounding13;}
+    public int getXScaleStartRounding13() {return xScaleStartRounding13;}
+    public int getYScaleStartRounding13() {return yScaleStartRounding13;}
+
+    public double getXPointIntrsectionExcavation12() {return xPointIntrsectionExcavation12;}
+    public double getYPointIntrsectionExcavation12() {return yPointIntrsectionExcavation12;}
+    public int getXScalePointIntrsectionExcavation12() {return xScalePointIntrsectionExcavation12;}
+    public int getYScalePointIntrsectionExcavation12() {return yScalePointIntrsectionExcavation12;}
+
+    public double getXPointIntrsectionExcavation23() {return xPointIntrsectionExcavation23;}
+    public double getYPointIntrsectionExcavation23() {return yPointIntrsectionExcavation23;}
+    public int getXScalePointIntrsectionExcavation23() {return xScalePointIntrsectionExcavation23;}
+    public int getYScalePointIntrsectionExcavation23() {return yScalePointIntrsectionExcavation23;}
+
+    public double getXPointIntrsectionExcavation34() {return xPointIntrsectionExcavation34;}
+    public double getYPointIntrsectionExcavation34() {return yPointIntrsectionExcavation34;}
+    public int getXScalePointIntrsectionExcavation34() {return xScalePointIntrsectionExcavation34;}
+    public int getYScalePointIntrsectionExcavation34() {return yScalePointIntrsectionExcavation34;}
+
+    public double getXPointIntrsectionExcavation41() {return xPointIntrsectionExcavation41;}
+    public double getYPointIntrsectionExcavation41() {return yPointIntrsectionExcavation41;}
+    public int getXScalePointIntrsectionExcavation41() {return xScalePointIntrsectionExcavation41;}
+    public int getYScalePointIntrsectionExcavation41() {return yScalePointIntrsectionExcavation41;}
+
+    public double getXPointIntrsectionExcavation31() {return xPointIntrsectionExcavation31;}
+    public double getYPointIntrsectionExcavation31() {return yPointIntrsectionExcavation31;}
+    public int getXScalePointIntrsectionExcavation31() {return xScalePointIntrsectionExcavation31;}
+    public int getYScalePointIntrsectionExcavation31() {return yScalePointIntrsectionExcavation31;}
+
+    public double getXIntersectionAxisAndStope1() {return xIntersectionAxisAndStope1;}
+    public double getYIntersectionAxisAndStope1() {return yIntersectionAxisAndStope1;}
+    public int getXScaleIntersectionAxisAndStope1() {return xScaleIntersectionAxisAndStope1;}
+    public int getYScaleIntersectionAxisAndStope1() {return yScaleIntersectionAxisAndStope1;}
+
+    public double getXIntersectionAxisAndStope2() {return xIntersectionAxisAndStope2;}
+    public double getYIntersectionAxisAndStope2() {return yIntersectionAxisAndStope2;}
+    public int getXScaleIntersectionAxisAndStope2() {return xScaleIntersectionAxisAndStope2;}
+    public int getYScaleIntersectionAxisAndStope2() {return yScaleIntersectionAxisAndStope2;}
+
+    public double getXIntersectionAxisAndStope3() {return xIntersectionAxisAndStope3;}
+    public double getYIntersectionAxisAndStope3() {return yIntersectionAxisAndStope3;}
+    public int getXScaleIntersectionAxisAndStope3() {return xScaleIntersectionAxisAndStope3;}
+    public int getYScaleIntersectionAxisAndStope3() {return yScaleIntersectionAxisAndStope3;}
+
+    public double getXIntersectionAxisAndStope4() {return xIntersectionAxisAndStope4;}
+    public double getYIntersectionAxisAndStope4() {return yIntersectionAxisAndStope4;}
+    public int getXScaleIntersectionAxisAndStope4() {return xScaleIntersectionAxisAndStope4;}
+    public int getYScaleIntersectionAxisAndStope4() {return yScaleIntersectionAxisAndStope4;}
+// @formatter:on
 }
-
-
-

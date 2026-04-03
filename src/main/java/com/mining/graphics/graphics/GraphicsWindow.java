@@ -8,7 +8,9 @@ import com.mining.graphics.graphics.elementssupport.AnchorsRenderer;
 import com.mining.graphics.graphics.excavation.GraphicsExcavation;
 import com.mining.graphics.graphics.excavation.GraphicsIntersection;
 import com.mining.graphics.graphics.support.*;
+import com.mining.graphics.model.excavation.ModelCoordinatesIntersection;
 import com.mining.graphics.model.excavation.ModelExcavation;
+import com.mining.graphics.model.excavation.ModelIntersection;
 import com.mining.graphics.model.support.AnchorsExcavation;
 import com.mining.graphics.model.support.MeshExcavation;
 import com.mining.graphics.model.support.ShotcreteExcavation;
@@ -30,6 +32,9 @@ public class GraphicsWindow extends JFrame {
     private final AnchorsExcavation anchorsExcavation;
     private final MeshExcavation meshExcavation;
     private final ShotcreteExcavation shotcreteExcavation;
+
+    private final ModelIntersection modelIntersection;
+    private final ModelCoordinatesIntersection coordinatesIntersection;
 
     private final AnchorsRenderer anchorsRenderer;
 
@@ -59,6 +64,9 @@ public class GraphicsWindow extends JFrame {
         meshExcavation = new MeshExcavation();
         shotcreteExcavation = new ShotcreteExcavation();
 
+        modelIntersection = new ModelIntersection();
+        coordinatesIntersection = new ModelCoordinatesIntersection(modelIntersection);
+
         anchorsRenderer = new AnchorsRenderer();
 
         serviceExcavation = new ServiceExcavation();
@@ -71,7 +79,7 @@ public class GraphicsWindow extends JFrame {
         graphicsMeshExcavation = new GraphicsMeshExcavation(modelExcavation, meshExcavation, serviceExcavation, serviceMeshExcavation);
         graphicsShotcreteExcavation = new GraphicsShotcreteExcavation(modelExcavation, shotcreteExcavation, serviceExcavation, serviceShotcreteExcavation);
 
-        graphicsIntersection = new GraphicsIntersection();
+        graphicsIntersection = new GraphicsIntersection(coordinatesIntersection);
         graphicsAnchorsIntersection = new GraphicsAnchorsIntersection();
 
         graphicsDimension = new GraphicsDimension(modelExcavation, anchorsExcavation, shotcreteExcavation, serviceExcavation);
@@ -161,11 +169,10 @@ public class GraphicsWindow extends JFrame {
 
     private void drawIntersection(Graphics2D g2d) {
         g2d.translate(500, 500);
-        graphicsAnchorsIntersection.TestIntAnch(g2d);
-        graphicsIntersection.GraphConstrInt3(g2d);
-        graphicsIntersection.graphIntAc(g2d);
-        graphicsAnchorsIntersection.graphAnchPlanIntConstr3(g2d);
-        graphicsAnchorsIntersection.graphAnchProjIntConstr3(g2d);
+        //graphicsAnchorsIntersection.TestIntAnch(g2d);
+        graphicsIntersection.drawPlanIntersection3(g2d);
+//        graphicsAnchorsIntersection.graphAnchPlanIntConstr3(g2d);
+//        graphicsAnchorsIntersection.graphAnchProjIntConstr3(g2d);
         g2d.translate(-500, -500);
     }
 

@@ -4,11 +4,11 @@ import com.mining.graphics.graphics.GraphicsParameters;
 
 public class ServiceIntersection {
 
-    public int xi1sc, yi1sc, xi2sc, yi2sc, xi3sc, yi3sc, xi4sc, yi4sc, xi22sc, yi22sc, xi33sc, yi33sc;
+    //public int xi1sc, yi1sc, xi2sc, yi2sc, xi3sc, yi3sc, xi4sc, yi4sc, xi22sc, yi22sc, xi33sc, yi33sc;
 
 
-    public double xs11, ys11, xs12, ys12, xs21, ys21, xs22, ys22, xs31, ys31, xs32, ys32, xs41, ys41, xs42, ys42; //координаты забоя выработок
-    public int xs11sc, ys11sc, xs12sc, ys12sc, xs21sc, ys21sc, xs22sc, ys22sc, xs31sc, ys31sc, xs32sc, ys32sc, xs41sc, ys41sc, xs42sc, ys42sc;
+//    public double xs11, ys11, xs12, ys12, xs21, ys21, xs22, ys22, xs31, ys31, xs32, ys32, xs41, ys41, xs42, ys42; //координаты забоя выработок
+//    public int xs11sc, ys11sc, xs12sc, ys12sc, xs21sc, ys21sc, xs22sc, ys22sc, xs31sc, ys31sc, xs32sc, ys32sc, xs41sc, ys41sc, xs42sc, ys42sc;
 
 //    public double x12, y12, x21, y21,
 //            x23, y23, x32, y32,
@@ -16,17 +16,16 @@ public class ServiceIntersection {
 //            x41, y41, x14, y14;
 //    x13, y13, x31, y31;
 
-    public int x12sc, y12sc, x21sc, y21sc, x23sc, y23sc, x32sc, y32sc, x34sc, y34sc, x43sc, y43sc, x41sc, y41sc, x14sc, y14sc;
-    public double
-    public int x13sc, y13sc, x31sc, y31sc;
-
-    public double xb1, yb1, xb2, yb2, xb3, yb3, xb4, yb4; //координаты точек пресечения осей выработок и забоя
-    public int xb1sc, yb1sc, xb2sc, yb2sc, xb3sc, yb3sc, xb4sc, yb4sc;
-
-    public double x1, y1, x2, y2, x3, y3, x4, y4;
-    public int x1sc, y1sc, x2sc, y2sc, x3sc, y3sc, x4sc, y4sc;
-    public double x33, y33;
-    public int x33sc, y33sc;
+//    public int x12sc, y12sc, x21sc, y21sc, x23sc, y23sc, x32sc, y32sc, x34sc, y34sc, x43sc, y43sc, x41sc, y41sc, x14sc, y14sc;
+//    public int x13sc, y13sc, x31sc, y31sc;
+//
+//    public double xb1, yb1, xb2, yb2, xb3, yb3, xb4, yb4; //координаты точек пресечения осей выработок и забоя
+//    public int xb1sc, yb1sc, xb2sc, yb2sc, xb3sc, yb3sc, xb4sc, yb4sc;
+//
+//    public double x1, y1, x2, y2, x3, y3, x4, y4;
+//    public int x1sc, y1sc, x2sc, y2sc, x3sc, y3sc, x4sc, y4sc;
+//    public double x33, y33;
+//    public int x33sc, y33sc;
 
 
 //    //Расчетные геометрические параметры выработки
@@ -75,10 +74,10 @@ public class ServiceIntersection {
 
     //public void calculateCoordinatesPlanIntersection() {
 
-        //xIntersectionWall12 = calculateIntersectionWallX(b1, width2, alpha1Rad, alpha2Rad);
-        //xi1sc = (int) (xIntersectionWall12 * scaleInt);
-        //yIntersectionWall12 = calculateIntersectionWallY(b1, width2, alpha1Rad, alpha2Rad);
-        //yi1sc = (int) (yIntersectionWall12 * scaleInt);
+    //xIntersectionWall12 = calculateIntersectionWallX(b1, width2, alpha1Rad, alpha2Rad);
+    //xi1sc = (int) (xIntersectionWall12 * scaleInt);
+    //yIntersectionWall12 = calculateIntersectionWallY(b1, width2, alpha1Rad, alpha2Rad);
+    //yi1sc = (int) (yIntersectionWall12 * scaleInt);
 
 //        xIntersectionWall23 = calculateIntersectionWallX(width2, b3, alpha2Rad, alpha3Rad);
 //        xi2sc = (int) (xIntersectionWall23 * scaleInt);
@@ -105,7 +104,7 @@ public class ServiceIntersection {
 //        yIntersectionWall21 = -yIntersectionWall12;
 //        yi22sc = (int) (yIntersectionWall21 * scaleInt);
 
-        //Расчет координат плоскостей забоя горных выработок
+    //Расчет координат плоскостей забоя горных выработок
 //        xs11 = calcCoordPointStopeExX(L1, b1, alpha1Rad);
 //        xs11sc = (int) (xs11 * scaleInt);
 //        ys11 = calcCoordPointStopeExY(L1, b1, alpha1Rad);
@@ -146,7 +145,7 @@ public class ServiceIntersection {
 //        ys42 = calcCoordPointStopeExY(L4, -width4, alpha4Rad);
 //        ys42sc = (int) (ys42 * scaleInt);
 
-        //Расчет величины закругления сопряжения
+    //Расчет величины закругления сопряжения
 //        CalculateBB(width2, b1, alpha2Rad, alpha1Rad);
 //        bb12 = bb;
 //        CalculateBB(b3, width2, alpha3Rad, alpha2Rad);
@@ -154,7 +153,7 @@ public class ServiceIntersection {
 //        CalculateBB(b1, b3, alpha1Rad, alpha3Rad);
 //        bb31 = bb;
 
-        //Координаты точек закругления выработок
+    //Координаты точек закругления выработок
 //        x1 = xIntersectionWall12 + bb12 * Math.cos(Math.atan2(yIntersectionWall12, xIntersectionWall12));
 //        x1sc = (int) (x1 * scaleInt);
 //        y1 = yIntersectionWall12 + bb12 * Math.sin(Math.atan2(yIntersectionWall12, xIntersectionWall12));
@@ -181,7 +180,7 @@ public class ServiceIntersection {
 //        y33 = yIntersectionWall31 + bb31 * Math.sin(Math.atan2(yIntersectionWall31, xIntersectionWall31));
 //        y33sc = (int) (y33 * scaleInt);
 
-        //Координаты точек начала закругления выработок
+    //Координаты точек начала закругления выработок
 //        x12 = xIntersectionWall12 + b12 * Math.sin(alpha1Rad);
 //        x12sc = (int) (x12 * scaleInt);
 //        y12 = yIntersectionWall12 - b12 * Math.cos(alpha1Rad);
@@ -308,44 +307,43 @@ public class ServiceIntersection {
     /**
      * Этот метод считает координату X точки пересечения боков выработок.
      */
-    public static double calculatePointIntrsectionExcavationX (double xIntersectionWall, double yIntersectionWall, double RoundingRadius){
+    public static double calculatePointIntrsectionExcavationX(double xIntersectionWall, double yIntersectionWall, double RoundingRadius) {
         return xIntersectionWall + RoundingRadius * Math.cos(Math.atan2(yIntersectionWall, xIntersectionWall));
     }
 
     /**
      * Этот метод считает координату Y точки пересечения боков выработок.
      */
-    public static double calculatePointIntrsectionExcavationY (double xIntersectionWall, double yIntersectionWall, double RoundingRadius){
+    public static double calculatePointIntrsectionExcavationY(double xIntersectionWall, double yIntersectionWall, double RoundingRadius) {
         return yIntersectionWall + RoundingRadius * Math.sin(Math.atan2(yIntersectionWall, xIntersectionWall));
     }
-
 
     /**
      * Этот метод считает координату X точек начала закругления выработок.
      */
-    public static double calculateStartRoundingX (double xIntersectionWall, double RoundingLength, double azimuthRadians){
+    public static double calculateStartRoundingX(double xIntersectionWall, double RoundingLength, double azimuthRadians) {
         return xIntersectionWall + RoundingLength * Math.sin(azimuthRadians);
     }
 
     /**
      * Этот метод считает координату Y точек начала закругления выработок.
      */
-    public static double calculateStartRoundingY (double yIntersectionWall, double RoundingLength, double azimuthRadians){
+    public static double calculateStartRoundingY(double yIntersectionWall, double RoundingLength, double azimuthRadians) {
         return yIntersectionWall - RoundingLength * Math.cos(azimuthRadians);
     }
 
     /**
      * Этот метод считает координату X точек пересечения осей и забоя выработок.
      */
-    public static double calculateIntersectionAxisAndStopeX (double length, double azimuthRadians) {
+    public static double calculateIntersectionAxisAndStopeX(double length, double azimuthRadians) {
         return length * Math.sin(azimuthRadians);
     }
 
     /**
      * Этот метод считает координату Y точек пересечения осей и забоя выработок.
      */
-    public static double calculateIntersectionAxisAndStopeY (double length, double azimuthRadians) {
-        return length * Math.cos(azimuthRadians);
+    public static double calculateIntersectionAxisAndStopeY(double length, double azimuthRadians) {
+        return -length * Math.cos(azimuthRadians);
     }
 
 
