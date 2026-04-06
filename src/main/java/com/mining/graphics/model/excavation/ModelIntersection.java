@@ -11,7 +11,9 @@ public class ModelIntersection {
 
     private double formIndication1 = 3.0, formIndication2 = 3.0, formIndication3 = 3.0, formIndication4 = 3.0;
 
-    private int azimuthDegrees1 = 0, azimuthDegrees2 = 110, azimuthDegrees3 = 225, azimuthDegrees4 = 270;
+    private int azimuthDegrees1 = 0, azimuthDegrees2 = 90, azimuthDegrees3 = 270, azimuthDegrees4 = 270;
+
+
 
     // @formatter:off
     public ModelIntersection(){}

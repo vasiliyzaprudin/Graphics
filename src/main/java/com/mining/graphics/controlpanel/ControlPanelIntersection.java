@@ -1,20 +1,27 @@
 package com.mining.graphics.controlpanel;
 
-import com.mining.graphics.model.excavation.ModelExcavation;
+import com.mining.graphics.model.excavation.ModelCoordinatesIntersection;
+import com.mining.graphics.model.excavation.ModelIntersection;
 import com.mining.graphics.model.support.AnchorsExcavation;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 
-public class ControlPanel extends JPanel {
+public class ControlPanelIntersection extends JPanel {
 
-    private final ModelExcavation model;
+    private final ModelIntersection model;
+    private final ModelCoordinatesIntersection modelCoordinates;
     private final AnchorsExcavation anchors;
     private final JPanel drawingPanel;
+
+    // Поля для выработки №1
     private JTextField widthField;
     private JTextField heightField;
+    private JTextField azimuthField;      // Новое поле для азимута
     private JTextField formField;
+
+    // Поля для анкеров
     private JTextField lengthAnchorField;
     private JTextField stepField;
     private JTextField distanceBetweenRowsField;
@@ -25,48 +32,46 @@ public class ControlPanel extends JPanel {
     private static final Color BUTTON_BG = new Color(85, 109, 88);
     private static final Color BUTTON_FG = Color.WHITE;
 
-    public ControlPanel(ModelExcavation model, AnchorsExcavation anchors, JPanel drawingPanel) {
+    public ControlPanelIntersection(ModelIntersection model, ModelCoordinatesIntersection modelCoordinates, AnchorsExcavation anchors,
+                                    JPanel drawingPanel) {
         this.model = model;
+        this.modelCoordinates = modelCoordinates;
         this.anchors = anchors;
         this.drawingPanel = drawingPanel;
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createEmptyBorder(20, 25, 710, 25),
-                BorderFactory.createTitledBorder(
-                        BorderFactory.createLineBorder(new Color(125, 149, 128), 1),
-                        "Параметры",
-                        TitledBorder.LEFT,
-                        TitledBorder.TOP,
-                        new Font("Arial", Font.BOLD, 14),
-                        new Color(60, 60, 60)
-                )
-        ));
+        setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(20, 25, 710, 25), BorderFactory.createTitledBorder(BorderFactory.createLineBorder(new Color(125, 149, 128), 1), "Параметры сопряжения", TitledBorder.LEFT, TitledBorder.TOP, new Font("Arial", Font.BOLD, 14), new Color(60, 60, 60))));
         setBackground(PANEL_BG);
         setPreferredSize(new Dimension(320, 550));
 
         add(Box.createVerticalStrut(10));
         add(Box.createHorizontalStrut(30));
 
-        // Горная выработка
-        add(createSectionLabel("Горная выработка"));
+        // Горная выработка №1
+        add(createSectionLabel("Горная выработка №1"));
         add(Box.createVerticalStrut(5));
 
-        add(createLabel("Ширина (м):"));
+        add(createLabel("Ширина горной выработки №1 (м):"));
         add(Box.createVerticalStrut(5));
-        widthField = createTextField(String.valueOf(model.getWidth()));
+        widthField = createTextField(String.valueOf(model.getWidth1()));
         add(widthField);
         add(Box.createVerticalStrut(10));
 
-        add(createLabel("Высота (м):"));
+        add(createLabel("Высота горной выработки №1 (м):"));
         add(Box.createVerticalStrut(5));
-        heightField = createTextField(String.valueOf(model.getHeight()));
+        heightField = createTextField(String.valueOf(model.getHeight1()));
         add(heightField);
         add(Box.createVerticalStrut(10));
 
-        add(createLabel("Коэффициент формы:"));
+        add(createLabel("Азимут горной выработки №1 (градусы):"));
         add(Box.createVerticalStrut(5));
-        formField = createTextField(String.valueOf(model.getFormIndication()));
+        azimuthField = createTextField(String.valueOf(model.getAzimuthDegrees1()));  // Исправлено: отдельное поле
+        add(azimuthField);
+        add(Box.createVerticalStrut(10));
+
+        add(createLabel("Коэффициент формы сопряжения:"));
+        add(Box.createVerticalStrut(5));
+        formField = createTextField(String.valueOf(model.getFormIndicationIntersection()));
         add(formField);
         add(Box.createVerticalStrut(15));
 
@@ -129,22 +134,18 @@ public class ControlPanel extends JPanel {
         field.setForeground(new Color(60, 60, 60));
         field.setPreferredSize(new Dimension(150, 32));
         field.setMaximumSize(new Dimension(150, 32));
-        field.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(new Color(125, 149, 128), 1),
-                BorderFactory.createEmptyBorder(4, 5, 4, 5)
-        ));
+        field.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(new Color(125, 149, 128), 1), BorderFactory.createEmptyBorder(4, 5, 4, 5)));
         field.setAlignmentX(Component.LEFT_ALIGNMENT);
         return field;
     }
 
     private JButton createButton(String text) {
         JButton button = new JButton(text);
-        button.setFont(new Font("Arial", Font.BOLD, 14));  // Шрифт здесь
+        button.setFont(new Font("Arial", Font.BOLD, 14));
         button.setBackground(BUTTON_BG);
         button.setForeground(BUTTON_FG);
         button.setFocusPainted(false);
 
-        // Устанавливаем размеры
         button.setPreferredSize(new Dimension(150, 40));
         button.setMinimumSize(new Dimension(150, 40));
         button.setMaximumSize(new Dimension(150, 40));
@@ -153,12 +154,9 @@ public class ControlPanel extends JPanel {
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        button.setFocusPainted(false);
-        UIManager.put("Button.select", new Color(60, 60, 60));
-
         button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                button.setBackground(new Color(85, 109, 88));
+                button.setBackground(new Color(65, 89, 68));  // Немного темнее при наведении
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 button.setBackground(BUTTON_BG);
@@ -173,18 +171,23 @@ public class ControlPanel extends JPanel {
         boolean anchorsValid = true;
         StringBuilder errorMessage = new StringBuilder();
 
-        // Применяем параметры выработки
+        // Применяем параметры выработки №1 и коэффициента формы сопряжения
         try {
             double width = Double.parseDouble(widthField.getText().trim());
             double height = Double.parseDouble(heightField.getText().trim());
-            double form = Double.parseDouble(formField.getText().trim());
+            int azimuth = Integer.parseInt(azimuthField.getText().trim());
+            double formIntersection = Double.parseDouble(formField.getText().trim());
 
-            if (width > 0 && height > 0 && form > 0) {
-                model.setWidth(width);
-                model.setHeight(height);
-                model.setFormIndication(form);
+            if (width > 0 && height > 0 && formIntersection > 0 && azimuth >= 0 && azimuth < 360) {
+                model.setWidth1(width);
+                model.setHeight1(height);
+                model.setAzimuthDegrees1(azimuth);
+                model.setFormIndicationIntersection(formIntersection);
+                modelCoordinates.updateCoordinates();
             } else {
-                errorMessage.append("Параметры выработки: все значения должны быть положительными!\n");
+                if (width <= 0 || height <= 0) errorMessage.append("Ширина и высота должны быть положительными!\n");
+                if (formIntersection <= 0) errorMessage.append("Коэффициент формы сопряжения должен быть положительным!\n");
+                if (azimuth < -45 || azimuth >= 45) errorMessage.append("Азимут должен быть в диапазоне от -45 до 45 градусов!\n");
                 excavationValid = false;
             }
         } catch (NumberFormatException e) {

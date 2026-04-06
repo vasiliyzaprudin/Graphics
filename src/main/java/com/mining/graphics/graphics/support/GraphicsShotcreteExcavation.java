@@ -49,14 +49,14 @@ public class GraphicsShotcreteExcavation extends ServiceShotcreteExcavation {
         int scaleArchHeight = serviceExcavation.getScaleArchHeight(widthWithShotcrete, formIndication, scale);
         int scaleSmallArcRadius = serviceExcavation.getScaleSmallArcRadius(widthWithShotcrete, formIndication, scale);
         int scaleLargeArcRadius = serviceExcavation.getScaleLargeArcRadius(widthWithShotcrete, formIndication, scale);
-        int alphaDegree = serviceExcavation.getAlphaDegree(widthWithShotcrete, formIndication);
-        int betaDegree = serviceExcavation.getBetaDegree(widthWithShotcrete, formIndication);
+        double alphaDegree = serviceExcavation.getAlphaDegree(widthWithShotcrete, formIndication);
+        double betaDegree = serviceExcavation.getBetaDegree(widthWithShotcrete, formIndication);
 
         ((Graphics2D) g).setStroke(new BasicStroke(10));
         g.drawLine(-scaleWidth / 2, heightCorrectDrawShorcrete, (int) (Math.round(-scaleWidth / 2.0)), -(scaleHeight - scaleArchHeight)); //Левая стенка
-        g.drawArc(-scaleWidth / 2, -(scaleHeight - scaleArchHeight) - scaleSmallArcRadius, 2 * scaleSmallArcRadius, 2 * scaleSmallArcRadius, 90 + alphaDegree, betaDegree); //Левая малая дуга
-        g.drawArc(-scaleLargeArcRadius, -scaleHeight, 2 * scaleLargeArcRadius, 2 * scaleLargeArcRadius, betaDegree, 2 * alphaDegree); //Большая дуга
-        g.drawArc(scaleWidth / 2 - 2 * scaleSmallArcRadius, -(scaleHeight - scaleArchHeight) - scaleSmallArcRadius, 2 * scaleSmallArcRadius, 2 * scaleSmallArcRadius, 0, betaDegree); //Правая малая дуга
+        g.drawArc(-scaleWidth / 2, -(scaleHeight - scaleArchHeight) - scaleSmallArcRadius, 2 * scaleSmallArcRadius, 2 * scaleSmallArcRadius, (int) Math.round(90 + alphaDegree), (int) Math.round(betaDegree)); //Левая малая дуга
+        g.drawArc(-scaleLargeArcRadius, -scaleHeight, 2 * scaleLargeArcRadius, 2 * scaleLargeArcRadius, (int) Math.round(betaDegree), (int) Math.round(2 * alphaDegree)); //Большая дуга
+        g.drawArc(scaleWidth / 2 - 2 * scaleSmallArcRadius, -(scaleHeight - scaleArchHeight) - scaleSmallArcRadius, 2 * scaleSmallArcRadius, 2 * scaleSmallArcRadius, 0, (int) Math.round(betaDegree)); //Правая малая дуга
         g.drawLine(scaleWidth / 2, heightCorrectDrawShorcrete, scaleWidth / 2, -(scaleHeight - scaleArchHeight)); //Правая стенка
     }
 

@@ -17,7 +17,7 @@ public class AnchorsRenderer {
     private static final double DIAMETER_BOREHOLE = 0.05;       //Диаметр шпура
     private static final double WIDTH_BASE_PLATE = 0.2;         //Ширина опорной плиты
     private static final double THICKNESS_BASE_PLATE = 0.015;   //Толщина опорной плиты
-    private static final double LENGTH_FRONT_TIP = 0.06;              //Длина переднего наконечника
+    private static final double LENGTH_FRONT_TIP = 0.06;        //Длина переднего наконечника
     private static final double LENGTH_BACK_TIP = 0.07;         //Длина заднего наконечника
     private static final double DIAMETER_TIP = 0.02;            //Диаметр наконечника
     private static final double DIAMETER_RING = 0.07;           //Диаметр кольца

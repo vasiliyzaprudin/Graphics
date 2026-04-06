@@ -2,55 +2,50 @@ package com.mining.graphics.graphics.excavation;
 
 import com.mining.graphics.graphics.GraphicsParameters;
 import com.mining.graphics.model.excavation.ModelExcavation;
-import com.mining.graphics.service.excavation.ServiceExcavation;
 
 import java.awt.*;
 
+import static com.mining.graphics.service.excavation.ServiceExcavation.*;
+
 public class GraphicsExcavation {
     private final ModelExcavation modelExcavation;
-    private final ServiceExcavation serviceExcavation;
 
-    public GraphicsExcavation(ModelExcavation modelExcavation, ServiceExcavation serviceExcavation) {
+    public GraphicsExcavation(ModelExcavation modelExcavation) {
         this.modelExcavation = modelExcavation;
-        this.serviceExcavation = serviceExcavation;
     }
 
-    /**
-     * Построение поперечного сечения.
-     * Начало координат находится в центре почвы горной выработки.
-     */
     public void drawCrossSectionExcavation(Graphics g) {
-        double width = modelExcavation.getWidth();
-        double height = modelExcavation.getHeight();
-        double formIndication = modelExcavation.getFormIndication();
-        int scale = GraphicsParameters.GRAPHICS_EXCAVATION_SCALE;
-
-        int scaleWidth = serviceExcavation.getScaleWidth(width, scale);
-        int scaleHeight = serviceExcavation.getScaleHeight(height, scale);
-        int scaleArchHeight = serviceExcavation.getScaleArchHeight(width, formIndication, scale);
-        int scaleSmallArcRadius = serviceExcavation.getScaleSmallArcRadius(width, formIndication, scale);
-        int scaleLargeArcRadius = serviceExcavation.getScaleLargeArcRadius(width, formIndication, scale);
-        int alphaDegree = serviceExcavation.getAlphaDegree(width, formIndication);
-        int betaDegree = serviceExcavation.getBetaDegree(width, formIndication);
-
-        g.drawLine(-scaleWidth / 2, 0, (int) (Math.round(-scaleWidth / 2.0)), -(scaleHeight - scaleArchHeight)); //Левая стенка
-        g.drawArc(-scaleWidth / 2, -(scaleHeight - scaleArchHeight) - scaleSmallArcRadius, 2 * scaleSmallArcRadius, 2 * scaleSmallArcRadius, 90 + alphaDegree, betaDegree); //Левая малая дуга
-        g.drawArc(-scaleLargeArcRadius, -scaleHeight, 2 * scaleLargeArcRadius, 2 * scaleLargeArcRadius, betaDegree, 2 * alphaDegree); //Большая дуга
-        g.drawArc(scaleWidth / 2 - 2 * scaleSmallArcRadius, -(scaleHeight - scaleArchHeight) - scaleSmallArcRadius, 2 * scaleSmallArcRadius, 2 * scaleSmallArcRadius, 0, betaDegree); //Правая малая дуга
-        g.drawLine(scaleWidth / 2, 0, scaleWidth / 2, -(scaleHeight - scaleArchHeight)); //Правая стенка
-        g.drawLine(-scaleWidth / 2, 0, scaleWidth / 2, 0); //Почва
+        Graphics2D g2d = (Graphics2D) g;
+        renderCrossSectionExcavation(g2d, modelExcavation.getWidth(), modelExcavation.getHeight(), modelExcavation.getFormIndication(), GraphicsParameters.GRAPHICS_EXCAVATION_SCALE);
     }
 
-    /**
-     * Построение продольного сечения горной выработки.
-     */
+    public void renderCrossSectionExcavation(Graphics2D g2d, double width, double height, double formIndication, int scale) {
+
+        int scaleWidth = getScaleWidth(width, scale);
+        int scaleHeight = getScaleHeight(height, scale);
+        int scaleArchHeight = getScaleArchHeight(width, formIndication, scale);
+
+        int scaleSmallArcRadius = getScaleSmallArcRadius(width, formIndication, scale);
+        int scaleLargeArcRadius = getScaleLargeArcRadius(width, formIndication, scale);
+
+        double alphaDegree = getAlphaDegree(width, formIndication);
+        double betaDegree = getBetaDegree(width, formIndication);
+
+        g2d.drawLine((int) (Math.round(-scaleWidth / 2.0)), 0, (int) (Math.round(-scaleWidth / 2.0)), -(scaleHeight - scaleArchHeight)); //Левая стенка
+        g2d.drawArc((int) (Math.round(-scaleWidth / 2.0)), -(scaleHeight - scaleArchHeight) - scaleSmallArcRadius, 2 * scaleSmallArcRadius, 2 * scaleSmallArcRadius, (int) Math.round(90 + alphaDegree), (int) Math.round(betaDegree)); //Левая малая дуга
+        g2d.drawArc(-scaleLargeArcRadius, -scaleHeight, 2 * scaleLargeArcRadius, 2 * scaleLargeArcRadius, (int) Math.round(betaDegree), (int) Math.round(2 * alphaDegree)); //Большая дуга
+        g2d.drawArc((int) (Math.round(scaleWidth / 2.0)) - 2 * scaleSmallArcRadius, -(scaleHeight - scaleArchHeight) - scaleSmallArcRadius, 2 * scaleSmallArcRadius, 2 * scaleSmallArcRadius, 0, (int) Math.round(betaDegree)); //Правая малая дуга
+        g2d.drawLine((int) (Math.round(scaleWidth / 2.0)), 0, (int) (Math.round(scaleWidth / 2.0)), -(scaleHeight - scaleArchHeight)); //Правая стенка
+        g2d.drawLine((int) (Math.round(-scaleWidth / 2.0)), 0, (int) (Math.round(scaleWidth / 2.0)), 0); //Почва
+    }
+
     public void drawLongSectionExcavation(Graphics g) {
         double height = modelExcavation.getHeight();
         double length = modelExcavation.getLength();
         int scale = GraphicsParameters.GRAPHICS_EXCAVATION_SCALE;
 
-        int scaleHeight = serviceExcavation.getScaleHeight(height, scale);
-        int scaleLength = serviceExcavation.getScaleLength(length, scale);
+        int scaleHeight = getScaleHeight(height, scale);
+        int scaleLength = getScaleLength(length, scale);
         int distance = GraphicsParameters.DISTANCE_BETWEEN_CROSS_AND_LONG_SECTION;
 
         g.translate(distance, 0);

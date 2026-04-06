@@ -2,15 +2,15 @@ package com.mining.graphics.service.excavation;
 
 public class ServiceExcavation {
 
-    public int getScaleWidth(double width, int scale) {
+    public static int getScaleWidth(double width, int scale) {
         return (int) (Math.round(width * scale));
     }
 
-    public int getScaleHeight(double height, int scale) {
+    public static int getScaleHeight(double height, int scale) {
         return (int) (Math.round(height * scale));
     }
 
-    public int getScaleLength(double length, int scale) {
+    public static int getScaleLength(double length, int scale) {
         return (int) (Math.round(length * scale));
     }
 
@@ -20,11 +20,11 @@ public class ServiceExcavation {
      * @param width          ширина горной выработки
      * @param formIndication коэффициент формы свода
      */
-    public double getArchHeight(double width, double formIndication) {
+    public static double getArchHeight(double width, double formIndication) {
         return width / formIndication;
     }
 
-    public int getScaleArchHeight(double width, double formIndication, int scale) {
+    public static int getScaleArchHeight(double width, double formIndication, int scale) {
         return (int) (Math.round(getArchHeight(width, formIndication) * scale));
     }
 
@@ -34,12 +34,12 @@ public class ServiceExcavation {
      * @param width          ширина горной выработки
      * @param formIndication коэффициент формы свода
      */
-    public double getAlphaRadian(double width, double formIndication) {
+    public static double getAlphaRadian(double width, double formIndication) {
         return Math.atan(2.0 * getArchHeight(width, formIndication) / width);
     }
 
-    public int getAlphaDegree(double width, double formIndication) {
-        return (int) (Math.round(getAlphaRadian(width, formIndication) * 180.0 / Math.PI));
+    public static double getAlphaDegree(double width, double formIndication) {
+        return getAlphaRadian(width, formIndication) * 180.0 / Math.PI;
     }
 
     /**
@@ -48,12 +48,12 @@ public class ServiceExcavation {
      * @param width          ширина горной выработки
      * @param formIndication коэффициент формы свода
      */
-    public double getBetaRadian(double width, double formIndication) {
+    public static double getBetaRadian(double width, double formIndication) {
         return Math.PI / 2.0 - getAlphaRadian(width, formIndication);
     }
 
-    public int getBetaDegree(double width, double formIndication) {
-        return (int) (Math.round(getBetaRadian(width, formIndication) * 180.0 / Math.PI));
+    public static double getBetaDegree(double width, double formIndication) {
+        return getBetaRadian(width, formIndication) * 180.0 / Math.PI;
     }
 
     /**
@@ -62,14 +62,14 @@ public class ServiceExcavation {
      * @param width          ширина горной выработки
      * @param formIndication коэффициент формы свода
      */
-    public double getLargeArcRadius(double width, double formIndication) {
+    public static double getLargeArcRadius(double width, double formIndication) {
         double archHeight = getArchHeight(width, formIndication);
         double alpha = getAlphaRadian(width, formIndication);
 
         return (archHeight / Math.cos(alpha) - width / 2.0 - archHeight * Math.tan(alpha)) / (1.0 / Math.cos(alpha) - 1 - Math.tan(alpha));
     }
 
-    public int getScaleLargeArcRadius(double width, double formIndication, int scale) {
+    public static int getScaleLargeArcRadius(double width, double formIndication, int scale) {
         return (int) (Math.round(getLargeArcRadius(width, formIndication) * scale));
     }
 
@@ -80,7 +80,7 @@ public class ServiceExcavation {
      * @param width          ширина горной выработки
      * @param formIndication коэффициент формы свода
      */
-    public double getSmallArcRadius(double width, double formIndication) {
+    public static double getSmallArcRadius(double width, double formIndication) {
         double largeRadius = getLargeArcRadius(width, formIndication);
         double archHeight = getArchHeight(width, formIndication);
         double alpha = getAlphaRadian(width, formIndication);
@@ -88,7 +88,7 @@ public class ServiceExcavation {
         return largeRadius - (largeRadius - archHeight) / Math.cos(alpha);
     }
 
-    public int getScaleSmallArcRadius(double width, double formIndication, int scale) {
+    public static int getScaleSmallArcRadius(double width, double formIndication, int scale) {
         return (int) (Math.round(getSmallArcRadius(width, formIndication) * scale));
     }
 
@@ -98,14 +98,14 @@ public class ServiceExcavation {
      * @param width          ширина горной выработки
      * @param formIndication коэффициент формы свода
      */
-    public double getLargeArcLength(double width, double formIndication) {
+    public static double getLargeArcLength(double width, double formIndication) {
         double largeArcRadius = getLargeArcRadius(width, formIndication);
         double alpha = getAlphaRadian(width, formIndication);
 
         return 2.0 * largeArcRadius * alpha;
     }
 
-    public int getScaleLargeArcLength(double width, double formIndication, int scale) {
+    public static int getScaleLargeArcLength(double width, double formIndication, int scale) {
         return (int) (Math.round(getLargeArcLength(width, formIndication) * scale));
     }
 
@@ -115,14 +115,14 @@ public class ServiceExcavation {
      * @param width          ширина горной выработки
      * @param formIndication коэффициент формы свода
      */
-    public double getSmallArcLength(double width, double formIndication) {
+    public static double getSmallArcLength(double width, double formIndication) {
         double smallArcRadius = getSmallArcRadius(width, formIndication);
         double beta = getBetaRadian(width, formIndication);
 
         return smallArcRadius * beta;
     }
 
-    public int getScaleSmallArcLength(double width, double formIndication, int scale) {
+    public static int getScaleSmallArcLength(double width, double formIndication, int scale) {
         return (int) (Math.round(getSmallArcLength(width, formIndication) * scale));
     }
 
@@ -132,14 +132,14 @@ public class ServiceExcavation {
      * @param width          ширина горной выработки
      * @param formIndication коэффициент формы свода
      */
-    public double getLengthArc(double width, double formIndication) {
+    public static double getLengthArc(double width, double formIndication) {
         double smallArcLength = getSmallArcLength(width, formIndication);
         double largeArcLength = getLargeArcLength(width, formIndication);
 
         return 2.0 * smallArcLength + largeArcLength;
     }
 
-    public int getScaleLengthArc(double width, double formIndication, int scale) {
+    public static int getScaleLengthArc(double width, double formIndication, int scale) {
         return (int) (Math.round(getLengthArc(width, formIndication) * scale));
     }
 }

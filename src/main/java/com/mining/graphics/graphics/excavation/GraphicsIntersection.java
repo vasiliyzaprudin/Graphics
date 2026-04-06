@@ -1,16 +1,24 @@
 package com.mining.graphics.graphics.excavation;
 
+import com.mining.graphics.graphics.GraphicsParameters;
 import com.mining.graphics.model.excavation.ModelCoordinatesIntersection;
+import com.mining.graphics.model.excavation.ModelIntersection;
 
 import java.awt.*;
 
 public class GraphicsIntersection {
+    private final ModelIntersection modelIntersection;
     private final ModelCoordinatesIntersection coordinatesIntersection;
+    private final GraphicsExcavation graphicsExcavation;
 
-    public GraphicsIntersection(ModelCoordinatesIntersection coordinatesIntersection) {
+
+    public GraphicsIntersection(ModelIntersection modelIntersection, ModelCoordinatesIntersection coordinatesIntersection,
+                                GraphicsExcavation graphicsExcavation) {
+        this.modelIntersection = modelIntersection;
         this.coordinatesIntersection = coordinatesIntersection;
-    }
+        this.graphicsExcavation = graphicsExcavation;
 
+    }
 
     public void drawPlanIntersection3(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
@@ -20,6 +28,15 @@ public class GraphicsIntersection {
         drawRoundings3(g2d);
         drawAxes3(g2d);
     }
+
+    public void drawProfileIntersection3(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g;
+
+        drawAllProfileExcavation(g2d);
+        drawProfileCrossSectionIncreaseExcavation(g2d);
+        drawProfileCrossSectionExcavation(g2d);
+    }
+
 
     private void drawStopes3(Graphics2D g2d) {
         drawStope(g2d, coordinatesIntersection.getXScaleStopeLeft1(), coordinatesIntersection.getYScaleStopeLeft1(), coordinatesIntersection.getXScaleStopeRight1(), coordinatesIntersection.getYScaleStopeRight1());
@@ -45,14 +62,14 @@ public class GraphicsIntersection {
     }
 
     private void drawRoundings3(Graphics2D g2d) {
-        drawRounding(g2d,coordinatesIntersection.getXScaleStartRounding13(), coordinatesIntersection.getYScaleStartRounding13(),coordinatesIntersection.getXScalePointIntrsectionExcavation31(),coordinatesIntersection.getYScalePointIntrsectionExcavation31());
-        drawRounding(g2d, coordinatesIntersection.getXScaleStartRounding12(), coordinatesIntersection.getYScaleStartRounding12(),coordinatesIntersection.getXScalePointIntrsectionExcavation12(),coordinatesIntersection.getYScalePointIntrsectionExcavation12());
+        drawRounding(g2d, coordinatesIntersection.getXScaleStartRounding13(), coordinatesIntersection.getYScaleStartRounding13(), coordinatesIntersection.getXScalePointIntrsectionExcavation31(), coordinatesIntersection.getYScalePointIntrsectionExcavation31());
+        drawRounding(g2d, coordinatesIntersection.getXScaleStartRounding12(), coordinatesIntersection.getYScaleStartRounding12(), coordinatesIntersection.getXScalePointIntrsectionExcavation12(), coordinatesIntersection.getYScalePointIntrsectionExcavation12());
 
-        drawRounding(g2d, coordinatesIntersection.getXScaleStartRounding21(), coordinatesIntersection.getYScaleStartRounding21(),coordinatesIntersection.getXScalePointIntrsectionExcavation12(),coordinatesIntersection.getYScalePointIntrsectionExcavation12());
-        drawRounding(g2d, coordinatesIntersection.getXScaleStartRounding23(), coordinatesIntersection.getYScaleStartRounding23(),coordinatesIntersection.getXScalePointIntrsectionExcavation23(),coordinatesIntersection.getYScalePointIntrsectionExcavation23());
+        drawRounding(g2d, coordinatesIntersection.getXScaleStartRounding21(), coordinatesIntersection.getYScaleStartRounding21(), coordinatesIntersection.getXScalePointIntrsectionExcavation12(), coordinatesIntersection.getYScalePointIntrsectionExcavation12());
+        drawRounding(g2d, coordinatesIntersection.getXScaleStartRounding23(), coordinatesIntersection.getYScaleStartRounding23(), coordinatesIntersection.getXScalePointIntrsectionExcavation23(), coordinatesIntersection.getYScalePointIntrsectionExcavation23());
 
-        drawRounding(g2d, coordinatesIntersection.getXScaleStartRounding32(), coordinatesIntersection.getYScaleStartRounding32(),coordinatesIntersection.getXScalePointIntrsectionExcavation23(),coordinatesIntersection.getYScalePointIntrsectionExcavation23());
-        drawRounding(g2d, coordinatesIntersection.getXScaleStartRounding31(), coordinatesIntersection.getYScaleStartRounding31(),coordinatesIntersection.getXScalePointIntrsectionExcavation31(),coordinatesIntersection.getYScalePointIntrsectionExcavation31());
+        drawRounding(g2d, coordinatesIntersection.getXScaleStartRounding32(), coordinatesIntersection.getYScaleStartRounding32(), coordinatesIntersection.getXScalePointIntrsectionExcavation23(), coordinatesIntersection.getYScalePointIntrsectionExcavation23());
+        drawRounding(g2d, coordinatesIntersection.getXScaleStartRounding31(), coordinatesIntersection.getYScaleStartRounding31(), coordinatesIntersection.getXScalePointIntrsectionExcavation31(), coordinatesIntersection.getYScalePointIntrsectionExcavation31());
     }
     private void drawRounding(Graphics2D g2d, int x1, int y1, int x2, int y2) {
         g2d.drawLine(x1, y1, x2, y2);
@@ -72,173 +89,67 @@ public class GraphicsIntersection {
         g2d.drawLine(x1, y1, x2, y2);
     }
 
+    // @formatter:off
+    private void drawAllProfileExcavation(Graphics2D g2d) {
 
-//        this.xIntersectionWall23 =ServiceIntersection.calculateIntersectionWallX(width2,width3,azimuthRadians2,azimuthRadians3);
-//        this.yIntersectionWall23 =ServiceIntersection.calculateIntersectionWallY(width2,width3,azimuthRadians2,azimuthRadians3);
-//        this.xScaleIntersectionWall23 =ServiceIntersection.toScaleParameter(xIntersectionWall23);
-//        this.yScaleIntersectionWall23 =ServiceIntersection.toScaleParameter(yIntersectionWall23);
-//
-//        this.xIntersectionWall34 =ServiceIntersection.calculateIntersectionWallX(width3,width4,azimuthRadians3,azimuthRadians4);
-//        this.yIntersectionWall34 =ServiceIntersection.calculateIntersectionWallY(width3,width4,azimuthRadians3,azimuthRadians4);
-//        this.xScaleIntersectionWall34 =ServiceIntersection.toScaleParameter(xIntersectionWall34);
-//        this.yScaleIntersectionWall34 =ServiceIntersection.toScaleParameter(yIntersectionWall34);
-
-
-//    /**
-//     * Это графический метод построения проекции сопряжения.
-//     */
-//    public void graphIntAc(Graphics g) {
-//
-//        g.translate(0, distance); //Перенос начала координат в центр отрезка, изображающего почву сопряжения
-//
-//        //calcElemInSc(SAI.distanceBetweenPoint(x33, y33, x1, y1), Collections.max(Arrays.asList(h1, h2, h3)) * calcIndHeightInt(), typeInt, scaleInt);
-//        calcElemInSc(SAI.distanceBetweenPoint(x33, y33, x1, y1), height1 * calcIndHeightInt(), formIndicationIntersection, scaleInt);
-//
-//        calcAngleBetweenVertAndPointCont(x21, -height2);
-//
-//        graphConstrIn(g); //Увеличенное сечение выработки 1
-//
-//        calcElemInSc(b1, height1, formIndication1, scaleInt);
-//        graphConstrIn(g); //Сечение выработки 1
-//
-//        g.drawLine(x31sc, -h3sc, (int) (calcCoordPointContX(x31, -height3) * scaleInt), (int) (calcCoordPointContY(x31, -height3) * scaleInt)); //Кровля сопряжения слева
-//        g.drawLine(x21sc, -h2sc, (int) (calcCoordPointContX(x21, -height2) * scaleInt), (int) (calcCoordPointContY(x21, -height2) * scaleInt)); //Кровля сопряжения справа
-//
-//        //Почва и границы
-//        g.drawLine(x31sc, 0, x21sc, 0); //почва сопряжения
-//        g.drawLine(x31sc, 0, x31sc, -h3sc); //левая граница сопряжения
-//        g.drawLine(x21sc, 0, x21sc, -h2sc); //правая граница сопряжения
-//
-//        //Выработка 2
-//        g.drawLine(xb2sc, 0, xb2sc, -h2sc); //забой
-//        g.drawLine(xb2sc, -h2sc, x21sc, -h2sc); //кровля
-//        g.drawLine(xb2sc, 0, x21sc, 0); //почва
-//        //Выработка 3
-//        g.drawLine(xb3sc, 0, xb3sc, -h3sc); //забой
-//        g.drawLine(xb3sc, -h3sc, x31sc, -h3sc); //кровля
-//        g.drawLine(xb3sc, 0, x31sc, 0); //почва
-//
-//        g.translate(0, -distance);
-//    }
-
-//    /**
-//     * Этот метод строит поперечное сечение горной выработки на поперечном разрезе сопряжения.
-//     * Начало координат расположено в центре отрезка, изображающего почву горной выработки.
-//     */
-//    public void graphConstrIn(Graphics o) {
-//        o.drawLine((int) (-BSC / 2.0), 0, (int) (-BSC / 2.0), -(HSC - HRSC)); //Левая стенка
-//        o.drawArc((int) (-BSC / 2.0), -(HSC - HRSC) - RSMALLSC, 2 * RSMALLSC, 2 * RSMALLSC, (int) (90.0 + (ALPHA * 180.0 / Math.PI)), (int) (BETA * 180.0 / Math.PI)); //Левая малая дуга
-//        o.drawArc(-RBIGSC, -HSC, 2 * RBIGSC, 2 * RBIGSC, (int) (BETA * 180.0 / Math.PI), (int) (2.0 * ALPHA * 180.0 / Math.PI)); //Большая дуга
-//        o.drawArc((int) (BSC / 2.0 - 2.0 * RSMALLSC), -(HSC - HRSC) - RSMALLSC, 2 * RSMALLSC, 2 * RSMALLSC, 0, (int) (BETA * 180.0 / Math.PI)); //Правая малая дуга
-//        o.drawLine((int) (BSC / 2.0), 0, (int) (BSC / 2.0), -(HSC - HRSC)); //Правая стенка
-//        o.drawLine((int) (-BSC / 2.0), 0, (int) (BSC / 2.0), 0); //Почва
-//    }
-//
-//    public void GraphConstrInt2(Graphics g) {
-    //Построение осей выработок
-    //g.drawLine(0, 0, (int) (L1sc * Math.sin(alpha1Rad)), (int) (-L1sc * Math.cos(alpha1Rad)));
-    //g.drawLine(0, 0, (int) (L2sc * Math.sin(alpha2Rad)), (int) (-L2sc * Math.cos(alpha2Rad)));
-
-    //Линии, соединяющие точку пересечения осей выработок с точками пересечения боков выработок
-    //g.drawLine(0, 0, x1sc, y1sc);
-    //g.drawLine(0, 0, x22sc, y22sc);
-
-    //Выработка 1
-//        g.drawLine(xs12sc, ys12sc, xs11sc, ys11sc); //Забой выработки 1
-//        g.drawLine(xs12sc, ys12sc, x12sc, y12sc); //Бок выработки 1 левый
-//        g.drawLine(x12sc, y12sc, x1sc, y1sc); //Закругление выработки 1 к выработке 2 левое
-//        g.drawLine(xs11sc, ys11sc, xi22sc, yi22sc); //Бок выработки 1 правый
-//
-//        //Выработка 2
-//        g.drawLine(xs21sc, ys21sc, xs22sc, ys22sc); //Забой выработки 2
-//        g.drawLine(xs21sc, ys21sc, x21sc, y21sc); //Бок выработки 2 правый
-//        g.drawLine(x21sc, y21sc, x1sc, y1sc); //Закругление выработки 2 к выработке 1 правое
-//        g.drawLine(xs22sc, ys22sc, xi22sc, yi22sc); //Бок выработки 2 левый
-//    }
-//
-//
-//
-//
-//
-//
-//    public void GraphConstrInt3(Graphics g) {
-//
-//        //Построение осей выработок
-//        g.drawLine(0, 0, xb1sc, -yb1sc);
-//        g.drawLine(0, 0, xb2sc, -yb2sc);
-//        g.drawLine(0, 0, xb3sc, yb3sc);
-
-    //Линии, соединяющие точку пересечения осей выработок с точками пересечения боков выработок
-//        g.drawLine(0, 0, x1sc, y1sc);
-//        g.drawLine(0, 0, x2sc, y2sc);
-//        g.drawLine(0, 0, x33sc, y33sc);
-
-    //Линии, соединяющие точку пересечения боков выработок с точками пересечения закругления выработок
-//        g.drawLine(0, 0, xi1sc, yi1sc);
-//        g.drawLine(0, 0, xi2sc, yi2sc);
-//        g.drawLine(0, 0, xi33sc, yi33sc);
+        drawProfileExcavation(g2d, coordinatesIntersection.getXScalePointIntrsectionExcavation12(), 0,
+                                    coordinatesIntersection.getXScaleStartRounding21(), 0,
+                                    coordinatesIntersection.getXScaleIntersectionAxisAndStope2(), 0,
+                                    coordinatesIntersection.getXScaleIntersectionAxisAndStope2(), -coordinatesIntersection.getScaleHeight2(),
+                                    coordinatesIntersection.getXScaleStartRounding21(), -coordinatesIntersection.getScaleHeight2(),
+                                    coordinatesIntersection.getXScaleCalculateCoordinatePointContact21(), coordinatesIntersection.getYScaleCalculateCoordinatePointContact21());
 
 
-//        //Выработка 1
-//        g.drawLine(xs11sc, ys11sc, xs12sc, ys12sc); //Забой
-//        g.drawLine(xs12sc, ys12sc, x12sc, y12sc); //Левый бок
-//        g.drawLine(x12sc, y12sc, x1sc, y1sc); //Закругление к выработке 2
-//        g.drawLine(xs11sc, ys11sc, x13sc, y13sc); //Правый бок
-//        g.drawLine(x13sc, y13sc, x33sc, y33sc); //Закругление к выработке 3
-//
-//        //Выработка 2
-//        g.drawLine(xs21sc, ys21sc, xs22sc, ys22sc); //Забой
-//        g.drawLine(xs22sc, ys22sc, x23sc, y23sc); //Левый бок
-//        g.drawLine(x23sc, y23sc, x2sc, y2sc); //Закругление к выработке 3
-//        g.drawLine(xs21sc, ys21sc, x21sc, y21sc); //Правый бок
-//        g.drawLine(x21sc, y21sc, x1sc, y1sc); //Закругление к выработке 1
-//
-//        //Выработка 3
-//        g.drawLine(xs31sc, ys31sc, xs32sc, ys32sc); //Забой
-//        g.drawLine(xs32sc, ys32sc, x31sc, y31sc); //Левый бок
-//        g.drawLine(x31sc, y31sc, x33sc, y33sc); //Закругление к выработке 1
-//        g.drawLine(xs31sc, ys31sc, x32sc, y32sc); //Правый бок
-//        g.drawLine(x32sc, y32sc, x2sc, y2sc); //Закругление к выработке 2
-//    }
+        drawProfileExcavation(g2d, coordinatesIntersection.getXScalePointIntrsectionExcavation31(), 0,
+                                    coordinatesIntersection.getXScaleStartRounding31(), 0,
+                                    coordinatesIntersection.getXScaleIntersectionAxisAndStope3(), 0,
+                                    coordinatesIntersection.getXScaleIntersectionAxisAndStope3(), -coordinatesIntersection.getScaleHeight3(),
+                                    coordinatesIntersection.getXScaleStartRounding31(), -coordinatesIntersection.getScaleHeight3(),
+                                    coordinatesIntersection.getXScaleCalculateCoordinatePointContact31(), coordinatesIntersection.getYScaleCalculateCoordinatePointContact31());
+    }
+    // @formatter:on
 
-    //public void GraphConstrInt4(Graphics g) {
-    //Построение осей выработок
-    //g.drawLine(0, 0, (int) (L1sc * Math.sin(alpha1Rad)), (int) (-L1sc * Math.cos(alpha1Rad)));
-    //g.drawLine(0, 0, (int) (L2sc * Math.sin(alpha2Rad)), (int) (-L2sc * Math.cos(alpha2Rad)));
-    //g.drawLine(0, 0, (int) (L3sc * Math.sin(alpha3Rad)), (int) (-L3sc * Math.cos(alpha3Rad)));
-    //g.drawLine(0, 0, (int) (L4sc * Math.sin(alpha4Rad)), (int) (-L4sc * Math.cos(alpha4Rad)));
+    private void drawProfileExcavation(Graphics2D g2d, int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, int x5, int y5, int x6,
+                                       int y6) {
+        int distance = GraphicsParameters.DISTANCE_BETWEEN_PLAN_AND_PROFILE_SECTION;
+        g2d.translate(0, distance);
 
-    //Линии, соединяющие точку пересечения осей выработок с точками пересечения боков выработок
-//        g.drawLine(0, 0, x1sc, y1sc);
-//        g.drawLine(0, 0, x2sc, y2sc);
-//        g.drawLine(0, 0, x3sc, y3sc);
-//        g.drawLine(0, 0, x4sc, y4sc);
-//
-//        //Выработка 1
-//        g.drawLine(xs11sc, ys11sc, xs12sc, ys12sc); //Забой
-//        g.drawLine(xs12sc, ys12sc, x12sc, y12sc); //Левый бок
-//        g.drawLine(x12sc, y12sc, x1sc, y1sc); //Закругление к выработке 2
-//        g.drawLine(xs11sc, ys11sc, x14sc, y14sc); //Правый бок
-//        g.drawLine(x14sc, y14sc, x4sc, y4sc); //Закругление к выработке 4
-//
-//        //Выработка 2
-//        g.drawLine(xs21sc, ys21sc, xs22sc, ys22sc); //Забой
-//        g.drawLine(xs22sc, ys22sc, x23sc, y23sc); //Левый бок
-//        g.drawLine(x23sc, y23sc, x2sc, y2sc); //Закругление к выработке 3
-//        g.drawLine(xs21sc, ys21sc, x21sc, y21sc); //Правый бок
-//        g.drawLine(x21sc, y21sc, x1sc, y1sc); //Закругление к выработке 1
-//
-//        //Выработка 3
-//        g.drawLine(xs31sc, ys31sc, xs32sc, ys32sc); //Забой
-//        g.drawLine(xs32sc, ys32sc, x34sc, y34sc); //Левый бок
-//        g.drawLine(x34sc, y34sc, x3sc, y3sc); //Закругление к выработке 4
-//        g.drawLine(xs31sc, ys31sc, x32sc, y32sc); //Правый бок
-//        g.drawLine(x32sc, y32sc, x2sc, y2sc); //Закругление к выработке 2
-//
-//        //Выработка 4
-//        g.drawLine(xs41sc, ys41sc, xs42sc, ys42sc); //Забой
-//        g.drawLine(xs42sc, ys42sc, x41sc, y41sc); //Левый бок
-//        g.drawLine(x41sc, y41sc, x4sc, y4sc); //Закругление к выработке 4
-//        g.drawLine(xs41sc, ys41sc, x43sc, y43sc); //Правый бок
-//        g.drawLine(x43sc, y43sc, x3sc, y3sc); //Закругление к выработке 2
+        g2d.drawLine(x1, y1, x2, y2);
+        g2d.drawLine(x2, y2, x3, y3);
+        g2d.drawLine(x3, y3, x4, y4);
+        g2d.drawLine(x4, y4, x5, y5);
+        g2d.drawLine(x5, y5, x6, y6);
+
+        g2d.drawLine(x2, y2, x5, y5);
+
+        g2d.translate(0, -distance);
+    }
+
+    private void drawProfileCrossSectionIncreaseExcavation(Graphics2D g2d) {
+        int distance = GraphicsParameters.DISTANCE_BETWEEN_PLAN_AND_PROFILE_SECTION;
+        g2d.translate(0, distance);
+
+        double width = coordinatesIntersection.getIncreasedWidth1();
+        double height = coordinatesIntersection.getIncreasedHeight1();
+        double formIndicationIntersection = modelIntersection.getFormIndicationIntersection();
+        int scale = GraphicsParameters.GRAPHICS_INTERSECTION_SCALE;
+
+        graphicsExcavation.renderCrossSectionExcavation(g2d, width, height, formIndicationIntersection, scale);
+
+        g2d.translate(0, -distance);
+    }
+
+    private void drawProfileCrossSectionExcavation(Graphics2D g2d) {
+        int distance = GraphicsParameters.DISTANCE_BETWEEN_PLAN_AND_PROFILE_SECTION;
+        g2d.translate(0, distance);
+
+        double width = modelIntersection.getWidth1();
+        double height = modelIntersection.getHeight1();
+        double formIndication = modelIntersection.getFormIndication1();
+        int scale = GraphicsParameters.GRAPHICS_INTERSECTION_SCALE;
+
+        graphicsExcavation.renderCrossSectionExcavation(g2d, width, height, formIndication, scale);
+
+        g2d.translate(0, -distance);
+    }
 }

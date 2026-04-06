@@ -48,8 +48,8 @@ public class GraphicsMeshExcavation {
         int scaleArchHeight = serviceExcavation.getScaleArchHeight(widthExcavationWithMesh, formIndication, scale);
         int scaleSmallArcRadius = serviceExcavation.getScaleSmallArcRadius(widthExcavationWithMesh, formIndication, scale);
         int scaleLargeArcRadius = serviceExcavation.getScaleLargeArcRadius(widthExcavationWithMesh, formIndication, scale);
-        int alphaDegree = serviceExcavation.getAlphaDegree(widthExcavationWithMesh, formIndication);
-        int betaDegree = serviceExcavation.getBetaDegree(widthExcavationWithMesh, formIndication);
+        double alphaDegree = serviceExcavation.getAlphaDegree(widthExcavationWithMesh, formIndication);
+        double betaDegree = serviceExcavation.getBetaDegree(widthExcavationWithMesh, formIndication);
 
         Graphics2D g2d = (Graphics2D) g;
 
@@ -62,9 +62,9 @@ public class GraphicsMeshExcavation {
         g2d.setStroke(dashedStroke);
         g2d.setColor(Color.BLACK);
         g2d.drawLine(-scaleWidth / 2, -scaleDistanceBetweenSoilAndMesh, (int) (Math.round(-scaleWidth / 2.0)), -(scaleHeight - scaleArchHeight)); //Левая стенка
-        g2d.drawArc(-scaleWidth / 2, -(scaleHeight - scaleArchHeight) - scaleSmallArcRadius, 2 * scaleSmallArcRadius, 2 * scaleSmallArcRadius, 90 + alphaDegree, betaDegree); //Левая малая дуга
-        g2d.drawArc(-scaleLargeArcRadius, -scaleHeight, 2 * scaleLargeArcRadius, 2 * scaleLargeArcRadius, betaDegree, 2 * alphaDegree); //Большая дуга
-        g2d.drawArc(scaleWidth / 2 - 2 * scaleSmallArcRadius, -(scaleHeight - scaleArchHeight) - scaleSmallArcRadius, 2 * scaleSmallArcRadius, 2 * scaleSmallArcRadius, 0, betaDegree); //Правая малая дуга
+        g2d.drawArc(-scaleWidth / 2, -(scaleHeight - scaleArchHeight) - scaleSmallArcRadius, 2 * scaleSmallArcRadius, 2 * scaleSmallArcRadius, (int) Math.round(90 + alphaDegree), (int) Math.round(betaDegree)); //Левая малая дуга
+        g2d.drawArc(-scaleLargeArcRadius, -scaleHeight, 2 * scaleLargeArcRadius, 2 * scaleLargeArcRadius, (int) Math.round(betaDegree), (int) Math.round(2 * alphaDegree)); //Большая дуга
+        g2d.drawArc(scaleWidth / 2 - 2 * scaleSmallArcRadius, -(scaleHeight - scaleArchHeight) - scaleSmallArcRadius, 2 * scaleSmallArcRadius, 2 * scaleSmallArcRadius, 0, (int) Math.round(betaDegree)); //Правая малая дуга
         g2d.drawLine(scaleWidth / 2, -scaleDistanceBetweenSoilAndMesh, scaleWidth / 2, -(scaleHeight - scaleArchHeight)); //Правая стенка
 
         // Возврат к обычному штриху (опционально)
