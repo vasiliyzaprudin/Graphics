@@ -9,7 +9,7 @@ import com.mining.graphics.graphics.elementssupport.AnchorsRenderer;
 import com.mining.graphics.graphics.excavation.GraphicsExcavation;
 import com.mining.graphics.graphics.excavation.GraphicsIntersection;
 import com.mining.graphics.graphics.support.*;
-import com.mining.graphics.model.excavation.ModelCoordinatesIntersection;
+import com.mining.graphics.model.excavation.CoordinatesIntersection;
 import com.mining.graphics.model.excavation.ModelExcavation;
 import com.mining.graphics.model.excavation.ModelIntersection;
 import com.mining.graphics.model.support.AnchorsExcavation;
@@ -51,7 +51,7 @@ public class GraphicsWindow extends JFrame {
     private final ShotcreteExcavation shotcreteExcavation;
 
     private final ModelIntersection modelIntersection;
-    private final ModelCoordinatesIntersection modelCoordinatesIntersection;
+    private final CoordinatesIntersection modelCoordinatesIntersection;
     private final AnchorsIntersection anchorsIntersection;
 
     private final AnchorsRenderer anchorsRenderer;
@@ -83,7 +83,7 @@ public class GraphicsWindow extends JFrame {
         shotcreteExcavation = new ShotcreteExcavation();
 
         modelIntersection = new ModelIntersection();
-        modelCoordinatesIntersection = new ModelCoordinatesIntersection(modelIntersection);
+        modelCoordinatesIntersection = new CoordinatesIntersection(modelIntersection);
         anchorsIntersection = new AnchorsIntersection();
 
         anchorsRenderer = new AnchorsRenderer();

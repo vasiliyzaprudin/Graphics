@@ -1,18 +1,18 @@
 package com.mining.graphics.graphics.excavation;
 
 import com.mining.graphics.graphics.GraphicsParameters;
-import com.mining.graphics.model.excavation.ModelCoordinatesIntersection;
+import com.mining.graphics.model.excavation.CoordinatesIntersection;
 import com.mining.graphics.model.excavation.ModelIntersection;
 
 import java.awt.*;
 
 public class GraphicsIntersection {
     private final ModelIntersection modelIntersection;
-    private final ModelCoordinatesIntersection coordinatesIntersection;
+    private final CoordinatesIntersection coordinatesIntersection;
     private final GraphicsExcavation graphicsExcavation;
 
 
-    public GraphicsIntersection(ModelIntersection modelIntersection, ModelCoordinatesIntersection coordinatesIntersection,
+    public GraphicsIntersection(ModelIntersection modelIntersection, CoordinatesIntersection coordinatesIntersection,
                                 GraphicsExcavation graphicsExcavation) {
         this.modelIntersection = modelIntersection;
         this.coordinatesIntersection = coordinatesIntersection;

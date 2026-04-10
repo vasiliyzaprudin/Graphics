@@ -1,6 +1,6 @@
 package com.mining.graphics.controlpanel;
 
-import com.mining.graphics.model.excavation.ModelCoordinatesIntersection;
+import com.mining.graphics.model.excavation.CoordinatesIntersection;
 import com.mining.graphics.model.excavation.ModelIntersection;
 import com.mining.graphics.model.support.AnchorsExcavation;
 
@@ -11,7 +11,7 @@ import java.awt.*;
 public class ControlPanelIntersection extends JPanel {
 
     private final ModelIntersection model;
-    private final ModelCoordinatesIntersection modelCoordinates;
+    private final CoordinatesIntersection modelCoordinates;
     private final AnchorsExcavation anchors;
     private final JPanel drawingPanel;
 
@@ -32,7 +32,7 @@ public class ControlPanelIntersection extends JPanel {
     private static final Color BUTTON_BG = new Color(85, 109, 88);
     private static final Color BUTTON_FG = Color.WHITE;
 
-    public ControlPanelIntersection(ModelIntersection model, ModelCoordinatesIntersection modelCoordinates, AnchorsExcavation anchors,
+    public ControlPanelIntersection(ModelIntersection model, CoordinatesIntersection modelCoordinates, AnchorsExcavation anchors,
                                     JPanel drawingPanel) {
         this.model = model;
         this.modelCoordinates = modelCoordinates;
