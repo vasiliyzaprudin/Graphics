@@ -4,6 +4,7 @@ import com.mining.graphics.graphics.GraphicsParameters;
 import com.mining.graphics.model.excavation.CoordinatesIntersection;
 import com.mining.graphics.model.excavation.ModelIntersection;
 import com.mining.graphics.model.support.AnchorsIntersection;
+import com.mining.graphics.model.test.ModelTest;
 import com.mining.graphics.service.support.ServiceAnchorsIntersection;
 
 import java.awt.*;
@@ -13,12 +14,14 @@ public class GraphicsAnchorsIntersection {
     private final ModelIntersection modelIntersection;
     private final CoordinatesIntersection modelCoordinatesIntersection;
     private final AnchorsIntersection anchorsIntersection;
+    private final ModelTest modelTest;
 
     public GraphicsAnchorsIntersection(ModelIntersection modelIntersection, CoordinatesIntersection modelCoordinatesIntersection,
-                                       AnchorsIntersection anchorsIntersection) {
+                                       AnchorsIntersection anchorsIntersection,ModelTest modelTest) {
         this.modelIntersection = modelIntersection;
         this.modelCoordinatesIntersection = modelCoordinatesIntersection;
         this.anchorsIntersection = anchorsIntersection;
+        this.modelTest = modelTest;
     }
     // @formatter:off
     public void drawAllAnchorsPlanRounding3(Graphics g) {
@@ -68,6 +71,34 @@ public class GraphicsAnchorsIntersection {
             g.drawLine(x1, y1, x2, y2);
         }
     }
+
+    public void testDrawAllAnchorsPlanRounding3(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g;
+
+        drawTestLineAnchorsPlan(g2d, ServiceAnchorsIntersection.testPlanStartXY(
+                modelCoordinatesIntersection.getXIntersectionAxisAndStope1(), modelCoordinatesIntersection.getYIntersectionAxisAndStope1(),
+                anchorsIntersection.getDistanceBetweenRows1(), modelTest.getLengthLineTestAnchorsPlanIntersection()));
+
+        drawTestLineAnchorsPlan(g2d, ServiceAnchorsIntersection.testPlanStartXY(
+                modelCoordinatesIntersection.getXIntersectionAxisAndStope2(), modelCoordinatesIntersection.getYIntersectionAxisAndStope2(),
+                anchorsIntersection.getDistanceBetweenRows2(), modelTest.getLengthLineTestAnchorsPlanIntersection()));
+
+        drawTestLineAnchorsPlan(g2d, ServiceAnchorsIntersection.testPlanStartXY(
+                modelCoordinatesIntersection.getXIntersectionAxisAndStope3(), modelCoordinatesIntersection.getYIntersectionAxisAndStope3(),
+                anchorsIntersection.getDistanceBetweenRows3(), modelTest.getLengthLineTestAnchorsPlanIntersection()));
+    }
+
+    public void drawTestLineAnchorsPlan(Graphics2D g, double[][] lineTestXY) {
+        int scale = GraphicsParameters.GRAPHICS_INTERSECTION_SCALE;
+        for (int i = 0; i < lineTestXY.length; i++) {
+            int x1 = (int) Math.round(lineTestXY[i][0] * scale);
+            int y1 = (int) Math.round(lineTestXY[i][1] * scale);
+            int x2 = (int) Math.round(lineTestXY[i][2] * scale);
+            int y2 = (int) Math.round(lineTestXY[i][3] * scale);
+            g.drawLine(x1, y1, x2, y2);
+        }
+    }
+
 
     public void drawAllAnchorsPlanLine3(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;

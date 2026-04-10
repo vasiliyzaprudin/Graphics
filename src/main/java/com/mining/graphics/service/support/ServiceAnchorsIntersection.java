@@ -28,9 +28,16 @@ public class ServiceAnchorsIntersection {
             projection = Math.abs(distance * Math.abs(Math.cos(omega)));
         else
             projection = Math.abs(distance * (Math.cos(omega)));
-        double delta = Math.ceil(projection / distanceBetweenRows) * distanceBetweenRows - projection;
+
         double phi = calculatePhi(xPointIntrsectionExcavations, yPointIntrsectionExcavations, xStartRounding, yStartRounding, xIntersectionAxisAndStope, yIntersectionAxisAndStope);
         double beta = calculateAngleBetweenHorizontalAndAxisExcavation(xIntersectionAxisAndStope, yIntersectionAxisAndStope);
+
+        double delta;
+        if (Math.abs(phi) < 0.01) {
+            delta = 0;
+        } else {
+            delta = Math.ceil(projection / distanceBetweenRows) * distanceBetweenRows - projection;
+        }
         return xPointIntrsectionExcavations + (delta / Math.cos(phi)) * Math.cos(beta + phi);
     }
 
@@ -45,9 +52,16 @@ public class ServiceAnchorsIntersection {
             projection = Math.abs(distance * Math.abs(Math.cos(omega)));
         else
             projection = Math.abs(distance * (Math.cos(omega)));
-        double delta = Math.ceil(projection / distanceBetweenRows) * distanceBetweenRows - projection;
+
         double phi = calculatePhi(xPointIntrsectionExcavations, yPointIntrsectionExcavations, xStartRounding, yStartRounding, xIntersectionAxisAndStope, yIntersectionAxisAndStope);
         double beta = calculateAngleBetweenHorizontalAndAxisExcavation(xIntersectionAxisAndStope, yIntersectionAxisAndStope);
+
+        double delta;
+        if (Math.abs(phi) < 0.01) {
+            delta = 0;
+        } else {
+            delta = Math.ceil(projection / distanceBetweenRows) * distanceBetweenRows - projection;
+        }
         return yPointIntrsectionExcavations + (delta / Math.cos(phi)) * Math.sin(beta + phi);
     }
 
@@ -182,6 +196,24 @@ public class ServiceAnchorsIntersection {
         }
         return anchorPlanRoundXY;
     }
+
+    public static double[][] testPlanStartXY(double intersectionAxisAndStopeX, double intersectionAxisAndStopeY, double distanceBetweenRows, double lengthLineTestAnchorsPlanIntersection) {
+
+        double lengthLine = GeneralService.distanceBetweenPoint(intersectionAxisAndStopeX, intersectionAxisAndStopeY, 0.0, 0.0);
+        int numberLineTest = (int) (lengthLine / distanceBetweenRows);
+
+        double sigma = Math.atan2(intersectionAxisAndStopeY, intersectionAxisAndStopeX);
+
+        double[][] lineTestXY = new double[numberLineTest + 1][4];
+
+        for (int i = 0, j = 0; lengthLine >= j * distanceBetweenRows; j++, i++) {
+            lineTestXY[i][0] = j * distanceBetweenRows * Math.cos(sigma) - lengthLineTestAnchorsPlanIntersection * Math.cos(sigma - Math.PI / 2);
+            lineTestXY[i][1] = j * distanceBetweenRows * Math.sin(sigma) - lengthLineTestAnchorsPlanIntersection * Math.sin(sigma - Math.PI / 2);
+            lineTestXY[i][2] = j * distanceBetweenRows * Math.cos(sigma) + lengthLineTestAnchorsPlanIntersection * Math.cos(sigma - Math.PI / 2);
+            lineTestXY[i][3] = j * distanceBetweenRows * Math.sin(sigma) + lengthLineTestAnchorsPlanIntersection * Math.sin(sigma - Math.PI / 2);
+        }
+        return lineTestXY;
+    }
 }
 
 //    /**
@@ -249,18 +281,5 @@ public class ServiceAnchorsIntersection {
 //        }
 //    }
 
-//    /**
-//     * Это метод проверки построения анкеров в плане сопряжения.
-//     */
-//    public void testX0Y0(double CAL, double XB, double YB) {
-//        numAnchTest = (int) (distanceBetweenPoint(XB, YB, 0.0, 0.0) / CAL); //расчет количества перпендикуляров
-//        double SIGMA = Math.atan2(YB, XB);
-//        СoorTestX0Y0 = new double[numAnchTest + 1][4]; //numAnchTest + 1 - количество перпендикуляров
-//        for (int i = 0, j = 0; distanceBetweenPoint(XB, YB, 0.0, 0.0) >= j * CAL; j++, i++) {
-//            СoorTestX0Y0[i][0] = j * CAL * Math.cos(SIGMA) - L0 * Math.cos(SIGMA - Math.PI / 2);
-//            СoorTestX0Y0[i][1] = j * CAL * Math.sin(SIGMA) - L0 * Math.sin(SIGMA - Math.PI / 2);
-//            СoorTestX0Y0[i][2] = j * CAL * Math.cos(SIGMA) + L0 * Math.cos(SIGMA - Math.PI / 2);
-//            СoorTestX0Y0[i][3] = j * CAL * Math.sin(SIGMA) + L0 * Math.sin(SIGMA - Math.PI / 2);
-//        }
-//    }
+
 

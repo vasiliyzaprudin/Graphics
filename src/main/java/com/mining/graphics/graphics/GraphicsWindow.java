@@ -16,6 +16,7 @@ import com.mining.graphics.model.support.AnchorsExcavation;
 import com.mining.graphics.model.support.AnchorsIntersection;
 import com.mining.graphics.model.support.MeshExcavation;
 import com.mining.graphics.model.support.ShotcreteExcavation;
+import com.mining.graphics.model.test.ModelTest;
 import com.mining.graphics.service.excavation.ServiceExcavation;
 import com.mining.graphics.service.support.ServiceMeshExcavation;
 import com.mining.graphics.service.support.ServiceShotcreteExcavation;
@@ -71,11 +72,17 @@ public class GraphicsWindow extends JFrame {
     private final GraphicsIntersection graphicsIntersection;
     private final GraphicsAnchorsIntersection graphicsAnchorsIntersection;
 
+    //Тесты
+    private final ModelTest modelTest;
+
     private final Drawing drawing;
 
     private JPanel drawingPanel;
 
     public GraphicsWindow() {
+        //Инициализация тестов
+        modelTest = new ModelTest();
+
         // Инициализация моделей и сервисов
         modelExcavation = new ModelExcavation();
         anchorsExcavation = new AnchorsExcavation();
@@ -99,7 +106,7 @@ public class GraphicsWindow extends JFrame {
         graphicsShotcreteExcavation = new GraphicsShotcreteExcavation(modelExcavation, shotcreteExcavation, serviceExcavation, serviceShotcreteExcavation);
 
         graphicsIntersection = new GraphicsIntersection(modelIntersection, modelCoordinatesIntersection, graphicsExcavation);
-        graphicsAnchorsIntersection = new GraphicsAnchorsIntersection(modelIntersection, modelCoordinatesIntersection, anchorsIntersection);
+        graphicsAnchorsIntersection = new GraphicsAnchorsIntersection(modelIntersection, modelCoordinatesIntersection, anchorsIntersection, modelTest);
 
         graphicsDimension = new GraphicsDimension(modelExcavation, anchorsExcavation, shotcreteExcavation, serviceExcavation);
 
@@ -167,10 +174,7 @@ public class GraphicsWindow extends JFrame {
     private JPanel createModePanel() {
         JPanel modePanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 15));
         modePanel.setBackground(PANEL_BG);
-        modePanel.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(238, 234, 226)),
-                BorderFactory.createEmptyBorder(10, 10, 10, 10)
-        ));
+        modePanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(238, 234, 226)), BorderFactory.createEmptyBorder(10, 10, 10, 10)));
 
         // Создаем стилизованные кнопки как у "Применить"
         excavationModeButton = createModeButton("Одиночная выработка", true);
@@ -290,13 +294,18 @@ public class GraphicsWindow extends JFrame {
     }
 
     private void drawIntersection(Graphics2D g2d) {
+
         // Рисуем план сопряжения
         g2d.translate(500, 400);
+
+        //graphicsAnchorsIntersection.testDrawAllAnchorsPlanRounding3(g2d);
+
         graphicsIntersection.drawPlanIntersection3(g2d);
         graphicsIntersection.drawProfileIntersection3(g2d);
 
         graphicsAnchorsIntersection.drawAllAnchorsPlanRounding3(g2d);
         graphicsAnchorsIntersection.drawAllAnchorsPlanLine3(g2d);
+
         g2d.translate(-500, -400);
     }
 
@@ -328,7 +337,7 @@ public class GraphicsWindow extends JFrame {
         g2d.drawLine(50, -10, 50 + anchorLength, -10);
         g2d.drawLine(50, -15, 50, -5);
         g2d.drawLine(50 + anchorLength, -15, 50 + anchorLength, -5);
-        g2d.drawString(String.format("%.2f м", anchorLengthMeters), 50 + anchorLength/2 - 20, -5);
+        g2d.drawString(String.format("%.2f м", anchorLengthMeters), 50 + anchorLength / 2 - 20, -5);
 
         g2d.translate(-550, -600);
     }
