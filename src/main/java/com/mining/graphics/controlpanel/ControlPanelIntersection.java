@@ -18,7 +18,7 @@ public class ControlPanelIntersection extends JPanel {
     // Поля для выработки №1
     private JTextField widthField;
     private JTextField heightField;
-    private JTextField azimuthField;      // Новое поле для азимута
+    private JTextField azimuthField;
     private JTextField formField;
 
     // Поля для анкеров
@@ -178,7 +178,7 @@ public class ControlPanelIntersection extends JPanel {
             int azimuth = Integer.parseInt(azimuthField.getText().trim());
             double formIntersection = Double.parseDouble(formField.getText().trim());
 
-            if (width > 0 && height > 0 && formIntersection > 0 && azimuth >= 0 && azimuth < 360) {
+            if (width >= 2 && width <= 8 && height >= 2 && height <= 8 && formIntersection >= 1.5 && formIntersection <= 8 && azimuth >= -45 && azimuth <= 45) {
                 model.setWidth1(width);
                 model.setHeight1(height);
                 model.setAzimuthDegrees1(azimuth);
@@ -187,7 +187,7 @@ public class ControlPanelIntersection extends JPanel {
             } else {
                 if (width <= 0 || height <= 0) errorMessage.append("Ширина и высота должны быть положительными!\n");
                 if (formIntersection <= 0) errorMessage.append("Коэффициент формы сопряжения должен быть положительным!\n");
-                if (azimuth < -45 || azimuth >= 45) errorMessage.append("Азимут должен быть в диапазоне от -45 до 45 градусов!\n");
+                if (azimuth <= -45 || azimuth >= 45) errorMessage.append("Азимут должен быть в диапазоне от -45 до 45 градусов!\n");
                 excavationValid = false;
             }
         } catch (NumberFormatException e) {

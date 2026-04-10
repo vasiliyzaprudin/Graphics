@@ -187,10 +187,10 @@ public class ServiceIntersection {
      * соединяющей центр кровли горной выработки и точку касания
      * (точку перехода от дуги к прямолинейному отрезку кровли сопрягаемой горной выработки).
      */
-    public static double calculateAngleBetweenCenterRoofAndPointContactRadians(double xPointIntrsectionExcavationRight, double yPointIntrsectionExcavationRight,
-                                                                               double xPointIntrsectionExcavationLeft, double yPointIntrsectionExcavationLeft,
+    public static double calculateAngleBetweenCenterRoofAndPointContactRadians(double xPointIntersectionExcavationRight, double yPointIntersectionExcavationRight,
+                                                                               double xPointIntersectionExcavationLeft, double yPointIntersectionExcavationLeft,
                                                                                double xStartRounding2, double height1, double width1, double formIndicationIntersection, double height2) {
-        double increasedWidth1 = distanceBetweenPoint(xPointIntrsectionExcavationRight, yPointIntrsectionExcavationRight, xPointIntrsectionExcavationLeft, yPointIntrsectionExcavationLeft);
+        double increasedWidth1 = distanceBetweenPoint(xPointIntersectionExcavationRight, yPointIntersectionExcavationRight, xPointIntersectionExcavationLeft, yPointIntersectionExcavationLeft);
         double formIndicationHeightIntersection1 = (increasedWidth1 / (2.0 * width1)) + 0.5;
         double increasedHeight1 = height1 * formIndicationHeightIntersection1;
         double largeArcRadius = getLargeArcRadius(width1, formIndicationIntersection);

@@ -6,12 +6,11 @@ public class AnchorsExcavation {
     private double step = 0.9;
     private double distanceBetweenRows = 0.9;
     private double plateSize = 0.15;
-    //private double anchorDiameter = 0.03; //диаметр анкера
     private double distanceLowerAnchor = 1.8; //максимальное расстояние от почвы выработки до точки установки нижнего анкера
 
-    private double[][] crossSectionAnchorsXY; //анкеры в поперечном сечении
-    private double[][] longSectionAnchorsXY; //анкеры в продольном сечении
-    private double[][] basePlateXY; //опорные плиты
+    private double[][] crossSectionAnchorsXY;
+    private double[][] longSectionAnchorsXY;
+    private double[][] basePlateXY;
 
     private double bottomAnchorY;
 
@@ -41,7 +40,6 @@ public class AnchorsExcavation {
         public double getStartX() {
             return startX;
         }
-
         public double getStartY() {
             return startY;
         }
@@ -49,7 +47,6 @@ public class AnchorsExcavation {
         public double getEndX() {
             return endX;
         }
-
         public double getEndY() {
             return endY;
         }
@@ -67,7 +64,6 @@ public class AnchorsExcavation {
         public double getX() {
             return x;
         }
-
         public double getY() {
             return y;
         }

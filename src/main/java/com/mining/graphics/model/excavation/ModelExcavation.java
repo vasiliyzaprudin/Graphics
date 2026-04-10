@@ -48,7 +48,4 @@ public class ModelExcavation {
     public void setAzimuthDegrees(double azimuthDegrees) {this.azimuthDegrees = azimuthDegrees;}
 
     public double getAzimuthRadians() {return Math.toRadians(azimuthDegrees);}
-
-    // Утилитарные методы
-    public int scale(double value, int scale) {return (int) Math.round(value * scale);}
 }

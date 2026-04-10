@@ -1,5 +1,9 @@
 package com.mining.graphics.model.excavation;
 
+import com.mining.graphics.model.support.AnchorsIntersection;
+import com.mining.graphics.model.support.LineParameters;
+import com.mining.graphics.model.support.RoundingParameters;
+
 import static com.mining.graphics.service.excavation.ServiceIntersection.*;
 
 public class ModelCoordinatesIntersection {
@@ -431,5 +435,185 @@ public class ModelCoordinatesIntersection {
     public int getYScaleCalculateCoordinatePointContact31 () {return yScaleCalculateCoordinatePointContact31;}
     public double getAngleBetweenCenterRoofAndPointContactRadians31 () {return angleBetweenCenterRoofAndPointContactRadians31;}
     public int getAngleBetweenCenterRoofAndPointContactDegrees31 () {return angleBetweenCenterRoofAndPointContactDegrees31;}
+
+
+    public RoundingParameters getRoundingParameters12(ModelIntersection modelIntersection, AnchorsIntersection anchorsIntersection) {
+        return new RoundingParameters(
+                this.getXPointIntrsectionExcavation12(),
+                this.getYPointIntrsectionExcavation12(),
+                this.getXStartRounding12(),
+                this.getYStartRounding12(),
+                this.getXIntersectionAxisAndStope1(),
+                this.getYIntersectionAxisAndStope1(),
+                modelIntersection.getAzimuthRadians1(),
+                anchorsIntersection.getDistanceBetweenRows1(),
+                anchorsIntersection.getLengthAnchor1()
+        );
+    }
+
+    public RoundingParameters getRoundingParameters21(ModelIntersection modelIntersection, AnchorsIntersection anchorsIntersection) {
+        return new RoundingParameters(
+                this.getXPointIntrsectionExcavation12(),
+                this.getYPointIntrsectionExcavation12(),
+                this.getXStartRounding21(),
+                this.getYStartRounding21(),
+                this.getXIntersectionAxisAndStope2(),
+                this.getYIntersectionAxisAndStope2(),
+                modelIntersection.getAzimuthRadians2(),
+                anchorsIntersection.getDistanceBetweenRows2(),
+                anchorsIntersection.getLengthAnchor2()
+        );
+    }
+
+    public RoundingParameters getRoundingParameters23(ModelIntersection modelIntersection, AnchorsIntersection anchorsIntersection) {
+        return new RoundingParameters(
+                this.getXPointIntrsectionExcavation23(),
+                this.getYPointIntrsectionExcavation23(),
+                this.getXStartRounding23(),
+                this.getYStartRounding23(),
+                this.getXIntersectionAxisAndStope2(),
+                this.getYIntersectionAxisAndStope2(),
+                modelIntersection.getAzimuthRadians2(),
+                anchorsIntersection.getDistanceBetweenRows2(),
+                anchorsIntersection.getLengthAnchor2()
+        );
+    }
+
+    public RoundingParameters getRoundingParameters32(ModelIntersection modelIntersection, AnchorsIntersection anchorsIntersection) {
+        return new RoundingParameters(
+                this.getXPointIntrsectionExcavation23(),
+                this.getYPointIntrsectionExcavation23(),
+                this.getXStartRounding32(),
+                this.getYStartRounding32(),
+                this.getXIntersectionAxisAndStope3(),
+                this.getYIntersectionAxisAndStope3(),
+                modelIntersection.getAzimuthRadians3(),
+                anchorsIntersection.getDistanceBetweenRows3(),
+                anchorsIntersection.getLengthAnchor3()
+        );
+    }
+
+    public RoundingParameters getRoundingParameters31(ModelIntersection modelIntersection, AnchorsIntersection anchorsIntersection) {
+        return new RoundingParameters(
+                this.getXPointIntrsectionExcavation31(),
+                this.getYPointIntrsectionExcavation31(),
+                this.getXStartRounding31(),
+                this.getYStartRounding31(),
+                this.getXIntersectionAxisAndStope3(),
+                this.getYIntersectionAxisAndStope3(),
+                modelIntersection.getAzimuthRadians3(),
+                anchorsIntersection.getDistanceBetweenRows3(),
+                anchorsIntersection.getLengthAnchor3()
+        );
+    }
+
+    public RoundingParameters getRoundingParameters13(ModelIntersection modelIntersection, AnchorsIntersection anchorsIntersection) {
+        return new RoundingParameters(
+                this.getXPointIntrsectionExcavation31(),
+                this.getYPointIntrsectionExcavation31(),
+                this.getXStartRounding13(),
+                this.getYStartRounding13(),
+                this.getXIntersectionAxisAndStope1(),
+                this.getYIntersectionAxisAndStope1(),
+                modelIntersection.getAzimuthRadians1(),
+                anchorsIntersection.getDistanceBetweenRows1(),
+                anchorsIntersection.getLengthAnchor1()
+        );
+    }
+
+    public LineParameters getLineParametersLeft1(ModelIntersection modelIntersection, AnchorsIntersection anchors) {
+        return new LineParameters(
+                this.getXStartRounding13(),
+                this.getYStartRounding13(),
+                this.getXStopeLeft1(),
+                this.getYStopeLeft1(),
+                this.getXStartRounding12(),
+                this.getYStartRounding12(),
+                this.getXStopeRight1(),
+                this.getYStopeRight1(),
+                anchors.getDistanceBetweenRows1(),
+                anchors.getLengthAnchor1(),
+                modelIntersection.getAzimuthRadians1()
+        );
+    }
+    public LineParameters getLineParametersRight1(ModelIntersection modelIntersection, AnchorsIntersection anchors) {
+        return new LineParameters(
+                this.getXStartRounding12(),
+                this.getYStartRounding12(),
+                this.getXStopeRight1(),
+                this.getYStopeRight1(),
+                this.getXStartRounding13(),
+                this.getYStartRounding13(),
+                this.getXStopeLeft1(),
+                this.getYStopeLeft1(),
+                anchors.getDistanceBetweenRows1(),
+                anchors.getLengthAnchor1(),
+                modelIntersection.getAzimuthRadians1()
+        );
+    }
+
+    public LineParameters getLineParametersLeft2(ModelIntersection modelIntersection, AnchorsIntersection anchors) {
+        return new LineParameters(
+                this.getXStartRounding21(),
+                this.getYStartRounding21(),
+                this.getXStopeLeft2(),
+                this.getYStopeLeft2(),
+                this.getXStartRounding23(),
+                this.getYStartRounding23(),
+                this.getXStopeRight2(),
+                this.getYStopeRight2(),
+                anchors.getDistanceBetweenRows2(),
+                anchors.getLengthAnchor2(),
+                modelIntersection.getAzimuthRadians2()
+        );
+    }
+
+    public LineParameters getLineParametersRight2(ModelIntersection modelIntersection, AnchorsIntersection anchors) {
+        return new LineParameters(
+                this.getXStartRounding23(),
+                this.getYStartRounding23(),
+                this.getXStopeRight2(),
+                this.getYStopeRight2(),
+                this.getXStartRounding21(),
+                this.getYStartRounding21(),
+                this.getXStopeLeft2(),
+                this.getYStopeLeft2(),
+                anchors.getDistanceBetweenRows2(),
+                anchors.getLengthAnchor2(),
+                modelIntersection.getAzimuthRadians2()
+        );
+    }
+
+    public LineParameters getLineParametersLeft3(ModelIntersection modelIntersection, AnchorsIntersection anchors) {
+        return new LineParameters(
+                this.getXStartRounding32(),
+                this.getYStartRounding32(),
+                this.getXStopeLeft3(),
+                this.getYStopeLeft3(),
+                this.getXStartRounding31(),
+                this.getYStartRounding31(),
+                this.getXStopeRight3(),
+                this.getYStopeRight3(),
+                anchors.getDistanceBetweenRows3(),
+                anchors.getLengthAnchor3(),
+                modelIntersection.getAzimuthRadians3()
+        );
+    }
+
+    public LineParameters getLineParametersRight3(ModelIntersection modelIntersection, AnchorsIntersection anchors) {
+        return new LineParameters(
+                this.getXStartRounding31(),
+                this.getYStartRounding31(),
+                this.getXStopeRight3(),
+                this.getYStopeRight3(),
+                this.getXStartRounding32(),
+                this.getYStartRounding32(),
+                this.getXStopeLeft3(),
+                this.getYStopeLeft3(),
+                anchors.getDistanceBetweenRows3(),
+                anchors.getLengthAnchor3(),
+                modelIntersection.getAzimuthRadians3()
+        );
+    }
 // @formatter:on
 }

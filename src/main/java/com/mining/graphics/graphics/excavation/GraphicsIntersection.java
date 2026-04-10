@@ -37,7 +37,6 @@ public class GraphicsIntersection {
         drawProfileCrossSectionExcavation(g2d);
     }
 
-
     private void drawStopes3(Graphics2D g2d) {
         drawStope(g2d, coordinatesIntersection.getXScaleStopeLeft1(), coordinatesIntersection.getYScaleStopeLeft1(), coordinatesIntersection.getXScaleStopeRight1(), coordinatesIntersection.getYScaleStopeRight1());
         drawStope(g2d, coordinatesIntersection.getXScaleStopeLeft2(), coordinatesIntersection.getYScaleStopeLeft2(), coordinatesIntersection.getXScaleStopeRight2(), coordinatesIntersection.getYScaleStopeRight2());
@@ -92,7 +91,7 @@ public class GraphicsIntersection {
     // @formatter:off
     private void drawAllProfileExcavation(Graphics2D g2d) {
 
-        drawProfileExcavation(g2d, coordinatesIntersection.getXScalePointIntrsectionExcavation12(), 0,
+        drawProfileExcavation(g2d, (int)(Math.round(coordinatesIntersection.getIncreasedWidth1()/2.0)), 0,
                                     coordinatesIntersection.getXScaleStartRounding21(), 0,
                                     coordinatesIntersection.getXScaleIntersectionAxisAndStope2(), 0,
                                     coordinatesIntersection.getXScaleIntersectionAxisAndStope2(), -coordinatesIntersection.getScaleHeight2(),
@@ -100,7 +99,7 @@ public class GraphicsIntersection {
                                     coordinatesIntersection.getXScaleCalculateCoordinatePointContact21(), coordinatesIntersection.getYScaleCalculateCoordinatePointContact21());
 
 
-        drawProfileExcavation(g2d, coordinatesIntersection.getXScalePointIntrsectionExcavation31(), 0,
+        drawProfileExcavation(g2d, (int)(Math.round(coordinatesIntersection.getIncreasedWidth1()/2.0)), 0,
                                     coordinatesIntersection.getXScaleStartRounding31(), 0,
                                     coordinatesIntersection.getXScaleIntersectionAxisAndStope3(), 0,
                                     coordinatesIntersection.getXScaleIntersectionAxisAndStope3(), -coordinatesIntersection.getScaleHeight3(),

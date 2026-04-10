@@ -56,6 +56,5 @@ public class GraphicsExcavation {
         g.drawLine(scaleLength, 0, 0, 0);
 
         g.translate(-distance, 0);
-
     }
 }

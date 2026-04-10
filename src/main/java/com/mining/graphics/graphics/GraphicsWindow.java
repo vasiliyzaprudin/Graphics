@@ -13,6 +13,7 @@ import com.mining.graphics.model.excavation.ModelCoordinatesIntersection;
 import com.mining.graphics.model.excavation.ModelExcavation;
 import com.mining.graphics.model.excavation.ModelIntersection;
 import com.mining.graphics.model.support.AnchorsExcavation;
+import com.mining.graphics.model.support.AnchorsIntersection;
 import com.mining.graphics.model.support.MeshExcavation;
 import com.mining.graphics.model.support.ShotcreteExcavation;
 import com.mining.graphics.service.excavation.ServiceExcavation;
@@ -20,7 +21,6 @@ import com.mining.graphics.service.support.ServiceMeshExcavation;
 import com.mining.graphics.service.support.ServiceShotcreteExcavation;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.event.*;
 import java.awt.*;
 
@@ -33,7 +33,7 @@ public class GraphicsWindow extends JFrame {
     private JButton intersectionModeButton;
     private JButton anchorModeButton;
 
-    // Цветовая схема (как у кнопки "Применить")
+    // Цветовая схема
     private static final Color BUTTON_BG = new Color(85, 109, 88);
     private static final Color BUTTON_FG = Color.WHITE;
     private static final Color BUTTON_HOVER_BG = new Color(65, 89, 68);
@@ -51,7 +51,8 @@ public class GraphicsWindow extends JFrame {
     private final ShotcreteExcavation shotcreteExcavation;
 
     private final ModelIntersection modelIntersection;
-    private final ModelCoordinatesIntersection coordinatesIntersection;
+    private final ModelCoordinatesIntersection modelCoordinatesIntersection;
+    private final AnchorsIntersection anchorsIntersection;
 
     private final AnchorsRenderer anchorsRenderer;
 
@@ -82,7 +83,8 @@ public class GraphicsWindow extends JFrame {
         shotcreteExcavation = new ShotcreteExcavation();
 
         modelIntersection = new ModelIntersection();
-        coordinatesIntersection = new ModelCoordinatesIntersection(modelIntersection);
+        modelCoordinatesIntersection = new ModelCoordinatesIntersection(modelIntersection);
+        anchorsIntersection = new AnchorsIntersection();
 
         anchorsRenderer = new AnchorsRenderer();
 
@@ -96,8 +98,8 @@ public class GraphicsWindow extends JFrame {
         graphicsMeshExcavation = new GraphicsMeshExcavation(modelExcavation, meshExcavation, serviceExcavation, serviceMeshExcavation);
         graphicsShotcreteExcavation = new GraphicsShotcreteExcavation(modelExcavation, shotcreteExcavation, serviceExcavation, serviceShotcreteExcavation);
 
-        graphicsIntersection = new GraphicsIntersection(modelIntersection, coordinatesIntersection, graphicsExcavation);
-        graphicsAnchorsIntersection = new GraphicsAnchorsIntersection();
+        graphicsIntersection = new GraphicsIntersection(modelIntersection, modelCoordinatesIntersection, graphicsExcavation);
+        graphicsAnchorsIntersection = new GraphicsAnchorsIntersection(modelIntersection, modelCoordinatesIntersection, anchorsIntersection);
 
         graphicsDimension = new GraphicsDimension(modelExcavation, anchorsExcavation, shotcreteExcavation, serviceExcavation);
 
@@ -131,7 +133,7 @@ public class GraphicsWindow extends JFrame {
 
         // Создаем панели управления
         controlPanelExcavation = new ControlPanelExcavation(modelExcavation, anchorsExcavation, drawingPanel);
-        controlPanelIntersection = new ControlPanelIntersection(modelIntersection, coordinatesIntersection, anchorsExcavation, drawingPanel);
+        controlPanelIntersection = new ControlPanelIntersection(modelIntersection, modelCoordinatesIntersection, anchorsExcavation, drawingPanel);
 
         // Создаем панель для переключения режимов со стилизованными кнопками
         JPanel modePanel = createModePanel();
@@ -197,20 +199,6 @@ public class GraphicsWindow extends JFrame {
         button.setBorder(BorderFactory.createEmptyBorder(5, 25, 5, 25));
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-        // Эффект наведения
-        button.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                if (!button.getBackground().equals(new Color(65, 89, 68))) {
-                    button.setBackground(BUTTON_HOVER_BG);
-                }
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                if (!button.getBackground().equals(new Color(65, 89, 68))) {
-                    button.setBackground(BUTTON_BG);
-                }
-            }
-        });
-
         // Обработчик нажатия
         button.addActionListener(e -> {
             if (button == excavationModeButton) {
@@ -224,7 +212,6 @@ public class GraphicsWindow extends JFrame {
                 updateButtonStates(anchorModeButton);
             }
         });
-
         return button;
     }
 
@@ -235,7 +222,7 @@ public class GraphicsWindow extends JFrame {
         anchorModeButton.setBackground(BUTTON_BG);
 
         // Устанавливаем активный цвет для нажатой кнопки
-        activeButton.setBackground(new Color(65, 89, 68));
+        activeButton.setBackground(new Color(60, 60, 60));
     }
 
     private void switchMode(int mode) {
@@ -304,10 +291,13 @@ public class GraphicsWindow extends JFrame {
 
     private void drawIntersection(Graphics2D g2d) {
         // Рисуем план сопряжения
-        g2d.translate(900, 500);
+        g2d.translate(500, 400);
         graphicsIntersection.drawPlanIntersection3(g2d);
         graphicsIntersection.drawProfileIntersection3(g2d);
-        g2d.translate(-900, -500);
+
+        graphicsAnchorsIntersection.drawAllAnchorsPlanRounding3(g2d);
+        graphicsAnchorsIntersection.drawAllAnchorsPlanLine3(g2d);
+        g2d.translate(-500, -400);
     }
 
     private void drawAnchor(Graphics2D g2d) {

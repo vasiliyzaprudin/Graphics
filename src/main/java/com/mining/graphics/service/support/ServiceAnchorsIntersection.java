@@ -1,161 +1,202 @@
 package com.mining.graphics.service.support;
 
-import com.mining.graphics.model.support.AnchorsIntersection;
+import com.mining.graphics.model.support.LineParameters;
+import com.mining.graphics.model.support.RoundingParameters;
+import com.mining.graphics.service.GeneralService;
 
-public class ServiceAnchorsIntersection extends AnchorsIntersection {
-    public double GAMMA, L, CAL;
+public class ServiceAnchorsIntersection {
 
-    public double[][] СoorAncIntPlanRound; //массив для хранения координат анкеров в плане на закруглении сопряжения
-    public double[][] СoorAncIntPlanLine; //массив для хранения координат недостающих анкеров в плане в боку горной выработки
-    public double[][] СoorAncIntProj; //массив для хранения координат установки анкеров в проекции сопряжения
-    public double[][] СoorTestX0Y0; //координаты перпендикуляров к осям выработок
-
-    public int numAnchPlanRound, numAnchPlanLine, numAnchTest, numAnchProj;
-
-    public double XStartAnchToLine, YStartAnchToLine;
-
-    //Расстояние между точками
-    public static double distanceBetweenPoint(double X1, double Y1, double X2, double Y2) {
-        return Math.sqrt((X2 - X1) * (X2 - X1) + (Y2 - Y1) * (Y2 - Y1));
+    public static double calculateAngleBetweenHorizontalAndAxisExcavation(double xIntersectionAxisAndStope, double yIntersectionAxisAndStope) {
+        return Math.atan2(yIntersectionAxisAndStope, xIntersectionAxisAndStope);
     }
 
-    //Расчет BETA
-    public static double calculateBETA(double XB, double YB) {
-        return Math.atan2(YB, XB);
+    public static double calculatePhi(double xPointIntrsectionExcavations, double yPointIntrsectionExcavations, double xPointIntrsectionStopeAndWall,
+                                      double yPointIntrsectionStopeAndWall, double xIntersectionAxisAndStope, double yIntersectionAxisAndStope) {
+        return Math.atan2(yPointIntrsectionStopeAndWall - yPointIntrsectionExcavations, xPointIntrsectionStopeAndWall - xPointIntrsectionExcavations) - calculateAngleBetweenHorizontalAndAxisExcavation(xIntersectionAxisAndStope, yIntersectionAxisAndStope);
     }
 
-    //Расчет ALPHA
-    public static double calculateALPHA(double Y1, double X1) {
-        return Math.atan2(Y1, X1);
+
+    public static double calculateStartX(double xPointIntrsectionExcavations, double yPointIntrsectionExcavations, double xStartRounding,
+                                         double yStartRounding, double xIntersectionAxisAndStope, double yIntersectionAxisAndStope,
+                                         double distanceBetweenRows, double azimuthRadians) {
+
+        double omega = GeneralService.angleBetweenLines(xPointIntrsectionExcavations, yPointIntrsectionExcavations, 0.0, 0.0, 0.0, 0.0, xIntersectionAxisAndStope, yIntersectionAxisAndStope);
+        double distance = GeneralService.distanceBetweenPoint(xPointIntrsectionExcavations, yPointIntrsectionExcavations, 0, 0);
+        double projection;
+        if (azimuthRadians >= Math.PI / 4.0)
+            projection = Math.abs(distance * Math.abs(Math.cos(omega)));
+        else
+            projection = Math.abs(distance * (Math.cos(omega)));
+        double delta = Math.ceil(projection / distanceBetweenRows) * distanceBetweenRows - projection;
+        double phi = calculatePhi(xPointIntrsectionExcavations, yPointIntrsectionExcavations, xStartRounding, yStartRounding, xIntersectionAxisAndStope, yIntersectionAxisAndStope);
+        double beta = calculateAngleBetweenHorizontalAndAxisExcavation(xIntersectionAxisAndStope, yIntersectionAxisAndStope);
+        return xPointIntrsectionExcavations + (delta / Math.cos(phi)) * Math.cos(beta + phi);
     }
 
-    public static double calculatePHI(double X1, double Y1, double X2, double Y2, double XB, double YB) {
-        return Math.atan2(Y2 - Y1, X2 - X1) - calculateBETA(XB, YB);
+    public static double calculateStartY(double xPointIntrsectionExcavations, double yPointIntrsectionExcavations, double xStartRounding,
+                                         double yStartRounding, double xIntersectionAxisAndStope, double yIntersectionAxisAndStope,
+                                         double distanceBetweenRows, double azimuthRadians) {
+        double omega = GeneralService.angleBetweenLines(xPointIntrsectionExcavations, yPointIntrsectionExcavations, 0.0, 0.0, 0.0, 0.0, xIntersectionAxisAndStope, yIntersectionAxisAndStope);
+        double distance = GeneralService.distanceBetweenPoint(xPointIntrsectionExcavations, yPointIntrsectionExcavations, 0, 0);
+        double projection;
+        if (azimuthRadians >= Math.PI / 4.0)
+            projection = Math.abs(distance * Math.abs(Math.cos(omega)));
+        else
+            projection = Math.abs(distance * (Math.cos(omega)));
+        double delta = Math.ceil(projection / distanceBetweenRows) * distanceBetweenRows - projection;
+        double phi = calculatePhi(xPointIntrsectionExcavations, yPointIntrsectionExcavations, xStartRounding, yStartRounding, xIntersectionAxisAndStope, yIntersectionAxisAndStope);
+        double beta = calculateAngleBetweenHorizontalAndAxisExcavation(xIntersectionAxisAndStope, yIntersectionAxisAndStope);
+        return yPointIntrsectionExcavations + (delta / Math.cos(phi)) * Math.sin(beta + phi);
     }
 
-    //Расчет угла между отрезками через координаты вершин
-    public static double angleBetweenLines(double X1, double Y1, double X2, double Y2, double X3, double Y3, double X4, double Y4) {
-        return Math.acos(((X2 - X1) * (X4 - X3) + (Y2 - Y1) * (Y4 - Y3)) / ((Math.sqrt((X2 - X1) * (X2 - X1) + (Y2 - Y1) * (Y2 - Y1))) * (Math.sqrt((X4 - X3) * (X4 - X3) + (Y4 - Y3) * (Y4 - Y3)))));
+    // @formatter:off
+    public static double[][] calculateCoordinatesAnchorPlanRound(RoundingParameters roundingParameters) {
+        return calculateCoordinatesAnchorPlanRound(
+                roundingParameters.getXPointIntersection(),
+                roundingParameters.getYPointIntersection(),
+                roundingParameters.getXStartRounding(),
+                roundingParameters.getYStartRounding(),
+                roundingParameters.getDistanceBetweenRows(),
+                roundingParameters.getLengthAnchor(),
+                roundingParameters.getXIntersectionAxisAndStope(),
+                roundingParameters.getYIntersectionAxisAndStope(),
+                roundingParameters.getAzimuthRadians()
+        );
     }
 
-    //Расчет X0
-    public static double calculateX0(double X1, double Y1, double X2, double Y2, double XB, double YB, double CAL, double ALPHARAD) {
-        if (ALPHARAD >= Math.PI / 4.0) {
-            double PROJECTION = Math.abs(distanceBetweenPoint(X1, Y1, 0, 0) * Math.abs(Math.cos(angleBetweenLines(X1, Y1, 0.0, 0.0, 0.0, 0.0, XB, YB))));
-            double DELTA = Math.ceil(PROJECTION / CAL) * CAL - PROJECTION;
-            return X1 + (DELTA / Math.cos(calculatePHI(X1, Y1, X2, Y2, XB, YB))) * Math.cos(calculateBETA(XB, YB) + calculatePHI(X1, Y1, X2, Y2, XB, YB));
-        } else {
-            double PROJECTION = Math.abs(distanceBetweenPoint(X1, Y1, 0, 0) * (Math.cos(angleBetweenLines(X1, Y1, 0.0, 0.0, 0.0, 0.0, XB, YB))));
-            double DELTA = Math.ceil(PROJECTION / CAL) * CAL - PROJECTION;
-            return X1 + (DELTA / Math.cos(calculatePHI(X2, Y2, X1, Y1, XB, YB))) * Math.cos(calculateBETA(XB, YB) + calculatePHI(X2, Y2, X1, Y1, XB, YB));
-        }
-    }
+    public static double[][] calculateCoordinatesAnchorPlanRound(
+            double xPointIntrsectionExcavations1, double yPointIntrsectionExcavations1, double xStartRounding1, double yStartRounding,
+            double distanceBetweenRows, double lengthAnchor,
+            double xIntersectionAxisAndStope, double yIntersectionAxisAndStope,
+            double azimuthRadians) {
 
-    //Расчет Y0
-    public static double calculateY0(double X1, double Y1, double X2, double Y2, double XB, double YB, double CAL, double ALPHARAD) {
-        if (ALPHARAD >= Math.PI / 4) {
-            double PROJECTION = Math.abs(distanceBetweenPoint(X1, Y1, 0, 0) * Math.abs(Math.cos(angleBetweenLines(X1, Y1, 0.0, 0.0, 0.0, 0.0, XB, YB))));
-            double DELTA = Math.ceil(PROJECTION / CAL) * CAL - PROJECTION;
-            return Y1 + (DELTA / Math.cos(calculatePHI(X1, Y1, X2, Y2, XB, YB))) * Math.sin(calculateBETA(XB, YB) + calculatePHI(X1, Y1, X2, Y2, XB, YB));
-        } else {
-            double PROJECTION = Math.abs(distanceBetweenPoint(X1, Y1, 0, 0) * (Math.cos(angleBetweenLines(X1, Y1, 0.0, 0.0, 0.0, 0.0, XB, YB))));
-            double DELTA = Math.ceil(PROJECTION / CAL) * CAL - PROJECTION;
-            return Y1 + (DELTA / Math.cos(calculatePHI(X1, Y1, X2, Y2, XB, YB))) * Math.sin(calculateBETA(XB, YB) + calculatePHI(X1, Y1, X2, Y2, XB, YB));
-        }
-    }
+        double phi = GeneralService.angleBetweenLines(xPointIntrsectionExcavations1,
+                yPointIntrsectionExcavations1, xStartRounding1, yStartRounding,
+                0.0, 0.0, xIntersectionAxisAndStope, yIntersectionAxisAndStope);
 
-    /**
-     * Это метод расчета координат установки анкеров в плане сопряжения на закруглении.
-     */
-    public void calcCoordAnchPlanInt(double X1, double Y1, double X2, double Y2, double cAl, double l, double bAc, double LroofAc, double XB, double YB, double ALPHARAD) {
-        //Расчет угла между осью выработки и отрезком закругления
-        double PHI = angleBetweenLines(X1, Y1, X2, Y2, 0.0, 0.0, XB, YB);
+        double startX = calculateStartX(xPointIntrsectionExcavations1, yPointIntrsectionExcavations1,
+                xStartRounding1, yStartRounding, xIntersectionAxisAndStope,
+                yIntersectionAxisAndStope, distanceBetweenRows, azimuthRadians);
+        double startY = calculateStartY(xPointIntrsectionExcavations1, yPointIntrsectionExcavations1,
+                xStartRounding1, yStartRounding, xIntersectionAxisAndStope,
+                yIntersectionAxisAndStope, distanceBetweenRows, azimuthRadians);
+    // @formatter:on
 
-        //Коорндинаты точки установки первого анкера на отрезке закругления
-        double X0 = calculateX0(X1, Y1, X2, Y2, XB, YB, cAl, ALPHARAD);
-        double Y0 = calculateY0(X1, Y1, X2, Y2, XB, YB, cAl, ALPHARAD);
+        double distanceBetweenRowsToRounding = distanceBetweenRows / Math.cos(phi);
 
-        CAL = cAl / Math.cos(PHI);
+        double lToRounding;
 
-        if (ALPHARAD >= Math.PI / 4) L = l;
-        else L = -l;
+        if (azimuthRadians >= Math.PI / 4) lToRounding = lengthAnchor;
+        else lToRounding = -lengthAnchor;
 
-        GAMMA = Math.atan2(Y2 - Y1, X2 - X1);
+        double gamma = Math.atan2(yStartRounding - yPointIntrsectionExcavations1, xStartRounding1 - xPointIntrsectionExcavations1);
 
-        numAnchPlanRound = (int) (distanceBetweenPoint(X0, Y0, X2, Y2) / Math.abs(CAL));
-        СoorAncIntPlanRound = new double[numAnchPlanRound + 1][4]; //n + 1 - количество анкеров
-        if (Y1 >= 0) {
-            if (X1 + X2 >= 0) {
-                for (int i = 0, j = 0; distanceBetweenPoint(X0, Y0, X2, Y2) >= j * Math.abs(CAL); j++, i++) {
-                    СoorAncIntPlanRound[i][0] = X0 + j * CAL * Math.cos(GAMMA);
-                    СoorAncIntPlanRound[i][1] = Y0 + j * CAL * Math.sin(GAMMA);
-                    СoorAncIntPlanRound[i][2] = X0 + j * CAL * Math.cos(GAMMA) - L * Math.sin(GAMMA);
-                    СoorAncIntPlanRound[i][3] = Y0 + j * CAL * Math.sin(GAMMA) + L * Math.cos(GAMMA);
+        double distanceRounding = GeneralService.distanceBetweenPoint(startX, startY, xStartRounding1, yStartRounding);
+
+        int numberAnchorRounding = (int) (distanceRounding / Math.abs(distanceBetweenRowsToRounding));
+
+        double distanceX = distanceBetweenRowsToRounding * Math.cos(gamma);
+        double distanceY = distanceBetweenRowsToRounding * Math.sin(gamma);
+
+        double[][] anchorPlanRoundXY = new double[numberAnchorRounding + 1][4];
+
+        if (yPointIntrsectionExcavations1 >= 0) {
+            if (xPointIntrsectionExcavations1 + xStartRounding1 >= 0) {
+                for (int i = 0, j = 0; numberAnchorRounding >= j; j++, i++) {
+                    anchorPlanRoundXY[i][0] = startX + j * distanceX;
+                    anchorPlanRoundXY[i][1] = startY + j * distanceY;
+                    anchorPlanRoundXY[i][2] = startX + j * distanceX - lToRounding * Math.sin(gamma);
+                    anchorPlanRoundXY[i][3] = startY + j * distanceY + lToRounding * Math.cos(gamma);
                 }
             } else {
-                for (int i = 0, j = 0; distanceBetweenPoint(X0, Y0, X2, Y2) >= j * Math.abs(CAL); j++, i++) {
-                    СoorAncIntPlanRound[i][0] = X0 + j * CAL * Math.cos(GAMMA);
-                    СoorAncIntPlanRound[i][1] = Y0 + j * CAL * Math.sin(GAMMA);
-                    СoorAncIntPlanRound[i][2] = X0 + j * CAL * Math.cos(GAMMA) + L * Math.sin(GAMMA);
-                    СoorAncIntPlanRound[i][3] = Y0 + j * CAL * Math.sin(GAMMA) - L * Math.cos(GAMMA);
+                for (int i = 0, j = 0; numberAnchorRounding >= j; j++, i++) {
+                    anchorPlanRoundXY[i][0] = startX + j * distanceX;
+                    anchorPlanRoundXY[i][1] = startY + j * distanceY;
+                    anchorPlanRoundXY[i][2] = startX + j * distanceX + lToRounding * Math.sin(gamma);
+                    anchorPlanRoundXY[i][3] = startY + j * distanceY - lToRounding * Math.cos(gamma);
                 }
             }
         } else {
-            if (X1 + X2 >= 0) {
-                for (int i = 0, j = 0; distanceBetweenPoint(X0, Y0, X2, Y2) >= j * Math.abs(CAL); j++, i++) {
-                    СoorAncIntPlanRound[i][0] = X0 + j * CAL * Math.cos(GAMMA);
-                    СoorAncIntPlanRound[i][1] = Y0 + j * CAL * Math.sin(GAMMA);
-                    СoorAncIntPlanRound[i][2] = X0 + j * CAL * Math.cos(GAMMA) + L * Math.sin(GAMMA);
-                    СoorAncIntPlanRound[i][3] = Y0 + j * CAL * Math.sin(GAMMA) - L * Math.cos(GAMMA);
+            if (xPointIntrsectionExcavations1 + xStartRounding1 >= 0) {
+                for (int i = 0, j = 0; numberAnchorRounding >= j; j++, i++) {
+                    anchorPlanRoundXY[i][0] = startX + j * distanceX;
+                    anchorPlanRoundXY[i][1] = startY + j * distanceY;
+                    anchorPlanRoundXY[i][2] = startX + j * distanceX + lToRounding * Math.sin(gamma);
+                    anchorPlanRoundXY[i][3] = startY + j * distanceY - lToRounding * Math.cos(gamma);
                 }
             } else {
-                for (int i = 0, j = 0; distanceBetweenPoint(X0, Y0, X2, Y2) >= j * Math.abs(CAL); j++, i++) {
-                    СoorAncIntPlanRound[i][0] = X0 + j * CAL * Math.cos(GAMMA);
-                    СoorAncIntPlanRound[i][1] = Y0 + j * CAL * Math.sin(GAMMA);
-                    СoorAncIntPlanRound[i][2] = X0 + j * CAL * Math.cos(GAMMA) - L * Math.sin(GAMMA);
-                    СoorAncIntPlanRound[i][3] = Y0 + j * CAL * Math.sin(GAMMA) + L * Math.cos(GAMMA);
+                for (int i = 0, j = 0; numberAnchorRounding >= j; j++, i++) {
+                    anchorPlanRoundXY[i][0] = startX + j * distanceX;
+                    anchorPlanRoundXY[i][1] = startY + j * distanceY;
+                    anchorPlanRoundXY[i][2] = startX + j * distanceX - lToRounding * Math.sin(gamma);
+                    anchorPlanRoundXY[i][3] = startY + j * distanceY + lToRounding * Math.cos(gamma);
                 }
             }
         }
+        return anchorPlanRoundXY;
     }
 
-    /**
-     * Это метод рассчета количества и координат установки дополнительных анкеров
-     * в плане по боку горной выработки.
-     */
-    public void calcCoordAnchPlanIntSide(double X1, double Y1, double X2, double Y2, double X3, double Y3, double X4, double Y4, double CAL, double L, double ALPHA) {
-        double XExtrAnch = СoorAncIntPlanRound[numAnchPlanRound][0];
-        double YExtrAnch = СoorAncIntPlanRound[numAnchPlanRound][1];
+    public static double[][] calculateCoordinatesAnchorPlanLine(double[][] anchorPlanRoundXY, LineParameters lineParameters) {
+        return calculateCoordinatesAnchorPlanLine(
+                anchorPlanRoundXY,
+                lineParameters.getXStartRounding(),
+                lineParameters.getYStartRounding(),
+                lineParameters.getXStope(),
+                lineParameters.getYStope(),
+                lineParameters.getXStartRounding2(),
+                lineParameters.getYStartRounding2(),
+                lineParameters.getXStope2(),
+                lineParameters.getYStope2(),
+                lineParameters.getDistanceBetweenRows(),
+                lineParameters.getLengthAnchor(),
+                lineParameters.getAzimuthRadians()
+        );
+    }
 
-        double LengthExtrRound = distanceBetweenPoint(X1, Y1, XExtrAnch, YExtrAnch); //остаток отрезка закругления
-        double LengthSide = distanceBetweenPoint(X2, Y2, X1, Y1) - distanceBetweenPoint(X4, Y4, X3, Y3); //прямой отрезок для установки анкеров
-        numAnchPlanLine = (int) (Math.ceil(LengthExtrRound + LengthSide) / CAL);
+    public static double[][] calculateCoordinatesAnchorPlanLine(double[][] anchorPlanRoundXY,
+                                                                double xStartRounding1, double yStartRounding1, double xStope1, double yStope1,
+                                                                double xStartRounding2, double yStartRounding2, double xStope2, double yStope2,
+                                                                double distanceBetweenRows, double lengthAnchor,
+                                                                double azimuthRadians) {
 
-        if (numAnchPlanLine >= 0) {
-            СoorAncIntPlanLine = new double[numAnchPlanLine + 1][4]; //numAnchPlanLine + 1 - количество анкеров
+        double xExtremeAnchor = anchorPlanRoundXY[anchorPlanRoundXY.length - 1][0];
+        double yExtremeAnchor = anchorPlanRoundXY[anchorPlanRoundXY.length - 1][1];
 
-            double Beta = Math.atan2(Y2 - Y1, X2 - X1);
+        double lengthRemainderRound = GeneralService.distanceBetweenPoint(xStartRounding1, yStartRounding1, xExtremeAnchor, yExtremeAnchor);
+        double lengthSide = GeneralService.distanceBetweenPoint(xStope1, yStope1, xStartRounding1, yStartRounding1) - GeneralService.distanceBetweenPoint(xStope2, yStope2, xStartRounding2, yStartRounding2);
 
-            double CoordXFirstAnch = X1 + (CAL - LengthExtrRound) * Math.cos(Beta);
-            double CoordYFirstAnch = Y1 + (CAL - LengthExtrRound) * Math.sin(Beta);
+        int numberAnchorLine = (int) (Math.ceil(lengthRemainderRound + lengthSide) / distanceBetweenRows);
 
-            //Условия ориентации анкеров для разных горных выработок
-            if (-Math.PI / 4 <= ALPHA && ALPHA <= Math.PI / 4 && X1 > X3 ||
-                    Math.PI / 4 <= ALPHA && ALPHA <= Math.PI * 3 / 4 && Y1 > Y3 ||
-                    Math.PI * 5 / 4 <= ALPHA && ALPHA <= Math.PI * 7 / 4 && Y1 < Y3
-            ) {
-                L = L * (-1.0);
-            }
 
-            for (int i = 0, j = 0; LengthExtrRound + LengthSide - CAL >= j * CAL; j++, i++) {
-                СoorAncIntPlanLine[i][0] = CoordXFirstAnch + j * CAL * Math.cos(Beta);
-                СoorAncIntPlanLine[i][1] = CoordYFirstAnch + j * CAL * Math.sin(Beta);
-                СoorAncIntPlanLine[i][2] = CoordXFirstAnch + j * CAL * Math.cos(Beta) + L * Math.sin(Beta);
-                СoorAncIntPlanLine[i][3] = CoordYFirstAnch + j * CAL * Math.sin(Beta) - L * Math.cos(Beta);
-            }
-        } else {
+        if (numberAnchorLine >= 0) {
+
+            double[][] anchorPlanLineXY = new double[numberAnchorLine + 1][4];
+
+            double Beta = Math.atan2(yStope1 - yStartRounding1, xStope1 - xStartRounding1);
+
+            double xStartAnchor = xStartRounding1 + (distanceBetweenRows - lengthRemainderRound) * Math.cos(Beta);
+            double yStartAnchor = yStartRounding1 + (distanceBetweenRows - lengthRemainderRound) * Math.sin(Beta);
+
+            // @formatter:off
+        //Условия ориентации анкеров для разных горных выработок
+        if (-Math.PI / 4 <= azimuthRadians && azimuthRadians <= Math.PI / 4 && xStartRounding1 > xStartRounding2
+                || Math.PI / 4 <= azimuthRadians && azimuthRadians <= Math.PI * 3 / 4 && yStartRounding1 > yStartRounding2
+                || Math.PI * 5 / 4 <= azimuthRadians && azimuthRadians <= Math.PI * 7 / 4 && yStartRounding1 < yStartRounding2) {
+            lengthAnchor = lengthAnchor * (-1.0);
         }
+        // @formatter:on
+
+            for (int i = 0, j = 0; lengthRemainderRound + lengthSide - distanceBetweenRows >= j * distanceBetweenRows; j++, i++) {
+                anchorPlanLineXY[i][0] = xStartAnchor + j * distanceBetweenRows * Math.cos(Beta);
+                anchorPlanLineXY[i][1] = yStartAnchor + j * distanceBetweenRows * Math.sin(Beta);
+                anchorPlanLineXY[i][2] = xStartAnchor + j * distanceBetweenRows * Math.cos(Beta) + lengthAnchor * Math.sin(Beta);
+                anchorPlanLineXY[i][3] = yStartAnchor + j * distanceBetweenRows * Math.sin(Beta) - lengthAnchor * Math.cos(Beta);
+            }
+            return anchorPlanLineXY;
+        }
+        return anchorPlanRoundXY;
     }
+}
 
 //    /**
 //     * Это метод рассчета координат установки анкеров в проекции.
@@ -236,4 +277,4 @@ public class ServiceAnchorsIntersection extends AnchorsIntersection {
 //            СoorTestX0Y0[i][3] = j * CAL * Math.sin(SIGMA) + L0 * Math.sin(SIGMA - Math.PI / 2);
 //        }
 //    }
-}
+

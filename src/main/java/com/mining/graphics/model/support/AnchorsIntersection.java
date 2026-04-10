@@ -1,34 +1,82 @@
 package com.mining.graphics.model.support;
 
-import com.mining.graphics.service.excavation.ServiceIntersection;
+public class AnchorsIntersection {
 
-public class AnchorsIntersection extends ServiceIntersection {
+    private double lengthAnchor1 = 1.8;
+    private double lengthAnchor2 = 1.8;
+    private double lengthAnchor3 = 1.8;
 
-    //длина анкеров
-    public double
-            l1 = 1.8,
-            l2 = 1.8,
-            l3 = 1.8,
-            l4 = 1.8;
+    private double step1 = 1.1;
+    private double step2 = 1.1;
+    private double step3 = 0.8;
 
-    //шаг анкерования в ряду
-    public double
-            bAc1 = 1.1,
-            bAc2 = 1.1,
-            bAc3 = 0.8,
-            bAc4 = 0.8;
+    private double distanceBetweenRows1 = 1.0;
+    private double distanceBetweenRows2 = 1.0;
+    private double distanceBetweenRows3 = 1.0;
 
-    //расстояние мужду рядами анкеров
-    public double
-            cAl1 = 1.0,
-            cAl2 = 1.3,
-            cAl3 = 1.0,
-            cAl4 = 1.0;
+    private double distanceLowerAnchor1 = 1.8;
+    private double distanceLowerAnchor2 = 1.8;
+    private double distanceLowerAnchor3 = 1.8;
 
-    //максимальное расстояние от почвы выработки до точки установки нижнего анкера
-    public double
-            p1 = 1.2,
-            p2 = 1.2,
-            p3 = 1.2,
-            p4 = 1.2;
+    private double[][] anchorPlanRoundingXY12, anchorPlanRoundingXY13;
+    private double[][] anchorPlanRoundingXY21, anchorPlanRoundingXY23;
+    private double[][] anchorPlanRoundingXY32, anchorPlanRoundingXY31;
+
+    private double[][] AnchorPlanLineXY; //координаты недостающих анкеров в плане в боку горной выработки
+    private double[][] AnchorProjectionXY; //координаты установки анкеров в проекции сопряжения
+    private double[][] TestXY; //координаты перпендикуляров к осям выработок
+
+    private int numberAnchorPlanRound, numberAnchorPlanLine, numberAnchorProjection, numberTest;
+
+    public double XStartAnchToLine, YStartAnchToLine;
+
+    // @formatter:off
+    public double getLengthAnchor1() { return lengthAnchor1; }
+    public void setLengthAnchor1(double lengthAnchor1) { this.lengthAnchor1 = lengthAnchor1; }
+    public double getLengthAnchor2() { return lengthAnchor2; }
+    public void setLengthAnchor2(double lengthAnchor2) { this.lengthAnchor2 = lengthAnchor2; }
+    public double getLengthAnchor3() {return lengthAnchor3;}
+    public void setLengthAnchor3(double lengthAnchor3) { this.lengthAnchor3 = lengthAnchor3; }
+
+
+    public double getStep1() { return step1; }
+    public void setStep1(double step1) { this.step1 = step1; }
+    public double getStep2() { return step2; }
+    public void setStep2(double step2) { this.step2 = step2; }
+    public double getStep3() { return step3; }
+    public void setStep3(double step3) { this.step3 = step3; }
+
+
+    public double getDistanceBetweenRows1() { return distanceBetweenRows1; }
+    public void setDistanceBetweenRows1(double distanceBetweenRows1) { this.distanceBetweenRows1 = distanceBetweenRows1; }
+    public double getDistanceBetweenRows2() { return distanceBetweenRows2; }
+    public void setDistanceBetweenRows2(double distanceBetweenRows2) { this.distanceBetweenRows2 = distanceBetweenRows2; }
+    public double getDistanceBetweenRows3() { return distanceBetweenRows3; }
+    public void setDistanceBetweenRows3(double distanceBetweenRows3) { this.distanceBetweenRows3 = distanceBetweenRows3; }
+
+    public double getDistanceLowerAnchor1() { return distanceLowerAnchor1; }
+    public void setDistanceLowerAnchor1(double distanceLowerAnchor1) { this.distanceLowerAnchor1 = distanceLowerAnchor1; }
+    public double getDistanceLowerAnchor2() { return distanceLowerAnchor2; }
+    public void setDistanceLowerAnchor2(double distanceLowerAnchor2) { this.distanceLowerAnchor2 = distanceLowerAnchor2; }
+    public double getDistanceLowerAnchor3() { return distanceLowerAnchor3; }
+    public void setDistanceLowerAnchor3(double distanceLowerAnchor3) { this.distanceLowerAnchor3 = distanceLowerAnchor3; }
+
+    public double[][] getAnchorPlanRoundingXY12() { return anchorPlanRoundingXY12; }
+    public void setAnchorPlanRoundingXY12(double[][] anchorPlanRoundingXY12) { this.anchorPlanRoundingXY12 = anchorPlanRoundingXY12; }
+    public double[][] getAnchorPlanRoundingXY13() { return anchorPlanRoundingXY13; }
+    public void setAnchorPlanRoundingXY13(double[][] anchorPlanRoundingXY13) { this.anchorPlanRoundingXY13 = anchorPlanRoundingXY13; }
+    public double[][] getAnchorPlanRoundingXY21() { return anchorPlanRoundingXY21; }
+    public void setAnchorPlanRoundingXY21(double[][] anchorPlanRoundingXY21) { this.anchorPlanRoundingXY21 = anchorPlanRoundingXY21; }
+    public double[][] getAnchorPlanRoundingXY23() { return anchorPlanRoundingXY23; }
+    public void setAnchorPlanRoundingXY23(double[][] anchorPlanRoundingXY23) { this.anchorPlanRoundingXY23 = anchorPlanRoundingXY23; }
+    public double[][] getAnchorPlanRoundingXY32() { return anchorPlanRoundingXY32; }
+    public void setAnchorPlanRoundingXY32(double[][] anchorPlanRoundingXY32) { this.anchorPlanRoundingXY32 = anchorPlanRoundingXY32; }
+    public double[][] getAnchorPlanRoundingXY31() { return anchorPlanRoundingXY31; }
+    public void setAnchorPlanRoundingXY31(double[][] anchorPlanRoundingXY31) { this.anchorPlanRoundingXY31 = anchorPlanRoundingXY31; }
+
+
+    // @formatter:on
+
+
+
 }

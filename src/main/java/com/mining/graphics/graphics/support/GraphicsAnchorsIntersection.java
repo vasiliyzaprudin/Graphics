@@ -1,57 +1,88 @@
 package com.mining.graphics.graphics.support;
 
+import com.mining.graphics.graphics.GraphicsParameters;
+import com.mining.graphics.model.excavation.ModelCoordinatesIntersection;
+import com.mining.graphics.model.excavation.ModelIntersection;
+import com.mining.graphics.model.support.AnchorsIntersection;
 import com.mining.graphics.service.support.ServiceAnchorsIntersection;
 
 import java.awt.*;
 
-public class GraphicsAnchorsIntersection extends ServiceAnchorsIntersection {
+public class GraphicsAnchorsIntersection {
 
-//    /**
-//     * Этот метод объединяет расчет координат
-//     * и графическое изображение анкеров в плане сопряжения из 3 выработок.
-//     */
-//    public void graphAnchPlanIntConstr3(Graphics g) {
-//
-//        //Расчет и построение анкеров в выработке 1
-//        g.setColor(new Color(130, 0, 130));
-//
-//        calcCoordAnchPlanInt(x1, y1, x12, y12, cAl1, l1, bAc1, LroofAc1, xb1, -yb1, alpha1Rad);
-//        graphAnchPlanIntRound(g);
-//        calcCoordAnchPlanIntSide(x12, y12, xs12, ys12, x13, y13, xs11, ys11, cAl1, l1, alpha1Rad);
-//        graphAnchPlanIntLine(g);
-//
-//        calcCoordAnchPlanInt(x33, y33, x13, y13, cAl1, l1, bAc1, LroofAc1, xb1, -yb1, alpha1Rad);
-//        graphAnchPlanIntRound(g);
-//        calcCoordAnchPlanIntSide(x13, y13, xs11, ys11, x12, y12, xs12, ys12, cAl1, l1, alpha1Rad);
-//        graphAnchPlanIntLine(g);
-//
-//        //Расчет и построение анкеров в выработке 2
-//        g.setColor(Color.BLUE);
-//
-//        calcCoordAnchPlanInt(x1, y1, x21, y21, cAl2, l2, bAc2, LroofAc2, xb2, -yb2, alpha2Rad);
-//        graphAnchPlanIntRound(g);
-//        calcCoordAnchPlanIntSide(x21, y21, xs21, ys21, x23, y23, xs22, ys22, cAl2, l2, alpha2Rad);
-//        graphAnchPlanIntLine(g);
-//
-//        calcCoordAnchPlanInt(x2, y2, x23, y23, cAl2, l2, bAc2, LroofAc2, xb2, -yb2, alpha2Rad);
-//        graphAnchPlanIntRound(g);
-//        calcCoordAnchPlanIntSide(x23, y23, xs22, ys22, x21, y21, xs21, ys21, cAl2, l2, alpha2Rad);
-//        graphAnchPlanIntLine(g);
-//
-//        //Расчет и построение анкеров в выработке 3
-//        g.setColor(new Color(0, 120, 0));
-//
-//        calcCoordAnchPlanInt(x2, y2, x32, y32, cAl3, l3, bAc3, LroofAc3, xb3, yb3, alpha3Rad);
-//        graphAnchPlanIntRound(g);
-//        calcCoordAnchPlanIntSide(x32, y32, xs31, ys31, x31, y31, xs32, ys32, cAl3, l3, alpha3Rad);
-//        graphAnchPlanIntLine(g);
-//
-//        calcCoordAnchPlanInt(x33, y33, x31, y31, cAl3, l3, bAc3, LroofAc3, xb3, yb3, alpha3Rad);
-//        graphAnchPlanIntRound(g);
-//        calcCoordAnchPlanIntSide(x31, y31, xs32, ys32, x32, y32, xs31, ys31, cAl3, l3, alpha3Rad);
-//        graphAnchPlanIntLine(g);
-//    }
-//
+    private final ModelIntersection modelIntersection;
+    private final ModelCoordinatesIntersection modelCoordinatesIntersection;
+    private final AnchorsIntersection anchorsIntersection;
+
+    public GraphicsAnchorsIntersection(ModelIntersection modelIntersection, ModelCoordinatesIntersection modelCoordinatesIntersection,
+                                       AnchorsIntersection anchorsIntersection) {
+        this.modelIntersection = modelIntersection;
+        this.modelCoordinatesIntersection = modelCoordinatesIntersection;
+        this.anchorsIntersection = anchorsIntersection;
+    }
+    // @formatter:off
+    public void drawAllAnchorsPlanRounding3(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g;
+        drawAnchorsPlan(g2d, ServiceAnchorsIntersection.calculateCoordinatesAnchorPlanRound(
+                        modelCoordinatesIntersection.getRoundingParameters12(modelIntersection, anchorsIntersection)));
+        drawAnchorsPlan(g2d, ServiceAnchorsIntersection.calculateCoordinatesAnchorPlanRound(
+                        modelCoordinatesIntersection.getRoundingParameters13(modelIntersection, anchorsIntersection)));
+        drawAnchorsPlan(g2d, ServiceAnchorsIntersection.calculateCoordinatesAnchorPlanRound(
+                        modelCoordinatesIntersection.getRoundingParameters21(modelIntersection, anchorsIntersection)));
+        drawAnchorsPlan(g2d, ServiceAnchorsIntersection.calculateCoordinatesAnchorPlanRound(
+                        modelCoordinatesIntersection.getRoundingParameters23(modelIntersection, anchorsIntersection)));
+        drawAnchorsPlan(g2d, ServiceAnchorsIntersection.calculateCoordinatesAnchorPlanRound(
+                        modelCoordinatesIntersection.getRoundingParameters32(modelIntersection, anchorsIntersection)));
+        drawAnchorsPlan(g2d, ServiceAnchorsIntersection.calculateCoordinatesAnchorPlanRound(
+                        modelCoordinatesIntersection.getRoundingParameters31(modelIntersection, anchorsIntersection)));
+    }
+    // @formatter:on
+    public void drawAnchorsPlan(Graphics2D g, double[][] anchorPlanRoundXY) {
+        int scale = GraphicsParameters.GRAPHICS_INTERSECTION_SCALE;
+        for (int i = 0; i < anchorPlanRoundXY.length; i++) {
+            int x1 = (int) Math.round(anchorPlanRoundXY[i][0] * scale);
+            int y1 = (int) Math.round(anchorPlanRoundXY[i][1] * scale);
+            int x2 = (int) Math.round(anchorPlanRoundXY[i][2] * scale);
+            int y2 = (int) Math.round(anchorPlanRoundXY[i][3] * scale);
+            g.drawLine(x1, y1, x2, y2);
+        }
+    }
+    public void drawAllAnchorsPlanLine3(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g;
+
+        double[][] anchorPlanRoundXY12 = ServiceAnchorsIntersection.calculateCoordinatesAnchorPlanRound(
+                modelCoordinatesIntersection.getRoundingParameters12(modelIntersection, anchorsIntersection));
+        drawAnchorsPlan(g2d, ServiceAnchorsIntersection.calculateCoordinatesAnchorPlanLine(
+                anchorPlanRoundXY12, modelCoordinatesIntersection.getLineParametersRight1(modelIntersection, anchorsIntersection)));
+
+        double[][] anchorPlanRoundXY13 = ServiceAnchorsIntersection.calculateCoordinatesAnchorPlanRound(
+                modelCoordinatesIntersection.getRoundingParameters13(modelIntersection, anchorsIntersection));
+        drawAnchorsPlan(g2d, ServiceAnchorsIntersection.calculateCoordinatesAnchorPlanLine(
+                anchorPlanRoundXY13, modelCoordinatesIntersection.getLineParametersLeft1(modelIntersection, anchorsIntersection)));
+
+        double[][] anchorPlanRoundXY23 = ServiceAnchorsIntersection.calculateCoordinatesAnchorPlanRound(
+                modelCoordinatesIntersection.getRoundingParameters23(modelIntersection, anchorsIntersection));
+        drawAnchorsPlan(g2d, ServiceAnchorsIntersection.calculateCoordinatesAnchorPlanLine(
+                anchorPlanRoundXY23, modelCoordinatesIntersection.getLineParametersRight2(modelIntersection, anchorsIntersection)));
+
+        double[][] anchorPlanRoundXY21 = ServiceAnchorsIntersection.calculateCoordinatesAnchorPlanRound(
+                modelCoordinatesIntersection.getRoundingParameters21(modelIntersection, anchorsIntersection));
+        drawAnchorsPlan(g2d, ServiceAnchorsIntersection.calculateCoordinatesAnchorPlanLine(
+                anchorPlanRoundXY21, modelCoordinatesIntersection.getLineParametersLeft2(modelIntersection, anchorsIntersection)));
+
+        double[][] anchorPlanRoundXY32 = ServiceAnchorsIntersection.calculateCoordinatesAnchorPlanRound(
+                modelCoordinatesIntersection.getRoundingParameters32(modelIntersection, anchorsIntersection));
+        drawAnchorsPlan(g2d, ServiceAnchorsIntersection.calculateCoordinatesAnchorPlanLine(
+                anchorPlanRoundXY32, modelCoordinatesIntersection.getLineParametersLeft3(modelIntersection, anchorsIntersection)));
+
+        double[][] anchorPlanRoundXY31 = ServiceAnchorsIntersection.calculateCoordinatesAnchorPlanRound(
+                modelCoordinatesIntersection.getRoundingParameters31(modelIntersection, anchorsIntersection));
+        drawAnchorsPlan(g2d, ServiceAnchorsIntersection.calculateCoordinatesAnchorPlanLine(
+                anchorPlanRoundXY31, modelCoordinatesIntersection.getLineParametersRight3(modelIntersection, anchorsIntersection)));
+    }
+
+
+
 //    /**
 //     * Этот метод объединяет расчет координат
 //     * и графическое изображение анкеров в проекции.
@@ -66,7 +97,7 @@ public class GraphicsAnchorsIntersection extends ServiceAnchorsIntersection {
 //        graphAnchProjInt(g);
 //        g.translate(0, -distance); //Перенос начала координат в точку пересечения осей гороных выработок в плане сопряжения
 //    }
-//
+
 //    /**
 //     * Этот метод объединяет расчет координат
 //     * и графическое построение перпендикуляров.
@@ -84,17 +115,9 @@ public class GraphicsAnchorsIntersection extends ServiceAnchorsIntersection {
 //        graphicsTestAnch(g);
 //        g.setColor(Color.BLACK);
 //    }
-//
-//    /**
-//     * Это графический метод построения анкеров в плане на закруглении сопряжения.
-//     */
-//    public void graphAnchPlanIntRound(Graphics g) {
-//        for (int i = 0; i <= numAnchPlanRound; i++) {
-//            g.drawLine((int) (СoorAncIntPlanRound[i][0] * scaleInt), (int) (СoorAncIntPlanRound[i][1] * scaleInt),
-//                    (int) (СoorAncIntPlanRound[i][2] * scaleInt), (int) (СoorAncIntPlanRound[i][3] * scaleInt));
-//        }
-//    }
-//
+
+
+
 //    /**
 //     * Это графический метод построения анкеров в плане на прямом отрезке сопряжения.
 //     */

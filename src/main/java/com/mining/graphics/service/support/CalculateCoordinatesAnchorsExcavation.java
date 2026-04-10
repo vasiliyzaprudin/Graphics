@@ -43,13 +43,13 @@ public class CalculateCoordinatesAnchorsExcavation {
         double formIndication = model.getFormIndication();
 
         // Геометрические параметры
-        double archHeight = excavationService.getArchHeight(width, formIndication);
-        double largeArcRadius = excavationService.getLargeArcRadius(width, formIndication);
-        double smallArcRadius = excavationService.getSmallArcRadius(width, formIndication);
-        double largeArcLength = excavationService.getLargeArcLength(width, formIndication);
-        double smallArcLength = excavationService.getSmallArcLength(width, formIndication);
-        double totalArcLength = excavationService.getLengthArc(width, formIndication);
-        double betaRadian = excavationService.getBetaRadian(width, formIndication);
+        double archHeight = ServiceExcavation.getArchHeight(width, formIndication);
+        double largeArcRadius = ServiceExcavation.getLargeArcRadius(width, formIndication);
+        double smallArcRadius = ServiceExcavation.getSmallArcRadius(width, formIndication);
+        double largeArcLength = ServiceExcavation.getLargeArcLength(width, formIndication);
+        double smallArcLength = ServiceExcavation.getSmallArcLength(width, formIndication);
+        double totalArcLength = ServiceExcavation.getLengthArc(width, formIndication);
+        double betaRadian = ServiceExcavation.getBetaRadian(width, formIndication);
 
         double step = anchors.getStep();
         double lengthAnchor = anchors.getLengthAnchor();
@@ -326,7 +326,6 @@ public class CalculateCoordinatesAnchorsExcavation {
 
         anchors.setLongSectionAnchorsXY(longSectionAnchorsXY);
 
-
         double firstLongSectionAnchorX = longSectionAnchorsXY[i - 2][0];
         anchors.setFirstLongSectionAnchorX(firstLongSectionAnchorX);
         double firstLongSectionAnchorY = longSectionAnchorsXY[i - 2][1];
@@ -365,7 +364,6 @@ public class CalculateCoordinatesAnchorsExcavation {
                 basePlateXY[a][1] = crossSectionAnchorsXY[j][1] - plateSize / 2.0;
             }
         }
-
         anchors.setBasePlateXY(basePlateXY);
     }
 }
