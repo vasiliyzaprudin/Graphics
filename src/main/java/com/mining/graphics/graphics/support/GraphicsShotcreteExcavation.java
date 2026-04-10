@@ -44,13 +44,13 @@ public class GraphicsShotcreteExcavation extends ServiceShotcreteExcavation {
         double formIndication = modelExcavation.getFormIndication();
         int scale = GraphicsParameters.GRAPHICS_EXCAVATION_SCALE;
 
-        int scaleWidth = serviceExcavation.getScaleWidth(widthWithShotcrete, scale);
-        int scaleHeight = serviceExcavation.getScaleHeight(heightWithShotcrete, scale);
-        int scaleArchHeight = serviceExcavation.getScaleArchHeight(widthWithShotcrete, formIndication, scale);
-        int scaleSmallArcRadius = serviceExcavation.getScaleSmallArcRadius(widthWithShotcrete, formIndication, scale);
-        int scaleLargeArcRadius = serviceExcavation.getScaleLargeArcRadius(widthWithShotcrete, formIndication, scale);
-        double alphaDegree = serviceExcavation.getAlphaDegree(widthWithShotcrete, formIndication);
-        double betaDegree = serviceExcavation.getBetaDegree(widthWithShotcrete, formIndication);
+        int scaleWidth = serviceExcavation.scaleWidth(widthWithShotcrete, scale);
+        int scaleHeight = serviceExcavation.scaleHeight(heightWithShotcrete, scale);
+        int scaleArchHeight = serviceExcavation.scaleArchHeight(widthWithShotcrete, formIndication, scale);
+        int scaleSmallArcRadius = serviceExcavation.scaleSmallArcRadius(widthWithShotcrete, formIndication, scale);
+        int scaleLargeArcRadius = serviceExcavation.scaleLargeArcRadius(widthWithShotcrete, formIndication, scale);
+        double alphaDegree = serviceExcavation.alphaDegree(widthWithShotcrete, formIndication);
+        double betaDegree = serviceExcavation.betaDegree(widthWithShotcrete, formIndication);
 
         ((Graphics2D) g).setStroke(new BasicStroke(10));
         g.drawLine(-scaleWidth / 2, heightCorrectDrawShorcrete, (int) (Math.round(-scaleWidth / 2.0)), -(scaleHeight - scaleArchHeight)); //Левая стенка
@@ -72,7 +72,7 @@ public class GraphicsShotcreteExcavation extends ServiceShotcreteExcavation {
         double thicknessShorcrete = shotcreteExcavation.getThicknessShorcrete();
 
         int scaleHeightExcavationWithShotcrete = serviceShotcreteExcavation.getScaleHeightExcavationWithShotcrete(height,thicknessShorcrete, scale);
-        int scaleLengthExcavationWithShotcrete = serviceExcavation.getScaleLength(length,scale);
+        int scaleLengthExcavationWithShotcrete = serviceExcavation.scaleLength(length,scale);
 
         g.translate(distance, 0);
         ((Graphics2D) g).setStroke(new BasicStroke(10));

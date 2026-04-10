@@ -43,13 +43,13 @@ public class CalculateCoordinatesAnchorsExcavation {
         double formIndication = model.getFormIndication();
 
         // Геометрические параметры
-        double archHeight = ServiceExcavation.getArchHeight(width, formIndication);
-        double largeArcRadius = ServiceExcavation.getLargeArcRadius(width, formIndication);
-        double smallArcRadius = ServiceExcavation.getSmallArcRadius(width, formIndication);
-        double largeArcLength = ServiceExcavation.getLargeArcLength(width, formIndication);
-        double smallArcLength = ServiceExcavation.getSmallArcLength(width, formIndication);
-        double totalArcLength = ServiceExcavation.getLengthArc(width, formIndication);
-        double betaRadian = ServiceExcavation.getBetaRadian(width, formIndication);
+        double archHeight = ServiceExcavation.archHeight(width, formIndication);
+        double largeArcRadius = ServiceExcavation.largeArcRadius(width, formIndication);
+        double smallArcRadius = ServiceExcavation.smallArcRadius(width, formIndication);
+        double largeArcLength = ServiceExcavation.largeArcLength(width, formIndication);
+        double smallArcLength = ServiceExcavation.smallArcLength(width, formIndication);
+        double totalArcLength = ServiceExcavation.lengthArc(width, formIndication);
+        double betaRadian = ServiceExcavation.betaRadian(width, formIndication);
 
         double step = anchors.getStep();
         double lengthAnchor = anchors.getLengthAnchor();

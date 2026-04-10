@@ -18,18 +18,6 @@ public class AnchorsIntersection {
     private double distanceLowerAnchor2 = 1.8;
     private double distanceLowerAnchor3 = 1.8;
 
-    private double[][] anchorPlanRoundingXY12, anchorPlanRoundingXY13;
-    private double[][] anchorPlanRoundingXY21, anchorPlanRoundingXY23;
-    private double[][] anchorPlanRoundingXY32, anchorPlanRoundingXY31;
-
-    private double[][] AnchorPlanLineXY; //координаты недостающих анкеров в плане в боку горной выработки
-    private double[][] AnchorProjectionXY; //координаты установки анкеров в проекции сопряжения
-    private double[][] TestXY; //координаты перпендикуляров к осям выработок
-
-    private int numberAnchorPlanRound, numberAnchorPlanLine, numberAnchorProjection, numberTest;
-
-    public double XStartAnchToLine, YStartAnchToLine;
-
     // @formatter:off
     public double getLengthAnchor1() { return lengthAnchor1; }
     public void setLengthAnchor1(double lengthAnchor1) { this.lengthAnchor1 = lengthAnchor1; }
@@ -60,20 +48,6 @@ public class AnchorsIntersection {
     public void setDistanceLowerAnchor2(double distanceLowerAnchor2) { this.distanceLowerAnchor2 = distanceLowerAnchor2; }
     public double getDistanceLowerAnchor3() { return distanceLowerAnchor3; }
     public void setDistanceLowerAnchor3(double distanceLowerAnchor3) { this.distanceLowerAnchor3 = distanceLowerAnchor3; }
-
-    public double[][] getAnchorPlanRoundingXY12() { return anchorPlanRoundingXY12; }
-    public void setAnchorPlanRoundingXY12(double[][] anchorPlanRoundingXY12) { this.anchorPlanRoundingXY12 = anchorPlanRoundingXY12; }
-    public double[][] getAnchorPlanRoundingXY13() { return anchorPlanRoundingXY13; }
-    public void setAnchorPlanRoundingXY13(double[][] anchorPlanRoundingXY13) { this.anchorPlanRoundingXY13 = anchorPlanRoundingXY13; }
-    public double[][] getAnchorPlanRoundingXY21() { return anchorPlanRoundingXY21; }
-    public void setAnchorPlanRoundingXY21(double[][] anchorPlanRoundingXY21) { this.anchorPlanRoundingXY21 = anchorPlanRoundingXY21; }
-    public double[][] getAnchorPlanRoundingXY23() { return anchorPlanRoundingXY23; }
-    public void setAnchorPlanRoundingXY23(double[][] anchorPlanRoundingXY23) { this.anchorPlanRoundingXY23 = anchorPlanRoundingXY23; }
-    public double[][] getAnchorPlanRoundingXY32() { return anchorPlanRoundingXY32; }
-    public void setAnchorPlanRoundingXY32(double[][] anchorPlanRoundingXY32) { this.anchorPlanRoundingXY32 = anchorPlanRoundingXY32; }
-    public double[][] getAnchorPlanRoundingXY31() { return anchorPlanRoundingXY31; }
-    public void setAnchorPlanRoundingXY31(double[][] anchorPlanRoundingXY31) { this.anchorPlanRoundingXY31 = anchorPlanRoundingXY31; }
-
 
     // @formatter:on
 

@@ -43,13 +43,13 @@ public class GraphicsMeshExcavation {
         double widthExcavationWithMesh = serviceMeshExcavation.getWidthExcavationWithMesh(width, distanceBetweenContourAndGrid);
         double heightExcavationWithMesh = serviceMeshExcavation.getHeightExcavationWithMesh(height, distanceBetweenContourAndGrid);
 
-        int scaleWidth = serviceExcavation.getScaleWidth(widthExcavationWithMesh, scale);
-        int scaleHeight = serviceExcavation.getScaleHeight(heightExcavationWithMesh, scale);
-        int scaleArchHeight = serviceExcavation.getScaleArchHeight(widthExcavationWithMesh, formIndication, scale);
-        int scaleSmallArcRadius = serviceExcavation.getScaleSmallArcRadius(widthExcavationWithMesh, formIndication, scale);
-        int scaleLargeArcRadius = serviceExcavation.getScaleLargeArcRadius(widthExcavationWithMesh, formIndication, scale);
-        double alphaDegree = serviceExcavation.getAlphaDegree(widthExcavationWithMesh, formIndication);
-        double betaDegree = serviceExcavation.getBetaDegree(widthExcavationWithMesh, formIndication);
+        int scaleWidth = serviceExcavation.scaleWidth(widthExcavationWithMesh, scale);
+        int scaleHeight = serviceExcavation.scaleHeight(heightExcavationWithMesh, scale);
+        int scaleArchHeight = serviceExcavation.scaleArchHeight(widthExcavationWithMesh, formIndication, scale);
+        int scaleSmallArcRadius = serviceExcavation.scaleSmallArcRadius(widthExcavationWithMesh, formIndication, scale);
+        int scaleLargeArcRadius = serviceExcavation.scaleLargeArcRadius(widthExcavationWithMesh, formIndication, scale);
+        double alphaDegree = serviceExcavation.alphaDegree(widthExcavationWithMesh, formIndication);
+        double betaDegree = serviceExcavation.betaDegree(widthExcavationWithMesh, formIndication);
 
         Graphics2D g2d = (Graphics2D) g;
 
@@ -90,8 +90,8 @@ public class GraphicsMeshExcavation {
         int scaleDistanceBetweenSoilAndMesh = serviceMeshExcavation.getScaleDistanceBetweenSoilAndMesh(distanceBetweenSoilAndMesh, scale);
         int scaleGridStep = serviceMeshExcavation.getScaleGridStep(gridStep,scale);
 
-        int scaleHeight = serviceExcavation.getScaleHeight(heightExcavationWithMesh, scale);
-        int scaleLength = serviceExcavation.getScaleLength(length, scale);
+        int scaleHeight = serviceExcavation.scaleHeight(heightExcavationWithMesh, scale);
+        int scaleLength = serviceExcavation.scaleLength(length, scale);
 
         Graphics2D g2d = (Graphics2D) g;
 

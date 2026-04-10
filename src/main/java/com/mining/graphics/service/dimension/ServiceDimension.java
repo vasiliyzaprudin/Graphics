@@ -31,7 +31,7 @@ public class ServiceDimension {
         double step = anchors.getStep();
         double distanceBetweenRows = anchors.getDistanceBetweenRows();
 
-        double archHeight = excavationService.getArchHeight(width, formIndication);
+        double archHeight = excavationService.archHeight(width, formIndication);
 
         int scaleWidth = (int) Math.round(width * scale);
         int scaleHeight = (int) Math.round(height * scale);

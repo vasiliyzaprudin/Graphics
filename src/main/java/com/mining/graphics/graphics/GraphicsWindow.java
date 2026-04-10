@@ -27,7 +27,7 @@ import java.awt.*;
 
 public class GraphicsWindow extends JFrame {
 
-    private int currentMode = 1; // 1 - одиночная выработка, 2 - анкер, 3 - сопряжение
+    private int currentMode = 3; // 1 - одиночная выработка, 2 - анкер, 3 - сопряжение
 
     // Компоненты UI для переключения режимов
     private JButton excavationModeButton;
@@ -264,7 +264,7 @@ public class GraphicsWindow extends JFrame {
     }
 
     private void drawExcavation(Graphics2D g2d) {
-        g2d.translate(550, 900);
+        g2d.translate(600, 900);
 
         g2d.setColor(new Color(200, 200, 200));
         graphicsShotcreteExcavation.drawCrossSectionExcavationShotcrete(g2d);
@@ -287,7 +287,7 @@ public class GraphicsWindow extends JFrame {
         g2d.setColor(Color.BLACK);
         graphicsDimension.drawCrossSectionDimensions(g2d);
 
-        g2d.translate(-550, -900);
+        g2d.translate(-600, -900);
 
         g2d.setColor(Color.BLUE);
         drawing.draw(g2d);
@@ -305,6 +305,8 @@ public class GraphicsWindow extends JFrame {
 
         graphicsAnchorsIntersection.drawAllAnchorsPlanRounding3(g2d);
         graphicsAnchorsIntersection.drawAllAnchorsPlanLine3(g2d);
+
+        graphicsAnchorsIntersection.drawAllAnchorsProjectionLine3(g2d);
 
         g2d.translate(-500, -400);
     }

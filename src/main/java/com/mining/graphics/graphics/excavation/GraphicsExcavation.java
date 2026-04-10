@@ -21,15 +21,15 @@ public class GraphicsExcavation {
 
     public void renderCrossSectionExcavation(Graphics2D g2d, double width, double height, double formIndication, int scale) {
 
-        int scaleWidth = getScaleWidth(width, scale);
-        int scaleHeight = getScaleHeight(height, scale);
-        int scaleArchHeight = getScaleArchHeight(width, formIndication, scale);
+        int scaleWidth = scaleWidth(width, scale);
+        int scaleHeight = scaleHeight(height, scale);
+        int scaleArchHeight = scaleArchHeight(width, formIndication, scale);
 
-        int scaleSmallArcRadius = getScaleSmallArcRadius(width, formIndication, scale);
-        int scaleLargeArcRadius = getScaleLargeArcRadius(width, formIndication, scale);
+        int scaleSmallArcRadius = scaleSmallArcRadius(width, formIndication, scale);
+        int scaleLargeArcRadius = scaleLargeArcRadius(width, formIndication, scale);
 
-        double alphaDegree = getAlphaDegree(width, formIndication);
-        double betaDegree = getBetaDegree(width, formIndication);
+        double alphaDegree = alphaDegree(width, formIndication);
+        double betaDegree = betaDegree(width, formIndication);
 
         g2d.drawLine((int) (Math.round(-scaleWidth / 2.0)), 0, (int) (Math.round(-scaleWidth / 2.0)), -(scaleHeight - scaleArchHeight)); //Левая стенка
         g2d.drawArc((int) (Math.round(-scaleWidth / 2.0)), -(scaleHeight - scaleArchHeight) - scaleSmallArcRadius, 2 * scaleSmallArcRadius, 2 * scaleSmallArcRadius, (int) Math.round(90 + alphaDegree), (int) Math.round(betaDegree)); //Левая малая дуга
@@ -44,8 +44,8 @@ public class GraphicsExcavation {
         double length = modelExcavation.getLength();
         int scale = GraphicsParameters.GRAPHICS_EXCAVATION_SCALE;
 
-        int scaleHeight = getScaleHeight(height, scale);
-        int scaleLength = getScaleLength(length, scale);
+        int scaleHeight = scaleHeight(height, scale);
+        int scaleLength = scaleLength(length, scale);
         int distance = GraphicsParameters.DISTANCE_BETWEEN_CROSS_AND_LONG_SECTION;
 
         g.translate(distance, 0);

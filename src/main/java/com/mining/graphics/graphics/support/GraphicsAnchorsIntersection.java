@@ -10,7 +10,6 @@ import com.mining.graphics.service.support.ServiceAnchorsIntersection;
 import java.awt.*;
 
 public class GraphicsAnchorsIntersection {
-
     private final ModelIntersection modelIntersection;
     private final CoordinatesIntersection modelCoordinatesIntersection;
     private final AnchorsIntersection anchorsIntersection;
@@ -99,7 +98,6 @@ public class GraphicsAnchorsIntersection {
         }
     }
 
-
     public void drawAllAnchorsPlanLine3(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
 
@@ -164,73 +162,39 @@ public class GraphicsAnchorsIntersection {
                 anchorsIntersection.getLengthAnchor3()));
     }
 
+    // @formatter:off
+    public void drawAllAnchorsProjectionLine3(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g;
 
-//    /**
-//     * Этот метод объединяет расчет координат
-//     * и графическое изображение анкеров в проекции.
-//     */
-//    public void graphAnchProjIntConstr3(Graphics g) {
-//        g.translate(0, distance); //Перенос начала координат в центр отрезка, изображающего почву сопряжения
-//        calcCoordAnchProjInt(x21, -height2, cAl2, l2);
-//        g.setColor(Color.BLUE);
-//        graphAnchProjInt(g);
-//        calcCoordAnchProjInt(x31, -height3, cAl3, l3);
-//        g.setColor(new Color(0, 120, 0));
-//        graphAnchProjInt(g);
-//        g.translate(0, -distance); //Перенос начала координат в точку пересечения осей гороных выработок в плане сопряжения
-//    }
+        double[][] anchorProjection2 = ServiceAnchorsIntersection.calculateCoordinatesAnchorProjection(
+                modelCoordinatesIntersection.getIncreasedWidth1(),
+                modelCoordinatesIntersection.getIncreasedHeight1(),
+                modelCoordinatesIntersection.getFormIndicationHeightIntersection1(),
+                modelCoordinatesIntersection.getXCalculateCoordinatePointContact21(),
+                modelCoordinatesIntersection.getYCalculateCoordinatePointContact21(),
+                modelCoordinatesIntersection.getAngleBetweenCenterRoofAndPointContactRadians21(),
+                modelCoordinatesIntersection.getXStartRounding21(),
+                -modelIntersection.getHeight2(),
+                anchorsIntersection.getDistanceBetweenRows2(),
+                anchorsIntersection.getLengthAnchor2());
+        drawAnchorsProjection (g2d, anchorProjection2);
+    }
+    // @formatter:on
 
-//    /**
-//     * Этот метод объединяет расчет координат
-//     * и графическое построение перпендикуляров.
-//     */
-//    public void TestIntAnch(Graphics g) {
-//        g.setColor(new Color(210, 220, 230));
-//        //Для выработки 1
-//        testX0Y0(cAl1, xb1, -yb1);
-//        graphicsTestAnch(g);
-//        //Для выработки 2
-//        testX0Y0(cAl2, xb2, -yb2);
-//        graphicsTestAnch(g);
-//        //Для выработки 3
-//        testX0Y0(cAl3, xb3, yb3);
-//        graphicsTestAnch(g);
-//        g.setColor(Color.BLACK);
-//    }
-
+    public void drawAnchorsProjection(Graphics2D g, double[][] anchorProjection) {
+        int scale = GraphicsParameters.GRAPHICS_INTERSECTION_SCALE;
+        int distance = GraphicsParameters.DISTANCE_BETWEEN_PLAN_AND_PROFILE_SECTION;
+        g.translate(0, distance);
+        for (int i = 0; i < anchorProjection.length; i++) {
+            int x1 = (int) Math.round(anchorProjection[i][0] * scale);
+            int y1 = (int) Math.round(anchorProjection[i][1] * scale);
+            int x2 = (int) Math.round(anchorProjection[i][2] * scale);
+            int y2 = (int) Math.round(anchorProjection[i][3] * scale);
+            g.drawLine(x1, y1, x2, y2);
+        }
+        g.translate(0, -distance);
+    }
 
 
-//    /**
-//     * Это графический метод построения анкеров в плане на прямом отрезке сопряжения.
-//     */
-//    public void graphAnchPlanIntLine(Graphics g) {
-//        if (numAnchPlanLine >= 0) {
-//            for (int i = 0; i <= numAnchPlanLine; i++) {
-//                g.drawLine((int) (СoorAncIntPlanLine[i][0] * scaleInt), (int) (СoorAncIntPlanLine[i][1] * scaleInt),
-//                        (int) (СoorAncIntPlanLine[i][2] * scaleInt), (int) (СoorAncIntPlanLine[i][3] * scaleInt));
-//            }
-//        } else {
-//        }
-//    }
-//
-//    /**
-//     * Это графический метод построения анкеров в проекции сопряжения.
-//     */
-//    public void graphAnchProjInt(Graphics g) {
-//        for (int i = 0; i <= numAnchProj; i++) {
-//            g.drawLine((int) (СoorAncIntProj[i][0] * scaleInt), (int) (СoorAncIntProj[i][1] * scaleInt),
-//                    (int) (СoorAncIntProj[i][2] * scaleInt), (int) (СoorAncIntProj[i][3] * scaleInt));
-//        }
-//    }
-//
-//    /**
-//     * Этот графический метод строит перпендикуляры к оси горной выработки
-//     * от начала координат до забоя с шагом анкерования.
-//     */
-//    public void graphicsTestAnch(Graphics g) {
-//        for (int i = 0; i <= numAnchTest; i++) {
-//            g.drawLine((int) (СoorTestX0Y0[i][0] * scaleInt), (int) (СoorTestX0Y0[i][1] * scaleInt),
-//                    (int) (СoorTestX0Y0[i][2] * scaleInt), (int) (СoorTestX0Y0[i][3] * scaleInt));
-//        }
-//    }
+
 }

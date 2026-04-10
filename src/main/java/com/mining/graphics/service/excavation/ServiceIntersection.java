@@ -2,7 +2,7 @@ package com.mining.graphics.service.excavation;
 
 import com.mining.graphics.graphics.GraphicsParameters;
 
-import static com.mining.graphics.service.excavation.ServiceExcavation.getLargeArcRadius;
+import static com.mining.graphics.service.excavation.ServiceExcavation.largeArcRadius;
 
 public class ServiceIntersection {
 
@@ -136,7 +136,7 @@ public class ServiceIntersection {
         double formIndicationHeightIntersection1 = calculateFormIndicationHeightIntersection(xPointIntersectionExcavationRight, yPointIntersectionExcavationRight, xPointIntersectionExcavationLeft, yPointIntersectionExcavationLeft, width1);
         double increasedHeight1 = height1 * formIndicationHeightIntersection1;
 
-        double largeArcRadius = getLargeArcRadius(increasedWidth, formIndicationIntersection);
+        double largeArcRadius = largeArcRadius(increasedWidth, formIndicationIntersection);
 
         double coordinateCenterLargeCircleX = 0.0;
         double coordinateCenterLargeCircleY = -increasedHeight1 + largeArcRadius;
@@ -164,7 +164,7 @@ public class ServiceIntersection {
         double formIndicationHeightIntersection1 = calculateFormIndicationHeightIntersection(xPointIntersectionExcavationRight, yPointIntersectionExcavationRight, xPointIntersectionExcavationLeft, yPointIntersectionExcavationLeft, width1);
         double increasedHeight1 = height1 * formIndicationHeightIntersection1;
 
-        double largeArcRadius = getLargeArcRadius(increasedWidth, formIndicationIntersection);
+        double largeArcRadius = largeArcRadius(increasedWidth, formIndicationIntersection);
 
         double coordinateCenterLargeCircleX = 0.0;
         double coordinateCenterLargeCircleY = -increasedHeight1 + largeArcRadius;
@@ -193,7 +193,7 @@ public class ServiceIntersection {
         double increasedWidth1 = distanceBetweenPoint(xPointIntersectionExcavationRight, yPointIntersectionExcavationRight, xPointIntersectionExcavationLeft, yPointIntersectionExcavationLeft);
         double formIndicationHeightIntersection1 = (increasedWidth1 / (2.0 * width1)) + 0.5;
         double increasedHeight1 = height1 * formIndicationHeightIntersection1;
-        double largeArcRadius = getLargeArcRadius(width1, formIndicationIntersection);
+        double largeArcRadius = largeArcRadius(width1, formIndicationIntersection);
 
         double coordinateCenterLargeCircleX = 0.0;
         double coordinateCenterLargeCircleY = -increasedHeight1 + largeArcRadius;
