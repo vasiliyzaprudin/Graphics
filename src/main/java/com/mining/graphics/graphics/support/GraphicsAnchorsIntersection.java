@@ -29,34 +29,64 @@ public class GraphicsAnchorsIntersection {
         // Выработка 1
         drawAnchorsPlan(g2d, ServiceAnchorsIntersection.calculateCoordinatesAnchorPlanRound(
                 modelCoordinatesIntersection.getRoundingParameters12(),
+                modelIntersection.getWidth2(),
+                modelIntersection.getHeight2(),
+                modelIntersection.getFormIndication2(),
                 anchorsIntersection.getDistanceBetweenRows1(),
+                anchorsIntersection.getDistanceLowerAnchor2(),
+                anchorsIntersection.getStep2(),
                 anchorsIntersection.getLengthAnchor1()));
 
         drawAnchorsPlan(g2d, ServiceAnchorsIntersection.calculateCoordinatesAnchorPlanRound(
                 modelCoordinatesIntersection.getRoundingParameters13(),
+                modelIntersection.getWidth2(),
+                modelIntersection.getHeight2(),
+                modelIntersection.getFormIndication1(),
                 anchorsIntersection.getDistanceBetweenRows1(),
+                anchorsIntersection.getDistanceLowerAnchor2(),
+                anchorsIntersection.getStep2(),
                 anchorsIntersection.getLengthAnchor1()));
 
         // Выработка 2
         drawAnchorsPlan(g2d, ServiceAnchorsIntersection.calculateCoordinatesAnchorPlanRound(
                 modelCoordinatesIntersection.getRoundingParameters21(),
+                modelIntersection.getWidth1(),
+                modelIntersection.getHeight1(),
+                modelIntersection.getFormIndication1(),
                 anchorsIntersection.getDistanceBetweenRows2(),
+                anchorsIntersection.getDistanceLowerAnchor1(),
+                anchorsIntersection.getStep1(),
                 anchorsIntersection.getLengthAnchor2()));
 
         drawAnchorsPlan(g2d, ServiceAnchorsIntersection.calculateCoordinatesAnchorPlanRound(
                 modelCoordinatesIntersection.getRoundingParameters23(),
+                modelIntersection.getWidth1(),
+                modelIntersection.getHeight1(),
+                modelIntersection.getFormIndication1(),
                 anchorsIntersection.getDistanceBetweenRows2(),
+                anchorsIntersection.getDistanceLowerAnchor1(),
+                anchorsIntersection.getStep1(),
                 anchorsIntersection.getLengthAnchor2()));
 
         // Выработка 3
         drawAnchorsPlan(g2d, ServiceAnchorsIntersection.calculateCoordinatesAnchorPlanRound(
                 modelCoordinatesIntersection.getRoundingParameters32(),
+                modelIntersection.getWidth1(),
+                modelIntersection.getHeight1(),
+                modelIntersection.getFormIndication1(),
                 anchorsIntersection.getDistanceBetweenRows3(),
+                anchorsIntersection.getDistanceLowerAnchor1(),
+                anchorsIntersection.getStep1(),
                 anchorsIntersection.getLengthAnchor3()));
 
         drawAnchorsPlan(g2d, ServiceAnchorsIntersection.calculateCoordinatesAnchorPlanRound(
                 modelCoordinatesIntersection.getRoundingParameters31(),
+                modelIntersection.getWidth1(),
+                modelIntersection.getHeight1(),
+                modelIntersection.getFormIndication1(),
                 anchorsIntersection.getDistanceBetweenRows3(),
+                anchorsIntersection.getDistanceLowerAnchor1(),
+                anchorsIntersection.getStep1(),
                 anchorsIntersection.getLengthAnchor3()));
     }
     // @formatter:on
@@ -103,7 +133,12 @@ public class GraphicsAnchorsIntersection {
 
         double[][] anchorPlanRoundXY12 = ServiceAnchorsIntersection.calculateCoordinatesAnchorPlanRound(
                 modelCoordinatesIntersection.getRoundingParameters12(),
+                modelIntersection.getWidth2(),
+                modelIntersection.getHeight2(),
+                modelIntersection.getFormIndication2(),
                 anchorsIntersection.getDistanceBetweenRows1(),
+                anchorsIntersection.getDistanceLowerAnchor2(),
+                anchorsIntersection.getStep2(),
                 anchorsIntersection.getLengthAnchor1());
         drawAnchorsPlan(g2d, ServiceAnchorsIntersection.calculateCoordinatesAnchorPlanLine(
                 anchorPlanRoundXY12,
@@ -113,7 +148,12 @@ public class GraphicsAnchorsIntersection {
 
         double[][] anchorPlanRoundXY13 = ServiceAnchorsIntersection.calculateCoordinatesAnchorPlanRound(
                 modelCoordinatesIntersection.getRoundingParameters13(),
+                modelIntersection.getWidth2(),
+                modelIntersection.getHeight2(),
+                modelIntersection.getFormIndication2(),
                 anchorsIntersection.getDistanceBetweenRows1(),
+                anchorsIntersection.getDistanceLowerAnchor2(),
+                anchorsIntersection.getStep2(),
                 anchorsIntersection.getLengthAnchor1());
         drawAnchorsPlan(g2d, ServiceAnchorsIntersection.calculateCoordinatesAnchorPlanLine(
                 anchorPlanRoundXY13,
@@ -123,7 +163,12 @@ public class GraphicsAnchorsIntersection {
 
         double[][] anchorPlanRoundXY23 = ServiceAnchorsIntersection.calculateCoordinatesAnchorPlanRound(
                 modelCoordinatesIntersection.getRoundingParameters23(),
+                modelIntersection.getWidth1(),
+                modelIntersection.getHeight1(),
+                modelIntersection.getFormIndication1(),
                 anchorsIntersection.getDistanceBetweenRows2(),
+                anchorsIntersection.getDistanceLowerAnchor1(),
+                anchorsIntersection.getStep1(),
                 anchorsIntersection.getLengthAnchor2());
         drawAnchorsPlan(g2d, ServiceAnchorsIntersection.calculateCoordinatesAnchorPlanLine(
                 anchorPlanRoundXY23,
@@ -133,7 +178,12 @@ public class GraphicsAnchorsIntersection {
 
         double[][] anchorPlanRoundXY21 = ServiceAnchorsIntersection.calculateCoordinatesAnchorPlanRound(
                 modelCoordinatesIntersection.getRoundingParameters21(),
+                modelIntersection.getWidth1(),
+                modelIntersection.getHeight1(),
+                modelIntersection.getFormIndication1(),
                 anchorsIntersection.getDistanceBetweenRows2(),
+                anchorsIntersection.getDistanceLowerAnchor1(),
+                anchorsIntersection.getStep1(),
                 anchorsIntersection.getLengthAnchor2());
         drawAnchorsPlan(g2d, ServiceAnchorsIntersection.calculateCoordinatesAnchorPlanLine(
                 anchorPlanRoundXY21,
@@ -143,7 +193,12 @@ public class GraphicsAnchorsIntersection {
 
         double[][] anchorPlanRoundXY32 = ServiceAnchorsIntersection.calculateCoordinatesAnchorPlanRound(
                 modelCoordinatesIntersection.getRoundingParameters32(),
+                modelIntersection.getWidth1(),
+                modelIntersection.getHeight1(),
+                modelIntersection.getFormIndication1(),
                 anchorsIntersection.getDistanceBetweenRows3(),
+                anchorsIntersection.getDistanceLowerAnchor1(),
+                anchorsIntersection.getStep1(),
                 anchorsIntersection.getLengthAnchor3());
         drawAnchorsPlan(g2d, ServiceAnchorsIntersection.calculateCoordinatesAnchorPlanLine(
                 anchorPlanRoundXY32,
@@ -153,7 +208,12 @@ public class GraphicsAnchorsIntersection {
 
         double[][] anchorPlanRoundXY31 = ServiceAnchorsIntersection.calculateCoordinatesAnchorPlanRound(
                 modelCoordinatesIntersection.getRoundingParameters31(),
+                modelIntersection.getWidth1(),
+                modelIntersection.getHeight1(),
+                modelIntersection.getFormIndication1(),
                 anchorsIntersection.getDistanceBetweenRows3(),
+                anchorsIntersection.getDistanceLowerAnchor1(),
+                anchorsIntersection.getStep1(),
                 anchorsIntersection.getLengthAnchor3());
         drawAnchorsPlan(g2d, ServiceAnchorsIntersection.calculateCoordinatesAnchorPlanLine(
                 anchorPlanRoundXY31,
@@ -169,16 +229,38 @@ public class GraphicsAnchorsIntersection {
         double[][] anchorProjection2 = ServiceAnchorsIntersection.calculateCoordinatesAnchorProjection(
                 modelCoordinatesIntersection.getIncreasedWidth1(),
                 modelCoordinatesIntersection.getIncreasedHeight1(),
-                modelCoordinatesIntersection.getFormIndicationHeightIntersection1(),
+                modelIntersection.getFormIndicationIntersection(),
+                modelIntersection.getWidth1(),
+                modelIntersection.getHeight1(),
+                modelIntersection.getFormIndication1(),
                 modelCoordinatesIntersection.getXCalculateCoordinatePointContact21(),
                 modelCoordinatesIntersection.getYCalculateCoordinatePointContact21(),
                 modelCoordinatesIntersection.getAngleBetweenCenterRoofAndPointContactRadians21(),
                 modelCoordinatesIntersection.getXStartRounding21(),
                 -modelIntersection.getHeight2(),
                 anchorsIntersection.getDistanceBetweenRows2(),
+                anchorsIntersection.getDistanceLowerAnchor1(),
+                anchorsIntersection.getStep1(),
                 anchorsIntersection.getLengthAnchor2());
         drawAnchorsProjection (g2d, anchorProjection2);
 
+        double[][] anchorProjection3 = ServiceAnchorsIntersection.calculateCoordinatesAnchorProjection(
+                modelCoordinatesIntersection.getIncreasedWidth1(),
+                modelCoordinatesIntersection.getIncreasedHeight1(),
+                modelIntersection.getFormIndicationIntersection(),
+                modelIntersection.getWidth1(),
+                modelIntersection.getHeight1(),
+                modelIntersection.getFormIndication1(),
+                modelCoordinatesIntersection.getXCalculateCoordinatePointContact31(),
+                modelCoordinatesIntersection.getYCalculateCoordinatePointContact31(),
+                modelCoordinatesIntersection.getAngleBetweenCenterRoofAndPointContactRadians31(),
+                modelCoordinatesIntersection.getXStartRounding31(),
+                -modelIntersection.getHeight3(),
+                anchorsIntersection.getDistanceBetweenRows3(),
+                anchorsIntersection.getDistanceLowerAnchor1(),
+                anchorsIntersection.getStep1(),
+                anchorsIntersection.getLengthAnchor3());
+        drawAnchorsProjection (g2d, anchorProjection3);
     }
     // @formatter:on
 
@@ -193,10 +275,6 @@ public class GraphicsAnchorsIntersection {
             int y2 = (int) Math.round(anchorProjection[i][3] * scale);
             g.drawLine(x1, y1, x2, y2);
         }
-        g.drawLine((int)(Math.round(modelCoordinatesIntersection.getXCalculateCoordinatePointContact21()*scale)), (int)(Math.round(modelCoordinatesIntersection.getYCalculateCoordinatePointContact21()*scale)), 0,0);
         g.translate(0, -distance);
     }
-
-
-
 }

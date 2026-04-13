@@ -50,7 +50,4 @@ public class AnchorsIntersection {
     public void setDistanceLowerAnchor3(double distanceLowerAnchor3) { this.distanceLowerAnchor3 = distanceLowerAnchor3; }
 
     // @formatter:on
-
-
-
 }

@@ -205,7 +205,7 @@ public class ServiceIntersection {
 
         double hi = Math.acos(largeArcRadius / distanceBetweenPoint(coordinateCenterLargeCircleX, coordinateCenterLargeCircleY, coordinateStartRoofExcavation2X, coordinateStartRoofExcavation2Y));
         double psi = Math.atan(Math.abs((coordinateStartRoofExcavation2Y - coordinateCenterLargeCircleY) / (coordinateStartRoofExcavation2X - coordinateCenterLargeCircleX)));
-        return (Math.PI / 2 - hi - psi);
+        return (Math.PI / 2 - Math.abs(hi) - Math.abs(psi));
     }
 
     //@formatter:on

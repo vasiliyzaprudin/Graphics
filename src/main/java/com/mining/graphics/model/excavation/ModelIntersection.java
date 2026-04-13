@@ -1,7 +1,7 @@
 package com.mining.graphics.model.excavation;
 
 public class ModelIntersection {
-    private double width1 = 4.2, width2 = 4.2, width3 = 4.2, width4 = 4.2;
+    private double width1 = 4.9, width2 = 4.6, width3 = 4.6, width4 = 4.2;
 
     private double height1 = 4.2, height2 = 4.2, height3 = 4.2, height4 = 4.2;
 

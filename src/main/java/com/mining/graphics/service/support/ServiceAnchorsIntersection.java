@@ -18,8 +18,8 @@ public class ServiceAnchorsIntersection {
 
 
     public static double calculateStartX(double xPointIntrsectionExcavations, double yPointIntrsectionExcavations, double xStartRounding,
-                                         double yStartRounding, double xIntersectionAxisAndStope, double yIntersectionAxisAndStope,
-                                         double distanceBetweenRows) {
+                                         double yStartRounding, double xIntersectionAxisAndStope, double yIntersectionAxisAndStope, double width,
+                                         double height, double formIndication, double distanceBetweenRows, double distanceLowerAnchor, double step) {
 
         double azimuthRadians = Math.atan2(yIntersectionAxisAndStope, xIntersectionAxisAndStope) + Math.PI / 2;
         double omega = GeneralService.angleBetweenLines(xPointIntrsectionExcavations, yPointIntrsectionExcavations, 0.0, 0.0, 0.0, 0.0, xIntersectionAxisAndStope, yIntersectionAxisAndStope);
@@ -31,18 +31,37 @@ public class ServiceAnchorsIntersection {
         double phi = calculatePhi(xPointIntrsectionExcavations, yPointIntrsectionExcavations, xStartRounding, yStartRounding, xIntersectionAxisAndStope, yIntersectionAxisAndStope);
         double beta = calculateAngleBetweenHorizontalAndAxisExcavation(xIntersectionAxisAndStope, yIntersectionAxisAndStope);
 
+        //Проверка варианта расположения анкеров
         double delta;
-        if (Math.abs(phi) < 0.01) {
-            delta = 0;
+        double d;
+
+        double totalArcLength = ServiceExcavation.lengthArc(width, formIndication);
+        double archHeight = ServiceExcavation.archHeight(width, formIndication);
+        int numberCrossSectionAnchors = (int) Math.ceil((totalArcLength + (height - archHeight - distanceLowerAnchor) * 2.0) / step);
+        if ((numberCrossSectionAnchors + 1) % 2 == 0) {
+            // Анкер по центру
+            if (Math.abs(phi) < 0.01) {
+                delta = 0;
+            } else {
+                delta = Math.ceil(projection / distanceBetweenRows) * distanceBetweenRows - projection;
+            }
         } else {
-            delta = Math.ceil(projection / distanceBetweenRows) * distanceBetweenRows - projection;
+            // Анкер со смещением
+            if (Math.abs(phi) < 0.01) {
+                delta = distanceBetweenRows / 2.0;
+            } else {
+                d = Math.ceil(projection / distanceBetweenRows) * distanceBetweenRows - projection;
+                if (d < distanceBetweenRows / 2.0) delta = d + distanceBetweenRows / 2.0;
+                else delta = d - distanceBetweenRows / 2.0;
+            }
         }
+
         return xPointIntrsectionExcavations + (delta / Math.cos(phi)) * Math.cos(beta + phi);
     }
 
     public static double calculateStartY(double xPointIntrsectionExcavations, double yPointIntrsectionExcavations, double xStartRounding,
-                                         double yStartRounding, double xIntersectionAxisAndStope, double yIntersectionAxisAndStope,
-                                         double distanceBetweenRows) {
+                                         double yStartRounding, double xIntersectionAxisAndStope, double yIntersectionAxisAndStope, double width,
+                                         double height, double formIndication, double distanceBetweenRows, double distanceLowerAnchor, double step) {
         double azimuthRadians = Math.atan2(yIntersectionAxisAndStope, xIntersectionAxisAndStope) + Math.PI / 2;
         double omega = GeneralService.angleBetweenLines(xPointIntrsectionExcavations, yPointIntrsectionExcavations, 0.0, 0.0, 0.0, 0.0, xIntersectionAxisAndStope, yIntersectionAxisAndStope);
         double distance = GeneralService.distanceBetweenPoint(xPointIntrsectionExcavations, yPointIntrsectionExcavations, 0, 0);
@@ -53,19 +72,37 @@ public class ServiceAnchorsIntersection {
         double phi = calculatePhi(xPointIntrsectionExcavations, yPointIntrsectionExcavations, xStartRounding, yStartRounding, xIntersectionAxisAndStope, yIntersectionAxisAndStope);
         double beta = calculateAngleBetweenHorizontalAndAxisExcavation(xIntersectionAxisAndStope, yIntersectionAxisAndStope);
 
+        //Проверка варианта расположения анкеров
         double delta;
-        if (Math.abs(phi) < 0.01) {
-            delta = 0;
+        double d;
+
+        double totalArcLength = ServiceExcavation.lengthArc(width, formIndication);
+        double archHeight = ServiceExcavation.archHeight(width, formIndication);
+        int numberCrossSectionAnchors = (int) Math.ceil((totalArcLength + (height - archHeight - distanceLowerAnchor) * 2.0) / step);
+        if ((numberCrossSectionAnchors + 1) % 2 == 0) {
+            // Анкер по центру
+            if (Math.abs(phi) < 0.01) {
+                delta = 0;
+            } else {
+                delta = Math.ceil(projection / distanceBetweenRows) * distanceBetweenRows - projection;
+            }
         } else {
-            delta = Math.ceil(projection / distanceBetweenRows) * distanceBetweenRows - projection;
+            // Анкер со смещением
+            if (Math.abs(phi) < 0.01) {
+                delta = distanceBetweenRows / 2.0;
+            } else {
+                d = Math.ceil(projection / distanceBetweenRows) * distanceBetweenRows - projection;
+                if (d < distanceBetweenRows / 2.0) delta = d + distanceBetweenRows / 2.0;
+                else delta = d - distanceBetweenRows / 2.0;
+            }
         }
         return yPointIntrsectionExcavations + (delta / Math.cos(phi)) * Math.sin(beta + phi);
     }
 
 
     // @formatter:off
-    public static double[][] calculateCoordinatesAnchorPlanRound(CoordinatesIntersectionRounding coordinatesIntersectionRounding,
-                                                                 double distanceBetweenRows, double lengthAnchor) {
+    public static double[][] calculateCoordinatesAnchorPlanRound(CoordinatesIntersectionRounding coordinatesIntersectionRounding, double width, double height, double formIndication,
+                                                                 double distanceBetweenRows, double distanceLowerAnchor, double step, double lengthAnchor) {
 
         double xPointIntersectionExcavations = coordinatesIntersectionRounding.getXPointIntersection();
         double yPointIntersectionExcavations = coordinatesIntersectionRounding.getYPointIntersection();
@@ -74,17 +111,17 @@ public class ServiceAnchorsIntersection {
         double xIntersectionAxisAndStope = coordinatesIntersectionRounding.getXIntersectionAxisAndStope();
         double yIntersectionAxisAndStope = coordinatesIntersectionRounding.getYIntersectionAxisAndStope();
 
-        double  azimuthRadians = Math.atan2(yIntersectionAxisAndStope, xIntersectionAxisAndStope) + Math.PI / 2;
+        double azimuthRadians = Math.atan2(yIntersectionAxisAndStope, xIntersectionAxisAndStope) + Math.PI / 2;
         double phi = GeneralService.angleBetweenLines(xPointIntersectionExcavations,
                 yPointIntersectionExcavations, xStartRounding, yStartRounding,
                 0.0, 0.0, xIntersectionAxisAndStope, yIntersectionAxisAndStope);
 
         double startX = calculateStartX(xPointIntersectionExcavations, yPointIntersectionExcavations,
                 xStartRounding, yStartRounding, xIntersectionAxisAndStope,
-                yIntersectionAxisAndStope, distanceBetweenRows);
+                yIntersectionAxisAndStope, width, height, formIndication, distanceBetweenRows, distanceLowerAnchor, step);
         double startY = calculateStartY(xPointIntersectionExcavations, yPointIntersectionExcavations,
                 xStartRounding, yStartRounding, xIntersectionAxisAndStope,
-                yIntersectionAxisAndStope, distanceBetweenRows);
+                yIntersectionAxisAndStope, width, height, formIndication, distanceBetweenRows, distanceLowerAnchor, step);
     // @formatter:on
 
         double distanceBetweenRowsToRounding = distanceBetweenRows / Math.cos(phi);
@@ -210,22 +247,47 @@ public class ServiceAnchorsIntersection {
     }
 
     public static double[][] calculateCoordinatesAnchorProjection(double increasedWidth, double increasedHeight, double formIndicationIntersection,
-                                                                  double xPointContact, double yPointContact,
-                                                                  double angleBetweenCenterRoofAndPointContactRadians, double xEndIntersectionRoof,
-                                                                  double yEndIntersectionRoof, double distanceBetweenRows, double lengthAnchor) {
+                                                                  double width, double height, double formIndication, double xPointContact,
+                                                                  double yPointContact, double angleBetweenCenterRoofAndPointContactRadians,
+                                                                  double xEndIntersectionRoof, double yEndIntersectionRoof,
+                                                                  double distanceBetweenRows, double distanceLowerAnchor, double step,
+                                                                  double lengthAnchor) {
         int i, j, k;
 
         double largeArcRadius = ServiceExcavation.largeArcRadius(increasedWidth, formIndicationIntersection);
+        ;
 
         double arcLength = largeArcRadius * angleBetweenCenterRoofAndPointContactRadians; //Длина дуги
-        System.out.println("arcLength = " + arcLength);
 
         double lineLength = GeneralService.distanceBetweenPoint(xPointContact, yPointContact, xEndIntersectionRoof, yEndIntersectionRoof); //Длина прямолинейного отрезка
 
         int numberAnchorProjection = (int) (Math.ceil((arcLength + lineLength) / distanceBetweenRows));
 
-        double xStartAnchor = 0.0; //координата X установки первого анкера по дуге
-        double yStartAnchor = increasedHeight; //координата Y установки первого анкера по дуге
+        //Проверка варианта расположения анкеров
+        double totalArcLength = ServiceExcavation.lengthArc(width, formIndication);
+        double archHeight = ServiceExcavation.archHeight(width, formIndication);
+        int numberCrossSectionAnchors = (int) Math.ceil((totalArcLength + (height - archHeight - distanceLowerAnchor) * 2.0) / step);
+
+        double xStartAnchor;
+        double yStartAnchor;
+
+        if ((numberCrossSectionAnchors + 1) % 2 == 0) {
+            // Анкер по центру
+            xStartAnchor = 0.0; //координата X установки первого анкера по дуге
+            yStartAnchor = increasedHeight; //координата Y установки первого анкера по дуге
+        } else {
+            // Анкер со смещением
+
+            double omega = Math.asin(distanceBetweenRows / (2.0 * largeArcRadius));
+            if (xEndIntersectionRoof >= 0) {
+                xStartAnchor = largeArcRadius * Math.sin(omega);
+                yStartAnchor = increasedHeight - largeArcRadius + largeArcRadius * Math.cos(omega);
+            }
+            else {
+                xStartAnchor = -largeArcRadius * Math.sin(omega);
+                yStartAnchor = increasedHeight - largeArcRadius + largeArcRadius * Math.cos(omega);
+            }
+        }
 
         double[][] anchorProjectionXY = new double[numberAnchorProjection + 1][4];
 
@@ -247,9 +309,7 @@ public class ServiceAnchorsIntersection {
         }
 
         double remainderArc = arcLength - (i - 1) * distanceBetweenRows; //остаток дуги
-        System.out.println(arcLength - (i - 1) * distanceBetweenRows);
-        double d = GeneralService.distanceBetweenPoint(xPointContact, yPointContact, 0, -increasedHeight);
-        System.out.println("d = " + d);
+
         double omega = Math.atan(Math.abs((yEndIntersectionRoof - yPointContact) / (xEndIntersectionRoof - xPointContact))); //угол наклона прямолинейного отрезка кровли отностительно оси X
 
         //определение координат установки анкеров по прямолинейному участку кровли сопряжения
@@ -281,5 +341,13 @@ public class ServiceAnchorsIntersection {
         }
         return anchorProjectionXY;
     }
+//    public static double[][] calculateCoordinatesBasePlateProjection (){
+//
+//        double[][] BasePlateProjectionXY = new double[][];
+//
+//        return BasePlateProjectionXY;
+//    }
 }
+
+
 

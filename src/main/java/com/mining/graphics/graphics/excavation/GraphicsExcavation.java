@@ -25,6 +25,7 @@ public class GraphicsExcavation {
         int scaleHeight = scaleHeight(height, scale);
         int scaleArchHeight = scaleArchHeight(width, formIndication, scale);
 
+        double smallArcRadius=  smallArcRadius(width, formIndication);
         int scaleSmallArcRadius = scaleSmallArcRadius(width, formIndication, scale);
         int scaleLargeArcRadius = scaleLargeArcRadius(width, formIndication, scale);
 
@@ -32,7 +33,7 @@ public class GraphicsExcavation {
         double betaDegree = betaDegree(width, formIndication);
 
         g2d.drawLine((int) (Math.round(-scaleWidth / 2.0)), 0, (int) (Math.round(-scaleWidth / 2.0)), -(scaleHeight - scaleArchHeight)); //Левая стенка
-        g2d.drawArc((int) (Math.round(-scaleWidth / 2.0)), -(scaleHeight - scaleArchHeight) - scaleSmallArcRadius, 2 * scaleSmallArcRadius, 2 * scaleSmallArcRadius, (int) Math.round(90 + alphaDegree), (int) Math.round(betaDegree)); //Левая малая дуга
+        g2d.drawArc((int) (Math.round(-scaleWidth / 2.0)), -scaleHeight + scaleArchHeight - scaleSmallArcRadius, 2 * scaleSmallArcRadius, 2 * scaleSmallArcRadius, (int) Math.round(90 + alphaDegree), (int) Math.round(betaDegree)); //Левая малая дуга
         g2d.drawArc(-scaleLargeArcRadius, -scaleHeight, 2 * scaleLargeArcRadius, 2 * scaleLargeArcRadius, (int) Math.round(betaDegree), (int) Math.round(2 * alphaDegree)); //Большая дуга
         g2d.drawArc((int) (Math.round(scaleWidth / 2.0)) - 2 * scaleSmallArcRadius, -(scaleHeight - scaleArchHeight) - scaleSmallArcRadius, 2 * scaleSmallArcRadius, 2 * scaleSmallArcRadius, 0, (int) Math.round(betaDegree)); //Правая малая дуга
         g2d.drawLine((int) (Math.round(scaleWidth / 2.0)), 0, (int) (Math.round(scaleWidth / 2.0)), -(scaleHeight - scaleArchHeight)); //Правая стенка

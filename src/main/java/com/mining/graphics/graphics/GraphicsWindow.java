@@ -298,8 +298,10 @@ public class GraphicsWindow extends JFrame {
         // Рисуем план сопряжения
         g2d.translate(500, 400);
 
-        //graphicsAnchorsIntersection.testDrawAllAnchorsPlanRounding3(g2d);
+        g2d.setColor(new Color(187, 195, 204));
+        graphicsAnchorsIntersection.testDrawAllAnchorsPlanRounding3(g2d);
 
+        g2d.setColor(Color.BLACK);
         graphicsIntersection.drawPlanIntersection3(g2d);
         graphicsIntersection.drawProfileIntersection3(g2d);
 
