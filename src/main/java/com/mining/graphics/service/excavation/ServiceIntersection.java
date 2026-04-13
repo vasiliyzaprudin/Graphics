@@ -1,6 +1,7 @@
 package com.mining.graphics.service.excavation;
 
 import com.mining.graphics.graphics.GraphicsParameters;
+import com.mining.graphics.service.GeneralService;
 
 import static com.mining.graphics.service.excavation.ServiceExcavation.largeArcRadius;
 
@@ -190,10 +191,11 @@ public class ServiceIntersection {
     public static double calculateAngleBetweenCenterRoofAndPointContactRadians(double xPointIntersectionExcavationRight, double yPointIntersectionExcavationRight,
                                                                                double xPointIntersectionExcavationLeft, double yPointIntersectionExcavationLeft,
                                                                                double xStartRounding2, double height1, double width1, double formIndicationIntersection, double height2) {
-        double increasedWidth1 = distanceBetweenPoint(xPointIntersectionExcavationRight, yPointIntersectionExcavationRight, xPointIntersectionExcavationLeft, yPointIntersectionExcavationLeft);
-        double formIndicationHeightIntersection1 = (increasedWidth1 / (2.0 * width1)) + 0.5;
+        double increasedWidth = calculateIncreasedWidth(xPointIntersectionExcavationRight,yPointIntersectionExcavationRight, xPointIntersectionExcavationLeft, yPointIntersectionExcavationLeft);
+        double formIndicationHeightIntersection1 = calculateFormIndicationHeightIntersection(xPointIntersectionExcavationRight, yPointIntersectionExcavationRight, xPointIntersectionExcavationLeft, yPointIntersectionExcavationLeft, width1);
         double increasedHeight1 = height1 * formIndicationHeightIntersection1;
-        double largeArcRadius = largeArcRadius(width1, formIndicationIntersection);
+
+        double largeArcRadius = largeArcRadius(increasedWidth, formIndicationIntersection);
 
         double coordinateCenterLargeCircleX = 0.0;
         double coordinateCenterLargeCircleY = -increasedHeight1 + largeArcRadius;
@@ -203,8 +205,7 @@ public class ServiceIntersection {
 
         double hi = Math.acos(largeArcRadius / distanceBetweenPoint(coordinateCenterLargeCircleX, coordinateCenterLargeCircleY, coordinateStartRoofExcavation2X, coordinateStartRoofExcavation2Y));
         double psi = Math.atan(Math.abs((coordinateStartRoofExcavation2Y - coordinateCenterLargeCircleY) / (coordinateStartRoofExcavation2X - coordinateCenterLargeCircleX)));
-
-        return Math.PI / 2 - hi - psi;
+        return (Math.PI / 2 - hi - psi);
     }
 
     //@formatter:on

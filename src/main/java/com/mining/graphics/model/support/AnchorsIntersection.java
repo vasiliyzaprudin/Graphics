@@ -6,9 +6,9 @@ public class AnchorsIntersection {
     private double lengthAnchor2 = 1.8;
     private double lengthAnchor3 = 1.8;
 
-    private double step1 = 1.1;
-    private double step2 = 1.1;
-    private double step3 = 0.8;
+    private double step1 = 1.0;
+    private double step2 = 1.0;
+    private double step3 = 1.0;
 
     private double distanceBetweenRows1 = 1.0;
     private double distanceBetweenRows2 = 1.0;

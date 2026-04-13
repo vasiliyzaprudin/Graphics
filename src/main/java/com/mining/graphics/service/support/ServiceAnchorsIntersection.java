@@ -218,6 +218,7 @@ public class ServiceAnchorsIntersection {
         double largeArcRadius = ServiceExcavation.largeArcRadius(increasedWidth, formIndicationIntersection);
 
         double arcLength = largeArcRadius * angleBetweenCenterRoofAndPointContactRadians; //Длина дуги
+        System.out.println("arcLength = " + arcLength);
 
         double lineLength = GeneralService.distanceBetweenPoint(xPointContact, yPointContact, xEndIntersectionRoof, yEndIntersectionRoof); //Длина прямолинейного отрезка
 
@@ -247,6 +248,8 @@ public class ServiceAnchorsIntersection {
 
         double remainderArc = arcLength - (i - 1) * distanceBetweenRows; //остаток дуги
         System.out.println(arcLength - (i - 1) * distanceBetweenRows);
+        double d = GeneralService.distanceBetweenPoint(xPointContact, yPointContact, 0, -increasedHeight);
+        System.out.println("d = " + d);
         double omega = Math.atan(Math.abs((yEndIntersectionRoof - yPointContact) / (xEndIntersectionRoof - xPointContact))); //угол наклона прямолинейного отрезка кровли отностительно оси X
 
         //определение координат установки анкеров по прямолинейному участку кровли сопряжения

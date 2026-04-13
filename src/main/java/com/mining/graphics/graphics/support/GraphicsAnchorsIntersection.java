@@ -178,6 +178,7 @@ public class GraphicsAnchorsIntersection {
                 anchorsIntersection.getDistanceBetweenRows2(),
                 anchorsIntersection.getLengthAnchor2());
         drawAnchorsProjection (g2d, anchorProjection2);
+
     }
     // @formatter:on
 
@@ -192,6 +193,7 @@ public class GraphicsAnchorsIntersection {
             int y2 = (int) Math.round(anchorProjection[i][3] * scale);
             g.drawLine(x1, y1, x2, y2);
         }
+        g.drawLine((int)(Math.round(modelCoordinatesIntersection.getXCalculateCoordinatePointContact21()*scale)), (int)(Math.round(modelCoordinatesIntersection.getYCalculateCoordinatePointContact21()*scale)), 0,0);
         g.translate(0, -distance);
     }
 
