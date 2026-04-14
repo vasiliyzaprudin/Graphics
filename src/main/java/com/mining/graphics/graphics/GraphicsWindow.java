@@ -140,7 +140,7 @@ public class GraphicsWindow extends JFrame {
 
         // Создаем панели управления
         controlPanelExcavation = new ControlPanelExcavation(modelExcavation, anchorsExcavation, drawingPanel);
-        controlPanelIntersection = new ControlPanelIntersection(modelIntersection, modelCoordinatesIntersection, anchorsExcavation, drawingPanel);
+        controlPanelIntersection = new ControlPanelIntersection(modelIntersection, modelCoordinatesIntersection, anchorsIntersection, drawingPanel);
 
         // Создаем панель для переключения режимов со стилизованными кнопками
         JPanel modePanel = createModePanel();

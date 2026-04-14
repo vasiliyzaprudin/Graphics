@@ -255,7 +255,6 @@ public class ServiceAnchorsIntersection {
         int i, j, k;
 
         double largeArcRadius = ServiceExcavation.largeArcRadius(increasedWidth, formIndicationIntersection);
-        ;
 
         double arcLength = largeArcRadius * angleBetweenCenterRoofAndPointContactRadians; //Длина дуги
 
@@ -270,23 +269,18 @@ public class ServiceAnchorsIntersection {
 
         double xStartAnchor;
         double yStartAnchor;
+        double beta;
 
         if ((numberCrossSectionAnchors + 1) % 2 == 0) {
             // Анкер по центру
+            beta = 0.0;
             xStartAnchor = 0.0; //координата X установки первого анкера по дуге
             yStartAnchor = increasedHeight; //координата Y установки первого анкера по дуге
         } else {
             // Анкер со смещением
-
-            double omega = Math.asin(distanceBetweenRows / (2.0 * largeArcRadius));
-            if (xEndIntersectionRoof >= 0) {
-                xStartAnchor = largeArcRadius * Math.sin(omega);
-                yStartAnchor = increasedHeight - largeArcRadius + largeArcRadius * Math.cos(omega);
-            }
-            else {
-                xStartAnchor = -largeArcRadius * Math.sin(omega);
-                yStartAnchor = increasedHeight - largeArcRadius + largeArcRadius * Math.cos(omega);
-            }
+            beta = Math.asin(distanceBetweenRows / (2.0 * largeArcRadius));
+            xStartAnchor = largeArcRadius * Math.sin(beta);
+            yStartAnchor = increasedHeight - largeArcRadius + largeArcRadius * Math.cos(beta);
         }
 
         double[][] anchorProjectionXY = new double[numberAnchorProjection + 1][4];
@@ -301,15 +295,21 @@ public class ServiceAnchorsIntersection {
             }
         } else {
             for (i = 0, j = 0; arcLength >= j * distanceBetweenRows; i++, j++) {
-                anchorProjectionXY[i][0] = xStartAnchor - largeArcRadius * Math.sin(j * distanceBetweenRows / largeArcRadius);
+                anchorProjectionXY[i][0] = -xStartAnchor - largeArcRadius * Math.sin(j * distanceBetweenRows / largeArcRadius);
                 anchorProjectionXY[i][1] = -yStartAnchor * Math.cos(j * distanceBetweenRows / largeArcRadius);
-                anchorProjectionXY[i][2] = xStartAnchor - (largeArcRadius + lengthAnchor) * Math.sin(j * distanceBetweenRows / largeArcRadius);
+                anchorProjectionXY[i][2] = -xStartAnchor - (largeArcRadius + lengthAnchor) * Math.sin(j * distanceBetweenRows / largeArcRadius);
                 anchorProjectionXY[i][3] = (-yStartAnchor - lengthAnchor) * Math.cos(j * distanceBetweenRows / largeArcRadius);
             }
         }
 
-        double remainderArc = arcLength - (i - 1) * distanceBetweenRows; //остаток дуги
-
+        double remainderArc;
+        if ((numberCrossSectionAnchors + 1) % 2 == 0) {
+            // Анкер по центру
+            remainderArc = arcLength - (i - 1) * distanceBetweenRows; //остаток дуги
+        } else {
+            // Анкер со смещением
+            remainderArc = arcLength - distanceBetweenRows / 2.0 - (i - 1) * distanceBetweenRows; //остаток дуги
+        }
         double omega = Math.atan(Math.abs((yEndIntersectionRoof - yPointContact) / (xEndIntersectionRoof - xPointContact))); //угол наклона прямолинейного отрезка кровли отностительно оси X
 
         //определение координат установки анкеров по прямолинейному участку кровли сопряжения
