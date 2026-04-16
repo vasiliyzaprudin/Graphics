@@ -28,6 +28,8 @@ public class CalculateCoordinatesAnchorsExcavation {
     private double stepWallAnchorsX;
     private double stepWallAnchorsY;
 
+
+
     public CalculateCoordinatesAnchorsExcavation(ServiceExcavation excavationService,
                                                  ServiceAnchorsExcavation anchorsService) {
         this.excavationService = excavationService;
@@ -95,7 +97,6 @@ public class CalculateCoordinatesAnchorsExcavation {
         double secondCrossSectionAnchorY = crossSectionAnchorsXY[1][1];
         anchors.setSecondCrossSectionAnchorY(secondCrossSectionAnchorY);
     }
-
 
     /**
      * Расчет с центральным анкером.

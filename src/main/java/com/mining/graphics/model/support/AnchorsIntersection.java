@@ -18,6 +18,11 @@ public class AnchorsIntersection {
     private double distanceLowerAnchor2 = 1.8;
     private double distanceLowerAnchor3 = 1.8;
 
+    private double plateSize = 0.15;
+
+    private double[][] basePlateXY2;
+    private double[][] basePlateXY3;
+
     // @formatter:off
     public double getLengthAnchor1() { return lengthAnchor1; }
     public void setLengthAnchor1(double lengthAnchor1) { this.lengthAnchor1 = lengthAnchor1; }
@@ -48,6 +53,24 @@ public class AnchorsIntersection {
     public void setDistanceLowerAnchor2(double distanceLowerAnchor2) { this.distanceLowerAnchor2 = distanceLowerAnchor2; }
     public double getDistanceLowerAnchor3() { return distanceLowerAnchor3; }
     public void setDistanceLowerAnchor3(double distanceLowerAnchor3) { this.distanceLowerAnchor3 = distanceLowerAnchor3; }
+
+    public double getPlateSize() {
+        return plateSize;
+    }
+
+    public double[][] getBasePlateXY2() {
+        return basePlateXY2;
+    }
+    public void setBasePlateXY2(double[][] basePlateXY2) {
+        this.basePlateXY2 = basePlateXY2;
+    }
+
+    public double[][] getBasePlateXY3() {
+        return basePlateXY3;
+    }
+    public void setBasePlateXY3(double[][] basePlateXY3) {
+        this.basePlateXY3 = basePlateXY3;
+    }
 
     // @formatter:on
 }

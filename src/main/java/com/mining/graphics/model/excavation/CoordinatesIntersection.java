@@ -1,5 +1,8 @@
 package com.mining.graphics.model.excavation;
 
+import com.mining.graphics.service.GeneralService;
+
+import static com.mining.graphics.service.GeneralService.toScaleParameter;
 import static com.mining.graphics.service.excavation.ServiceIntersection.*;
 
 public class CoordinatesIntersection {

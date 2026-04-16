@@ -38,5 +38,6 @@ public class CoordinatesIntersectionLine {
     public double getYStartRounding2() { return yStartRounding2; }
     public double getXStope2() { return xStope2; }
     public double getYStope2() { return yStope2; }
+
     // @formatter:on
 }

@@ -341,13 +341,46 @@ public class ServiceAnchorsIntersection {
         }
         return anchorProjectionXY;
     }
-//    public static double[][] calculateCoordinatesBasePlateProjection (){
-//
-//        double[][] BasePlateProjectionXY = new double[][];
-//
-//        return BasePlateProjectionXY;
-//    }
+
+    public static double[][] calculateCoordinatesBasePlate(double[][] crossSectionAnchors,
+                                                           double[][] projectionAnchors,
+                                                           double plateSize,
+                                                           double increasedWidth) {
+
+        java.util.List<double[]> filteredProjections = new java.util.ArrayList<>();
+        for (double[] anchor : projectionAnchors) {
+            double x = anchor[0];
+            if (x >= increasedWidth/2.0 || x <= -increasedWidth/2.0) {
+                filteredProjections.add(anchor);
+            }
+        }
+
+        double[][] filteredProjectionAnchors = filteredProjections.toArray(new double[0][4]);
+
+        int numberCrossSectionAnchors = crossSectionAnchors.length;
+        int numberProjectionAnchors = filteredProjectionAnchors.length;
+
+        if (numberProjectionAnchors == 0) {
+            return new double[0][2];
+        }
+
+        int numberBasePlateInRow;
+        if (numberCrossSectionAnchors % 2 == 0) {
+            numberBasePlateInRow = numberCrossSectionAnchors / 2;
+        } else {
+            numberBasePlateInRow = (int) Math.floor(numberCrossSectionAnchors / 2.0);
+        }
+
+        int numberBasePlateTotal = numberBasePlateInRow * numberProjectionAnchors;
+        double[][] basePlateXY = new double[numberBasePlateTotal][2];
+
+        int index = 0;
+        for (int k = 0; k < numberProjectionAnchors; k++) {
+            for (int j = 0; j < numberBasePlateInRow; j++, index++) {
+                basePlateXY[index][0] = filteredProjectionAnchors[k][0] - plateSize / 2.0;
+                basePlateXY[index][1] = crossSectionAnchors[j][1] - plateSize / 2.0;
+            }
+        }
+        return basePlateXY;
+    }
 }
-
-
-

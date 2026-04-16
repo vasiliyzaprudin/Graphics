@@ -106,7 +106,7 @@ public class GraphicsWindow extends JFrame {
         graphicsShotcreteExcavation = new GraphicsShotcreteExcavation(modelExcavation, shotcreteExcavation, serviceExcavation, serviceShotcreteExcavation);
 
         graphicsIntersection = new GraphicsIntersection(modelIntersection, modelCoordinatesIntersection, graphicsExcavation);
-        graphicsAnchorsIntersection = new GraphicsAnchorsIntersection(modelIntersection, modelCoordinatesIntersection, anchorsIntersection, modelTest);
+        graphicsAnchorsIntersection = new GraphicsAnchorsIntersection(modelIntersection, modelCoordinatesIntersection, anchorsIntersection, modelTest, anchorsRenderer);
 
         graphicsDimension = new GraphicsDimension(modelExcavation, anchorsExcavation, shotcreteExcavation, serviceExcavation);
 
@@ -309,6 +309,8 @@ public class GraphicsWindow extends JFrame {
         graphicsAnchorsIntersection.drawAllAnchorsPlanLine3(g2d);
 
         graphicsAnchorsIntersection.drawAllAnchorsProjectionLine3(g2d);
+
+        graphicsAnchorsIntersection.drawBasePlateProjection(g2d);
 
         g2d.translate(-500, -400);
     }

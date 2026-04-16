@@ -119,14 +119,14 @@ public class GraphicsAnchorsExcavation {
 
         int scale = GraphicsParameters.GRAPHICS_EXCAVATION_SCALE;
         int distance = GraphicsParameters.DISTANCE_BETWEEN_CROSS_AND_LONG_SECTION;
-        double plateSize = anchorsExcavation.getPlateSize();
 
+        double plateSize = anchorsExcavation.getPlateSize();
+        int size = (int) Math.round(plateSize * scale);
         g.translate(distance, 0);
 
         for (int i = 0; i < basePlateXY.length; i++) {
             int x = (int) Math.round(basePlateXY[i][0] * scale);
             int y = (int) Math.round(basePlateXY[i][1] * scale);
-            int size = (int) Math.round(plateSize * scale);
             g.drawRect(x, y, size, size);
         }
         g.translate(-distance, 0);

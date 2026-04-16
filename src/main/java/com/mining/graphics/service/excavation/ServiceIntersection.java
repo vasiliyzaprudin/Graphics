@@ -15,10 +15,6 @@ public class ServiceIntersection {
         return (int) (Math.round(angle * 180 / Math.PI));
     }
 
-    public static int toScaleParameter(double parameter) {
-        int scale = GraphicsParameters.GRAPHICS_INTERSECTION_SCALE;
-        return (int) (Math.round(parameter * scale));
-    }
 
     /**
      * Этот метод считает координату X точки пересечения боков горных выработок.

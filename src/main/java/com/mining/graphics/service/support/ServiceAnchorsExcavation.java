@@ -1,7 +1,7 @@
 package com.mining.graphics.service.support;
 
 public class ServiceAnchorsExcavation {
-    //Методы расчета шага установки анкеров по дугам большого радиуса
+
     public double calculateStepLargeArcX(int j, double step, double largeArcRadius, double omega) {
         return largeArcRadius * Math.sin(omega + j * step / largeArcRadius);
     }
@@ -18,8 +18,6 @@ public class ServiceAnchorsExcavation {
         return largeArcRadius - (largeArcRadius + lengthAnch) * Math.cos(omega + j * step / largeArcRadius);
     }
 
-
-    //Методы расчета шага установки анкеров по дугам малого радиуса
     public double calculateStepSmallArcX(int j, double width, double smallArcRadius, double step, double phi, double betaRadian) {
         return width / 2.0 - smallArcRadius + smallArcRadius * Math.cos(betaRadian - phi - j * step / smallArcRadius);
     }
@@ -36,8 +34,6 @@ public class ServiceAnchorsExcavation {
         return -height + archHeight - (smallArcRadius + lengthAnch) * Math.sin(betaRadian - phi - j * step / smallArcRadius);
     }
 
-
-    //Методы расчета шага установки анкеров по боку горной выработки
     public double calculateStepWallX(double width) {
         return width / 2.0;
     }

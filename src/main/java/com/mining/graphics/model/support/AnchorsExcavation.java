@@ -6,7 +6,7 @@ public class AnchorsExcavation {
     private double step = 0.9;
     private double distanceBetweenRows = 0.9;
     private double plateSize = 0.15;
-    private double distanceLowerAnchor = 1.8; //максимальное расстояние от почвы выработки до точки установки нижнего анкера
+    private double distanceLowerAnchor = 1.8;
 
     private double[][] crossSectionAnchorsXY;
     private double[][] longSectionAnchorsXY;
@@ -49,23 +49,6 @@ public class AnchorsExcavation {
         }
         public double getEndY() {
             return endY;
-        }
-    }
-
-    public static class BasePlatePoint {
-        private final double x;
-        private final double y;
-
-        public BasePlatePoint(double x, double y) {
-            this.x = x;
-            this.y = y;
-        }
-
-        public double getX() {
-            return x;
-        }
-        public double getY() {
-            return y;
         }
     }
 
