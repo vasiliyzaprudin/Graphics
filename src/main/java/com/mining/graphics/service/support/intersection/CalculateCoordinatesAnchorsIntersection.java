@@ -1,12 +1,14 @@
-package com.mining.graphics.service.support;
+package com.mining.graphics.service.support.intersection;
 
-import com.mining.graphics.model.excavation.CoordinatesIntersection;
+import com.mining.graphics.model.coordinates.CoordinatesIntersection;
 import com.mining.graphics.model.excavation.ModelExcavation;
 import com.mining.graphics.model.excavation.ModelIntersection;
-import com.mining.graphics.model.support.AnchorsExcavation;
-import com.mining.graphics.model.support.AnchorsIntersection;
+import com.mining.graphics.model.support.excavation.AnchorsExcavation;
+import com.mining.graphics.model.support.intersection.AnchorsIntersection;
 import com.mining.graphics.model.test.ModelTest;
 import com.mining.graphics.service.excavation.ServiceExcavation;
+import com.mining.graphics.service.support.excavation.CalculateCoordinatesAnchorsExcavation;
+import com.mining.graphics.service.support.excavation.ServiceAnchorsExcavation;
 
 
 public class CalculateCoordinatesAnchorsIntersection {

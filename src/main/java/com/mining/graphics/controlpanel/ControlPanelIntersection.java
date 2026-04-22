@@ -1,8 +1,9 @@
 package com.mining.graphics.controlpanel;
 
-import com.mining.graphics.model.excavation.CoordinatesIntersection;
+import com.mining.graphics.model.coordinates.CoordinatesIntersection;
 import com.mining.graphics.model.excavation.ModelIntersection;
-import com.mining.graphics.model.support.AnchorsIntersection;
+import com.mining.graphics.model.support.intersection.AnchorsIntersection;
+import com.mining.graphics.model.support.intersection.ShotcreteIntersection;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -12,6 +13,8 @@ public class ControlPanelIntersection extends JPanel {
 
     private final ModelIntersection model;
     private final CoordinatesIntersection modelCoordinates;
+    private final CoordinatesIntersection shotcreteCoordinates;
+    private final ShotcreteIntersection shotcreteIntersection;
     private final AnchorsIntersection anchors;
     private final JPanel drawingPanel;
 
@@ -45,10 +48,13 @@ public class ControlPanelIntersection extends JPanel {
     private static final Color BUTTON_BG = new Color(85, 109, 88);
     private static final Color BUTTON_FG = Color.WHITE;
 
-    public ControlPanelIntersection(ModelIntersection model, CoordinatesIntersection modelCoordinates, AnchorsIntersection anchors,
+    public ControlPanelIntersection(ModelIntersection model, CoordinatesIntersection modelCoordinates, CoordinatesIntersection shotcreteCoordinates,
+                                    ShotcreteIntersection shotcreteIntersection, AnchorsIntersection anchors,
                                     JPanel drawingPanel) {
         this.model = model;
         this.modelCoordinates = modelCoordinates;
+        this.shotcreteCoordinates = shotcreteCoordinates;
+        this.shotcreteIntersection = shotcreteIntersection;
         this.anchors = anchors;
         this.drawingPanel = drawingPanel;
 
@@ -229,7 +235,11 @@ public class ControlPanelIntersection extends JPanel {
                 model.setWidth3(width2);
                 model.setHeight3(height2);
                 model.setFormIndicationIntersection(formIntersection);
+
                 modelCoordinates.updateCoordinates();
+
+                shotcreteCoordinates.updateCoordinates();
+
             } else {
                 errorMessage.append("Ошибка в параметрах выработок!\n");
                 errorMessage.append("Ширина и высота должны быть в диапазоне 2-8 м\n");

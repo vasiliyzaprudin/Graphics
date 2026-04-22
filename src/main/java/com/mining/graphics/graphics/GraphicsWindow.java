@@ -8,18 +8,21 @@ import com.mining.graphics.graphics.drawing.DrawingMouse;
 import com.mining.graphics.graphics.elementssupport.AnchorsRenderer;
 import com.mining.graphics.graphics.excavation.GraphicsExcavation;
 import com.mining.graphics.graphics.excavation.GraphicsIntersection;
-import com.mining.graphics.graphics.support.*;
-import com.mining.graphics.model.excavation.CoordinatesIntersection;
+import com.mining.graphics.graphics.support.excavation.GraphicsAnchorsExcavation;
+import com.mining.graphics.graphics.support.excavation.GraphicsMeshExcavation;
+import com.mining.graphics.graphics.support.excavation.GraphicsShotcreteExcavation;
+import com.mining.graphics.graphics.support.intersection.GraphicsAnchorsIntersection;
+import com.mining.graphics.graphics.support.intersection.GraphicsShotcreteIntersection;
+import com.mining.graphics.model.coordinates.CoordinatesIntersection;
 import com.mining.graphics.model.excavation.ModelExcavation;
 import com.mining.graphics.model.excavation.ModelIntersection;
-import com.mining.graphics.model.support.AnchorsExcavation;
-import com.mining.graphics.model.support.AnchorsIntersection;
-import com.mining.graphics.model.support.MeshExcavation;
-import com.mining.graphics.model.support.ShotcreteExcavation;
+import com.mining.graphics.model.support.excavation.AnchorsExcavation;
+import com.mining.graphics.model.support.excavation.MeshExcavation;
+import com.mining.graphics.model.support.excavation.ShotcreteExcavation;
+import com.mining.graphics.model.support.intersection.AnchorsIntersection;
+import com.mining.graphics.model.support.intersection.ShotcreteIntersection;
 import com.mining.graphics.model.test.ModelTest;
 import com.mining.graphics.service.excavation.ServiceExcavation;
-import com.mining.graphics.service.support.ServiceMeshExcavation;
-import com.mining.graphics.service.support.ServiceShotcreteExcavation;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -53,14 +56,14 @@ public class GraphicsWindow extends JFrame {
 
     private final ModelIntersection modelIntersection;
     private final CoordinatesIntersection modelCoordinatesIntersection;
+    private final CoordinatesIntersection shotcreteCoordinatesIntersection;
     private final AnchorsIntersection anchorsIntersection;
+    private final ShotcreteIntersection shotcreteIntersection;
 
     private final AnchorsRenderer anchorsRenderer;
 
     // Сервисы вычислений
     private final ServiceExcavation serviceExcavation;
-    private final ServiceMeshExcavation serviceMeshExcavation;
-    private final ServiceShotcreteExcavation serviceShotcreteExcavation;
 
     // Графические классы
     private final GraphicsExcavation graphicsExcavation;
@@ -71,6 +74,7 @@ public class GraphicsWindow extends JFrame {
 
     private final GraphicsIntersection graphicsIntersection;
     private final GraphicsAnchorsIntersection graphicsAnchorsIntersection;
+    private final GraphicsShotcreteIntersection graphicsShotcreteIntersection;
 
     //Тесты
     private final ModelTest modelTest;
@@ -91,22 +95,23 @@ public class GraphicsWindow extends JFrame {
 
         modelIntersection = new ModelIntersection();
         modelCoordinatesIntersection = new CoordinatesIntersection(modelIntersection);
+        shotcreteIntersection = new ShotcreteIntersection();
+        shotcreteCoordinatesIntersection = new CoordinatesIntersection(modelIntersection, shotcreteIntersection);  // Добавлено
         anchorsIntersection = new AnchorsIntersection();
 
         anchorsRenderer = new AnchorsRenderer();
 
         serviceExcavation = new ServiceExcavation();
-        serviceMeshExcavation = new ServiceMeshExcavation();
-        serviceShotcreteExcavation = new ServiceShotcreteExcavation();
 
         // Инициализация графических классов
         graphicsExcavation = new GraphicsExcavation(modelExcavation);
         graphicsAnchors = new GraphicsAnchorsExcavation(modelExcavation, anchorsExcavation, anchorsRenderer);
-        graphicsMeshExcavation = new GraphicsMeshExcavation(modelExcavation, meshExcavation, serviceExcavation, serviceMeshExcavation);
-        graphicsShotcreteExcavation = new GraphicsShotcreteExcavation(modelExcavation, shotcreteExcavation, serviceExcavation, serviceShotcreteExcavation);
+        graphicsMeshExcavation = new GraphicsMeshExcavation(modelExcavation, meshExcavation);
+        graphicsShotcreteExcavation = new GraphicsShotcreteExcavation(modelExcavation, shotcreteExcavation);
 
         graphicsIntersection = new GraphicsIntersection(modelIntersection, modelCoordinatesIntersection, graphicsExcavation);
         graphicsAnchorsIntersection = new GraphicsAnchorsIntersection(modelIntersection, modelCoordinatesIntersection, anchorsIntersection, modelTest, anchorsRenderer);
+        graphicsShotcreteIntersection = new GraphicsShotcreteIntersection(shotcreteCoordinatesIntersection);
 
         graphicsDimension = new GraphicsDimension(modelExcavation, anchorsExcavation, shotcreteExcavation, serviceExcavation);
 
@@ -138,9 +143,16 @@ public class GraphicsWindow extends JFrame {
         drawingPanel.setDoubleBuffered(true);
         drawingPanel.setPreferredSize(new Dimension(1700, 1300));
 
-        // Создаем панели управления
+        // Создаем панели управления (передаем shotcreteCoordinatesIntersection и shotcreteIntersection)
         controlPanelExcavation = new ControlPanelExcavation(modelExcavation, anchorsExcavation, drawingPanel);
-        controlPanelIntersection = new ControlPanelIntersection(modelIntersection, modelCoordinatesIntersection, anchorsIntersection, drawingPanel);
+        controlPanelIntersection = new ControlPanelIntersection(
+                modelIntersection,
+                modelCoordinatesIntersection,
+                shotcreteCoordinatesIntersection,  // Добавлено
+                shotcreteIntersection,             // Добавлено
+                anchorsIntersection,
+                drawingPanel
+        );
 
         // Создаем панель для переключения режимов со стилизованными кнопками
         JPanel modePanel = createModePanel();
@@ -176,7 +188,6 @@ public class GraphicsWindow extends JFrame {
         modePanel.setBackground(PANEL_BG);
         modePanel.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(238, 234, 226)), BorderFactory.createEmptyBorder(10, 10, 10, 10)));
 
-        // Создаем стилизованные кнопки как у "Применить"
         excavationModeButton = createModeButton("Одиночная выработка", true);
         intersectionModeButton = createModeButton("Сопряжение выработок", false);
         anchorModeButton = createModeButton("Анкер", false);
@@ -195,7 +206,6 @@ public class GraphicsWindow extends JFrame {
         button.setForeground(BUTTON_FG);
         button.setFocusPainted(false);
 
-        // Устанавливаем размеры как у кнопки "Применить"
         button.setPreferredSize(new Dimension(250, 40));
         button.setMinimumSize(new Dimension(250, 40));
         button.setMaximumSize(new Dimension(250, 40));
@@ -203,7 +213,6 @@ public class GraphicsWindow extends JFrame {
         button.setBorder(BorderFactory.createEmptyBorder(5, 25, 5, 25));
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-        // Обработчик нажатия
         button.addActionListener(e -> {
             if (button == excavationModeButton) {
                 switchMode(1);
@@ -220,12 +229,9 @@ public class GraphicsWindow extends JFrame {
     }
 
     private void updateButtonStates(JButton activeButton) {
-        // Сбрасываем цвет всех кнопок
         excavationModeButton.setBackground(BUTTON_BG);
         intersectionModeButton.setBackground(BUTTON_BG);
         anchorModeButton.setBackground(BUTTON_BG);
-
-        // Устанавливаем активный цвет для нажатой кнопки
         activeButton.setBackground(new Color(60, 60, 60));
     }
 
@@ -236,18 +242,15 @@ public class GraphicsWindow extends JFrame {
     }
 
     private void updateControlPanel() {
-        // Удаляем текущую панель управления, если она есть
         if (currentControlPanel != null) {
             remove(currentControlPanel);
         }
 
-        // Выбираем новую панель в зависимости от режима
         switch (currentMode) {
             case 1:
                 currentControlPanel = controlPanelExcavation;
                 break;
             case 2:
-                // Для режима анкера используем панель одиночной выработки
                 currentControlPanel = controlPanelExcavation;
                 break;
             case 3:
@@ -255,10 +258,7 @@ public class GraphicsWindow extends JFrame {
                 break;
         }
 
-        // Добавляем новую панель
         add(currentControlPanel, BorderLayout.WEST);
-
-        // Обновляем отображение
         revalidate();
         repaint();
     }
@@ -283,7 +283,6 @@ public class GraphicsWindow extends JFrame {
         graphicsMeshExcavation.drawCrossSectionExcavationMesh(g2d);
         graphicsMeshExcavation.drawLongSectionExcavationMesh(g2d);
 
-        // Отрисовка размеров
         g2d.setColor(Color.BLACK);
         graphicsDimension.drawCrossSectionDimensions(g2d);
 
@@ -294,12 +293,7 @@ public class GraphicsWindow extends JFrame {
     }
 
     private void drawIntersection(Graphics2D g2d) {
-
-        // Рисуем план сопряжения
         g2d.translate(500, 400);
-
-        g2d.setColor(new Color(187, 195, 204));
-        graphicsAnchorsIntersection.testDrawAllAnchorsPlanRounding3(g2d);
 
         g2d.setColor(Color.BLACK);
         graphicsIntersection.drawPlanIntersection3(g2d);
@@ -307,10 +301,11 @@ public class GraphicsWindow extends JFrame {
 
         graphicsAnchorsIntersection.drawAllAnchorsPlanRounding3(g2d);
         graphicsAnchorsIntersection.drawAllAnchorsPlanLine3(g2d);
-
         graphicsAnchorsIntersection.drawAllAnchorsProjectionLine3(g2d);
-
         graphicsAnchorsIntersection.drawBasePlateProjection(g2d);
+
+        // Рисуем торкретбетон (внутренний контур)
+        graphicsShotcreteIntersection.drawShotcretePlanIntersection3(g2d);
 
         g2d.translate(-500, -400);
     }
@@ -322,23 +317,19 @@ public class GraphicsWindow extends JFrame {
         int scale = 300;
         int anchorLength = (int) Math.round(anchorLengthMeters * scale);
 
-        // Рисуем анкер с детализацией
         g2d.setColor(Color.BLACK);
         g2d.setStroke(new BasicStroke(2));
 
-        // Подпись
         g2d.setFont(new Font("Arial", Font.BOLD, 14));
         g2d.drawString("Деталь анкерного крепления", 50, -50);
         g2d.setFont(new Font("Arial", Font.PLAIN, 12));
 
-        // Рисуем два типа анкеров
         g2d.drawString("Анкер распорного типа:", 50, 20);
         anchorsRenderer.drawExpansionAnchor(g2d, 50, 30, anchorLength, 30);
 
         g2d.drawString("Анкер с монолитными составами:", 50, 120);
         anchorsRenderer.drawAnchorMonolithicCompositions(g2d, 50, 130, anchorLength, 130);
 
-        // Рисуем размерную линию
         g2d.setColor(Color.GRAY);
         g2d.drawLine(50, -10, 50 + anchorLength, -10);
         g2d.drawLine(50, -15, 50, -5);

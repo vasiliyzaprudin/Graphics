@@ -1,4 +1,4 @@
-package com.mining.graphics.model.support;
+package com.mining.graphics.model.support.intersection;
 
 public class AnchorsIntersection {
 

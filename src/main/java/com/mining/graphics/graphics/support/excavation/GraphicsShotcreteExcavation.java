@@ -1,10 +1,10 @@
-package com.mining.graphics.graphics.support;
+package com.mining.graphics.graphics.support.excavation;
 
 import com.mining.graphics.graphics.GraphicsParameters;
 import com.mining.graphics.model.excavation.ModelExcavation;
-import com.mining.graphics.model.support.ShotcreteExcavation;
+import com.mining.graphics.model.support.excavation.ShotcreteExcavation;
 import com.mining.graphics.service.excavation.ServiceExcavation;
-import com.mining.graphics.service.support.ServiceShotcreteExcavation;
+import com.mining.graphics.service.support.excavation.ServiceShotcreteExcavation;
 
 import java.awt.*;
 
@@ -14,43 +14,31 @@ public class GraphicsShotcreteExcavation extends ServiceShotcreteExcavation {
 
     private final ModelExcavation modelExcavation;
     private final ShotcreteExcavation shotcreteExcavation;
-    private final ServiceExcavation serviceExcavation;
-    private final ServiceShotcreteExcavation serviceShotcreteExcavation;
 
-    public GraphicsShotcreteExcavation(ModelExcavation modelExcavation,
-                                       ShotcreteExcavation shotcreteExcavation,
-                                       ServiceExcavation serviceExcavation,
-                                       ServiceShotcreteExcavation serviceShotcreteExcavation) {
+    public GraphicsShotcreteExcavation(ModelExcavation modelExcavation, ShotcreteExcavation shotcreteExcavation) {
         this.modelExcavation = modelExcavation;
         this.shotcreteExcavation = shotcreteExcavation;
-        this.serviceExcavation = serviceExcavation;
-        this.serviceShotcreteExcavation = serviceShotcreteExcavation;
     }
 
-
-
-    /**
-     * Это метод изображения набрызгбетона на поперечном сечении горной выработки.
-     * Начало координат находится в центре почвы горной выработки.
-     */
     public void drawCrossSectionExcavationShotcrete(Graphics g) {
+        int scale = GraphicsParameters.GRAPHICS_EXCAVATION_SCALE;
 
         double width = modelExcavation.getWidth();
         double height = modelExcavation.getHeight();
+        double formIndication = modelExcavation.getFormIndication();
+
         double thicknessShorcrete = shotcreteExcavation.getThicknessShorcrete();
 
-        double widthWithShotcrete = serviceShotcreteExcavation.getWidthExcavationWithShotcrete(width, thicknessShorcrete);
-        double heightWithShotcrete = serviceShotcreteExcavation.getHeightExcavationWithShotcrete(height, thicknessShorcrete);
-        double formIndication = modelExcavation.getFormIndication();
-        int scale = GraphicsParameters.GRAPHICS_EXCAVATION_SCALE;
+        double widthWithShotcrete = ServiceShotcreteExcavation.getWidthExcavationWithShotcrete(width, thicknessShorcrete);
+        double heightWithShotcrete = ServiceShotcreteExcavation.getHeightExcavationWithShotcrete(height, thicknessShorcrete);
 
-        int scaleWidth = serviceExcavation.scaleWidth(widthWithShotcrete, scale);
-        int scaleHeight = serviceExcavation.scaleHeight(heightWithShotcrete, scale);
-        int scaleArchHeight = serviceExcavation.scaleArchHeight(widthWithShotcrete, formIndication, scale);
-        int scaleSmallArcRadius = serviceExcavation.scaleSmallArcRadius(widthWithShotcrete, formIndication, scale);
-        int scaleLargeArcRadius = serviceExcavation.scaleLargeArcRadius(widthWithShotcrete, formIndication, scale);
-        double alphaDegree = serviceExcavation.alphaDegree(widthWithShotcrete, formIndication);
-        double betaDegree = serviceExcavation.betaDegree(widthWithShotcrete, formIndication);
+        int scaleWidth = ServiceExcavation.scaleWidth(widthWithShotcrete, scale);
+        int scaleHeight = ServiceExcavation.scaleHeight(heightWithShotcrete, scale);
+        int scaleArchHeight = ServiceExcavation.scaleArchHeight(widthWithShotcrete, formIndication, scale);
+        int scaleSmallArcRadius = ServiceExcavation.scaleSmallArcRadius(widthWithShotcrete, formIndication, scale);
+        int scaleLargeArcRadius = ServiceExcavation.scaleLargeArcRadius(widthWithShotcrete, formIndication, scale);
+        double alphaDegree = ServiceExcavation.alphaDegree(widthWithShotcrete, formIndication);
+        double betaDegree = ServiceExcavation.betaDegree(widthWithShotcrete, formIndication);
 
         ((Graphics2D) g).setStroke(new BasicStroke(10));
         g.drawLine(-scaleWidth / 2, heightCorrectDrawShorcrete, (int) (Math.round(-scaleWidth / 2.0)), -(scaleHeight - scaleArchHeight)); //Левая стенка
@@ -60,9 +48,6 @@ public class GraphicsShotcreteExcavation extends ServiceShotcreteExcavation {
         g.drawLine(scaleWidth / 2, heightCorrectDrawShorcrete, scaleWidth / 2, -(scaleHeight - scaleArchHeight)); //Правая стенка
     }
 
-    /**
-     * Это метод изображения набрызгбетона на продольном сечении горной выработки.
-     */
     public void drawLongSectionExcavationShotcrete(Graphics g) {
         int scale = GraphicsParameters.GRAPHICS_EXCAVATION_SCALE;
         int distance = GraphicsParameters.DISTANCE_BETWEEN_CROSS_AND_LONG_SECTION;
@@ -71,8 +56,8 @@ public class GraphicsShotcreteExcavation extends ServiceShotcreteExcavation {
         double length = modelExcavation.getLength();
         double thicknessShorcrete = shotcreteExcavation.getThicknessShorcrete();
 
-        int scaleHeightExcavationWithShotcrete = serviceShotcreteExcavation.getScaleHeightExcavationWithShotcrete(height,thicknessShorcrete, scale);
-        int scaleLengthExcavationWithShotcrete = serviceExcavation.scaleLength(length,scale);
+        int scaleHeightExcavationWithShotcrete = ServiceShotcreteExcavation.getScaleHeightExcavationWithShotcrete(height, thicknessShorcrete, scale);
+        int scaleLengthExcavationWithShotcrete = ServiceExcavation.scaleLength(length, scale);
 
         g.translate(distance, 0);
         ((Graphics2D) g).setStroke(new BasicStroke(10));

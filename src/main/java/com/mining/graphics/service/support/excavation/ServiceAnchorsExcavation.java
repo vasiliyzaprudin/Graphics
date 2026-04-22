@@ -1,4 +1,4 @@
-package com.mining.graphics.service.support;
+package com.mining.graphics.service.support.excavation;
 
 public class ServiceAnchorsExcavation {
 

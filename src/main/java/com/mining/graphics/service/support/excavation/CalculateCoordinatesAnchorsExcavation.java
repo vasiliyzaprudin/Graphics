@@ -1,18 +1,14 @@
-package com.mining.graphics.service.support;
+package com.mining.graphics.service.support.excavation;
 
 import com.mining.graphics.model.excavation.ModelExcavation;
-import com.mining.graphics.model.support.AnchorsExcavation;
+import com.mining.graphics.model.support.excavation.AnchorsExcavation;
 import com.mining.graphics.service.excavation.ServiceExcavation;
 
-/**
- * Сервис для расчета координат анкеров.
- */
 public class CalculateCoordinatesAnchorsExcavation {
 
     private final ServiceExcavation excavationService;
     private final ServiceAnchorsExcavation anchorsService;
 
-    // Временные переменные для расчетов
     private double phi;
     private double delta;
     private double stepLargeArcX;
@@ -28,23 +24,17 @@ public class CalculateCoordinatesAnchorsExcavation {
     private double stepWallAnchorsX;
     private double stepWallAnchorsY;
 
-
-
     public CalculateCoordinatesAnchorsExcavation(ServiceExcavation excavationService,
                                                  ServiceAnchorsExcavation anchorsService) {
         this.excavationService = excavationService;
         this.anchorsService = anchorsService;
     }
 
-    /**
-     * Расчет координат анкеров в поперечном сечении.
-     */
     public void calculateCrossSectionAnchors(ModelExcavation model, AnchorsExcavation anchors) {
         double width = model.getWidth();
         double height = model.getHeight();
         double formIndication = model.getFormIndication();
 
-        // Геометрические параметры
         double archHeight = ServiceExcavation.archHeight(width, formIndication);
         double largeArcRadius = ServiceExcavation.largeArcRadius(width, formIndication);
         double smallArcRadius = ServiceExcavation.smallArcRadius(width, formIndication);
@@ -57,7 +47,6 @@ public class CalculateCoordinatesAnchorsExcavation {
         double lengthAnchor = anchors.getLengthAnchor();
         double distanceLowerAnchor = anchors.getDistanceLowerAnchor();
 
-        // Количество анкеров
         int numberCrossSectionAnchors = (int) Math.ceil((totalArcLength + (height - archHeight - distanceLowerAnchor) * 2.0) / step);
 
         double[][] crossSectionAnchorsXY;
@@ -85,7 +74,7 @@ public class CalculateCoordinatesAnchorsExcavation {
 
         anchors.setCrossSectionAnchorsXY(crossSectionAnchorsXY);
 
-        double bottomAnchorY = crossSectionAnchorsXY[i - 1][1]; // Y координата начала последнего анкера
+        double bottomAnchorY = crossSectionAnchorsXY[i - 1][1];
         anchors.setBottomAnchorY(bottomAnchorY);
 
         double firstCrossSectionAnchorX = crossSectionAnchorsXY[0][0];
@@ -98,9 +87,6 @@ public class CalculateCoordinatesAnchorsExcavation {
         anchors.setSecondCrossSectionAnchorY(secondCrossSectionAnchorY);
     }
 
-    /**
-     * Расчет с центральным анкером.
-     */
     private int calculateWithCenterAnchor(int startIndex, double[][] anchors,
                                           double width, double height, double archHeight,
                                           double largeArcRadius, double smallArcRadius,
@@ -180,9 +166,6 @@ public class CalculateCoordinatesAnchorsExcavation {
         return i;
     }
 
-    /**
-     * Расчет со смещенным анкером.
-     */
     private int calculateWithOffsetAnchor(int startIndex, double[][] anchors,
                                           double width, double height, double archHeight,
                                           double largeArcRadius, double smallArcRadius,
@@ -263,9 +246,6 @@ public class CalculateCoordinatesAnchorsExcavation {
         return i;
     }
 
-    /**
-     * Расчет шагов для большой дуги.
-     */
     private void calculateLargeArcStep(int j, double largeArcRadius, double lengthAnchor, double step, double omega) {
         stepLargeArcX = anchorsService.calculateStepLargeArcX(j, step, largeArcRadius, omega);
         stepLargeArcY = anchorsService.calculateStepLargeArcY(j, step, largeArcRadius, omega);
@@ -273,9 +253,6 @@ public class CalculateCoordinatesAnchorsExcavation {
         stepLargeArcAnchorsY = anchorsService.calculateStepLargeArcAnchorsY(j, step, largeArcRadius, lengthAnchor, omega);
     }
 
-    /**
-     * Расчет шагов для малой дуги.
-     */
     private void calculateSmallArcStep(int j, double width, double height, double archHeight,
                                        double smallArcRadius, double lengthAnchor, double step,
                                        double phi, double betaRadian) {
@@ -285,9 +262,6 @@ public class CalculateCoordinatesAnchorsExcavation {
         stepSmallArcAnchorsY = anchorsService.calculateStepSmallArcAnchorsY(j, height, archHeight, smallArcRadius, step, phi, betaRadian, lengthAnchor);
     }
 
-    /**
-     * Расчет шагов для стенки.
-     */
     private void calculateWallStep(int j, double width, double height, double archHeight,
                                    double lengthAnchor, double step, double delta) {
         stepWallX = anchorsService.calculateStepWallX(width);
@@ -296,9 +270,6 @@ public class CalculateCoordinatesAnchorsExcavation {
         stepWallAnchorsY = anchorsService.calculateStepWallAnchorsY(j, height, archHeight, step, delta);
     }
 
-    /**
-     * Расчет координат анкеров в продольном сечении.
-     */
     public void calculateLongSectionAnchors(ModelExcavation model, AnchorsExcavation anchors) {
         double height = model.getHeight();
         double length = model.getLength();
@@ -337,9 +308,6 @@ public class CalculateCoordinatesAnchorsExcavation {
         anchors.setSecondLongSectionAnchorY(secondLongSectionAnchorY);
     }
 
-    /**
-     * Расчет координат опорных плит.
-     */
     public void calculateBasePlate(AnchorsExcavation anchors) {
         double[][] crossSectionAnchorsXY = anchors.getCrossSectionAnchorsXY();
         double[][] longSectionAnchorsXY = anchors.getLongSectionAnchorsXY();

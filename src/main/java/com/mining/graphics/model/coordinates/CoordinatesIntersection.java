@@ -1,27 +1,74 @@
-package com.mining.graphics.model.excavation;
+package com.mining.graphics.model.coordinates;
 
+import com.mining.graphics.model.excavation.ModelIntersection;
+import com.mining.graphics.model.support.intersection.ShotcreteIntersection;
 import com.mining.graphics.service.GeneralService;
 
 import static com.mining.graphics.service.GeneralService.toScaleParameter;
 import static com.mining.graphics.service.excavation.ServiceIntersection.*;
 
+// @formatter:off
 public class CoordinatesIntersection {
     private ModelIntersection modelIntersection;
+    private ShotcreteIntersection shotcreteIntersection;
 
     public CoordinatesIntersection(ModelIntersection modelIntersection) {
         this.modelIntersection = modelIntersection;
-        calculateAllCoordinates();
+        calculateAllCoordinates(modelIntersection.getWidth1(),
+                                modelIntersection.getWidth2(),
+                                modelIntersection.getWidth3(),
+                                modelIntersection.getLength1(),
+                                modelIntersection.getLength2(),
+                                modelIntersection.getLength3(),
+                                modelIntersection.getAzimuthRadians1(),
+                                modelIntersection.getAzimuthRadians2(),
+                                modelIntersection.getAzimuthRadians3());
+    }
+
+    public CoordinatesIntersection(ModelIntersection modelIntersection, ShotcreteIntersection shotcreteIntersection) {
+        this.modelIntersection = modelIntersection;
+        this.shotcreteIntersection = shotcreteIntersection;
+
+        double thickness = shotcreteIntersection.getThicknessShorcrete();
+        calculateAllCoordinates(
+                modelIntersection.getWidth1() - thickness,
+                modelIntersection.getWidth2() - thickness,
+                modelIntersection.getWidth3() - thickness,
+                modelIntersection.getLength1(),
+                modelIntersection.getLength2(),
+                modelIntersection.getLength3(),
+                modelIntersection.getAzimuthRadians1(),
+                modelIntersection.getAzimuthRadians2(),
+                modelIntersection.getAzimuthRadians3()
+        );
     }
 
     public void updateCoordinates() {
-        calculateAllCoordinates();
+        double thickness = (shotcreteIntersection != null) ? shotcreteIntersection.getThicknessShorcrete() : 0;
+        calculateAllCoordinates(
+                modelIntersection.getWidth1() - thickness,
+                modelIntersection.getWidth2() - thickness,
+                modelIntersection.getWidth3() - thickness,
+                modelIntersection.getLength1(),
+                modelIntersection.getLength2(),
+                modelIntersection.getLength3(),
+                modelIntersection.getAzimuthRadians1(),
+                modelIntersection.getAzimuthRadians2(),
+                modelIntersection.getAzimuthRadians3()
+        );
     }
 
-    private void calculateAllCoordinates() {
-        calculateAllScaleParameters();
-        calculateAllCoordinatesPlanIntersection();
+    private void calculateAllCoordinates(double width1,double width2,double width3,
+                                         double length1, double length2,double length3,
+                                         double azimuthRadians1, double azimuthRadians2,double azimuthRadians3) {
+        calculateAllScaleParameters(width1, width2, width3);
+        calculateAllCoordinatesPlanIntersection(width1,width2,width3,
+                                                length1, length2,length3,
+                                                azimuthRadians1, azimuthRadians2,azimuthRadians3
+        );
         calculateAllCoordinatesProfileIntersection();
     }
+
     private int scaleWidth1, scaleWidth2, scaleWidth3;
     private int scaleHeight1, scaleHeight2, scaleHeight3;
     private int scaleLength1, scaleLength2, scaleLength3;
@@ -45,6 +92,7 @@ public class CoordinatesIntersection {
 
 
     private double roundingRadius12, roundingRadius23, roundingRadius31;
+
 
     private double xStartRounding12, yStartRounding12, xStartRounding21, yStartRounding21;
     private double xStartRounding23, yStartRounding23, xStartRounding32, yStartRounding32;
@@ -81,12 +129,7 @@ public class CoordinatesIntersection {
 
     private double increasedWidth1, increasedHeight1, formIndicationHeightIntersection1;
 
-    // @formatter:off
-    private void calculateAllScaleParameters (){
-        double width1 = modelIntersection.getWidth1();
-        double width2 = modelIntersection.getWidth2();
-        double width3 = modelIntersection.getWidth3();
-
+    private void calculateAllScaleParameters(double width1, double width2, double width3) {
         double height1 = modelIntersection.getHeight1();
         double height2 = modelIntersection.getHeight2();
         double height3 = modelIntersection.getHeight3();
@@ -101,31 +144,17 @@ public class CoordinatesIntersection {
 
         this.scaleHeight1 = toScaleParameter(height1);
         this.scaleHeight2 = toScaleParameter(height2);
-        this.scaleHeight3= toScaleParameter(height3);
+        this.scaleHeight3 = toScaleParameter(height3);
 
         this.scaleLength1 = toScaleParameter(length1);
         this.scaleLength2 = toScaleParameter(length2);
         this.scaleLength3 = toScaleParameter(length3);
     }
 
-    private void calculateAllCoordinatesPlanIntersection() {
-        double width1 = modelIntersection.getWidth1();
-        double width2 = modelIntersection.getWidth2();
-        double width3 = modelIntersection.getWidth3();
+    private void calculateAllCoordinatesPlanIntersection(double width1, double width2, double width3,
+                                                         double length1, double length2, double length3,
+                                                         double azimuthRadians1, double azimuthRadians2, double azimuthRadians3) {
 
-        double height1 = modelIntersection.getHeight1();
-        double height2 = modelIntersection.getHeight2();
-        double height3 = modelIntersection.getHeight3();
-
-        double length1 = modelIntersection.getLength1();
-        double length2 = modelIntersection.getLength2();
-        double length3 = modelIntersection.getLength3();
-
-        double azimuthRadians1 = modelIntersection.getAzimuthRadians1();
-        double azimuthRadians2 = modelIntersection.getAzimuthRadians2();
-        double azimuthRadians3 = modelIntersection.getAzimuthRadians3();
-
-        //Расчет координат точек пересечения боков горных выработок
         this.xIntersectionWall12 = calculateIntersectionWallX(width1, width2, azimuthRadians1, azimuthRadians2);
         this.yIntersectionWall12 = calculateIntersectionWallY(width1, width2, azimuthRadians1, azimuthRadians2);
         this.xScaleIntersectionWall12 = toScaleParameter(xIntersectionWall12);
@@ -142,7 +171,7 @@ public class CoordinatesIntersection {
         this.xScaleIntersectionWall31 = toScaleParameter(xIntersectionWall31);
         this.yScaleIntersectionWall31 = toScaleParameter(yIntersectionWall31);
 
-        //Расчет координат точек забоя горных выработок
+
         this.xStopeLeft1 = calculateStopeX(length1, width1, azimuthRadians1);
         this.yStopeLeft1 = calculateStopeY(length1, width1, azimuthRadians1);
         this.xScaleStopeLeft1 = toScaleParameter(xStopeLeft1);
@@ -173,12 +202,12 @@ public class CoordinatesIntersection {
         this.xScaleStopeRight3 = toScaleParameter(xStopeRight3);
         this.yScaleStopeRight3 = toScaleParameter(yStopeRight3);
 
-        //Расчет величины закругления выработок
+
         this.roundingRadius12 = calculateRoundingRadius(width1, width2, azimuthRadians1, azimuthRadians2);
         this.roundingRadius23 = calculateRoundingRadius(width2, width3, azimuthRadians2, azimuthRadians3);
         this.roundingRadius31 = calculateRoundingRadius(width3, width1, azimuthRadians3, azimuthRadians1);
 
-        //Расчет координат точек пересечения выработок
+
         this.xPointIntrsectionExcavation12 = calculatePointIntrsectionExcavationX(xIntersectionWall12, yIntersectionWall12, roundingRadius12);
         this.yPointIntrsectionExcavation12 = calculatePointIntrsectionExcavationY(xIntersectionWall12, yIntersectionWall12, roundingRadius12);
         this.xScalePointIntrsectionExcavation12 = toScaleParameter(xPointIntrsectionExcavation12);
@@ -194,7 +223,7 @@ public class CoordinatesIntersection {
         this.xScalePointIntrsectionExcavation31 = toScaleParameter(xPointIntrsectionExcavation31);
         this.yScalePointIntrsectionExcavation31 = toScaleParameter(yPointIntrsectionExcavation31);
 
-        //Расчет координат точек начала закругления выработок
+
         this.xStartRounding12 = calculateStartRoundingX(xIntersectionWall12, width1, azimuthRadians1);
         this.yStartRounding12 = calculateStartRoundingY(yIntersectionWall12, width1, azimuthRadians1);
         this.xScaleStartRounding12 = toScaleParameter(xStartRounding12);
@@ -225,7 +254,7 @@ public class CoordinatesIntersection {
         this.xScaleStartRounding31 = toScaleParameter(xStartRounding31);
         this.yScaleStartRounding31 = toScaleParameter(yStartRounding31);
 
-        //Расчет координат точек пересечения осей и забоя выработок
+
         this.xIntersectionAxisAndStope1 = calculateIntersectionAxisAndStopeX(length1, azimuthRadians1);
         this.xScaleIntersectionAxisAndStope1 = toScaleParameter(xIntersectionAxisAndStope1);
         this.yIntersectionAxisAndStope1 = calculateIntersectionAxisAndStopeY(length1, azimuthRadians1);

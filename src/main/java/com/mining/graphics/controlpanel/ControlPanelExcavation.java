@@ -1,7 +1,7 @@
 package com.mining.graphics.controlpanel;
 
 import com.mining.graphics.model.excavation.ModelExcavation;
-import com.mining.graphics.model.support.AnchorsExcavation;
+import com.mining.graphics.model.support.excavation.AnchorsExcavation;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;

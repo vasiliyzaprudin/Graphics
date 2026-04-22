@@ -2,8 +2,8 @@ package com.mining.graphics.graphics.dimension;
 
 import com.mining.graphics.graphics.GraphicsParameters;
 import com.mining.graphics.model.excavation.ModelExcavation;
-import com.mining.graphics.model.support.AnchorsExcavation;
-import com.mining.graphics.model.support.ShotcreteExcavation;
+import com.mining.graphics.model.support.excavation.AnchorsExcavation;
+import com.mining.graphics.model.support.excavation.ShotcreteExcavation;
 import com.mining.graphics.service.dimension.ServiceDimension;
 import com.mining.graphics.service.excavation.ServiceExcavation;
 
@@ -19,7 +19,7 @@ public class GraphicsDimension {
     private final ShotcreteExcavation shotcreteExcavation;
     private final ServiceDimension dimensionService;
 
-    public GraphicsDimension(ModelExcavation model, AnchorsExcavation anchorsExcavation,ShotcreteExcavation shotcreteExcavation, ServiceExcavation excavationService) {
+    public GraphicsDimension(ModelExcavation model, AnchorsExcavation anchorsExcavation, ShotcreteExcavation shotcreteExcavation, ServiceExcavation excavationService) {
         this.model = model;
         this.anchorsExcavation = anchorsExcavation;
         this.shotcreteExcavation = shotcreteExcavation;

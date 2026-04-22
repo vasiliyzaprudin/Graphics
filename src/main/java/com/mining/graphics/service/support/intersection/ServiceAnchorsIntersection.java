@@ -1,7 +1,7 @@
-package com.mining.graphics.service.support;
+package com.mining.graphics.service.support.intersection;
 
-import com.mining.graphics.model.excavation.CoordinatesIntersectionLine;
-import com.mining.graphics.model.excavation.CoordinatesIntersectionRounding;
+import com.mining.graphics.model.coordinates.CoordinatesIntersectionLine;
+import com.mining.graphics.model.coordinates.CoordinatesIntersectionRounding;
 import com.mining.graphics.service.GeneralService;
 import com.mining.graphics.service.excavation.ServiceExcavation;
 
@@ -317,11 +317,11 @@ public class ServiceAnchorsIntersection {
         double yStartAnchorToLine;
 
         if (xEndIntersectionRoof >= 0) {
-            xStartAnchorToLine = xPointContact + (distanceBetweenRows - remainderArc) * Math.cos(omega); //координата X установки первого анкера по линии
-            yStartAnchorToLine = yPointContact + (distanceBetweenRows - remainderArc) * Math.sin(omega); //координата Y установки первого анкера по линии
+            xStartAnchorToLine = xPointContact + (distanceBetweenRows - remainderArc) * Math.cos(omega);
+            yStartAnchorToLine = yPointContact + (distanceBetweenRows - remainderArc) * Math.sin(omega);
         } else {
-            xStartAnchorToLine = xPointContact - (distanceBetweenRows - remainderArc) * Math.cos(omega); //координата X установки первого анкера по линии
-            yStartAnchorToLine = yPointContact + (distanceBetweenRows - remainderArc) * Math.sin(omega); //координата Y установки первого анкера по линии
+            xStartAnchorToLine = xPointContact - (distanceBetweenRows - remainderArc) * Math.cos(omega);
+            yStartAnchorToLine = yPointContact + (distanceBetweenRows - remainderArc) * Math.sin(omega);
         }
 
         if (xEndIntersectionRoof >= 0) {

@@ -1,17 +1,16 @@
-package com.mining.graphics.graphics.support;
+package com.mining.graphics.graphics.support.excavation;
 
 import com.mining.graphics.graphics.GraphicsParameters;
 import com.mining.graphics.graphics.elementssupport.AnchorsRenderer;
 import com.mining.graphics.model.excavation.ModelExcavation;
-import com.mining.graphics.model.support.AnchorsExcavation;
-import com.mining.graphics.service.support.CalculateCoordinatesAnchorsExcavation;
-import com.mining.graphics.service.support.ServiceAnchorsExcavation;
+import com.mining.graphics.model.support.excavation.AnchorsExcavation;
+import com.mining.graphics.service.support.excavation.CalculateCoordinatesAnchorsExcavation;
+import com.mining.graphics.service.support.excavation.ServiceAnchorsExcavation;
 import com.mining.graphics.service.excavation.ServiceExcavation;
 
 import java.awt.*;
 
 public class GraphicsAnchorsExcavation {
-    // Константы для типов анкеров
     public static final String ANCHOR_EXPANSION = "expansion";
     public static final String ANCHOR_MONOLITHIC = "monolithic";
 
@@ -49,15 +48,9 @@ public class GraphicsAnchorsExcavation {
     public void drawAllAnchorsTest(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        testDrawLongSectionAnchors(g);
         testDrawLowerAnchor(g);
     }
 
-    /**
-     * Отрисовка анкеров в поперечном сечении.
-     *
-     * @param anchorType тип анкера: ANCHOR_EXPANSION - распорный, ANCHOR_MONOLITHIC - на омоноличивающих составах
-     */
     public void drawCrossSectionAnchors(Graphics2D g, String anchorType) {
         double[][] crossSectionAnchorsXY = anchorsExcavation.getCrossSectionAnchorsXY();
         if (crossSectionAnchorsXY == null) return;
@@ -110,9 +103,6 @@ public class GraphicsAnchorsExcavation {
         g.translate(-distance, 0);
     }
 
-    /**
-     * Отрисовка опорных плит.
-     */
     public void drawBasePlate(Graphics g) {
         double[][] basePlateXY = anchorsExcavation.getBasePlateXY();
         if (basePlateXY == null) return;
@@ -132,32 +122,6 @@ public class GraphicsAnchorsExcavation {
         g.translate(-distance, 0);
     }
 
-    /**
-     * Тестовый метод.
-     */
-    public void testDrawLongSectionAnchors(Graphics g) {
-//        double[][] crossSectionAnchorsXY = anchorsExcavation.getCrossSectionAnchorsXY();
-//        double[][] longSectionAnchorsXY = anchorsExcavation.getLongSectionAnchorsXY();
-//        if (crossSectionAnchorsXY == null || longSectionAnchorsXY == null) return;
-//
-//        int scale = GraphicsParameters.GRAPHICS_SCALE;
-//        int distance = GraphicsParameters.DISTANCE_BETWEEN_CROSS_AND_LONG_SECTION;
-//
-//        g.translate(distance, 0);
-//
-//        int x1 = (int) Math.round(crossSectionAnchorsXY[0][2] * scale) - distance;
-//        int y1 = (int) Math.round(crossSectionAnchorsXY[0][3] * scale);
-//        int x2 = (int) Math.round(longSectionAnchorsXY[0][2] * scale);
-//        int y2 = (int) Math.round(longSectionAnchorsXY[0][3] * scale);
-//
-//        g.drawLine(x1, y1, x2, y2);
-//
-//        g.translate(-distance, 0);
-    }
-
-    /**
-     * Тестовый метод.
-     */
     public void testDrawLowerAnchor(Graphics g) {
         double width = modelExcavation.getWidth();
         double length = modelExcavation.getLength();
@@ -171,16 +135,9 @@ public class GraphicsAnchorsExcavation {
         double[][] crossSectionAnchorsXY = anchorsExcavation.getCrossSectionAnchorsXY();
         if (crossSectionAnchorsXY == null) return;
 
-        //Проверка верхнего анкера в ряду на соответствие простроения в поперечном и продольном видах
-//        g.drawLine(0, (int) Math.round(crossSectionAnchorsXY[0][1] * scale),
-//                (int) Math.round(distance + length * scale),
-//                (int) Math.round(crossSectionAnchorsXY[0][1] * scale));
-
-        //Минимальная высота установки нижнего анкера
         g.drawLine(-scaleWidth / 2, (int) Math.round(-distanceLowerAnchor * scale),
                 scaleWidth / 2, (int) Math.round(-distanceLowerAnchor * scale));
 
-        //Максимальная высота установки нижнего анкера
         g.drawLine(-scaleWidth / 2, (int) Math.round((-distanceLowerAnchor - step / 2.0) * scale),
                 scaleWidth / 2, (int) Math.round((-distanceLowerAnchor - step / 2.0) * scale));
     }

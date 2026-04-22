@@ -1,4 +1,4 @@
-package com.mining.graphics.model.excavation;
+package com.mining.graphics.model.coordinates;
 
 public class CoordinatesIntersectionLine {
     private final double xStartRounding1;

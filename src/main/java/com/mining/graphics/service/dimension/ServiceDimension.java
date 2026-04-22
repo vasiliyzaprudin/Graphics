@@ -2,8 +2,8 @@ package com.mining.graphics.service.dimension;
 
 import com.mining.graphics.graphics.GraphicsParameters;
 import com.mining.graphics.model.excavation.ModelExcavation;
-import com.mining.graphics.model.support.AnchorsExcavation;
-import com.mining.graphics.model.support.ShotcreteExcavation;
+import com.mining.graphics.model.support.excavation.AnchorsExcavation;
+import com.mining.graphics.model.support.excavation.ShotcreteExcavation;
 import com.mining.graphics.service.excavation.ServiceExcavation;
 
 import java.awt.*;
