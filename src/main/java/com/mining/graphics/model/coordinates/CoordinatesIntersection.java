@@ -17,6 +17,9 @@ public class CoordinatesIntersection {
         calculateAllCoordinates(modelIntersection.getWidth1(),
                                 modelIntersection.getWidth2(),
                                 modelIntersection.getWidth3(),
+                                modelIntersection.getHeight1(),
+                                modelIntersection.getHeight2(),
+                                modelIntersection.getHeight3(),
                                 modelIntersection.getLength1(),
                                 modelIntersection.getLength2(),
                                 modelIntersection.getLength3(),
@@ -25,30 +28,14 @@ public class CoordinatesIntersection {
                                 modelIntersection.getAzimuthRadians3());
     }
 
-    public CoordinatesIntersection(ModelIntersection modelIntersection, ShotcreteIntersection shotcreteIntersection) {
-        this.modelIntersection = modelIntersection;
-        this.shotcreteIntersection = shotcreteIntersection;
-
-        double thickness = shotcreteIntersection.getThicknessShorcrete();
-        calculateAllCoordinates(
-                modelIntersection.getWidth1() - thickness,
-                modelIntersection.getWidth2() - thickness,
-                modelIntersection.getWidth3() - thickness,
-                modelIntersection.getLength1(),
-                modelIntersection.getLength2(),
-                modelIntersection.getLength3(),
-                modelIntersection.getAzimuthRadians1(),
-                modelIntersection.getAzimuthRadians2(),
-                modelIntersection.getAzimuthRadians3()
-        );
-    }
-
     public void updateCoordinates() {
-        double thickness = (shotcreteIntersection != null) ? shotcreteIntersection.getThicknessShorcrete() : 0;
         calculateAllCoordinates(
-                modelIntersection.getWidth1() - thickness,
-                modelIntersection.getWidth2() - thickness,
-                modelIntersection.getWidth3() - thickness,
+                modelIntersection.getWidth1(),
+                modelIntersection.getWidth2(),
+                modelIntersection.getWidth3(),
+                modelIntersection.getHeight1(),
+                modelIntersection.getHeight2(),
+                modelIntersection.getHeight3(),
                 modelIntersection.getLength1(),
                 modelIntersection.getLength2(),
                 modelIntersection.getLength3(),
@@ -59,6 +46,7 @@ public class CoordinatesIntersection {
     }
 
     private void calculateAllCoordinates(double width1,double width2,double width3,
+                                         double height1, double height2, double height3,
                                          double length1, double length2,double length3,
                                          double azimuthRadians1, double azimuthRadians2,double azimuthRadians3) {
         calculateAllScaleParameters(width1, width2, width3);
@@ -66,7 +54,7 @@ public class CoordinatesIntersection {
                                                 length1, length2,length3,
                                                 azimuthRadians1, azimuthRadians2,azimuthRadians3
         );
-        calculateAllCoordinatesProfileIntersection();
+        calculateAllCoordinatesProfileIntersection(width1,width2,width3,height1,height2,height3);
     }
 
     private int scaleWidth1, scaleWidth2, scaleWidth3;
@@ -270,22 +258,15 @@ public class CoordinatesIntersection {
         this.yIntersectionAxisAndStope3 = calculateIntersectionAxisAndStopeY(length3, azimuthRadians3);
         this.yScaleIntersectionAxisAndStope3 = toScaleParameter(yIntersectionAxisAndStope3);
     }
-    private void calculateAllCoordinatesProfileIntersection() {
-        double width1 = modelIntersection.getWidth1();
-        double width2 = modelIntersection.getWidth2();
-        double width3 = modelIntersection.getWidth3();
-
-        double height1 = modelIntersection.getHeight1();
-        double height2 = modelIntersection.getHeight2();
-        double height3 = modelIntersection.getHeight3();
-
-        double length1 = modelIntersection.getLength1();
-        double length2 = modelIntersection.getLength2();
-        double length3 = modelIntersection.getLength3();
-
-        double azimuthRadians1 = modelIntersection.getAzimuthRadians1();
-        double azimuthRadians2 = modelIntersection.getAzimuthRadians2();
-        double azimuthRadians3 = modelIntersection.getAzimuthRadians3();
+    private void calculateAllCoordinatesProfileIntersection(double width1, double width2, double width3,
+                                                            double height1, double height2, double height3) {
+//        double width1 = modelIntersection.getWidth1();
+//        double width2 = modelIntersection.getWidth2();
+//        double width3 = modelIntersection.getWidth3();
+//
+//        double height1 = modelIntersection.getHeight1();
+//        double height2 = modelIntersection.getHeight2();
+//        double height3 = modelIntersection.getHeight3();
 
         double formIndicationIntersection = modelIntersection.getFormIndicationIntersection();
 
@@ -461,6 +442,7 @@ public class CoordinatesIntersection {
     public double getYCalculateCoordinatePointContact31 () {return yCalculateCoordinatePointContact31;}
     public int getXScaleCalculateCoordinatePointContact31 () {return xScaleCalculateCoordinatePointContact31;}
     public int getYScaleCalculateCoordinatePointContact31 () {return yScaleCalculateCoordinatePointContact31;}
+
     public double getAngleBetweenCenterRoofAndPointContactRadians31 () {return angleBetweenCenterRoofAndPointContactRadians31;}
     public int getAngleBetweenCenterRoofAndPointContactDegrees31 () {return angleBetweenCenterRoofAndPointContactDegrees31;}
 

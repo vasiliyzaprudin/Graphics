@@ -19,7 +19,7 @@ public class GraphicsExcavation {
         renderCrossSectionExcavation(g2d, modelExcavation.getWidth(), modelExcavation.getHeight(), modelExcavation.getFormIndication(), GraphicsParameters.GRAPHICS_EXCAVATION_SCALE);
     }
 
-    public void renderCrossSectionExcavation(Graphics2D g2d, double width, double height, double formIndication, int scale) {
+    public static void renderCrossSectionExcavation(Graphics2D g2d, double width, double height, double formIndication, int scale) {
 
         int scaleWidth = scaleWidth(width, scale);
         int scaleHeight = scaleHeight(height, scale);

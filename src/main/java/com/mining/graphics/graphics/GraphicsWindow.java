@@ -12,6 +12,7 @@ import com.mining.graphics.graphics.support.excavation.GraphicsAnchorsExcavation
 import com.mining.graphics.graphics.support.excavation.GraphicsMeshExcavation;
 import com.mining.graphics.graphics.support.excavation.GraphicsShotcreteExcavation;
 import com.mining.graphics.graphics.support.intersection.GraphicsAnchorsIntersection;
+import com.mining.graphics.graphics.support.intersection.GraphicsMeshIntersection;
 import com.mining.graphics.graphics.support.intersection.GraphicsShotcreteIntersection;
 import com.mining.graphics.model.coordinates.CoordinatesIntersection;
 import com.mining.graphics.model.excavation.ModelExcavation;
@@ -20,6 +21,7 @@ import com.mining.graphics.model.support.excavation.AnchorsExcavation;
 import com.mining.graphics.model.support.excavation.MeshExcavation;
 import com.mining.graphics.model.support.excavation.ShotcreteExcavation;
 import com.mining.graphics.model.support.intersection.AnchorsIntersection;
+import com.mining.graphics.model.support.intersection.MeshIntersection;
 import com.mining.graphics.model.support.intersection.ShotcreteIntersection;
 import com.mining.graphics.model.test.ModelTest;
 import com.mining.graphics.service.excavation.ServiceExcavation;
@@ -57,8 +59,10 @@ public class GraphicsWindow extends JFrame {
     private final ModelIntersection modelIntersection;
     private final CoordinatesIntersection modelCoordinatesIntersection;
     private final CoordinatesIntersection shotcreteCoordinatesIntersection;
+    private final CoordinatesIntersection meshCoordinatesIntersection;
     private final AnchorsIntersection anchorsIntersection;
     private final ShotcreteIntersection shotcreteIntersection;
+
 
     private final AnchorsRenderer anchorsRenderer;
 
@@ -75,6 +79,7 @@ public class GraphicsWindow extends JFrame {
     private final GraphicsIntersection graphicsIntersection;
     private final GraphicsAnchorsIntersection graphicsAnchorsIntersection;
     private final GraphicsShotcreteIntersection graphicsShotcreteIntersection;
+    private final GraphicsMeshIntersection graphicsMeshIntersection;
 
     //Тесты
     private final ModelTest modelTest;
@@ -96,7 +101,8 @@ public class GraphicsWindow extends JFrame {
         modelIntersection = new ModelIntersection();
         modelCoordinatesIntersection = new CoordinatesIntersection(modelIntersection);
         shotcreteIntersection = new ShotcreteIntersection();
-        shotcreteCoordinatesIntersection = new CoordinatesIntersection(modelIntersection, shotcreteIntersection);  // Добавлено
+        shotcreteCoordinatesIntersection = new CoordinatesIntersection(modelIntersection);
+        meshCoordinatesIntersection = new CoordinatesIntersection(modelIntersection);
         anchorsIntersection = new AnchorsIntersection();
 
         anchorsRenderer = new AnchorsRenderer();
@@ -111,7 +117,8 @@ public class GraphicsWindow extends JFrame {
 
         graphicsIntersection = new GraphicsIntersection(modelIntersection, modelCoordinatesIntersection, graphicsExcavation);
         graphicsAnchorsIntersection = new GraphicsAnchorsIntersection(modelIntersection, modelCoordinatesIntersection, anchorsIntersection, modelTest, anchorsRenderer);
-        graphicsShotcreteIntersection = new GraphicsShotcreteIntersection(shotcreteCoordinatesIntersection);
+        graphicsShotcreteIntersection = new GraphicsShotcreteIntersection(shotcreteCoordinatesIntersection, modelIntersection);
+        graphicsMeshIntersection = new GraphicsMeshIntersection(meshCoordinatesIntersection);
 
         graphicsDimension = new GraphicsDimension(modelExcavation, anchorsExcavation, shotcreteExcavation, serviceExcavation);
 
@@ -143,16 +150,13 @@ public class GraphicsWindow extends JFrame {
         drawingPanel.setDoubleBuffered(true);
         drawingPanel.setPreferredSize(new Dimension(1700, 1300));
 
-        // Создаем панели управления (передаем shotcreteCoordinatesIntersection и shotcreteIntersection)
+
         controlPanelExcavation = new ControlPanelExcavation(modelExcavation, anchorsExcavation, drawingPanel);
-        controlPanelIntersection = new ControlPanelIntersection(
-                modelIntersection,
-                modelCoordinatesIntersection,
-                shotcreteCoordinatesIntersection,  // Добавлено
-                shotcreteIntersection,             // Добавлено
+        controlPanelIntersection = new ControlPanelIntersection(modelIntersection, modelCoordinatesIntersection,
+                shotcreteCoordinatesIntersection,
+                meshCoordinatesIntersection,
                 anchorsIntersection,
-                drawingPanel
-        );
+                drawingPanel);
 
         // Создаем панель для переключения режимов со стилизованными кнопками
         JPanel modePanel = createModePanel();
@@ -304,9 +308,10 @@ public class GraphicsWindow extends JFrame {
         graphicsAnchorsIntersection.drawAllAnchorsProjectionLine3(g2d);
         graphicsAnchorsIntersection.drawBasePlateProjection(g2d);
 
-        // Рисуем торкретбетон (внутренний контур)
         graphicsShotcreteIntersection.drawShotcretePlanIntersection3(g2d);
+        graphicsShotcreteIntersection.drawShotcreteProfileIntersection3(g2d);
 
+        graphicsMeshIntersection.drawMeshPlanIntersection3(g2d);
         g2d.translate(-500, -400);
     }
 
