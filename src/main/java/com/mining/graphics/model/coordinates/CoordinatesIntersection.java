@@ -4,7 +4,7 @@ import com.mining.graphics.model.excavation.ModelIntersection;
 import com.mining.graphics.model.support.intersection.ShotcreteIntersection;
 import com.mining.graphics.service.GeneralService;
 
-import static com.mining.graphics.service.GeneralService.toScaleParameter;
+import static com.mining.graphics.service.GeneralService.toScaleIntersectionParameter;
 import static com.mining.graphics.service.excavation.ServiceIntersection.*;
 
 // @formatter:off
@@ -117,6 +117,14 @@ public class CoordinatesIntersection {
 
     private double increasedWidth1, increasedHeight1, formIndicationHeightIntersection1;
 
+    private double xProjectionPointStartRounding13ToWall12,yProjectionPointStartRounding13ToWall12;
+    private double xProjectionPointStartRounding12ToWall13,yProjectionPointStartRounding12ToWall13;
+    private double xProjectionPointStartRounding21ToWall23, yProjectionPointStartRounding21ToWall23;
+    private double xProjectionPointStartRounding23ToWall21, yProjectionPointStartRounding23ToWall21;
+    private double xProjectionPointStartRounding31ToWall32, yProjectionPointStartRounding31ToWall32;
+    private double xProjectionPointStartRounding32ToWall31, yProjectionPointStartRounding32ToWall31;
+
+
     private void calculateAllScaleParameters(double width1, double width2, double width3) {
         double height1 = modelIntersection.getHeight1();
         double height2 = modelIntersection.getHeight2();
@@ -126,17 +134,17 @@ public class CoordinatesIntersection {
         double length2 = modelIntersection.getLength2();
         double length3 = modelIntersection.getLength3();
 
-        this.scaleWidth1 = toScaleParameter(width1);
-        this.scaleWidth2 = toScaleParameter(width2);
-        this.scaleWidth3 = toScaleParameter(width3);
+        this.scaleWidth1 = toScaleIntersectionParameter(width1);
+        this.scaleWidth2 = toScaleIntersectionParameter(width2);
+        this.scaleWidth3 = toScaleIntersectionParameter(width3);
 
-        this.scaleHeight1 = toScaleParameter(height1);
-        this.scaleHeight2 = toScaleParameter(height2);
-        this.scaleHeight3 = toScaleParameter(height3);
+        this.scaleHeight1 = toScaleIntersectionParameter(height1);
+        this.scaleHeight2 = toScaleIntersectionParameter(height2);
+        this.scaleHeight3 = toScaleIntersectionParameter(height3);
 
-        this.scaleLength1 = toScaleParameter(length1);
-        this.scaleLength2 = toScaleParameter(length2);
-        this.scaleLength3 = toScaleParameter(length3);
+        this.scaleLength1 = toScaleIntersectionParameter(length1);
+        this.scaleLength2 = toScaleIntersectionParameter(length2);
+        this.scaleLength3 = toScaleIntersectionParameter(length3);
     }
 
     private void calculateAllCoordinatesPlanIntersection(double width1, double width2, double width3,
@@ -145,50 +153,50 @@ public class CoordinatesIntersection {
 
         this.xIntersectionWall12 = calculateIntersectionWallX(width1, width2, azimuthRadians1, azimuthRadians2);
         this.yIntersectionWall12 = calculateIntersectionWallY(width1, width2, azimuthRadians1, azimuthRadians2);
-        this.xScaleIntersectionWall12 = toScaleParameter(xIntersectionWall12);
-        this.yScaleIntersectionWall12 = toScaleParameter(yIntersectionWall12);
+        this.xScaleIntersectionWall12 = toScaleIntersectionParameter(xIntersectionWall12);
+        this.yScaleIntersectionWall12 = toScaleIntersectionParameter(yIntersectionWall12);
 
         this.xIntersectionWall23 = calculateIntersectionWallX(width2, width3, azimuthRadians2, azimuthRadians3);
         this.yIntersectionWall23 = calculateIntersectionWallY(width2, width3, azimuthRadians2, azimuthRadians3);
-        this.xScaleIntersectionWall23 = toScaleParameter(xIntersectionWall23);
-        this.yScaleIntersectionWall23 = toScaleParameter(yIntersectionWall23);
+        this.xScaleIntersectionWall23 = toScaleIntersectionParameter(xIntersectionWall23);
+        this.yScaleIntersectionWall23 = toScaleIntersectionParameter(yIntersectionWall23);
 
 
         this.xIntersectionWall31 = calculateIntersectionWallX(width3, width1, azimuthRadians3, azimuthRadians1);
         this.yIntersectionWall31 = calculateIntersectionWallY(width3, width1, azimuthRadians3, azimuthRadians1);
-        this.xScaleIntersectionWall31 = toScaleParameter(xIntersectionWall31);
-        this.yScaleIntersectionWall31 = toScaleParameter(yIntersectionWall31);
+        this.xScaleIntersectionWall31 = toScaleIntersectionParameter(xIntersectionWall31);
+        this.yScaleIntersectionWall31 = toScaleIntersectionParameter(yIntersectionWall31);
 
 
         this.xStopeLeft1 = calculateStopeX(length1, width1, azimuthRadians1);
         this.yStopeLeft1 = calculateStopeY(length1, width1, azimuthRadians1);
-        this.xScaleStopeLeft1 = toScaleParameter(xStopeLeft1);
-        this.yScaleStopeLeft1 = toScaleParameter(yStopeLeft1);
+        this.xScaleStopeLeft1 = toScaleIntersectionParameter(xStopeLeft1);
+        this.yScaleStopeLeft1 = toScaleIntersectionParameter(yStopeLeft1);
 
         this.xStopeRight1 = calculateStopeX(length1, -width1, azimuthRadians1);
         this.yStopeRight1 = calculateStopeY(length1, -width1, azimuthRadians1);
-        this.xScaleStopeRight1 = toScaleParameter(xStopeRight1);
-        this.yScaleStopeRight1 = toScaleParameter(yStopeRight1);
+        this.xScaleStopeRight1 = toScaleIntersectionParameter(xStopeRight1);
+        this.yScaleStopeRight1 = toScaleIntersectionParameter(yStopeRight1);
 
         this.xStopeLeft2 = calculateStopeX(length2, width2, azimuthRadians2);
         this.yStopeLeft2 = calculateStopeY(length2, width2, azimuthRadians2);
-        this.xScaleStopeLeft2 = toScaleParameter(xStopeLeft2);
-        this.yScaleStopeLeft2 = toScaleParameter(yStopeLeft2);
+        this.xScaleStopeLeft2 = toScaleIntersectionParameter(xStopeLeft2);
+        this.yScaleStopeLeft2 = toScaleIntersectionParameter(yStopeLeft2);
 
         this.xStopeRight2 = calculateStopeX(length2, -width2, azimuthRadians2);
         this.yStopeRight2 = calculateStopeY(length2, -width2, azimuthRadians2);
-        this.xScaleStopeRight2 = toScaleParameter(xStopeRight2);
-        this.yScaleStopeRight2 = toScaleParameter(yStopeRight2);
+        this.xScaleStopeRight2 = toScaleIntersectionParameter(xStopeRight2);
+        this.yScaleStopeRight2 = toScaleIntersectionParameter(yStopeRight2);
 
         this.xStopeLeft3 = calculateStopeX(length3, width3, azimuthRadians3);
         this.yStopeLeft3 = calculateStopeY(length3, width3, azimuthRadians3);
-        this.xScaleStopeLeft3 = toScaleParameter(xStopeLeft3);
-        this.yScaleStopeLeft3 = toScaleParameter(yStopeLeft3);
+        this.xScaleStopeLeft3 = toScaleIntersectionParameter(xStopeLeft3);
+        this.yScaleStopeLeft3 = toScaleIntersectionParameter(yStopeLeft3);
 
         this.xStopeRight3 = calculateStopeX(length3, -width3, azimuthRadians3);
         this.yStopeRight3 = calculateStopeY(length3, -width3, azimuthRadians3);
-        this.xScaleStopeRight3 = toScaleParameter(xStopeRight3);
-        this.yScaleStopeRight3 = toScaleParameter(yStopeRight3);
+        this.xScaleStopeRight3 = toScaleIntersectionParameter(xStopeRight3);
+        this.yScaleStopeRight3 = toScaleIntersectionParameter(yStopeRight3);
 
 
         this.roundingRadius12 = calculateRoundingRadius(width1, width2, azimuthRadians1, azimuthRadians2);
@@ -198,65 +206,108 @@ public class CoordinatesIntersection {
 
         this.xPointIntrsectionExcavation12 = calculatePointIntrsectionExcavationX(xIntersectionWall12, yIntersectionWall12, roundingRadius12);
         this.yPointIntrsectionExcavation12 = calculatePointIntrsectionExcavationY(xIntersectionWall12, yIntersectionWall12, roundingRadius12);
-        this.xScalePointIntrsectionExcavation12 = toScaleParameter(xPointIntrsectionExcavation12);
-        this.yScalePointIntrsectionExcavation12 = toScaleParameter(yPointIntrsectionExcavation12);
+        this.xScalePointIntrsectionExcavation12 = toScaleIntersectionParameter(xPointIntrsectionExcavation12);
+        this.yScalePointIntrsectionExcavation12 = toScaleIntersectionParameter(yPointIntrsectionExcavation12);
 
         this.xPointIntrsectionExcavation23 = calculatePointIntrsectionExcavationX(xIntersectionWall23, yIntersectionWall23, roundingRadius23);
         this.yPointIntrsectionExcavation23 = calculatePointIntrsectionExcavationY(xIntersectionWall23, yIntersectionWall23, roundingRadius23);
-        this.xScalePointIntrsectionExcavation23 = toScaleParameter(xPointIntrsectionExcavation23);
-        this.yScalePointIntrsectionExcavation23 = toScaleParameter(yPointIntrsectionExcavation23);
+        this.xScalePointIntrsectionExcavation23 = toScaleIntersectionParameter(xPointIntrsectionExcavation23);
+        this.yScalePointIntrsectionExcavation23 = toScaleIntersectionParameter(yPointIntrsectionExcavation23);
 
         this.xPointIntrsectionExcavation31 = calculatePointIntrsectionExcavationX(xIntersectionWall31, yIntersectionWall31, roundingRadius31);
         this.yPointIntrsectionExcavation31 = calculatePointIntrsectionExcavationY(xIntersectionWall31, yIntersectionWall31, roundingRadius31);
-        this.xScalePointIntrsectionExcavation31 = toScaleParameter(xPointIntrsectionExcavation31);
-        this.yScalePointIntrsectionExcavation31 = toScaleParameter(yPointIntrsectionExcavation31);
+        this.xScalePointIntrsectionExcavation31 = toScaleIntersectionParameter(xPointIntrsectionExcavation31);
+        this.yScalePointIntrsectionExcavation31 = toScaleIntersectionParameter(yPointIntrsectionExcavation31);
 
 
         this.xStartRounding12 = calculateStartRoundingX(xIntersectionWall12, width1, azimuthRadians1);
         this.yStartRounding12 = calculateStartRoundingY(yIntersectionWall12, width1, azimuthRadians1);
-        this.xScaleStartRounding12 = toScaleParameter(xStartRounding12);
-        this.yScaleStartRounding12 = toScaleParameter(yStartRounding12);
+        this.xScaleStartRounding12 = toScaleIntersectionParameter(xStartRounding12);
+        this.yScaleStartRounding12 = toScaleIntersectionParameter(yStartRounding12);
 
         this.xStartRounding13 = calculateStartRoundingX(xIntersectionWall31, width1, azimuthRadians1);
         this.yStartRounding13 = calculateStartRoundingY(yIntersectionWall31, width1, azimuthRadians1);
-        this.xScaleStartRounding13 = toScaleParameter(xStartRounding13);
-        this.yScaleStartRounding13 = toScaleParameter(yStartRounding13);
+        this.xScaleStartRounding13 = toScaleIntersectionParameter(xStartRounding13);
+        this.yScaleStartRounding13 = toScaleIntersectionParameter(yStartRounding13);
 
         this.xStartRounding21 = calculateStartRoundingX(xIntersectionWall12, width2, azimuthRadians2);
         this.yStartRounding21 = calculateStartRoundingY(yIntersectionWall12, width2, azimuthRadians2);
-        this.xScaleStartRounding21 = toScaleParameter(xStartRounding21);
-        this.yScaleStartRounding21 = toScaleParameter(yStartRounding21);
+        this.xScaleStartRounding21 = toScaleIntersectionParameter(xStartRounding21);
+        this.yScaleStartRounding21 = toScaleIntersectionParameter(yStartRounding21);
 
         this.xStartRounding23 = calculateStartRoundingX(xIntersectionWall23, width2, azimuthRadians2);
         this.yStartRounding23 = calculateStartRoundingY(yIntersectionWall23, width2, azimuthRadians2);
-        this.xScaleStartRounding23 = toScaleParameter(xStartRounding23);
-        this.yScaleStartRounding23 = toScaleParameter(yStartRounding23);
+        this.xScaleStartRounding23 = toScaleIntersectionParameter(xStartRounding23);
+        this.yScaleStartRounding23 = toScaleIntersectionParameter(yStartRounding23);
 
         this.xStartRounding32 = calculateStartRoundingX(xIntersectionWall23, width3, azimuthRadians3);
         this.yStartRounding32 = calculateStartRoundingY(yIntersectionWall23, width3, azimuthRadians3);
-        this.xScaleStartRounding32 = toScaleParameter(xStartRounding32);
-        this.yScaleStartRounding32 = toScaleParameter(yStartRounding32);
+        this.xScaleStartRounding32 = toScaleIntersectionParameter(xStartRounding32);
+        this.yScaleStartRounding32 = toScaleIntersectionParameter(yStartRounding32);
 
         this.xStartRounding31 = calculateStartRoundingX(xIntersectionWall31, width3, azimuthRadians3);
         this.yStartRounding31 = calculateStartRoundingY(yIntersectionWall31, width3, azimuthRadians3);
-        this.xScaleStartRounding31 = toScaleParameter(xStartRounding31);
-        this.yScaleStartRounding31 = toScaleParameter(yStartRounding31);
+        this.xScaleStartRounding31 = toScaleIntersectionParameter(xStartRounding31);
+        this.yScaleStartRounding31 = toScaleIntersectionParameter(yStartRounding31);
 
 
         this.xIntersectionAxisAndStope1 = calculateIntersectionAxisAndStopeX(length1, azimuthRadians1);
-        this.xScaleIntersectionAxisAndStope1 = toScaleParameter(xIntersectionAxisAndStope1);
+        this.xScaleIntersectionAxisAndStope1 = toScaleIntersectionParameter(xIntersectionAxisAndStope1);
         this.yIntersectionAxisAndStope1 = calculateIntersectionAxisAndStopeY(length1, azimuthRadians1);
-        this.yScaleIntersectionAxisAndStope1 = toScaleParameter(yIntersectionAxisAndStope1);
+        this.yScaleIntersectionAxisAndStope1 = toScaleIntersectionParameter(yIntersectionAxisAndStope1);
 
         this.xIntersectionAxisAndStope2 = calculateIntersectionAxisAndStopeX(length2, azimuthRadians2);
-        this.xScaleIntersectionAxisAndStope2 = toScaleParameter(xIntersectionAxisAndStope2);
+        this.xScaleIntersectionAxisAndStope2 = toScaleIntersectionParameter(xIntersectionAxisAndStope2);
         this.yIntersectionAxisAndStope2 = calculateIntersectionAxisAndStopeY(length2, azimuthRadians2);
-        this.yScaleIntersectionAxisAndStope2 = toScaleParameter(yIntersectionAxisAndStope2);
+        this.yScaleIntersectionAxisAndStope2 = toScaleIntersectionParameter(yIntersectionAxisAndStope2);
 
         this.xIntersectionAxisAndStope3 = calculateIntersectionAxisAndStopeX(length3, azimuthRadians3);
-        this.xScaleIntersectionAxisAndStope3 = toScaleParameter(xIntersectionAxisAndStope3);
+        this.xScaleIntersectionAxisAndStope3 = toScaleIntersectionParameter(xIntersectionAxisAndStope3);
         this.yIntersectionAxisAndStope3 = calculateIntersectionAxisAndStopeY(length3, azimuthRadians3);
-        this.yScaleIntersectionAxisAndStope3 = toScaleParameter(yIntersectionAxisAndStope3);
+        this.yScaleIntersectionAxisAndStope3 = toScaleIntersectionParameter(yIntersectionAxisAndStope3);
+
+
+        this.xProjectionPointStartRounding13ToWall12 = GeneralService.findProjectionX(
+                xStartRounding13, yStartRounding13,
+                xStartRounding12, yStartRounding12, xStopeRight1, yStopeRight1);
+        this.yProjectionPointStartRounding13ToWall12 = GeneralService.findProjectionY(
+                xStartRounding13, yStartRounding13,
+                xStartRounding12, yStartRounding12, xStopeRight1, yStopeRight1);
+
+        this.xProjectionPointStartRounding12ToWall13 = GeneralService.findProjectionX(
+                xStartRounding12, yStartRounding12,
+                xStartRounding13, yStartRounding13, xStopeLeft1, yStopeLeft1);
+        this.yProjectionPointStartRounding12ToWall13 = GeneralService.findProjectionY(
+                xStartRounding12, yStartRounding12,
+                xStartRounding13, yStartRounding13, xStopeLeft1, yStopeLeft1);
+
+        this.xProjectionPointStartRounding21ToWall23 = GeneralService.findProjectionX(
+                xStartRounding21, yStartRounding21,
+                xStartRounding23, yStartRounding23, xStopeRight2, yStopeRight2);
+        this.yProjectionPointStartRounding21ToWall23 = GeneralService.findProjectionY(
+                xStartRounding21, yStartRounding21,
+                xStartRounding23, yStartRounding23, xStopeRight2, yStopeRight2);
+
+        this.xProjectionPointStartRounding23ToWall21 = GeneralService.findProjectionX(
+                xStartRounding23, yStartRounding23,
+                xStartRounding21, yStartRounding21, xStopeLeft2, yStopeLeft2);
+        this.yProjectionPointStartRounding23ToWall21 = GeneralService.findProjectionY(
+                xStartRounding23, yStartRounding23,
+                xStartRounding21, yStartRounding21, xStopeLeft2, yStopeLeft2);
+
+        this.xProjectionPointStartRounding31ToWall32 = GeneralService.findProjectionX(
+                xStartRounding31, yStartRounding31,
+                xStartRounding32, yStartRounding32, xStopeLeft3, yStopeLeft3);
+        this.yProjectionPointStartRounding31ToWall32 = GeneralService.findProjectionY(
+                xStartRounding31, yStartRounding31,
+                xStartRounding32, yStartRounding32, xStopeLeft3, yStopeLeft3);
+
+        this.xProjectionPointStartRounding32ToWall31 = GeneralService.findProjectionX(
+                xStartRounding32, yStartRounding32,
+                xStartRounding31, yStartRounding31, xStopeRight3, yStopeRight3);
+        this.yProjectionPointStartRounding32ToWall31 = GeneralService.findProjectionY(
+                xStartRounding32, yStartRounding32,
+                xStartRounding31, yStartRounding31, xStopeRight3, yStopeRight3);
     }
     private void calculateAllCoordinatesProfileIntersection(double width1, double width2, double width3,
                                                             double height1, double height2, double height3) {
@@ -282,8 +333,8 @@ public class CoordinatesIntersection {
         this.yCalculateCoordinatePointContact21 = calculateCoordinatePointContactY(xPointIntrsectionExcavation12, yPointIntrsectionExcavation12,
                 xPointIntrsectionExcavation31, yPointIntrsectionExcavation31, xStartRounding21, height1, width1, formIndicationIntersection, height2);
 
-        this.xScaleCalculateCoordinatePointContact21 = toScaleParameter(xCalculateCoordinatePointContact21);
-        this.yScaleCalculateCoordinatePointContact21 = toScaleParameter(yCalculateCoordinatePointContact21);
+        this.xScaleCalculateCoordinatePointContact21 = toScaleIntersectionParameter(xCalculateCoordinatePointContact21);
+        this.yScaleCalculateCoordinatePointContact21 = toScaleIntersectionParameter(yCalculateCoordinatePointContact21);
 
         this.angleBetweenCenterRoofAndPointContactRadians21 = calculateAngleBetweenCenterRoofAndPointContactRadians(xPointIntrsectionExcavation12, yPointIntrsectionExcavation12,
                 xPointIntrsectionExcavation31, yPointIntrsectionExcavation31, xStartRounding21, height1, width1, formIndicationIntersection, height2);
@@ -294,8 +345,8 @@ public class CoordinatesIntersection {
         this.yCalculateCoordinatePointContact31 = calculateCoordinatePointContactY(xPointIntrsectionExcavation31, yPointIntrsectionExcavation31,
                 xPointIntrsectionExcavation12, yPointIntrsectionExcavation12, xStartRounding31, height1, width1, formIndicationIntersection, height3);
 
-        this.xScaleCalculateCoordinatePointContact31 = toScaleParameter(xCalculateCoordinatePointContact31);
-        this.yScaleCalculateCoordinatePointContact31 = toScaleParameter(yCalculateCoordinatePointContact31);
+        this.xScaleCalculateCoordinatePointContact31 = toScaleIntersectionParameter(xCalculateCoordinatePointContact31);
+        this.yScaleCalculateCoordinatePointContact31 = toScaleIntersectionParameter(yCalculateCoordinatePointContact31);
 
         this.angleBetweenCenterRoofAndPointContactRadians31 = calculateAngleBetweenCenterRoofAndPointContactRadians(xPointIntrsectionExcavation31, yPointIntrsectionExcavation31,
                 xPointIntrsectionExcavation12, yPointIntrsectionExcavation12, xStartRounding31, height1, width1, formIndicationIntersection, height3);
@@ -601,5 +652,24 @@ public class CoordinatesIntersection {
                 this.getYStopeLeft3()
         );
     }
-// @formatter:on
+
+    public double getxProjectionPointStartRounding13ToWall12() {return xProjectionPointStartRounding13ToWall12;}
+    public double getyProjectionPointStartRounding13ToWall12() {return yProjectionPointStartRounding13ToWall12;}
+
+    public double getxProjectionPointStartRounding12ToWall13() {return xProjectionPointStartRounding12ToWall13;}
+    public double getyProjectionPointStartRounding12ToWall13() {return yProjectionPointStartRounding12ToWall13;}
+
+    public double getxProjectionPointStartRounding21ToWall23() {return xProjectionPointStartRounding21ToWall23;}
+    public double getyProjectionPointStartRounding21ToWall23() {return yProjectionPointStartRounding21ToWall23;}
+
+    public double getxProjectionPointStartRounding23ToWall21() {return xProjectionPointStartRounding23ToWall21;}
+    public double getyProjectionPointStartRounding23ToWall21() {return yProjectionPointStartRounding23ToWall21;}
+
+    public double getxProjectionPointStartRounding31ToWall32() {return xProjectionPointStartRounding31ToWall32;}
+    public double getyProjectionPointStartRounding31ToWall32() {return yProjectionPointStartRounding31ToWall32;}
+
+    public double getxProjectionPointStartRounding32ToWall31() {return xProjectionPointStartRounding32ToWall31;}
+    public double getyProjectionPointStartRounding32ToWall31() {return yProjectionPointStartRounding32ToWall31;}
+
+    //formatter:on
 }

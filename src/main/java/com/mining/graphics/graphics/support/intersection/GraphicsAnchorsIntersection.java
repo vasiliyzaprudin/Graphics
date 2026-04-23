@@ -125,7 +125,7 @@ public class GraphicsAnchorsIntersection {
         int distance = GraphicsParameters.DISTANCE_BETWEEN_PLAN_AND_PROFILE_SECTION;
 
         double plateSize = anchorsIntersection.getPlateSize();
-        int scalePlateSize = GeneralService.toScaleParameter(plateSize);
+        int scalePlateSize = GeneralService.toScaleIntersectionParameter(plateSize);
 
         double increasedWidth = modelCoordinatesIntersection.getIncreasedWidth1();
 

@@ -19,8 +19,8 @@ public class ModelIntersection {
     public ModelIntersection(){}
 
     public ModelIntersection(double width1, double height1, double length1, double formIndication1, int azimuthDegrees1,
-                      double width2, double height2, double length2, double formIndication2, int azimuthDegrees2,
-                      double formIndicationIntersection) {
+                             double width2, double height2, double length2, double formIndication2, int azimuthDegrees2,
+                             double formIndicationIntersection) {
         this.width1 = width1;
         this.height1 = height1;
         this.length1 = length1;
@@ -35,9 +35,9 @@ public class ModelIntersection {
     }
 
     public ModelIntersection(double width1, double height1, double length1, double formIndication1, int azimuthDegrees1,
-                      double width2, double height2, double length2, double formIndication2, int azimuthDegrees2,
-                      double width3, double height3, double length3, double formIndication3, int azimuthDegrees3,
-                      double formIndicationIntersection) {
+                             double width2, double height2, double length2, double formIndication2, int azimuthDegrees2,
+                             double width3, double height3, double length3, double formIndication3, int azimuthDegrees3,
+                             double formIndicationIntersection) {
         this.width1 = width1;
         this.height1 = height1;
         this.length1 = length1;

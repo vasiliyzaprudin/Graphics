@@ -62,6 +62,7 @@ public class GraphicsWindow extends JFrame {
     private final CoordinatesIntersection meshCoordinatesIntersection;
     private final AnchorsIntersection anchorsIntersection;
     private final ShotcreteIntersection shotcreteIntersection;
+    private final MeshIntersection meshIntersection;
 
 
     private final AnchorsRenderer anchorsRenderer;
@@ -104,6 +105,7 @@ public class GraphicsWindow extends JFrame {
         shotcreteCoordinatesIntersection = new CoordinatesIntersection(modelIntersection);
         meshCoordinatesIntersection = new CoordinatesIntersection(modelIntersection);
         anchorsIntersection = new AnchorsIntersection();
+        meshIntersection = new MeshIntersection();
 
         anchorsRenderer = new AnchorsRenderer();
 
@@ -118,7 +120,7 @@ public class GraphicsWindow extends JFrame {
         graphicsIntersection = new GraphicsIntersection(modelIntersection, modelCoordinatesIntersection, graphicsExcavation);
         graphicsAnchorsIntersection = new GraphicsAnchorsIntersection(modelIntersection, modelCoordinatesIntersection, anchorsIntersection, modelTest, anchorsRenderer);
         graphicsShotcreteIntersection = new GraphicsShotcreteIntersection(shotcreteCoordinatesIntersection, modelIntersection);
-        graphicsMeshIntersection = new GraphicsMeshIntersection(meshCoordinatesIntersection);
+        graphicsMeshIntersection = new GraphicsMeshIntersection(meshCoordinatesIntersection, modelIntersection, meshIntersection);
 
         graphicsDimension = new GraphicsDimension(modelExcavation, anchorsExcavation, shotcreteExcavation, serviceExcavation);
 
@@ -293,7 +295,7 @@ public class GraphicsWindow extends JFrame {
         g2d.translate(-600, -900);
 
         g2d.setColor(Color.BLUE);
-        drawing.draw(g2d);
+        //drawing.draw(g2d);
     }
 
     private void drawIntersection(Graphics2D g2d) {
@@ -311,7 +313,8 @@ public class GraphicsWindow extends JFrame {
         graphicsShotcreteIntersection.drawShotcretePlanIntersection3(g2d);
         graphicsShotcreteIntersection.drawShotcreteProfileIntersection3(g2d);
 
-        graphicsMeshIntersection.drawMeshPlanIntersection3(g2d);
+        graphicsMeshIntersection.graphicsMeshPlanIntersection3(g2d);
+        graphicsMeshIntersection.graphicsMeshProfileIntersection3(g2d);
         g2d.translate(-500, -400);
     }
 

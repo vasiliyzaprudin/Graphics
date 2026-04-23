@@ -1,8 +1,6 @@
 package com.mining.graphics.graphics.support.intersection;
 
 import com.mining.graphics.graphics.GraphicsParameters;
-import com.mining.graphics.graphics.excavation.DrawIntersection;
-import com.mining.graphics.graphics.excavation.GraphicsExcavation;
 import com.mining.graphics.model.coordinates.CoordinatesIntersection;
 import com.mining.graphics.model.excavation.ModelIntersection;
 import com.mining.graphics.service.GeneralService;
@@ -22,8 +20,9 @@ public class GraphicsShotcreteIntersection {
     public void drawShotcretePlanIntersection3(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
 
-        graphicsWalls3(g2d);
+        //graphicsWalls3(g2d);
         graphicsRoundings3(g2d);
+        graphicsPlanLineShotcrete(g2d);
     }
     public void drawShotcreteProfileIntersection3(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
@@ -32,40 +31,150 @@ public class GraphicsShotcreteIntersection {
         graphicsProfileCrossSectionIncreaseExcavation(g2d);
     }
 
-
+    // @formatter:off
     private void graphicsWalls3(Graphics2D g2d) {
-        DrawShotcreteIntersection.drawPlanShotcrete(g2d, coordinatesIntersectionWithShotcrete.getXScaleStopeRight1(), coordinatesIntersectionWithShotcrete.getYScaleStopeRight1(), coordinatesIntersectionWithShotcrete.getXScaleStartRounding12(), coordinatesIntersectionWithShotcrete.getYScaleStartRounding12());
+        DrawShotcreteIntersection.drawPlanRoundingShotcrete(g2d,
+                coordinatesIntersectionWithShotcrete.getXScaleStopeRight1(),
+                coordinatesIntersectionWithShotcrete.getYScaleStopeRight1(),
+                coordinatesIntersectionWithShotcrete.getXScaleStartRounding12(),
+                coordinatesIntersectionWithShotcrete.getYScaleStartRounding12());
 
-        DrawShotcreteIntersection.drawPlanShotcrete(g2d, coordinatesIntersectionWithShotcrete.getXScaleStopeLeft1(), coordinatesIntersectionWithShotcrete.getYScaleStopeLeft1(), coordinatesIntersectionWithShotcrete.getXScaleStartRounding13(), coordinatesIntersectionWithShotcrete.getYScaleStartRounding13());
+        DrawShotcreteIntersection.drawPlanRoundingShotcrete(g2d,
+                coordinatesIntersectionWithShotcrete.getXScaleStopeLeft1(),
+                coordinatesIntersectionWithShotcrete.getYScaleStopeLeft1(),
+                coordinatesIntersectionWithShotcrete.getXScaleStartRounding13(),
+                coordinatesIntersectionWithShotcrete.getYScaleStartRounding13());
 
-        DrawShotcreteIntersection.drawPlanShotcrete(g2d, coordinatesIntersectionWithShotcrete.getXScaleStopeRight2(), coordinatesIntersectionWithShotcrete.getYScaleStopeRight2(), coordinatesIntersectionWithShotcrete.getXScaleStartRounding23(), coordinatesIntersectionWithShotcrete.getYScaleStartRounding23());
+        DrawShotcreteIntersection.drawPlanRoundingShotcrete(g2d,
+                coordinatesIntersectionWithShotcrete.getXScaleStopeRight2(),
+                coordinatesIntersectionWithShotcrete.getYScaleStopeRight2(),
+                coordinatesIntersectionWithShotcrete.getXScaleStartRounding23(),
+                coordinatesIntersectionWithShotcrete.getYScaleStartRounding23());
 
-        DrawShotcreteIntersection.drawPlanShotcrete(g2d, coordinatesIntersectionWithShotcrete.getXScaleStopeLeft2(), coordinatesIntersectionWithShotcrete.getYScaleStopeLeft2(), coordinatesIntersectionWithShotcrete.getXScaleStartRounding21(), coordinatesIntersectionWithShotcrete.getYScaleStartRounding21());
+        DrawShotcreteIntersection.drawPlanRoundingShotcrete(g2d,
+                coordinatesIntersectionWithShotcrete.getXScaleStopeLeft2(),
+                coordinatesIntersectionWithShotcrete.getYScaleStopeLeft2(),
+                coordinatesIntersectionWithShotcrete.getXScaleStartRounding21(),
+                coordinatesIntersectionWithShotcrete.getYScaleStartRounding21());
 
-        DrawShotcreteIntersection.drawPlanShotcrete(g2d, coordinatesIntersectionWithShotcrete.getXScaleStopeRight3(), coordinatesIntersectionWithShotcrete.getYScaleStopeRight3(), coordinatesIntersectionWithShotcrete.getXScaleStartRounding31(), coordinatesIntersectionWithShotcrete.getYScaleStartRounding31());
+        DrawShotcreteIntersection.drawPlanRoundingShotcrete(g2d,
+                coordinatesIntersectionWithShotcrete.getXScaleStopeRight3(),
+                coordinatesIntersectionWithShotcrete.getYScaleStopeRight3(),
+                coordinatesIntersectionWithShotcrete.getXScaleStartRounding31(),
+                coordinatesIntersectionWithShotcrete.getYScaleStartRounding31());
 
-        DrawShotcreteIntersection.drawPlanShotcrete(g2d, coordinatesIntersectionWithShotcrete.getXScaleStopeLeft3(), coordinatesIntersectionWithShotcrete.getYScaleStopeLeft3(), coordinatesIntersectionWithShotcrete.getXScaleStartRounding32(), coordinatesIntersectionWithShotcrete.getYScaleStartRounding32());
+        DrawShotcreteIntersection.drawPlanRoundingShotcrete(g2d,
+                coordinatesIntersectionWithShotcrete.getXScaleStopeLeft3(),
+                coordinatesIntersectionWithShotcrete.getYScaleStopeLeft3(),
+                coordinatesIntersectionWithShotcrete.getXScaleStartRounding32(),
+                coordinatesIntersectionWithShotcrete.getYScaleStartRounding32());
     }
 
     private void graphicsRoundings3(Graphics2D g2d) {
-        DrawShotcreteIntersection.drawPlanShotcrete(g2d, coordinatesIntersectionWithShotcrete.getXScaleStartRounding13(), coordinatesIntersectionWithShotcrete.getYScaleStartRounding13(), coordinatesIntersectionWithShotcrete.getXScalePointIntrsectionExcavation31(), coordinatesIntersectionWithShotcrete.getYScalePointIntrsectionExcavation31());
+        DrawShotcreteIntersection.drawPlanRoundingShotcrete(g2d,
+                coordinatesIntersectionWithShotcrete.getXScalePointIntrsectionExcavation31(),
+                coordinatesIntersectionWithShotcrete.getYScalePointIntrsectionExcavation31(),
+                coordinatesIntersectionWithShotcrete.getXScaleStartRounding13(),
+                coordinatesIntersectionWithShotcrete.getYScaleStartRounding13());
 
-        DrawShotcreteIntersection.drawPlanShotcrete(g2d, coordinatesIntersectionWithShotcrete.getXScaleStartRounding12(), coordinatesIntersectionWithShotcrete.getYScaleStartRounding12(), coordinatesIntersectionWithShotcrete.getXScalePointIntrsectionExcavation12(), coordinatesIntersectionWithShotcrete.getYScalePointIntrsectionExcavation12());
 
-        DrawShotcreteIntersection.drawPlanShotcrete(g2d, coordinatesIntersectionWithShotcrete.getXScaleStartRounding21(), coordinatesIntersectionWithShotcrete.getYScaleStartRounding21(), coordinatesIntersectionWithShotcrete.getXScalePointIntrsectionExcavation12(), coordinatesIntersectionWithShotcrete.getYScalePointIntrsectionExcavation12());
+        DrawShotcreteIntersection.drawPlanRoundingShotcrete(g2d,
+                coordinatesIntersectionWithShotcrete.getXScalePointIntrsectionExcavation12(),
+                coordinatesIntersectionWithShotcrete.getYScalePointIntrsectionExcavation12(),
+                coordinatesIntersectionWithShotcrete.getXScaleStartRounding12(),
+                coordinatesIntersectionWithShotcrete.getYScaleStartRounding12());
 
-        DrawShotcreteIntersection.drawPlanShotcrete(g2d, coordinatesIntersectionWithShotcrete.getXScaleStartRounding23(), coordinatesIntersectionWithShotcrete.getYScaleStartRounding23(), coordinatesIntersectionWithShotcrete.getXScalePointIntrsectionExcavation23(), coordinatesIntersectionWithShotcrete.getYScalePointIntrsectionExcavation23());
+        DrawShotcreteIntersection.drawPlanRoundingShotcrete(g2d,
+                coordinatesIntersectionWithShotcrete.getXScalePointIntrsectionExcavation12(),
+                coordinatesIntersectionWithShotcrete.getYScalePointIntrsectionExcavation12(),
+                coordinatesIntersectionWithShotcrete.getXScaleStartRounding21(),
+                coordinatesIntersectionWithShotcrete.getYScaleStartRounding21());
 
-        DrawShotcreteIntersection.drawPlanShotcrete(g2d, coordinatesIntersectionWithShotcrete.getXScaleStartRounding32(), coordinatesIntersectionWithShotcrete.getYScaleStartRounding32(), coordinatesIntersectionWithShotcrete.getXScalePointIntrsectionExcavation23(), coordinatesIntersectionWithShotcrete.getYScalePointIntrsectionExcavation23());
 
-        DrawShotcreteIntersection.drawPlanShotcrete(g2d, coordinatesIntersectionWithShotcrete.getXScaleStartRounding31(), coordinatesIntersectionWithShotcrete.getYScaleStartRounding31(), coordinatesIntersectionWithShotcrete.getXScalePointIntrsectionExcavation31(), coordinatesIntersectionWithShotcrete.getYScalePointIntrsectionExcavation31());
+        DrawShotcreteIntersection.drawPlanRoundingShotcrete(g2d,
+                coordinatesIntersectionWithShotcrete.getXScalePointIntrsectionExcavation23(),
+                coordinatesIntersectionWithShotcrete.getYScalePointIntrsectionExcavation23(),
+                coordinatesIntersectionWithShotcrete.getXScaleStartRounding23(),
+                coordinatesIntersectionWithShotcrete.getYScaleStartRounding23());
+
+
+        DrawShotcreteIntersection.drawPlanRoundingShotcrete(g2d,
+                coordinatesIntersectionWithShotcrete.getXScalePointIntrsectionExcavation23(),
+                coordinatesIntersectionWithShotcrete.getYScalePointIntrsectionExcavation23(),
+                coordinatesIntersectionWithShotcrete.getXScaleStartRounding32(),
+                coordinatesIntersectionWithShotcrete.getYScaleStartRounding32());
+
+
+        DrawShotcreteIntersection.drawPlanRoundingShotcrete(g2d,
+                coordinatesIntersectionWithShotcrete.getXScalePointIntrsectionExcavation31(),
+                coordinatesIntersectionWithShotcrete.getYScalePointIntrsectionExcavation31(),
+                coordinatesIntersectionWithShotcrete.getXScaleStartRounding31(),
+                coordinatesIntersectionWithShotcrete.getYScaleStartRounding31());
     }
+
+    public void graphicsPlanLineShotcrete(Graphics2D g2d) {
+
+        DrawShotcreteIntersection.drawPlanLineShotcreteExcavation (g2d,
+                coordinatesIntersectionWithShotcrete.getxProjectionPointStartRounding21ToWall23(),
+                coordinatesIntersectionWithShotcrete.getyProjectionPointStartRounding21ToWall23(),
+                coordinatesIntersectionWithShotcrete.getXStartRounding23(),
+                coordinatesIntersectionWithShotcrete.getYStartRounding23());
+
+        DrawShotcreteIntersection.drawPlanLineShotcreteExcavation (g2d,
+                coordinatesIntersectionWithShotcrete.getxProjectionPointStartRounding23ToWall21(),
+                coordinatesIntersectionWithShotcrete.getyProjectionPointStartRounding23ToWall21(),
+                coordinatesIntersectionWithShotcrete.getXStartRounding21(),
+                coordinatesIntersectionWithShotcrete.getYStartRounding21());
+
+        DrawShotcreteIntersection.drawPlanLineShotcreteExcavation (g2d,
+                coordinatesIntersectionWithShotcrete.getxProjectionPointStartRounding31ToWall32(),
+                coordinatesIntersectionWithShotcrete.getyProjectionPointStartRounding31ToWall32(),
+                coordinatesIntersectionWithShotcrete.getXStartRounding32(),
+                coordinatesIntersectionWithShotcrete.getYStartRounding32());
+
+        DrawShotcreteIntersection.drawPlanLineShotcreteExcavation (g2d,
+                coordinatesIntersectionWithShotcrete.getxProjectionPointStartRounding32ToWall31(),
+                coordinatesIntersectionWithShotcrete.getyProjectionPointStartRounding32ToWall31(),
+                coordinatesIntersectionWithShotcrete.getXStartRounding31(),
+                coordinatesIntersectionWithShotcrete.getYStartRounding31());
+
+        DrawShotcreteIntersection.drawPlanLineShotcreteExcavation (g2d,
+                coordinatesIntersectionWithShotcrete.getxProjectionPointStartRounding12ToWall13(),
+                coordinatesIntersectionWithShotcrete.getyProjectionPointStartRounding12ToWall13(),
+                coordinatesIntersectionWithShotcrete.getXStartRounding13(),
+                coordinatesIntersectionWithShotcrete.getYStartRounding13());
+
+        DrawShotcreteIntersection.drawPlanLineShotcreteExcavation (g2d,
+                coordinatesIntersectionWithShotcrete.getxProjectionPointStartRounding13ToWall12(),
+                coordinatesIntersectionWithShotcrete.getyProjectionPointStartRounding13ToWall12(),
+                coordinatesIntersectionWithShotcrete.getXStartRounding12(),
+                coordinatesIntersectionWithShotcrete.getYStartRounding12());
+    }
+
+
     private void graphicsProfileShotcrete(Graphics2D g2d) {
 
-        DrawShotcreteIntersection.drawProfileShotcrete(g2d, (int) (Math.round(coordinatesIntersectionWithShotcrete.getIncreasedWidth1() / 2.0)), 0, coordinatesIntersectionWithShotcrete.getXScaleStartRounding21(), 0, coordinatesIntersectionWithShotcrete.getXScaleIntersectionAxisAndStope2(), 0, coordinatesIntersectionWithShotcrete.getXScaleIntersectionAxisAndStope2(), -coordinatesIntersectionWithShotcrete.getScaleHeight2(), coordinatesIntersectionWithShotcrete.getXScaleStartRounding21(), -coordinatesIntersectionWithShotcrete.getScaleHeight2(), coordinatesIntersectionWithShotcrete.getXScaleCalculateCoordinatePointContact21(), coordinatesIntersectionWithShotcrete.getYScaleCalculateCoordinatePointContact21());
+        DrawShotcreteIntersection.drawProfileShotcrete(g2d,
+                (int) (Math.round(coordinatesIntersectionWithShotcrete.getIncreasedWidth1() / 2.0)),
+                0, coordinatesIntersectionWithShotcrete.getXScaleStartRounding21(),
+                0, coordinatesIntersectionWithShotcrete.getXScaleIntersectionAxisAndStope2(),
+                0, coordinatesIntersectionWithShotcrete.getXScaleIntersectionAxisAndStope2(),
+                -coordinatesIntersectionWithShotcrete.getScaleHeight2(),
+                coordinatesIntersectionWithShotcrete.getXScaleStartRounding21(),
+                -coordinatesIntersectionWithShotcrete.getScaleHeight2(),
+                coordinatesIntersectionWithShotcrete.getXScaleCalculateCoordinatePointContact21(),
+                coordinatesIntersectionWithShotcrete.getYScaleCalculateCoordinatePointContact21());
 
-
-        DrawShotcreteIntersection.drawProfileShotcrete(g2d, (int) (Math.round(coordinatesIntersectionWithShotcrete.getIncreasedWidth1() / 2.0)), 0, coordinatesIntersectionWithShotcrete.getXScaleStartRounding31(), 0, coordinatesIntersectionWithShotcrete.getXScaleIntersectionAxisAndStope3(), 0, coordinatesIntersectionWithShotcrete.getXScaleIntersectionAxisAndStope3(), -coordinatesIntersectionWithShotcrete.getScaleHeight3(), coordinatesIntersectionWithShotcrete.getXScaleStartRounding31(), -coordinatesIntersectionWithShotcrete.getScaleHeight3(), coordinatesIntersectionWithShotcrete.getXScaleCalculateCoordinatePointContact31(), coordinatesIntersectionWithShotcrete.getYScaleCalculateCoordinatePointContact31());
+        DrawShotcreteIntersection.drawProfileShotcrete(g2d,
+                (int) (Math.round(coordinatesIntersectionWithShotcrete.getIncreasedWidth1() / 2.0)),
+                0, coordinatesIntersectionWithShotcrete.getXScaleStartRounding31(),
+                0, coordinatesIntersectionWithShotcrete.getXScaleIntersectionAxisAndStope3(),
+                0, coordinatesIntersectionWithShotcrete.getXScaleIntersectionAxisAndStope3(),
+                -coordinatesIntersectionWithShotcrete.getScaleHeight3(),
+                coordinatesIntersectionWithShotcrete.getXScaleStartRounding31(),
+                -coordinatesIntersectionWithShotcrete.getScaleHeight3(),
+                coordinatesIntersectionWithShotcrete.getXScaleCalculateCoordinatePointContact31(),
+                coordinatesIntersectionWithShotcrete.getYScaleCalculateCoordinatePointContact31());
     }
 
     private void graphicsProfileCrossSectionIncreaseExcavation(Graphics2D g2d) {
@@ -75,14 +184,15 @@ public class GraphicsShotcreteIntersection {
         double width = coordinatesIntersectionWithShotcrete.getIncreasedWidth1();
         double formIndicationIntersection = modelIntersection.getFormIndicationIntersection();
 
-        int heightScale = GeneralService.toScaleParameter(coordinatesIntersectionWithShotcrete.getIncreasedHeight1());
+        int heightScale = GeneralService.toScaleIntersectionParameter(coordinatesIntersectionWithShotcrete.getIncreasedHeight1());
         int alphaDegree = coordinatesIntersectionWithShotcrete.getAngleBetweenCenterRoofAndPointContactDegrees31();
 
         double largeArcRadius = ServiceExcavation.largeArcRadius(width, formIndicationIntersection);
-        int scaleLargeArcRadius = GeneralService.toScaleParameter(largeArcRadius);
+        int scaleLargeArcRadius = GeneralService.toScaleIntersectionParameter(largeArcRadius);
 
         g2d.drawArc(-scaleLargeArcRadius, -heightScale, 2 * scaleLargeArcRadius, 2 * scaleLargeArcRadius, 90 - alphaDegree, 2 * alphaDegree);
 
         g2d.translate(0, -distance);
     }
+    // @formatter:on
 }
