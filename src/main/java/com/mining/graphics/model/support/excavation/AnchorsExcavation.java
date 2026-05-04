@@ -74,9 +74,7 @@ public class AnchorsExcavation {
         return distanceLowerAnchor;
     }
 
-    public double getBottomAnchorY() {
-        return bottomAnchorY;
-    }
+    public double getBottomAnchorY() {return bottomAnchorY;}
 
     public double getFirstcrossSectionAnchorX() {
         return firstCrossSectionAnchorX;
@@ -133,9 +131,7 @@ public class AnchorsExcavation {
     }
 
 
-    public double[][] getCrossSectionAnchorsXY() {
-        return crossSectionAnchorsXY;
-    }
+    public double[][] getCrossSectionAnchorsXY() {return crossSectionAnchorsXY;}
 
     public void setCrossSectionAnchorsXY(double[][] crossSectionAnchorsXY) {
         this.crossSectionAnchorsXY = crossSectionAnchorsXY;

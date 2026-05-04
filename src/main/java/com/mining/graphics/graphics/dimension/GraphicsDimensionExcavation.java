@@ -1,40 +1,31 @@
 package com.mining.graphics.graphics.dimension;
 
-import com.mining.graphics.graphics.GraphicsParameters;
 import com.mining.graphics.model.excavation.ModelExcavation;
 import com.mining.graphics.model.support.excavation.AnchorsExcavation;
 import com.mining.graphics.model.support.excavation.ShotcreteExcavation;
-import com.mining.graphics.service.dimension.ServiceDimension;
-import com.mining.graphics.service.excavation.ServiceExcavation;
+import com.mining.graphics.service.dimension.ServiceDimensionExcavation;
 
 import java.awt.*;
 
-/**
- * Графический класс для отрисовки размеров
- */
-public class GraphicsDimension {
+public class GraphicsDimensionExcavation {
 
-    private final ModelExcavation model;
+    private final ModelExcavation modelExcavation;
     private final AnchorsExcavation anchorsExcavation;
     private final ShotcreteExcavation shotcreteExcavation;
-    private final ServiceDimension dimensionService;
+    private final ServiceDimensionExcavation serviceDimensionExcavation;
 
-    public GraphicsDimension(ModelExcavation model, AnchorsExcavation anchorsExcavation, ShotcreteExcavation shotcreteExcavation, ServiceExcavation excavationService) {
-        this.model = model;
+    public GraphicsDimensionExcavation(ModelExcavation model, AnchorsExcavation anchorsExcavation, ShotcreteExcavation shotcreteExcavation) {
+        this.modelExcavation = model;
         this.anchorsExcavation = anchorsExcavation;
         this.shotcreteExcavation = shotcreteExcavation;
-        this.dimensionService = new ServiceDimension(excavationService);
+        this.serviceDimensionExcavation = new ServiceDimensionExcavation();
     }
 
-    /**
-     * Отрисовка всех размеров для поперечного сечения
-     */
-    public void drawCrossSectionDimensions(Graphics2D g) {
-        int scale = GraphicsParameters.GRAPHICS_EXCAVATION_SCALE;
-        ServiceDimension.DimensionPoints points = dimensionService.calculateCrossSectionDimensions(model, anchorsExcavation, shotcreteExcavation, scale);
+    public void drawDimensionsExcavation(Graphics2D g) {
+        ServiceDimensionExcavation.DimensionPointsExcavation points = serviceDimensionExcavation.calculateDimensionsExcavation(modelExcavation, anchorsExcavation, shotcreteExcavation);
 
         // Ширина
-        DimensionRenderer.drawDimension(g,
+        DrawDimension.drawDimension(g,
                 points.widthStart.x, points.widthStart.y,
                 points.widthEnd.x, points.widthEnd.y,
                 points.widthOffset,
@@ -42,7 +33,7 @@ public class GraphicsDimension {
                 points.widthText, false);
 
         // Высота
-        DimensionRenderer.drawDimension(g,
+        DrawDimension.drawDimension(g,
                 points.heightStart.x, points.heightStart.y,
                 points.heightEnd.x, points.heightEnd.y,
                 points.heightOffset,
@@ -50,7 +41,7 @@ public class GraphicsDimension {
                 points.heightText, false);
 
         // Расстояние до нижнего анкера (смещение вправо)
-        DimensionRenderer.drawDimension(g,
+        DrawDimension.drawDimension(g,
                 points.heightToBottomAnchorStart.x, points.heightToBottomAnchorStart.y,
                 points.heightToBottomAnchorEnd.x, points.heightToBottomAnchorEnd.y,
                 points.heightToBottomAnchorOffset,
@@ -58,7 +49,7 @@ public class GraphicsDimension {
                 points.heightToBottomAnchorText, false);
 
         // Расстояние между анкерами в ряду
-        DimensionRenderer.drawDimension(g,
+        DrawDimension.drawDimension(g,
                 points.stepStart.x, points.stepStart.y,
                 points.stepEnd.x, points.stepEnd.y,
                 points.stepOffset,
@@ -66,7 +57,7 @@ public class GraphicsDimension {
                 points.stepText, false);
 
         // Расстояние между рядами анкеров
-        DimensionRenderer.drawDimension(g,
+        DrawDimension.drawDimension(g,
                 points.distanceBetweenRowsStart.x, points.distanceBetweenRowsStart.y,
                 points.distanceBetweenRowsEnd.x, points.distanceBetweenRowsEnd.y,
                 points.distanceBetweenRowsOffset,
@@ -74,7 +65,7 @@ public class GraphicsDimension {
                 points.distanceBetweenRowsText, false);
 
         //Толщина набрызгбетона
-        DimensionRenderer.drawDimension(g,
+        DrawDimension.drawDimension(g,
                 points.thicknessShorcreteStart.x, points.thicknessShorcreteStart.y,
                 points.thicknessShorcreteEnd.x, points.thicknessShorcreteEnd.y,
                 points.thicknessShorcreteOffset,

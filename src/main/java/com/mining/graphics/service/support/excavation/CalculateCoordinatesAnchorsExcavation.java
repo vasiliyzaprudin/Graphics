@@ -6,7 +6,6 @@ import com.mining.graphics.service.excavation.ServiceExcavation;
 
 public class CalculateCoordinatesAnchorsExcavation {
 
-    private final ServiceExcavation excavationService;
     private final ServiceAnchorsExcavation anchorsService;
 
     private double phi;
@@ -24,9 +23,7 @@ public class CalculateCoordinatesAnchorsExcavation {
     private double stepWallAnchorsX;
     private double stepWallAnchorsY;
 
-    public CalculateCoordinatesAnchorsExcavation(ServiceExcavation excavationService,
-                                                 ServiceAnchorsExcavation anchorsService) {
-        this.excavationService = excavationService;
+    public CalculateCoordinatesAnchorsExcavation(ServiceAnchorsExcavation anchorsService) {
         this.anchorsService = anchorsService;
     }
 

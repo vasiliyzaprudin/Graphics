@@ -14,6 +14,11 @@ public class GeneralService {
         return (int) (Math.round(parameter * scale));
     }
 
+    public static int toScaleExcavationParameter(double parameter) {
+        int scale = GraphicsParameters.GRAPHICS_EXCAVATION_SCALE;
+        return (int) (Math.round(parameter * scale));
+    }
+
     public static double findProjectionX(double xPoint, double yPoint, double x1, double y1, double x2, double y2) {
         double dx = x2 - x1, dy = y2 - y1;
         double t = ((xPoint - x1) * dx + (yPoint - y1) * dy) / (dx * dx + dy * dy);

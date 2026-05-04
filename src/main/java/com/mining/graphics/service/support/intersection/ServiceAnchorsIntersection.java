@@ -99,7 +99,6 @@ public class ServiceAnchorsIntersection {
         return yPointIntrsectionExcavations + (delta / Math.cos(phi)) * Math.sin(beta + phi);
     }
 
-
     // @formatter:off
     public static double[][] calculateCoordinatesAnchorPlanRound(CoordinatesIntersectionRounding coordinatesIntersectionRounding, double width, double height, double formIndication,
                                                                  double distanceBetweenRows, double distanceLowerAnchor, double step, double lengthAnchor) {

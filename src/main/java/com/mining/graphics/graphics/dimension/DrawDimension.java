@@ -3,21 +3,18 @@ package com.mining.graphics.graphics.dimension;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 
-/**
- * Класс для отрисовки линейных размеров
- */
-public class DimensionRenderer {
+public class DrawDimension {
 
     private static final int ARROW_SIZE = 10;            // размер стрелки в пикселях
-    private static final int TEXT_OFFSET = -10;          // отступ текста от размерной линии для больших размеров
+    private static final int TEXT_OFFSET = -12;          // отступ текста от размерной линии
 
     private static final int TEXT_OFFSET_FLIPPED = -12;  // отступ для перевернутого текста
     private static final int MIN_DIMENSION_FOR_OUTSIDE_ARROWS = 50; // минимальный размер для внешних стрелок (пиксели)
     private static final int ARROW_LENGTH = 25; //длина стрелки для маленьких размеров
 
-    private static final Color DIMENSION_COLOR = Color.BLACK;
+    private static final Color DIMENSION_COLOR =  new Color(119, 131, 143);
     private static final Color TEXT_COLOR = Color.BLACK;
-    private static final Color EXTENSION_COLOR = Color.BLACK;
+    private static final Color EXTENSION_COLOR =new Color(119, 131, 143);
 
     private static final Font TEXT_FONT = new Font("Arial", Font.PLAIN, 14);
 
@@ -30,11 +27,11 @@ public class DimensionRenderer {
      * @param x2                  x конца измеряемого отрезка
      * @param y2                  y конца измеряемого отрезка
      * @param offset              смещение размерной линии от измеряемого отрезка (положительное - наружу)
-     * @param lengthextensionline длина выноски
+     * @param lengthExtensionLine длина выноски
      * @param text                текст размера
-     * @param textOnOppositeSide  true - текст с противоположной стороны от размерной линии
+     * @param textOppositeSide  true - текст с противоположной стороны от размерной линии
      */
-    public static void drawDimension(Graphics2D g, int x1, int y1, int x2, int y2, int offset, int lengthextensionline, String text, boolean textOnOppositeSide) {
+    public static void drawDimension(Graphics2D g, int x1, int y1, int x2, int y2, int offset, int lengthExtensionLine, String text, boolean textOppositeSide) {
         // Вычисляем длину размера
         double dimensionLength = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
 
@@ -42,16 +39,16 @@ public class DimensionRenderer {
         boolean useOutsideArrows = dimensionLength < MIN_DIMENSION_FOR_OUTSIDE_ARROWS;
 
         if (useOutsideArrows) {
-            drawDimensionWithOutsideArrows(g, x1, y1, x2, y2, offset, lengthextensionline, text, textOnOppositeSide);
+            drawDimensionWithOutsideArrows(g, x1, y1, x2, y2, offset, lengthExtensionLine, text, textOppositeSide);
         } else {
-            drawDimensionWithInsideArrows(g, x1, y1, x2, y2, offset, lengthextensionline, text, textOnOppositeSide);
+            drawDimensionWithInsideArrows(g, x1, y1, x2, y2, offset, lengthExtensionLine, text, textOppositeSide);
         }
     }
 
     /**
      * Отрисовка размера с внутренними стрелками (стандартный вариант)
      */
-    private static void drawDimensionWithInsideArrows(Graphics2D g, int x1, int y1, int x2, int y2, int offset, int lengthextensionline, String text, boolean textOnOppositeSide) {
+    private static void drawDimensionWithInsideArrows(Graphics2D g, int x1, int y1, int x2, int y2, int offset, int lengthExtensionLine, String text, boolean textOppositeSide) {
         // Вычисляем угол отрезка
         double angle = Math.atan2(y2 - y1, x2 - x1);
 
@@ -69,10 +66,15 @@ public class DimensionRenderer {
         int dimY2 = y2 + dy;
 
         // Точки выносной линии
-        int extX1 = dimX1 - (int) (lengthextensionline * Math.cos(perpAngle));
-        int extY1 = dimY1 - (int) (lengthextensionline * Math.sin(perpAngle));
-        int extX2 = dimX2 - (int) (lengthextensionline * Math.cos(perpAngle));
-        int extY2 = dimY2 - (int) (lengthextensionline * Math.sin(perpAngle));
+        int extX1 = dimX1 - (int) (lengthExtensionLine * Math.cos(perpAngle));
+        int extY1 = dimY1 - (int) (lengthExtensionLine * Math.sin(perpAngle));
+        int extX2 = dimX2 - (int) (lengthExtensionLine * Math.cos(perpAngle));
+        int extY2 = dimY2 - (int) (lengthExtensionLine * Math.sin(perpAngle));
+
+//        int extX1 = x1;
+//        int extY1 = y1;
+//        int extX2 = x2;
+//        int extY2 = y2;
 
         // Рисуем выносные линии
         drawExtensionLine(g, extX1, extY1, dimX1, dimY1);
@@ -87,7 +89,7 @@ public class DimensionRenderer {
         drawArrow(g, dimX2, dimY2, angle);
 
         // Рисуем текст
-        drawDimensionText(g, dimX1, dimY1, dimX2, dimY2, angle, perpAngle, text, textOnOppositeSide);
+        drawDimensionText(g, dimX1, dimY1, dimX2, dimY2, angle, perpAngle, text, textOppositeSide);
     }
 
     /**
@@ -115,52 +117,27 @@ public class DimensionRenderer {
         double dirX = (x2 - x1) / lineLength;
         double dirY = (y2 - y1) / lineLength;
 
-        // Точки для внешних стрелок (СНАРУЖИ от выносных линий)
-        // Отступаем от точек размерной линии наружу
-        int arrow1X = lineX1 - (int) (dirX * ARROW_SIZE * 1);
-        int arrow1Y = lineY1 - (int) (dirY * ARROW_SIZE * 1);
-
-        int arrow2X = lineX2 + (int) (dirX * ARROW_SIZE * 1);
-        int arrow2Y = lineY2 + (int) (dirY * ARROW_SIZE * 1);
-
         // Точки выносных линий (отступаем от размерной линии)
         int extX1 = lineX1 - (int) (lengthextensionline * Math.cos(perpAngle));
         int extY1 = lineY1 - (int) (lengthextensionline * Math.sin(perpAngle));
         int extX2 = lineX2 - (int) (lengthextensionline * Math.cos(perpAngle));
         int extY2 = lineY2 - (int) (lengthextensionline * Math.sin(perpAngle));
 
-        // Рисуем выносные линии (от внешних точек до размерной линии)
+        // Рисуем выносные линии
         drawExtensionLine(g, extX1, extY1, lineX1, lineY1);
         drawExtensionLine(g, extX2, extY2, lineX2, lineY2);
 
-        // Рисуем размерную линию (между точками на выносных линиях)
+        // Рисуем размерную линию
         g.setColor(DIMENSION_COLOR);
         g.drawLine(lineX1, lineY1, lineX2, lineY2);
 
-        // Рисуем стрелки СНАРУЖИ (развернутые на 180 градусов)
-        drawOutsideArrow(g, lineX1, lineY1, angle);           // стрелка смотрит влево/вниз
-        drawOutsideArrow(g, lineX2, lineY2, angle + Math.PI); // стрелка смотрит вправо/вверх
+        // Рисуем стрелки СНАРУЖИ
+        drawOutsideArrow(g, lineX1, lineY1, angle);
+        drawOutsideArrow(g, lineX2, lineY2, angle + Math.PI);
 
-        // Рисуем текст над удлинением первой стрелки
-        // Вычисляем точку на конце удлинения стрелки
-        int extensionEndX = lineX1 - (int)(dirX * (ARROW_SIZE + ARROW_LENGTH));
-        int extensionEndY = lineY1 - (int)(dirY * (ARROW_SIZE + ARROW_LENGTH));
-
-        int textX = extensionEndX;
-        int textY = extensionEndY;
-
-        // Смещаем текст перпендикулярно размерной линии
-        int textOffset = TEXT_OFFSET;
-        if (textOnOppositeSide) {
-            textOffset = -TEXT_OFFSET_FLIPPED;
-        }
-
-        textX += (int) (textOffset * Math.cos(perpAngle));
-        textY += (int) (textOffset * Math.sin(perpAngle));
-
-        drawText(g, textX, textY, angle, text, textOnOppositeSide);
+        // Рисуем текст над размерной линией
+        drawDimensionText(g, lineX1, lineY1, lineX2, lineY2, angle, perpAngle, text, textOnOppositeSide);
     }
-
     /**
      * Отрисовка текста для стандартного размера
      */
@@ -259,22 +236,13 @@ public class DimensionRenderer {
             g.translate(-textWidth / 2, textHeight / 4);
         }
 
-        // Фон под текстом
         g.setColor(Color.WHITE);
         g.fillRect(-2, -textHeight + 2, textWidth + 4, textHeight - 2);
 
-        // Текст
         g.setColor(TEXT_COLOR);
         g.setFont(TEXT_FONT);
         g.drawString(text, 0, 0);
 
         g.setTransform(old);
-    }
-
-    /**
-     * Дополнительный метод для принудительной отрисовки размера с внешними стрелками
-     */
-    public static void drawDimensionWithOutsideArrowsForced(Graphics2D g, int x1, int y1, int x2, int y2, int offset, int lengthextensionline, String text, boolean textOnOppositeSide) {
-        drawDimensionWithOutsideArrows(g, x1, y1, x2, y2, offset, lengthextensionline, text, textOnOppositeSide);
     }
 }

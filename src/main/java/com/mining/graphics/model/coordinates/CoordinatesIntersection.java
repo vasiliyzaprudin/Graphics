@@ -78,9 +78,7 @@ public class CoordinatesIntersection {
     private int xScaleStopeLeft2, yScaleStopeLeft2, xScaleStopeRight2, yScaleStopeRight2;
     private int xScaleStopeLeft3, yScaleStopeLeft3, xScaleStopeRight3, yScaleStopeRight3;
 
-
     private double roundingRadius12, roundingRadius23, roundingRadius31;
-
 
     private double xStartRounding12, yStartRounding12, xStartRounding21, yStartRounding21;
     private double xStartRounding23, yStartRounding23, xStartRounding32, yStartRounding32;
@@ -311,13 +309,6 @@ public class CoordinatesIntersection {
     }
     private void calculateAllCoordinatesProfileIntersection(double width1, double width2, double width3,
                                                             double height1, double height2, double height3) {
-//        double width1 = modelIntersection.getWidth1();
-//        double width2 = modelIntersection.getWidth2();
-//        double width3 = modelIntersection.getWidth3();
-//
-//        double height1 = modelIntersection.getHeight1();
-//        double height2 = modelIntersection.getHeight2();
-//        double height3 = modelIntersection.getHeight3();
 
         double formIndicationIntersection = modelIntersection.getFormIndicationIntersection();
 

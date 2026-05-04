@@ -25,7 +25,7 @@ public class GraphicsIntersection {
         graphicsStopes3(g2d);
         graphicsWalls3(g2d);
         graphicsRoundings3(g2d);
-        graphicsAxes3(g2d);
+        //graphicsAxes3(g2d);
     }
 
     public void drawProfileIntersection3(Graphics g) {

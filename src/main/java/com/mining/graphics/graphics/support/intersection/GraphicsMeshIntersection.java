@@ -6,7 +6,6 @@ import com.mining.graphics.model.excavation.ModelIntersection;
 import com.mining.graphics.model.support.intersection.MeshIntersection;
 import com.mining.graphics.service.GeneralService;
 import com.mining.graphics.service.excavation.ServiceExcavation;
-import com.mining.graphics.service.support.excavation.ServiceMeshExcavation;
 
 import java.awt.*;
 
@@ -151,7 +150,6 @@ public class GraphicsMeshIntersection {
         g2d.translate(0, -distance);
     }
 
-
     public void graphicsProfileWallMesh(Graphics2D g2d) {
 
         DrawMeshIntersection.drawProfileWallMesh(g2d,
@@ -168,6 +166,5 @@ public class GraphicsMeshIntersection {
                 meshIntersection.getGridStep());
 
     }
-
     // @formatter:on
 }

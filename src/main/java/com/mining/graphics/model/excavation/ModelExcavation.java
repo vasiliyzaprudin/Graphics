@@ -20,13 +20,6 @@ public class ModelExcavation {
         this.azimuthDegrees = azimuthDegrees;
     }
 
-    // Геттеры и сеттеры
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {this.id = id;}
-
     public double getWidth() {return width;}
 
     public void setWidth(double width) {this.width = width;}

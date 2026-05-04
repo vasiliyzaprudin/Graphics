@@ -23,9 +23,7 @@ public class GraphicsAnchorsExcavation {
         this.modelExcavation = modelExcavation;
         this.anchorsExcavation = anchorsExcavation;
         this.calculator = new CalculateCoordinatesAnchorsExcavation(
-                new ServiceExcavation(),
-                new ServiceAnchorsExcavation()
-        );
+                new ServiceAnchorsExcavation());
         this.anchorsRenderer = anchorsRenderer;
     }
 
@@ -40,8 +38,8 @@ public class GraphicsAnchorsExcavation {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         //Тип анкера: ANCHOR_EXPANSION - распорный, ANCHOR_MONOLITHIC - на омоноличивающих составах
-        drawCrossSectionAnchors(g2d, ANCHOR_EXPANSION);
-        drawLongSectionAnchors(g2d, ANCHOR_EXPANSION);
+        drawCrossSectionAnchors(g2d, ANCHOR_MONOLITHIC);
+        drawLongSectionAnchors(g2d, ANCHOR_MONOLITHIC);
         drawBasePlate(g2d);
     }
 
@@ -72,11 +70,6 @@ public class GraphicsAnchorsExcavation {
         }
     }
 
-    /**
-     * Отрисовка анкеров в продольном сечении.
-     *
-     * @param anchorType тип анкера: ANCHOR_EXPANSION - распорный, ANCHOR_MONOLITHIC - на омоноличивающих составах
-     */
     public void drawLongSectionAnchors(Graphics2D g, String anchorType) {
         double[][] longSectionAnchorsXY = anchorsExcavation.getLongSectionAnchorsXY();
         if (longSectionAnchorsXY == null) return;
@@ -124,12 +117,10 @@ public class GraphicsAnchorsExcavation {
 
     public void testDrawLowerAnchor(Graphics g) {
         double width = modelExcavation.getWidth();
-        double length = modelExcavation.getLength();
         double step = anchorsExcavation.getStep();
         double distanceLowerAnchor = anchorsExcavation.getDistanceLowerAnchor();
 
         int scale = GraphicsParameters.GRAPHICS_EXCAVATION_SCALE;
-        int distance = GraphicsParameters.DISTANCE_BETWEEN_CROSS_AND_LONG_SECTION;
         int scaleWidth = (int) Math.round(width * scale);
 
         double[][] crossSectionAnchorsXY = anchorsExcavation.getCrossSectionAnchorsXY();

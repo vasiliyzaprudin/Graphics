@@ -7,6 +7,7 @@ import com.mining.graphics.model.excavation.ModelIntersection;
 import com.mining.graphics.model.support.intersection.AnchorsIntersection;
 import com.mining.graphics.model.test.ModelTest;
 import com.mining.graphics.service.GeneralService;
+import com.mining.graphics.service.excavation.ServiceExcavation;
 import com.mining.graphics.service.support.intersection.CalculateCoordinatesAnchorsIntersection;
 import com.mining.graphics.service.support.intersection.ServiceAnchorsIntersection;
 
@@ -17,18 +18,14 @@ public class GraphicsAnchorsIntersection {
     private final CalculateCoordinatesAnchorsIntersection calculator;
     private final CoordinatesIntersection modelCoordinatesIntersection;
     private final AnchorsIntersection anchorsIntersection;
+    private final ModelIntersection modelIntersection;
 
-    public GraphicsAnchorsIntersection(
-            ModelIntersection modelIntersection,
-            CoordinatesIntersection modelCoordinatesIntersection,
-            AnchorsIntersection anchorsIntersection,
-            ModelTest modelTest,
-            AnchorsRenderer anchorsRenderer) {
+    public GraphicsAnchorsIntersection(ModelIntersection modelIntersection, CoordinatesIntersection modelCoordinatesIntersection,
+                                       AnchorsIntersection anchorsIntersection, ModelTest modelTest, AnchorsRenderer anchorsRenderer) {
+        this.modelIntersection = modelIntersection;
         this.modelCoordinatesIntersection = modelCoordinatesIntersection;
         this.anchorsIntersection = anchorsIntersection;
-        this.calculator = new CalculateCoordinatesAnchorsIntersection(
-                modelIntersection, modelCoordinatesIntersection, anchorsIntersection, modelTest
-        );
+        this.calculator = new CalculateCoordinatesAnchorsIntersection(modelIntersection, modelCoordinatesIntersection, anchorsIntersection);
     }
 
 
@@ -43,6 +40,8 @@ public class GraphicsAnchorsIntersection {
 
         drawAnchorsPlan(g2d, calculator.getAnchorPlanRound32());
         drawAnchorsPlan(g2d, calculator.getAnchorPlanRound31());
+
+        drawBasePlatePlan(g2d);
     }
 
     public void drawAllAnchorsPlanLine3(Graphics g) {
@@ -62,14 +61,6 @@ public class GraphicsAnchorsIntersection {
 
         drawAnchorsProjection(g2d, calculator.getAnchorProjection2());
         drawAnchorsProjection(g2d, calculator.getAnchorProjection3());
-    }
-
-    public void testDrawAllAnchorsPlanRounding3(Graphics g) {
-        Graphics2D g2d = (Graphics2D) g;
-
-        drawTestLineAnchorsPlan(g2d, calculator.getTestLine1());
-        drawTestLineAnchorsPlan(g2d, calculator.getTestLine2());
-        drawTestLineAnchorsPlan(g2d, calculator.getTestLine3());
     }
 
     public void drawBasePlateProjection(Graphics2D g) {
@@ -129,9 +120,7 @@ public class GraphicsAnchorsIntersection {
 
         double increasedWidth = modelCoordinatesIntersection.getIncreasedWidth1();
 
-        double[][] basePlates = ServiceAnchorsIntersection.calculateCoordinatesBasePlate(
-                crossSectionAnchors, projectionAnchors, plateSize, increasedWidth
-        );
+        double[][] basePlates = ServiceAnchorsIntersection.calculateCoordinatesBasePlate(crossSectionAnchors, projectionAnchors, plateSize, increasedWidth);
 
         g.translate(0, distance);
         for (double[] plate : basePlates) {
@@ -141,4 +130,57 @@ public class GraphicsAnchorsIntersection {
         }
         g.translate(0, -distance);
     }
+
+    private void drawBasePlatePlan(Graphics2D g) {
+
+        double plateSize = anchorsIntersection.getPlateSize();
+        int scalePlateSize = GeneralService.toScaleIntersectionParameter(plateSize);
+
+        double width1 = modelIntersection.getWidth1();
+        double height1 = modelIntersection.getHeight1();
+        double formIndication1 = modelIntersection.getFormIndication1();
+        double distanceLowerAnchor1 = anchorsIntersection.getDistanceLowerAnchor1();
+        double step1 = anchorsIntersection.getStep1();
+
+        double width2 = modelIntersection.getWidth2();
+        double height2 = modelIntersection.getHeight2();
+        double formIndication2 = modelIntersection.getFormIndication2();
+        double distanceLowerAnchor2 = anchorsIntersection.getDistanceLowerAnchor2();
+        double step2 = anchorsIntersection.getStep2();
+
+        boolean installationAnchorsCenter1 = ServiceExcavation.determiningInstallationAnchorsCenter(width1, height1, formIndication1, distanceLowerAnchor1, step1);
+        boolean installationAnchorsCenter2 = ServiceExcavation.determiningInstallationAnchorsCenter(width2, height2, formIndication2, distanceLowerAnchor2, step2);
+
+        int stepScale = GeneralService.toScaleIntersectionParameter(step1);
+
+        g.translate(-scalePlateSize / 2, -scalePlateSize / 2);
+
+        if (installationAnchorsCenter1 == true && installationAnchorsCenter2 == true) {
+            g.drawRect(0, 0, scalePlateSize, scalePlateSize);
+            g.drawRect(stepScale, 0, scalePlateSize, scalePlateSize);
+            g.drawRect(0, -stepScale, scalePlateSize, scalePlateSize);
+            g.drawRect(stepScale, -stepScale, scalePlateSize, scalePlateSize);
+
+        } else if (installationAnchorsCenter1 == false && installationAnchorsCenter2 == true) {
+            g.drawRect(-stepScale / 2, 0, scalePlateSize, scalePlateSize);
+            g.drawRect(stepScale / 2, 0, scalePlateSize, scalePlateSize);
+            g.drawRect(-stepScale / 2, -stepScale, scalePlateSize, scalePlateSize);
+            g.drawRect(stepScale / 2, -stepScale, scalePlateSize, scalePlateSize);
+
+        } else if (installationAnchorsCenter1 == true && installationAnchorsCenter2 == false) {
+            g.drawRect(0, -stepScale / 2, scalePlateSize, scalePlateSize);
+            g.drawRect(stepScale, -stepScale / 2, scalePlateSize, scalePlateSize);
+            g.drawRect(0, stepScale / 2, scalePlateSize, scalePlateSize);
+            g.drawRect(stepScale, stepScale / 2, scalePlateSize, scalePlateSize);
+
+        } else if (installationAnchorsCenter1 == false && installationAnchorsCenter2 == false) {
+            g.drawRect(-stepScale / 2, -stepScale / 2, scalePlateSize, scalePlateSize);
+            g.drawRect(stepScale / 2, -stepScale / 2, scalePlateSize, scalePlateSize);
+            g.drawRect(-stepScale / 2, stepScale / 2, scalePlateSize, scalePlateSize);
+            g.drawRect(stepScale / 2, stepScale / 2, scalePlateSize, scalePlateSize);
+        }
+        g.translate(scalePlateSize / 2, scalePlateSize / 2);
+    }
+
+
 }

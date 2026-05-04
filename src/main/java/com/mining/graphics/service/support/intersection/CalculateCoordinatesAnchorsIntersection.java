@@ -5,33 +5,27 @@ import com.mining.graphics.model.excavation.ModelExcavation;
 import com.mining.graphics.model.excavation.ModelIntersection;
 import com.mining.graphics.model.support.excavation.AnchorsExcavation;
 import com.mining.graphics.model.support.intersection.AnchorsIntersection;
-import com.mining.graphics.model.test.ModelTest;
-import com.mining.graphics.service.excavation.ServiceExcavation;
 import com.mining.graphics.service.support.excavation.CalculateCoordinatesAnchorsExcavation;
 import com.mining.graphics.service.support.excavation.ServiceAnchorsExcavation;
-
 
 public class CalculateCoordinatesAnchorsIntersection {
 
     private final ModelIntersection modelIntersection;
-    private final CoordinatesIntersection modelCoordinatesIntersection;
+    private final CoordinatesIntersection coordinatesIntersection;
     private final AnchorsIntersection anchorsIntersection;
-    private final ModelTest modelTest;
 
     public CalculateCoordinatesAnchorsIntersection(
             ModelIntersection modelIntersection,
             CoordinatesIntersection modelCoordinatesIntersection,
-            AnchorsIntersection anchorsIntersection,
-            ModelTest modelTest) {
+            AnchorsIntersection anchorsIntersection) {
         this.modelIntersection = modelIntersection;
-        this.modelCoordinatesIntersection = modelCoordinatesIntersection;
+        this.coordinatesIntersection = modelCoordinatesIntersection;
         this.anchorsIntersection = anchorsIntersection;
-        this.modelTest = modelTest;
     }
 
     public double[][] getAnchorPlanRound12() {
         return ServiceAnchorsIntersection.calculateCoordinatesAnchorPlanRound(
-                modelCoordinatesIntersection.getRoundingParameters12(),
+                coordinatesIntersection.getRoundingParameters12(),
                 modelIntersection.getWidth2(),
                 modelIntersection.getHeight2(),
                 modelIntersection.getFormIndication2(),
@@ -44,7 +38,7 @@ public class CalculateCoordinatesAnchorsIntersection {
 
     public double[][] getAnchorPlanRound13() {
         return ServiceAnchorsIntersection.calculateCoordinatesAnchorPlanRound(
-                modelCoordinatesIntersection.getRoundingParameters13(),
+                coordinatesIntersection.getRoundingParameters13(),
                 modelIntersection.getWidth2(),
                 modelIntersection.getHeight2(),
                 modelIntersection.getFormIndication1(),
@@ -57,7 +51,7 @@ public class CalculateCoordinatesAnchorsIntersection {
 
     public double[][] getAnchorPlanRound21() {
         return ServiceAnchorsIntersection.calculateCoordinatesAnchorPlanRound(
-                modelCoordinatesIntersection.getRoundingParameters21(),
+                coordinatesIntersection.getRoundingParameters21(),
                 modelIntersection.getWidth1(),
                 modelIntersection.getHeight1(),
                 modelIntersection.getFormIndication1(),
@@ -70,7 +64,7 @@ public class CalculateCoordinatesAnchorsIntersection {
 
     public double[][] getAnchorPlanRound23() {
         return ServiceAnchorsIntersection.calculateCoordinatesAnchorPlanRound(
-                modelCoordinatesIntersection.getRoundingParameters23(),
+                coordinatesIntersection.getRoundingParameters23(),
                 modelIntersection.getWidth1(),
                 modelIntersection.getHeight1(),
                 modelIntersection.getFormIndication1(),
@@ -83,7 +77,7 @@ public class CalculateCoordinatesAnchorsIntersection {
 
     public double[][] getAnchorPlanRound31() {
         return ServiceAnchorsIntersection.calculateCoordinatesAnchorPlanRound(
-                modelCoordinatesIntersection.getRoundingParameters31(),
+                coordinatesIntersection.getRoundingParameters31(),
                 modelIntersection.getWidth1(),
                 modelIntersection.getHeight1(),
                 modelIntersection.getFormIndication1(),
@@ -96,7 +90,7 @@ public class CalculateCoordinatesAnchorsIntersection {
 
     public double[][] getAnchorPlanRound32() {
         return ServiceAnchorsIntersection.calculateCoordinatesAnchorPlanRound(
-                modelCoordinatesIntersection.getRoundingParameters32(),
+                coordinatesIntersection.getRoundingParameters32(),
                 modelIntersection.getWidth1(),
                 modelIntersection.getHeight1(),
                 modelIntersection.getFormIndication1(),
@@ -111,7 +105,7 @@ public class CalculateCoordinatesAnchorsIntersection {
         double[][] roundXY = getAnchorPlanRound12();
         return ServiceAnchorsIntersection.calculateCoordinatesAnchorPlanLine(
                 roundXY,
-                modelCoordinatesIntersection.getLineParametersRight1(),
+                coordinatesIntersection.getLineParametersRight1(),
                 anchorsIntersection.getDistanceBetweenRows1(),
                 anchorsIntersection.getLengthAnchor1()
         );
@@ -121,7 +115,7 @@ public class CalculateCoordinatesAnchorsIntersection {
         double[][] roundXY = getAnchorPlanRound13();
         return ServiceAnchorsIntersection.calculateCoordinatesAnchorPlanLine(
                 roundXY,
-                modelCoordinatesIntersection.getLineParametersLeft1(),
+                coordinatesIntersection.getLineParametersLeft1(),
                 anchorsIntersection.getDistanceBetweenRows1(),
                 anchorsIntersection.getLengthAnchor1()
         );
@@ -131,7 +125,7 @@ public class CalculateCoordinatesAnchorsIntersection {
         double[][] roundXY = getAnchorPlanRound21();
         return ServiceAnchorsIntersection.calculateCoordinatesAnchorPlanLine(
                 roundXY,
-                modelCoordinatesIntersection.getLineParametersLeft2(),
+                coordinatesIntersection.getLineParametersLeft2(),
                 anchorsIntersection.getDistanceBetweenRows2(),
                 anchorsIntersection.getLengthAnchor2()
         );
@@ -141,7 +135,7 @@ public class CalculateCoordinatesAnchorsIntersection {
         double[][] roundXY = getAnchorPlanRound23();
         return ServiceAnchorsIntersection.calculateCoordinatesAnchorPlanLine(
                 roundXY,
-                modelCoordinatesIntersection.getLineParametersRight2(),
+                coordinatesIntersection.getLineParametersRight2(),
                 anchorsIntersection.getDistanceBetweenRows2(),
                 anchorsIntersection.getLengthAnchor2()
         );
@@ -151,7 +145,7 @@ public class CalculateCoordinatesAnchorsIntersection {
         double[][] roundXY = getAnchorPlanRound31();
         return ServiceAnchorsIntersection.calculateCoordinatesAnchorPlanLine(
                 roundXY,
-                modelCoordinatesIntersection.getLineParametersRight3(),
+                coordinatesIntersection.getLineParametersRight3(),
                 anchorsIntersection.getDistanceBetweenRows3(),
                 anchorsIntersection.getLengthAnchor3()
         );
@@ -161,7 +155,7 @@ public class CalculateCoordinatesAnchorsIntersection {
         double[][] roundXY = getAnchorPlanRound32();
         return ServiceAnchorsIntersection.calculateCoordinatesAnchorPlanLine(
                 roundXY,
-                modelCoordinatesIntersection.getLineParametersLeft3(),
+                coordinatesIntersection.getLineParametersLeft3(),
                 anchorsIntersection.getDistanceBetweenRows3(),
                 anchorsIntersection.getLengthAnchor3()
         );
@@ -169,16 +163,16 @@ public class CalculateCoordinatesAnchorsIntersection {
 
     public double[][] getAnchorProjection2() {
         return ServiceAnchorsIntersection.calculateCoordinatesAnchorProjection(
-                modelCoordinatesIntersection.getIncreasedWidth1(),
-                modelCoordinatesIntersection.getIncreasedHeight1(),
+                coordinatesIntersection.getIncreasedWidth1(),
+                coordinatesIntersection.getIncreasedHeight1(),
                 modelIntersection.getFormIndicationIntersection(),
                 modelIntersection.getWidth1(),
                 modelIntersection.getHeight1(),
                 modelIntersection.getFormIndication1(),
-                modelCoordinatesIntersection.getXCalculateCoordinatePointContact21(),
-                modelCoordinatesIntersection.getYCalculateCoordinatePointContact21(),
-                modelCoordinatesIntersection.getAngleBetweenCenterRoofAndPointContactRadians21(),
-                modelCoordinatesIntersection.getXStartRounding21(),
+                coordinatesIntersection.getXCalculateCoordinatePointContact21(),
+                coordinatesIntersection.getYCalculateCoordinatePointContact21(),
+                coordinatesIntersection.getAngleBetweenCenterRoofAndPointContactRadians21(),
+                coordinatesIntersection.getXStartRounding21(),
                 -modelIntersection.getHeight2(),
                 anchorsIntersection.getDistanceBetweenRows2(),
                 anchorsIntersection.getDistanceLowerAnchor1(),
@@ -189,16 +183,16 @@ public class CalculateCoordinatesAnchorsIntersection {
 
     public double[][] getAnchorProjection3() {
         return ServiceAnchorsIntersection.calculateCoordinatesAnchorProjection(
-                modelCoordinatesIntersection.getIncreasedWidth1(),
-                modelCoordinatesIntersection.getIncreasedHeight1(),
+                coordinatesIntersection.getIncreasedWidth1(),
+                coordinatesIntersection.getIncreasedHeight1(),
                 modelIntersection.getFormIndicationIntersection(),
                 modelIntersection.getWidth1(),
                 modelIntersection.getHeight1(),
                 modelIntersection.getFormIndication1(),
-                modelCoordinatesIntersection.getXCalculateCoordinatePointContact31(),
-                modelCoordinatesIntersection.getYCalculateCoordinatePointContact31(),
-                modelCoordinatesIntersection.getAngleBetweenCenterRoofAndPointContactRadians31(),
-                modelCoordinatesIntersection.getXStartRounding31(),
+                coordinatesIntersection.getXCalculateCoordinatePointContact31(),
+                coordinatesIntersection.getYCalculateCoordinatePointContact31(),
+                coordinatesIntersection.getAngleBetweenCenterRoofAndPointContactRadians31(),
+                coordinatesIntersection.getXStartRounding31(),
                 -modelIntersection.getHeight3(),
                 anchorsIntersection.getDistanceBetweenRows3(),
                 anchorsIntersection.getDistanceLowerAnchor1(),
@@ -207,39 +201,10 @@ public class CalculateCoordinatesAnchorsIntersection {
         );
     }
 
-
-    public double[][] getTestLine1() {
-        return ServiceAnchorsIntersection.testPlanStartXY(
-                modelCoordinatesIntersection.getXIntersectionAxisAndStope1(),
-                modelCoordinatesIntersection.getYIntersectionAxisAndStope1(),
-                anchorsIntersection.getDistanceBetweenRows1(),
-                modelTest.getLengthLineTestAnchorsPlanIntersection()
-        );
-    }
-
-    public double[][] getTestLine2() {
-        return ServiceAnchorsIntersection.testPlanStartXY(
-                modelCoordinatesIntersection.getXIntersectionAxisAndStope2(),
-                modelCoordinatesIntersection.getYIntersectionAxisAndStope2(),
-                anchorsIntersection.getDistanceBetweenRows2(),
-                modelTest.getLengthLineTestAnchorsPlanIntersection()
-        );
-    }
-
-    public double[][] getTestLine3() {
-        return ServiceAnchorsIntersection.testPlanStartXY(
-                modelCoordinatesIntersection.getXIntersectionAxisAndStope3(),
-                modelCoordinatesIntersection.getYIntersectionAxisAndStope3(),
-                anchorsIntersection.getDistanceBetweenRows3(),
-                modelTest.getLengthLineTestAnchorsPlanIntersection()
-        );
-    }
-
     public double[][] getCrossSectionAnchors2() {
-        ServiceExcavation excavationService = new ServiceExcavation();
         ServiceAnchorsExcavation anchorsService = new ServiceAnchorsExcavation();
         CalculateCoordinatesAnchorsExcavation calculator =
-                new CalculateCoordinatesAnchorsExcavation(excavationService, anchorsService);
+                new CalculateCoordinatesAnchorsExcavation(anchorsService);
 
         ModelExcavation modelExcavation2 = new ModelExcavation();
         modelExcavation2.setWidth(modelIntersection.getWidth2());
@@ -257,10 +222,9 @@ public class CalculateCoordinatesAnchorsIntersection {
     }
 
     public double[][] getCrossSectionAnchors3() {
-        ServiceExcavation excavationService = new ServiceExcavation();
         ServiceAnchorsExcavation anchorsService = new ServiceAnchorsExcavation();
         CalculateCoordinatesAnchorsExcavation calculator =
-                new CalculateCoordinatesAnchorsExcavation(excavationService, anchorsService);
+                new CalculateCoordinatesAnchorsExcavation(anchorsService);
 
         ModelExcavation modelExcavation3 = new ModelExcavation();
         modelExcavation3.setWidth(modelIntersection.getWidth3());
