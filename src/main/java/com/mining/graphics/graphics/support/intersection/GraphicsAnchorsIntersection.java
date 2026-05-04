@@ -181,6 +181,4 @@ public class GraphicsAnchorsIntersection {
         }
         g.translate(scalePlateSize / 2, scalePlateSize / 2);
     }
-
-
 }

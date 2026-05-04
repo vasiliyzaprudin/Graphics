@@ -125,7 +125,7 @@ public class GraphicsWindow extends JFrame {
         graphicsMeshIntersection = new GraphicsMeshIntersection(meshCoordinatesIntersection, modelIntersection, meshIntersection);
 
         graphicsDimensionExcavation = new GraphicsDimensionExcavation(modelExcavation, anchorsExcavation, shotcreteExcavation);
-        graphicsDimensionIntersection = new GraphicsDimensionIntersection(modelCoordinatesIntersection, modelIntersection, anchorsIntersection);
+        graphicsDimensionIntersection = new GraphicsDimensionIntersection(modelCoordinatesIntersection, modelIntersection, anchorsIntersection, shotcreteIntersection);
 
         drawing = new Drawing();
 

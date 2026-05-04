@@ -5,6 +5,7 @@ import com.mining.graphics.model.coordinates.CoordinatesIntersection;
 import com.mining.graphics.model.excavation.ModelIntersection;
 import com.mining.graphics.model.support.excavation.AnchorsExcavation;
 import com.mining.graphics.model.support.intersection.AnchorsIntersection;
+import com.mining.graphics.model.support.intersection.ShotcreteIntersection;
 import com.mining.graphics.service.GeneralService;
 import com.mining.graphics.service.excavation.ServiceExcavation;
 import com.mining.graphics.service.support.intersection.CalculateCoordinatesAnchorsIntersection;
@@ -14,12 +15,14 @@ import java.awt.*;
 public class ServiceDimensionIntersection {
     private CalculateCoordinatesAnchorsIntersection calculateCoordinatesAnchorsIntersection;
     private AnchorsIntersection anchorsIntersection;
+    private ShotcreteIntersection shotcreteIntersection;
     private AnchorsExcavation anchorsExcavation;
     private CoordinatesIntersection coordinatesIntersection;
     public DimensionPointsIntersection calculateDimensionIntersection(CoordinatesIntersection coordinatesIntersection,
                                                                       ModelIntersection modelIntersection,
                                                                       CalculateCoordinatesAnchorsIntersection calculateCoordinatesAnchorsIntersection,
-                                                                      AnchorsIntersection anchorsIntersection) {
+                                                                      AnchorsIntersection anchorsIntersection,
+                                                                      ShotcreteIntersection shotcreteIntersection) {
 
         DimensionPointsIntersection dimensionPointsIntersection = new DimensionPointsIntersection();
 
@@ -57,22 +60,32 @@ public class ServiceDimensionIntersection {
         double[] bottomAnchor = crossSectionAnchors2[crossSectionAnchors2.length - 1];
         double bottomAnchorY = bottomAnchor[1];
 
-        System.out.println(bottomAnchorY);
-
         int scaleBottomAnchorY = GeneralService.toScaleIntersectionParameter(Math.abs(bottomAnchorY));
 
-        int x1 = coordinatesIntersection.getXScaleIntersectionAxisAndStope2();
-        int y1 = GraphicsParameters.DISTANCE_BETWEEN_PLAN_AND_PROFILE_SECTION;
-        int x2 = coordinatesIntersection.getXScaleIntersectionAxisAndStope2();
-        int y2 = GraphicsParameters.DISTANCE_BETWEEN_PLAN_AND_PROFILE_SECTION - scaleBottomAnchorY;
+        int xHeightToBottomAnchorStart = coordinatesIntersection.getXScaleIntersectionAxisAndStope2();
+        int yHeightToBottomAnchorStart = GraphicsParameters.DISTANCE_BETWEEN_PLAN_AND_PROFILE_SECTION;
+        int xHeightToBottomAnchorEnd = coordinatesIntersection.getXScaleIntersectionAxisAndStope2();
+        int yHeightToBottomAnchorEnd = GraphicsParameters.DISTANCE_BETWEEN_PLAN_AND_PROFILE_SECTION - scaleBottomAnchorY;
 
-        dimensionPointsIntersection.heightToBottomAnchorStart = new Point(x2, y2);
-        dimensionPointsIntersection.heightToBottomAnchorEnd = new Point(x1, y1);
+        dimensionPointsIntersection.heightToBottomAnchorStart = new Point(xHeightToBottomAnchorEnd, yHeightToBottomAnchorEnd);
+        dimensionPointsIntersection.heightToBottomAnchorEnd = new Point(xHeightToBottomAnchorStart, yHeightToBottomAnchorStart);
         dimensionPointsIntersection.heightToBottomAnchorOffset = -50;
         dimensionPointsIntersection.heightToBottomAnchorLengthExtensionline = -30;
         dimensionPointsIntersection.heightToBottomAnchorText = String.format("%.1f м", -bottomAnchorY);
 
+        // Толщина анабрызгбетона
+        int xThicknessShorcreteStart = coordinatesIntersection.getXScaleIntersectionAxisAndStope2();
+        int yThicknessShorcreteStart = GraphicsParameters.DISTANCE_BETWEEN_PLAN_AND_PROFILE_SECTION -coordinatesIntersection.getScaleHeight1();
+        int xThicknessShorcreteEnd = coordinatesIntersection.getXScaleIntersectionAxisAndStope2();
+        int yThicknessShorcreteEnd = GraphicsParameters.DISTANCE_BETWEEN_PLAN_AND_PROFILE_SECTION-coordinatesIntersection.getScaleHeight1() + GeneralService.toScaleIntersectionParameter(shotcreteIntersection.getThicknessShorcrete());
 
+        dimensionPointsIntersection.thicknessShorcreteStart = new Point(xThicknessShorcreteStart, yThicknessShorcreteStart);
+        dimensionPointsIntersection.thicknessShorcreteEnd = new Point(xThicknessShorcreteEnd, yThicknessShorcreteEnd);
+        dimensionPointsIntersection.thicknessShorcreteOffset = -50;
+        dimensionPointsIntersection.thicknessShorcreteLengthExtensionline = -30;
+        dimensionPointsIntersection.thicknessShorcreteText = String.format("%.1f м", shotcreteIntersection.getThicknessShorcrete());
+
+        // Расстояние между анкерами
         double width1 = modelIntersection.getWidth1();
         double height1 = modelIntersection.getHeight1();
         double formIndication1 = modelIntersection.getFormIndication1();
@@ -167,5 +180,11 @@ public class ServiceDimensionIntersection {
         public int step2Offset;
         public int step2LengthExtensionline;
         public String step2Text;
+
+        public Point thicknessShorcreteStart;
+        public Point thicknessShorcreteEnd;
+        public int thicknessShorcreteOffset;
+        public int thicknessShorcreteLengthExtensionline;
+        public String thicknessShorcreteText;
     }
 }

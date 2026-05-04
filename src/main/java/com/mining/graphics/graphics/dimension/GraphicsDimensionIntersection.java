@@ -3,6 +3,7 @@ package com.mining.graphics.graphics.dimension;
 import com.mining.graphics.model.coordinates.CoordinatesIntersection;
 import com.mining.graphics.model.excavation.ModelIntersection;
 import com.mining.graphics.model.support.intersection.AnchorsIntersection;
+import com.mining.graphics.model.support.intersection.ShotcreteIntersection;
 import com.mining.graphics.service.dimension.ServiceDimensionIntersection;
 import com.mining.graphics.service.support.intersection.CalculateCoordinatesAnchorsIntersection;
 
@@ -15,13 +16,15 @@ public class GraphicsDimensionIntersection {
     private final ServiceDimensionIntersection serviceDimensionIntersection;
     private CalculateCoordinatesAnchorsIntersection calculateCoordinatesAnchorsIntersection;
     private AnchorsIntersection anchorsIntersection;
+    private ShotcreteIntersection shotcreteIntersection;
 
     public GraphicsDimensionIntersection(CoordinatesIntersection coordinatesIntersection,
                                          ModelIntersection modelIntersection,
-                                         AnchorsIntersection anchorsIntersection) {
+                                         AnchorsIntersection anchorsIntersection, ShotcreteIntersection shotcreteIntersection) {
         this.coordinatesIntersection = coordinatesIntersection;
         this.modelIntersection = modelIntersection;
         this.anchorsIntersection = anchorsIntersection;
+        this.shotcreteIntersection = shotcreteIntersection;
         this.serviceDimensionIntersection = new ServiceDimensionIntersection();
         this.calculateCoordinatesAnchorsIntersection = new CalculateCoordinatesAnchorsIntersection(
                 modelIntersection,
@@ -30,9 +33,8 @@ public class GraphicsDimensionIntersection {
         );
     }
 
-
     public void drawDimensionsIntersection(Graphics2D g) {
-        ServiceDimensionIntersection.DimensionPointsIntersection points = serviceDimensionIntersection.calculateDimensionIntersection(coordinatesIntersection, modelIntersection, calculateCoordinatesAnchorsIntersection, anchorsIntersection );
+        ServiceDimensionIntersection.DimensionPointsIntersection points = serviceDimensionIntersection.calculateDimensionIntersection(coordinatesIntersection, modelIntersection, calculateCoordinatesAnchorsIntersection, anchorsIntersection,  shotcreteIntersection);
 
         // Ширина горной выработки 1
         DrawDimension.drawDimension(g, points.width1Start.x, points.width1Start.y,
@@ -58,11 +60,17 @@ public class GraphicsDimensionIntersection {
                 points.height3Offset, points.height3LengthExtensionline,
                 points.height3Text, false);
 
-         //расстояние до нижнего анкера
+         //Расстояние до нижнего анкера
         DrawDimension.drawDimension(g, points.heightToBottomAnchorStart.x, points.heightToBottomAnchorStart.y,
                 points.heightToBottomAnchorEnd.x, points.heightToBottomAnchorEnd.y,
                 points.heightToBottomAnchorOffset, points.heightToBottomAnchorLengthExtensionline,
                 points.heightToBottomAnchorText, false);
+
+        // Толщина анабрызгбетона
+        DrawDimension.drawDimension(g, points.thicknessShorcreteStart.x, points.thicknessShorcreteStart.y,
+                points.thicknessShorcreteEnd.x, points.thicknessShorcreteEnd.y,
+                points.thicknessShorcreteOffset, points.thicknessShorcreteLengthExtensionline,
+                points.thicknessShorcreteText, false);
 
         //Расстояние между анкерами вдоль основной горной выработки
         DrawDimension.drawDimension(g, points.step1Start.x, points.step1Start.y,
