@@ -13,11 +13,6 @@ import com.mining.graphics.service.support.intersection.CalculateCoordinatesAnch
 import java.awt.*;
 
 public class ServiceDimensionIntersection {
-    private CalculateCoordinatesAnchorsIntersection calculateCoordinatesAnchorsIntersection;
-    private AnchorsIntersection anchorsIntersection;
-    private ShotcreteIntersection shotcreteIntersection;
-    private AnchorsExcavation anchorsExcavation;
-    private CoordinatesIntersection coordinatesIntersection;
     public DimensionPointsIntersection calculateDimensionIntersection(CoordinatesIntersection coordinatesIntersection,
                                                                       ModelIntersection modelIntersection,
                                                                       CalculateCoordinatesAnchorsIntersection calculateCoordinatesAnchorsIntersection,
@@ -129,11 +124,11 @@ public class ServiceDimensionIntersection {
         }
 
         dimensionPointsIntersection.step2Offset = -75;
-        dimensionPointsIntersection.step2LengthExtensionline = 0;
+        dimensionPointsIntersection.step2LengthExtensionline = -30;
         dimensionPointsIntersection.step2Text = String.format("%.1f м", anchorsIntersection.getStep1());
 
         dimensionPointsIntersection.step1Offset = -75;
-        dimensionPointsIntersection.step1LengthExtensionline = 0;
+        dimensionPointsIntersection.step1LengthExtensionline = -30;
         dimensionPointsIntersection.step1Text = String.format("%.1f м", anchorsIntersection.getStep1());
 
         return dimensionPointsIntersection;

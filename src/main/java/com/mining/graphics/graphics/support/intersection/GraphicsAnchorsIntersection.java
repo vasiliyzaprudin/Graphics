@@ -133,9 +133,6 @@ public class GraphicsAnchorsIntersection {
 
     private void drawBasePlatePlan(Graphics2D g) {
 
-        double plateSize = anchorsIntersection.getPlateSize();
-        int scalePlateSize = GeneralService.toScaleIntersectionParameter(plateSize);
-
         double width1 = modelIntersection.getWidth1();
         double height1 = modelIntersection.getHeight1();
         double formIndication1 = modelIntersection.getFormIndication1();
@@ -153,6 +150,9 @@ public class GraphicsAnchorsIntersection {
 
         int stepScale = GeneralService.toScaleIntersectionParameter(step1);
 
+        int scalePlateSize = GeneralService.toScaleIntersectionParameter(anchorsIntersection.getPlateSize());
+        int dXY = scalePlateSize / 2;
+
         g.translate(-scalePlateSize / 2, -scalePlateSize / 2);
 
         if (installationAnchorsCenter1 == true && installationAnchorsCenter2 == true) {
@@ -162,7 +162,7 @@ public class GraphicsAnchorsIntersection {
             g.drawRect(stepScale, -stepScale, scalePlateSize, scalePlateSize);
 
         } else if (installationAnchorsCenter1 == false && installationAnchorsCenter2 == true) {
-            g.drawRect(-stepScale / 2, 0, scalePlateSize, scalePlateSize);
+            g.drawRect(-stepScale / 2 , 0, scalePlateSize, scalePlateSize);
             g.drawRect(stepScale / 2, 0, scalePlateSize, scalePlateSize);
             g.drawRect(-stepScale / 2, -stepScale, scalePlateSize, scalePlateSize);
             g.drawRect(stepScale / 2, -stepScale, scalePlateSize, scalePlateSize);

@@ -33,7 +33,7 @@ import java.awt.*;
 
 public class GraphicsWindow extends JFrame {
 
-    private int currentMode = 3; // 1 - одиночная выработка, 2 - анкер, 3 - сопряжение
+    private int currentMode = 1; // 1 - одиночная выработка, 2 - анкер, 3 - сопряжение
 
     // Компоненты UI для переключения режимов
     private JButton excavationModeButton;
