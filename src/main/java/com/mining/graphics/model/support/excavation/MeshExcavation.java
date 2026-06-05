@@ -4,6 +4,7 @@ public class MeshExcavation {
     private double distanceBetweenContourAndGrid = 0.05;
     private double gridStep = 0.25;
     private double distanceBetweenSoilAndMesh = 1.5;
+    private double meshVolume = 2.5;
 
     public double getDistanceBetweenContourAndGrid() {
         return distanceBetweenContourAndGrid;
@@ -14,4 +15,5 @@ public class MeshExcavation {
     public double getDistanceBetweenSoilAndMesh(){
         return distanceBetweenSoilAndMesh;
     }
+    public double getMeshVolume() {return meshVolume;}
 }

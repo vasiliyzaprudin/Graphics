@@ -8,6 +8,7 @@ import com.mining.graphics.model.support.intersection.AnchorsIntersection;
 import com.mining.graphics.model.support.intersection.ShotcreteIntersection;
 import com.mining.graphics.service.GeneralService;
 import com.mining.graphics.service.excavation.ServiceExcavation;
+import com.mining.graphics.service.support.excavation.ServiceAnchorsExcavation;
 import com.mining.graphics.service.support.intersection.CalculateCoordinatesAnchorsIntersection;
 
 import java.awt.*;
@@ -93,8 +94,8 @@ public class ServiceDimensionIntersection {
         double distanceLowerAnchor2 = anchorsIntersection.getDistanceLowerAnchor2();
         double step2 = anchorsIntersection.getStep2();
 
-        boolean installationAnchorsCenter1 = ServiceExcavation.determiningInstallationAnchorsCenter(width1, height1, formIndication1, distanceLowerAnchor1, step1);
-        boolean installationAnchorsCenter2 = ServiceExcavation.determiningInstallationAnchorsCenter(width2, height2, formIndication2, distanceLowerAnchor2, step2);
+        boolean installationAnchorsCenter1 = ServiceAnchorsExcavation.determiningInstallationAnchorsCenter(width1, height1, formIndication1, distanceLowerAnchor1, step1);
+        boolean installationAnchorsCenter2 = ServiceAnchorsExcavation.determiningInstallationAnchorsCenter(width2, height2, formIndication2, distanceLowerAnchor2, step2);
 
         int scaleStep = GeneralService.toScaleIntersectionParameter(step1);
 

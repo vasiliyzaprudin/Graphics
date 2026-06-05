@@ -24,10 +24,8 @@ public class GraphicsExcavation {
         int scaleWidth = scaleWidth(width, scale);
         int scaleHeight = scaleHeight(height, scale);
         int scaleArchHeight = scaleArchHeight(width, formIndication, scale);
-
         int scaleSmallArcRadius = scaleSmallArcRadius(width, formIndication, scale);
         int scaleLargeArcRadius = scaleLargeArcRadius(width, formIndication, scale);
-
         double alphaDegree = alphaDegree(width, formIndication);
         double betaDegree = betaDegree(width, formIndication);
 

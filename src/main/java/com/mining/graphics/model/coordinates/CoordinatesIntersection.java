@@ -1,7 +1,6 @@
 package com.mining.graphics.model.coordinates;
 
 import com.mining.graphics.model.excavation.ModelIntersection;
-import com.mining.graphics.model.support.intersection.ShotcreteIntersection;
 import com.mining.graphics.service.GeneralService;
 
 import static com.mining.graphics.service.GeneralService.toScaleIntersectionParameter;
@@ -10,7 +9,6 @@ import static com.mining.graphics.service.excavation.ServiceIntersection.*;
 // @formatter:off
 public class CoordinatesIntersection {
     private ModelIntersection modelIntersection;
-    private ShotcreteIntersection shotcreteIntersection;
 
     public CoordinatesIntersection(ModelIntersection modelIntersection) {
         this.modelIntersection = modelIntersection;
@@ -114,6 +112,7 @@ public class CoordinatesIntersection {
     private int angleBetweenCenterRoofAndPointContactDegrees21, angleBetweenCenterRoofAndPointContactDegrees31;
 
     private double increasedWidth1, increasedHeight1, formIndicationHeightIntersection1;
+    private double increasedWidth2, increasedHeight2, formIndicationHeightIntersection2;
 
     private double xProjectionPointStartRounding13ToWall12,yProjectionPointStartRounding13ToWall12;
     private double xProjectionPointStartRounding12ToWall13,yProjectionPointStartRounding12ToWall13;
@@ -314,10 +313,14 @@ public class CoordinatesIntersection {
 
         this.increasedWidth1 = calculateIncreasedWidth(xPointIntrsectionExcavation12, yPointIntrsectionExcavation12,
                 xPointIntrsectionExcavation31, yPointIntrsectionExcavation31);
-        this.formIndicationHeightIntersection1 = calculateFormIndicationHeightIntersection(xPointIntrsectionExcavation12, yPointIntrsectionExcavation12,
-                xPointIntrsectionExcavation31, yPointIntrsectionExcavation31, width1);
         this.increasedHeight1 = calculateIncreasedHeight(xPointIntrsectionExcavation12, yPointIntrsectionExcavation12,
                 xPointIntrsectionExcavation31, yPointIntrsectionExcavation31, width1, height1);
+        this.formIndicationHeightIntersection1 = calculateFormIndicationHeightIntersection(xPointIntrsectionExcavation12, yPointIntrsectionExcavation12,
+                xPointIntrsectionExcavation31, yPointIntrsectionExcavation31, width1);
+
+        this.increasedWidth2 = calculateIncreasedWidth(xPointIntrsectionExcavation12, yPointIntrsectionExcavation12,
+                xPointIntrsectionExcavation12, width2/2.0);
+        this.increasedHeight2 = this.increasedHeight1;
 
         this.xCalculateCoordinatePointContact21 = calculateCoordinatePointContactX(xPointIntrsectionExcavation12, yPointIntrsectionExcavation12,
                 xPointIntrsectionExcavation31, yPointIntrsectionExcavation31, xStartRounding21, height1, width1, formIndicationIntersection, height2);
@@ -472,6 +475,9 @@ public class CoordinatesIntersection {
     public double getIncreasedWidth1 () {return increasedWidth1;}
     public double getIncreasedHeight1 () {return increasedHeight1;}
     public double getFormIndicationHeightIntersection1 () {return formIndicationHeightIntersection1;}
+
+    public double getIncreasedWidth2 () {return increasedWidth2;}
+    public double getIncreasedHeight2 () {return increasedHeight2;}
 
     public double getXCalculateCoordinatePointContact21 () {return xCalculateCoordinatePointContact21;}
     public double getYCalculateCoordinatePointContact21 () {return yCalculateCoordinatePointContact21;}

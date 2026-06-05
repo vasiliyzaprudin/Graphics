@@ -14,9 +14,9 @@ public class AnchorsIntersection {
     private double distanceBetweenRows2 = 1.0;
     private double distanceBetweenRows3 = 1.0;
 
-    private double distanceLowerAnchor1 = 1.8;
-    private double distanceLowerAnchor2 = 1.8;
-    private double distanceLowerAnchor3 = 1.8;
+    private double distanceLowerAnchor1 = 1.0;
+    private double distanceLowerAnchor2 = 1.0;
+    private double distanceLowerAnchor3 = 1.0;
 
     private double plateSize = 0.15;
 

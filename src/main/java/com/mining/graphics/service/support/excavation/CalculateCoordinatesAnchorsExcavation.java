@@ -44,7 +44,7 @@ public class CalculateCoordinatesAnchorsExcavation {
         double lengthAnchor = anchors.getLengthAnchor();
         double distanceLowerAnchor = anchors.getDistanceLowerAnchor();
 
-        int numberCrossSectionAnchors = (int) Math.ceil((totalArcLength + (height - archHeight - distanceLowerAnchor) * 2.0) / step);
+        int numberCrossSectionAnchors = calculateNumberCrossSectionAnchors (width, height, formIndication, distanceLowerAnchor, step);
 
         double[][] crossSectionAnchorsXY;
 
@@ -82,6 +82,19 @@ public class CalculateCoordinatesAnchorsExcavation {
         anchors.setSecondCrossSectionAnchorX(secondCrossSectionAnchorX);
         double secondCrossSectionAnchorY = crossSectionAnchorsXY[1][1];
         anchors.setSecondCrossSectionAnchorY(secondCrossSectionAnchorY);
+    }
+
+    public double calculateAnchorageLength(double width, double height, double formIndication, double distanceLowerAnchor){
+        double archHeight = ServiceExcavation.archHeight(width, formIndication);
+        double totalArcLength = ServiceExcavation.lengthArc(width, formIndication);
+
+        return totalArcLength + (height - archHeight - distanceLowerAnchor) * 2.0;
+    }
+
+    public int calculateNumberCrossSectionAnchors (double width, double height, double formIndication, double distanceLowerAnchor, double step){
+
+        double anchorageLength = calculateAnchorageLength(width, height, formIndication, distanceLowerAnchor);
+        return  (int) Math.ceil(anchorageLength / step);
     }
 
     private int calculateWithCenterAnchor(int startIndex, double[][] anchors,

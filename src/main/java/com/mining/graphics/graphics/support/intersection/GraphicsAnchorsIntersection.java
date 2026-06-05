@@ -7,11 +7,13 @@ import com.mining.graphics.model.excavation.ModelIntersection;
 import com.mining.graphics.model.support.intersection.AnchorsIntersection;
 import com.mining.graphics.model.test.ModelTest;
 import com.mining.graphics.service.GeneralService;
-import com.mining.graphics.service.excavation.ServiceExcavation;
+import com.mining.graphics.service.support.excavation.ServiceAnchorsExcavation;
 import com.mining.graphics.service.support.intersection.CalculateCoordinatesAnchorsIntersection;
 import com.mining.graphics.service.support.intersection.ServiceAnchorsIntersection;
+import com.mining.graphics.service.support.intersection.ServiceMaterialSupportIntersection;
 
 import java.awt.*;
+
 
 public class GraphicsAnchorsIntersection {
 
@@ -145,8 +147,8 @@ public class GraphicsAnchorsIntersection {
         double distanceLowerAnchor2 = anchorsIntersection.getDistanceLowerAnchor2();
         double step2 = anchorsIntersection.getStep2();
 
-        boolean installationAnchorsCenter1 = ServiceExcavation.determiningInstallationAnchorsCenter(width1, height1, formIndication1, distanceLowerAnchor1, step1);
-        boolean installationAnchorsCenter2 = ServiceExcavation.determiningInstallationAnchorsCenter(width2, height2, formIndication2, distanceLowerAnchor2, step2);
+        boolean installationAnchorsCenter1 = ServiceAnchorsExcavation.determiningInstallationAnchorsCenter(width1, height1, formIndication1, distanceLowerAnchor1, step1);
+        boolean installationAnchorsCenter2 = ServiceAnchorsExcavation.determiningInstallationAnchorsCenter(width2, height2, formIndication2, distanceLowerAnchor2, step2);
 
         int stepScale = GeneralService.toScaleIntersectionParameter(step1);
 
@@ -162,7 +164,7 @@ public class GraphicsAnchorsIntersection {
             g.drawRect(stepScale, -stepScale, scalePlateSize, scalePlateSize);
 
         } else if (installationAnchorsCenter1 == false && installationAnchorsCenter2 == true) {
-            g.drawRect(-stepScale / 2 , 0, scalePlateSize, scalePlateSize);
+            g.drawRect(-stepScale / 2, 0, scalePlateSize, scalePlateSize);
             g.drawRect(stepScale / 2, 0, scalePlateSize, scalePlateSize);
             g.drawRect(-stepScale / 2, -stepScale, scalePlateSize, scalePlateSize);
             g.drawRect(stepScale / 2, -stepScale, scalePlateSize, scalePlateSize);

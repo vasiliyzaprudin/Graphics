@@ -156,6 +156,9 @@ public class ServiceIntersection {
         return (Math.PI / 2 - Math.abs(hi) - Math.abs(psi));
     }
     //@formatter:on
+
+
+
 }
 
 

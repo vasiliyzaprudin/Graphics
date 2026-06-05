@@ -7,6 +7,7 @@ import com.mining.graphics.model.support.excavation.AnchorsExcavation;
 import com.mining.graphics.service.support.excavation.CalculateCoordinatesAnchorsExcavation;
 import com.mining.graphics.service.support.excavation.ServiceAnchorsExcavation;
 import com.mining.graphics.service.excavation.ServiceExcavation;
+import com.mining.graphics.service.support.excavation.ServiceMaterialSupportExcavation;
 
 import java.awt.*;
 
@@ -22,8 +23,7 @@ public class GraphicsAnchorsExcavation {
     public GraphicsAnchorsExcavation(ModelExcavation modelExcavation, AnchorsExcavation anchorsExcavation, AnchorsRenderer anchorsRenderer) {
         this.modelExcavation = modelExcavation;
         this.anchorsExcavation = anchorsExcavation;
-        this.calculator = new CalculateCoordinatesAnchorsExcavation(
-                new ServiceAnchorsExcavation());
+        this.calculator = new CalculateCoordinatesAnchorsExcavation(new ServiceAnchorsExcavation());
         this.anchorsRenderer = anchorsRenderer;
     }
 
@@ -126,10 +126,8 @@ public class GraphicsAnchorsExcavation {
         double[][] crossSectionAnchorsXY = anchorsExcavation.getCrossSectionAnchorsXY();
         if (crossSectionAnchorsXY == null) return;
 
-        g.drawLine(-scaleWidth / 2, (int) Math.round(-distanceLowerAnchor * scale),
-                scaleWidth / 2, (int) Math.round(-distanceLowerAnchor * scale));
+        g.drawLine(-scaleWidth / 2, (int) Math.round(-distanceLowerAnchor * scale), scaleWidth / 2, (int) Math.round(-distanceLowerAnchor * scale));
 
-        g.drawLine(-scaleWidth / 2, (int) Math.round((-distanceLowerAnchor - step / 2.0) * scale),
-                scaleWidth / 2, (int) Math.round((-distanceLowerAnchor - step / 2.0) * scale));
+        g.drawLine(-scaleWidth / 2, (int) Math.round((-distanceLowerAnchor - step / 2.0) * scale), scaleWidth / 2, (int) Math.round((-distanceLowerAnchor - step / 2.0) * scale));
     }
 }

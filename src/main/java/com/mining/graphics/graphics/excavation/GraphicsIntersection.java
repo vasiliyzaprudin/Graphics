@@ -3,14 +3,15 @@ package com.mining.graphics.graphics.excavation;
 import com.mining.graphics.graphics.GraphicsParameters;
 import com.mining.graphics.model.coordinates.CoordinatesIntersection;
 import com.mining.graphics.model.excavation.ModelIntersection;
+import com.mining.graphics.service.support.excavation.ServiceMaterialSupportExcavation;
+import com.mining.graphics.service.support.intersection.ServiceMaterialSupportIntersection;
 
 import java.awt.*;
 
 public class GraphicsIntersection {
-    private final ModelIntersection modelIntersection;
-    private final CoordinatesIntersection coordinatesIntersection;
+    private static ModelIntersection modelIntersection;
+    private static CoordinatesIntersection coordinatesIntersection;
     private final GraphicsExcavation graphicsExcavation;
-
 
     public GraphicsIntersection(ModelIntersection modelIntersection, CoordinatesIntersection coordinatesIntersection,
                                 GraphicsExcavation graphicsExcavation) {

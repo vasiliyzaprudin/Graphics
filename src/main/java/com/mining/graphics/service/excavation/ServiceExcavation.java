@@ -68,19 +68,11 @@ public class ServiceExcavation {
         return 2.0 * largeArcRadius * alpha;
     }
 
-    public static int scaleLargeArcLength(double width, double formIndication, int scale) {
-        return (int) (Math.round(largeArcLength(width, formIndication) * scale));
-    }
-
     public static double smallArcLength(double width, double formIndication) {
         double smallArcRadius = smallArcRadius(width, formIndication);
         double beta = betaRadian(width, formIndication);
 
         return smallArcRadius * beta;
-    }
-
-    public static int scaleSmallArcLength(double width, double formIndication, int scale) {
-        return (int) (Math.round(smallArcLength(width, formIndication) * scale));
     }
 
     public static double lengthArc(double width, double formIndication) {
@@ -90,14 +82,18 @@ public class ServiceExcavation {
         return 2.0 * smallArcLength + largeArcLength;
     }
 
-    public static int scaleLengthArc(double width, double formIndication, int scale) {
-        return (int) (Math.round(lengthArc(width, formIndication) * scale));
-    }
-    public static boolean determiningInstallationAnchorsCenter(double width, double height, double formIndication, double distanceLowerAnchor, double step) {
-        double totalArcLength = ServiceExcavation.lengthArc(width, formIndication);
-        double archHeight = ServiceExcavation.archHeight(width, formIndication);
-        int numberCrossSectionAnchors = (int) Math.ceil((totalArcLength + (height - archHeight - distanceLowerAnchor) * 2.0) / step);
-        if ((numberCrossSectionAnchors + 1) % 2 == 0) return true;
-        else return false;
+    public static double areaExcavationInRough(double width, double height, double formIndication) {
+        double betaRadian = betaRadian(width, formIndication);
+        double alphaRadian = alphaRadian(width, formIndication);
+        double smallArcRadius = smallArcRadius(width, formIndication);
+        double largeArcRadius = largeArcRadius(width, formIndication);
+        double archHeight = archHeight(width, formIndication);
+
+        double areaSmallSectorCircle = Math.pow(smallArcRadius, 2) * (betaRadian / 2.0);
+        double areaLargeSectorCircle = Math.pow(largeArcRadius, 2) * (alphaRadian / 2.0);
+        double areaTriangle = 0.5 * (width / 2.0 - smallArcRadius) * (largeArcRadius - archHeight);
+        double areaRectangle = width / 2.0 * (height - archHeight);
+
+        return (areaSmallSectorCircle + areaLargeSectorCircle - areaTriangle + areaRectangle) * 2.0;
     }
 }
