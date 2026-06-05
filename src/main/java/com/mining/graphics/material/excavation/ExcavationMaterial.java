@@ -2,15 +2,18 @@ package com.mining.graphics.material.excavation;
 
 import com.mining.graphics.model.excavation.ModelExcavation;
 import com.mining.graphics.model.support.excavation.AnchorsExcavation;
+import com.mining.graphics.model.support.excavation.MeshExcavation;
 import com.mining.graphics.service.support.excavation.ServiceMaterialSupportExcavation;
 
 public class ExcavationMaterial {
     private final ModelExcavation modelExcavation;
     private final AnchorsExcavation anchorsExcavation;
+    private final MeshExcavation meshExcavation;
 
-    ExcavationMaterial(ModelExcavation modelExcavation, AnchorsExcavation anchorsExcavation){
+    ExcavationMaterial(ModelExcavation modelExcavation, AnchorsExcavation anchorsExcavation, MeshExcavation meshExcavation) {
         this.modelExcavation = modelExcavation;
         this.anchorsExcavation = anchorsExcavation;
+        this.meshExcavation = meshExcavation;
     }
 
     public int numberAnchorsInRow() {
@@ -26,37 +29,47 @@ public class ExcavationMaterial {
         return numberAnchorsInRow;
     }
 
-    public int totalNumberAnchorsExcavation (){
+    public int totalNumberAnchors() {
         int numberAnchorsInRow = numberAnchorsInRow();
 
         //todo в lengthExcavation вместо 0.0 подставить значение длины выработки, которую вводи руководитель проходческого участка
         double lengthExcavation = 0.0;
 
-        int totalNumberAnchorsExcavation = ServiceMaterialSupportExcavation.calculateTotalNumberAnchorsExcavation (numberAnchorsInRow, lengthExcavation);
+        int totalNumberAnchors = ServiceMaterialSupportExcavation.calculateTotalNumberAnchors(numberAnchorsInRow, lengthExcavation);
 
-        return totalNumberAnchorsExcavation;
+        return totalNumberAnchors;
     }
 
-    public int totalNumberMeshExcavation (){
+    public double areaMesh() {
         double width = modelExcavation.getWidth();
         double height = modelExcavation.getHeight();
         double formIndication = modelExcavation.getFormIndication();
+        double meshVolume = meshExcavation.getMeshVolume();
+        double distanceLowerAnchor = anchorsExcavation.getDistanceLowerAnchor();
 
-        double meshLength = ServiceMaterialSupportExcavation.calculateTotalMeshingLength(width,height,formIndication);
+        double meshLength = ServiceMaterialSupportExcavation.calculateMeshingLength(width, height, formIndication, distanceLowerAnchor);
 
         //todo в lengthExcavation вместо 0.0 подставить значение длины выработки, которую вводи руководитель проходческого участка
         double lengthExcavation = 0.0;
 
-        int totalNumberMeshExcavation = ServiceMaterialSupportExcavation.calculateTotalNumberMesh(meshLength,lengthExcavation);
-        return totalNumberMeshExcavation;
+        double totalAreaMesh = ServiceMaterialSupportExcavation.calculateAreaMesh(meshLength, lengthExcavation);
+        return totalAreaMesh;
     }
 
-    public double shotcreteVolume (){
+    public int numberMesh() {
+        double areaMesh = areaMesh();
+        double meshVolume = meshExcavation.getMeshVolume();
+        int numberMesh = ServiceMaterialSupportExcavation.calculateTotalNumberMesh(areaMesh, meshVolume);
+
+        return numberMesh;
+    }
+
+    public double shotcreteVolume() {
         double width = modelExcavation.getWidth();
         double height = modelExcavation.getHeight();
         double formIndication = modelExcavation.getFormIndication();
 
-        double shotcreteLength = ServiceMaterialSupportExcavation.calculateShotcreteLength(width,height,formIndication);
+        double shotcreteLength = ServiceMaterialSupportExcavation.calculateShotcreteLength(width, height, formIndication);
 
         //todo в lengthExcavation вместо 0.0 подставить значение длины выработки, которую вводи руководитель проходческого участка
         double lengthExcavation = 0.0;
